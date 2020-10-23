@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" minHeight="680.0" minWidth="1000.0" prefHeight="680.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prestamoequipos.GUI.controllers.LoginController">
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+   <children>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #3454BB;" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <BorderPane prefHeight="111.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="welcomeText" layoutX="323.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al servicio de prestamo de equipos de computo" textAlignment="CENTER" wrappingWidth="357.880859375">
+                     <font>
+                        <Font name="Inconsolata Regular" size="25.0" />
+                     </font>
+                  </Text>
+                  <GridPane layoutX="323.0" layoutY="197.0" prefHeight="142.0" prefWidth="358.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="57.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="321.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="passwordLoginTF" prefHeight="39.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="userLoginTF" prefHeight="39.0" prefWidth="322.0" GridPane.columnIndex="1" />
+                        <Circle fill="DODGERBLUE" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" radius="18.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <right>
+                              <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#loginBtnAction" prefHeight="34.0" prefWidth="112.0" text="Login" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
