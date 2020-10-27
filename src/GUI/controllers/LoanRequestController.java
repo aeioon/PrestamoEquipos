@@ -1,4 +1,4 @@
-package prestamoequipos.GUI.controllers;
+package GUI.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

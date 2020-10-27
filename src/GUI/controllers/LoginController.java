@@ -1,5 +1,6 @@
-package prestamoequipos.GUI.controllers;
+package GUI.controllers;
 
+import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,6 +68,9 @@ public class LoginController implements Initializable {
             AdvertenciausLB.setText("No se ha ingresado un usuario");
             AdvertenciausLB.setVisible(true);
         }
+        Usuario usuario = new Usuario();
+        usuario.setId(userLoginTF.getText());
+        usuario.setConstraseña(passwordLoginTF.getText());
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
             if (Validacion) {
                 Parent newParent = FXMLLoader.load(getClass().getResource("../views/studentHome.fxml"));

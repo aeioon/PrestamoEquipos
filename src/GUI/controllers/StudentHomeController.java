@@ -1,4 +1,4 @@
-package prestamoequipos.GUI.controllers;
+package GUI.controllers;
 
 import java.io.IOException;
 import java.net.URL;
