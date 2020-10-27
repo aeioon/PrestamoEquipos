@@ -126,6 +126,7 @@ public class LoginController implements Initializable {
         passwordLoginTF.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                System.out.println("estasssss aquiiii");
                 if (newPropertyValue) {
                     System.out.println("Textfield on focus pa");
                     AdvertenciapLB.setVisible(false);
