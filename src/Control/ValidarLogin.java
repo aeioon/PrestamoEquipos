@@ -11,7 +11,6 @@ public class ValidarLogin {
     }
     
     public boolean verificarLogin(Usuario usuario){
-        System.out.println("esta verificando");
         if(usuarioDao.leer(usuario)){
             System.out.println("Bienvenido");
             return true;
