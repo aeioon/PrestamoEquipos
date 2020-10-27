@@ -1,13 +1,14 @@
-/*
 package Control;
 
+import DAO.ProgramaDAO;
+import Entidad.Programa;
 import java.util.ArrayList;
 
-public class programaController {
+public class ProgramaController {
     
     ProgramaDAO programaDao = new ProgramaDAO();
 
-    public programaController() {
+    public ProgramaController() {
     }
     
     public ArrayList<Programa> getAllPrograms(){
@@ -16,4 +17,3 @@ public class programaController {
     }
     
 }
-*/

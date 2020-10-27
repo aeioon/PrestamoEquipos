@@ -1,11 +1,13 @@
-/*
 package Control;
 
-public class validarLogin {
+import DAO.UsuarioDAO;
+import Entidad.Usuario;
+
+public class ValidarLogin {
     
     private UsuarioDAO usuarioDao = new UsuarioDAO();
 
-    public validarLogin() {
+    public ValidarLogin() {
     }
     
     public boolean verificarLogin(Usuario usuario){
@@ -18,4 +20,3 @@ public class validarLogin {
         }
     }
 }
-*/

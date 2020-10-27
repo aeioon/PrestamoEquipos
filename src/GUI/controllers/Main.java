@@ -1,6 +1,4 @@
-/*
- */
-package prestamoequipos;
+package GUI.controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 /**
  *
  * @author ion
@@ -19,7 +18,7 @@ public class Main extends Application  {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/views/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Prestamo de equipos de computo");

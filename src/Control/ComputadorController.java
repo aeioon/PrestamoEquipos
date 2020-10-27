@@ -1,7 +1,11 @@
-/*
 package Control;
     
+import DAO.ComputadorDAO;
+import Entidad.Programa;
+import Entidad.Computador;
+
 public class ComputadorController {
+    
     ComputadorDAO computadorDao = new ComputadorDAO();
 
     public ComputadorController() {
@@ -13,8 +17,7 @@ public class ComputadorController {
     }
     
     public void changeComputerAvailability(Computador comp){
-        computadorDao.changeAvailability(Computador comp);
+        computadorDao.changeAvailability(comp);
         return;
     }
 }
-*/

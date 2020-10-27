@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import Entidad.Programa;
 
 public class ComputadorDAO {
     static final String DB_URL =
@@ -128,4 +129,13 @@ public class ComputadorDAO {
             }
         }
     }*/
+    
+    public void changeAvailability(Computador comp){
+    
+    }
+    
+    public String[][] getInfo(Programa[] programs){
+        String[][] hola = {{"1","2","3"}, {"4","5","6"}, {"7","8","9"}, {"10","11","12"}};
+        return hola;
+    }
 }
