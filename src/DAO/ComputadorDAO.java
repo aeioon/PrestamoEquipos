@@ -11,17 +11,15 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 public class ComputadorDAO {
-
-    static final String DB_URL
-            = "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
-    static final String DB_DRV
-            = "com.mysql.jdbc.Driver";
-    static final String DB_USER
-            = "admin";
-    static final String DB_PASSWD
-            = "4waxA687";
-
-    /*
+    static final String DB_URL =
+            "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
+    static final String DB_DRV =
+            "com.mysql.jdbc.Driver";
+    static final String DB_USER =
+            "admin";
+    static final String DB_PASSWD =
+            "4waxA687";
+    
     public boolean crear(Computador object) {
         Connection connection = null;
         Statement statement = null;
@@ -30,9 +28,8 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO usuarios(`Id_Equipo`, `Sistema_Operativo`, `Hardware`, `Disponibilidad`, `SalaId_sala`) VALUES (\""
-                    + object.getId() + "\",\"" + object.getSistemaOperativo() + "\",\"" + object.getHardware()+ "\",\"" + object.getHardware()+ "\",\"" 
-                    + object.isDisponibilidad()+ "\",\"" + object.getSistemaOperativo() + "\",\"" + object.+ "\")");
+            resultSet = statement.executeUpdate("INSERT INTO Computador(`Sistema_Operativo`, `Hardware`, `Disponibilidad`, `SalaId_sala`) VALUES (\"" + object.getSistemaOperativo() + "\",\"" + object.getHardware()+ "\"," 
+                    + (object.isDisponibilidad()?"1":"0") + "," + object.getIdSala() + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -56,9 +53,8 @@ public class ComputadorDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM usuarios "
-                    + "WHERE NOMBRE = '" + par.getNombre()
-                    + "' AND PASSWORD='" + par.getPassword() + "'");
+            resultSet = statement.executeQuery("SELECT * FROM Computador "
+                    + "WHERE Id_Equipo = " + par.getId());
             if(resultSet.next()){
                 return true;
             }else{
@@ -80,7 +76,7 @@ public class ComputadorDAO {
 
     }
 
-    public boolean actualizar(Usuario oldUser, Usuario newUser) {
+    public boolean actualizar(Computador oldComp, Computador newComp) {
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -88,11 +84,13 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE usuarios "
-                    + "SET NOMBRE = '" + newUser.getNombre() + "' , "
-                    + "PASSWORD = '" + newUser.getPassword()
-                    + "' WHERE NOMBRE='" + oldUser.getNombre()
-                    + "' AND PASSWORD='" + oldUser.getPassword() + "';");
+            resultSet = statement.executeUpdate("UPDATE Computador "
+                    + "SET Id_Equipo = " + newComp.getId() + " , "
+                    + "Sistema_Operativo = '" + newComp.getSistemaOperativo()+ "' , "
+                    + "Hardware = '" + newComp.getHardware() + "' , "
+                    + "Disponibilidad = " + (newComp.isDisponibilidad()?"1":"0") + " , "
+                    + "SalaId_sala = " + newComp.getIdSala()
+                    + " WHERE Id_Equipo=" + oldComp.getId()+ ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -108,7 +106,7 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean eliminar(Usuario object) {
+    public boolean eliminar(Computador object) {
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -116,9 +114,8 @@ public class ComputadorDAO {
             resultSet=-1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("DELETE FROM usuarios "
-                    + "WHERE NOMBRE='" + object.getNombre()
-                    + "' AND PASSWORD='" + object.getPassword() + "';");
+            resultSet = statement.executeUpdate("DELETE FROM Computador "
+                    + "WHERE Id_Equipo= " + object.getId()+ ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -132,9 +129,9 @@ public class ComputadorDAO {
 
             }
         }
-    }*/
-
-    public boolean changeAvailability(Computador comp) {
+    }
+    
+    public boolean changeAvailability(Computador comp){
         Connection connection = null;
         Statement statement = null;
         int resultSet;
