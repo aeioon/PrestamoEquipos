@@ -1,6 +1,7 @@
 package GUI.controllers;
 
 import Control.ComputadorController;
+import Control.ProgramaController;
 import DAO.ComputadorDAO;
 import Entidad.Computador;
 import Entidad.Programa;
@@ -61,7 +62,11 @@ public class StudentHomeController  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        ProgramaController pc = new ProgramaController();
+        ArrayList<Programa> programs = pc.getAllPrograms();
+        for(int i = 0; i < programs.size(); i++){
+            System.out.println(programs.get(i).getId() + " " + programs.get(i).getNombre() + " " + programs.get(i).getVersion());
+        }
     }
 
 }
