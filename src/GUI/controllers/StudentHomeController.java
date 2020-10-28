@@ -41,7 +41,7 @@ public class StudentHomeController  implements Initializable{
 
     @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
-        changeScene(event, "/GUI/views/loanRequest.fxml");
+        changeScene(event, "../views/loanRequest.fxml");
     }
 
     @FXML
@@ -51,7 +51,7 @@ public class StudentHomeController  implements Initializable{
 
     @FXML
     void userInfoBtnAction(ActionEvent event) throws IOException {
-       changeScene(event, "/GUI/views/login.fxml");   
+        changeScene(event, "../views/login.fxml");   
     }
 
     @Override

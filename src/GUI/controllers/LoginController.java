@@ -1,6 +1,5 @@
 package GUI.controllers;
 
-import Control.ValidarLogin;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +28,6 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class LoginController implements Initializable {
-
     @FXML
     private Label escudolb;
 
@@ -56,16 +54,26 @@ public class LoginController implements Initializable {
 
     @FXML
     private Button loginBtn;
-
+    
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
+        boolean Validacion = false;
+        if(String.valueOf(passwordLoginTF.getText()).length() == 0){
+            System.out.println("no hay contraseña");
+            AdvertenciapLB.setText("No se ha ingresado una contraseña");
+            AdvertenciapLB.setVisible(true);
+        }
+        if(userLoginTF.getText().length() == 0){
+            System.out.println("no hay usuario");
+            AdvertenciausLB.setText("No se ha ingresado un usuario");
+            AdvertenciausLB.setVisible(true);
+        }
         Usuario usuario = new Usuario();
         usuario.setId(userLoginTF.getText());
         usuario.setConstraseña(passwordLoginTF.getText());
-        ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            if (validar.verificarLogin(usuario)) {
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+            if (Validacion) {
+                Parent newParent = FXMLLoader.load(getClass().getResource("../views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);
@@ -74,14 +82,23 @@ public class LoginController implements Initializable {
                 AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
                 AdvertenciapLB.setVisible(true);
             }
+        }else{
+            if(AdvertenciausLB.isVisible() == false && AdvertenciapLB.isVisible() == true){
+                if(!(AdvertenciausLB.getText().equals("No se ha ingresado un usuario"))){
+                    AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
+                    AdvertenciapLB.setVisible(true);
+                }
+            }
         }
     }
-
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
-
+        
         userLoginTF.requestFocus();
 
         AdvertenciapLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
@@ -89,6 +106,7 @@ public class LoginController implements Initializable {
         escudolb.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Escudo_color_200.png"))));
         userLogoLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/user.png"))));
         lockLogoLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/lock.png"))));
+        
 
         userLoginTF.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -103,7 +121,6 @@ public class LoginController implements Initializable {
                         AdvertenciausLB.setVisible(false);
                         System.out.println(userLoginTF.getText());
                     } else {
-                        System.out.println("no hay usuario");
                         AdvertenciausLB.setText("No se ha ingresado un usuario");
                         AdvertenciausLB.setVisible(true);
                     }
@@ -115,13 +132,12 @@ public class LoginController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    System.out.println("Textfield on focus");
+                    System.out.println("Textfield on focus pa");
                     AdvertenciapLB.setVisible(false);
                 } else {
                     System.out.println("Textfield out focus");
                     AdvertenciapLB.setVisible(false);
                     if (String.valueOf(passwordLoginTF.getText()).length() == 0) {
-                        System.out.println("no hay contraseña");
                         AdvertenciapLB.setText("No se ha ingresado una contraseña");
                         AdvertenciapLB.setVisible(true);
                     } else {
@@ -131,5 +147,5 @@ public class LoginController implements Initializable {
             }
         });
     }
-
+    
 }

@@ -27,8 +27,8 @@ public class UsuarioDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Usuario "
-                    + "WHERE Id_Usuario = '" + usuario.getId()
-                    + "' AND Contraseña ='" + usuario.getConstraseña() + "'");
+                    + "WHERE NOMBRE = '" + usuario.getId()
+                    + "' AND PASSWORD='" + usuario.getConstraseña() + "'");
             if (resultSet.next()) {
                 return true;
             } else {
