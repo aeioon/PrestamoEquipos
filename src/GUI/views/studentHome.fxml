@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="680.0" minWidth="1000.0" prefHeight="680.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.StudentHomeController">
-    <stylesheets>
-        <URL value="@studenthome.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" minHeight="720.0" minWidth="1280.0" prefHeight="680.0" prefWidth="1000.0" styleClass="mainFxmlClass" stylesheets="@../style/studenthome.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.StudentHomeController">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #3454BB;" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER" />
          </bottom>
-         <top>
-            <BorderPane prefHeight="74.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-               <right>
-                  <Button fx:id="userInfoBtn" mnemonicParsing="false" onAction="#userInfoBtnAction" prefHeight="90.0" prefWidth="222.0" text="InfoUsuario" BorderPane.alignment="CENTER" />
-               </right></BorderPane>
-         </top>
          <center>
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="203.0" layoutY="221.0" prefHeight="100.0" prefWidth="594.0">
+                  <HBox layoutX="343.0" layoutY="209.0" prefHeight="100.0" prefWidth="594.0">
                      <children>
                         <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="100.0" prefWidth="230.0" text="Solicitar un prestamo">
                            <font>
@@ -44,6 +35,19 @@
                </children>
             </AnchorPane>
          </center>
+         <top>
+            <AnchorPane id="header-wrapper" prefHeight="91.0" prefWidth="1141.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="userInfoBtn" layoutX="1055.0" layoutY="1.0" mnemonicParsing="false" onAction="#userInfoBtnAction" prefHeight="84.0" prefWidth="222.0" text="InfoUsuario" />
+                  <Text fill="#94b43b" layoutX="109.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="128.13671875">
+                     <font>
+                        <Font name="System Bold" size="41.0" />
+                     </font>
+                  </Text>
+                  <Separator layoutY="86.0" prefHeight="5.0" prefWidth="1274.0" />
+               </children>
+            </AnchorPane>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
