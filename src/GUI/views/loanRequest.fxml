@@ -33,14 +33,14 @@
                   </HBox>
                   <HBox layoutX="440.0" layoutY="106.0" prefHeight="200.0" prefWidth="760.0">
                      <children>
-                        <TableView fx:id="avaliableProgramsTable" prefHeight="200.0" prefWidth="400.0" />
+                        <TableView fx:id="availableProgramsTable" prefHeight="200.0" prefWidth="400.0" />
                         <Separator opacity="0.0" prefHeight="9.0" prefWidth="142.0" />
                         <TableView fx:id="selectedProgramsTable" prefHeight="203.0" prefWidth="400.0" />
                      </children>
                   </HBox>
                   <Label layoutX="440.0" layoutY="315.0" prefHeight="27.0" prefWidth="626.0" text="Etiqueta que notifica luego de presionar busqueda. Ejem 20 comp disponibles, no existe el programa, etc)" />
-                  <TableView fx:id="avaliableComputersTable" layoutX="439.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
-                  <Button fx:id="askLoanBtn" layoutX="1038.0" layoutY="549.0" mnemonicParsing="false" onAction="#AskLianBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
+                  <TableView fx:id="availableComputersTable" layoutX="439.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
+                  <Button fx:id="askLoanBtn" layoutX="1038.0" layoutY="549.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
                   <Button fx:id="backHomeBtn" layoutX="108.0" layoutY="24.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver" />
                </children></AnchorPane>
          </center>

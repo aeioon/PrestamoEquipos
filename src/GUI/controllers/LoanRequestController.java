@@ -21,20 +21,26 @@ import javafx.stage.Stage;
 
 public class LoanRequestController implements Initializable {
 
-      @FXML
+    
+    //table injectors
+    
+    
+    
+    
+    @FXML
     private TextField searchProgramTF;
 
     @FXML
     private Button searchProgramBtn;
 
     @FXML
-    private TableView<?> avaliableProgramsTable;
+    private TableView<?> availableProgramsTable;
 
     @FXML
     private TableView<?> selectedProgramsTable;
 
     @FXML
-    private TableView<?> avaliableComputersTable;
+    private TableView<?> availableComputersTable;
 
     @FXML
     private Button askLoanBtn;
@@ -46,7 +52,7 @@ public class LoanRequestController implements Initializable {
     private Button userInfoBtn;
 
     @FXML
-    void AskLianBtnAction(ActionEvent event) {
+    void AskLoanBtnAction(ActionEvent event) {
 
     }
 
@@ -59,6 +65,8 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
 
+    
+    
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
 
