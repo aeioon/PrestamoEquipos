@@ -1,20 +1,20 @@
 package Entidad;
 
 
-class Sala {
+public class Sala {
     private int id;
     private String nombre;
-    private Edificio edifico;
-    private Encargado encargado;
+    private int idEdificio;
+    private String idEncargado;
 
     public Sala() {
     }
 
-    public Sala(int id, String nombre, Edificio edifico, Encargado encargado) {
+    public Sala(int id, String nombre, int idEedificio, String idEncargado) {
         this.id = id;
         this.nombre = nombre;
-        this.edifico = edifico;
-        this.encargado = encargado;
+        this.idEdificio = idEedificio;
+        this.idEncargado = idEncargado;
     }
 
     public int getId() {
@@ -33,20 +33,20 @@ class Sala {
         this.nombre = nombre;
     }
 
-    public Edificio getEdifico() {
-        return edifico;
+    public int getIdEdificio() {
+        return idEdificio;
     }
 
-    public void setEdifico(Edificio edifico) {
-        this.edifico = edifico;
+    public void setIdEdificio(int idEdificio) {
+        this.idEdificio = idEdificio;
     }
 
-    public Encargado getEncargado() {
-        return encargado;
+    public String getIdEncargado() {
+        return idEncargado;
     }
 
-    public void setEncargado(Encargado encargado) {
-        this.encargado = encargado;
+    public void setIdEncargado(String idEncargado) {
+        this.idEncargado = idEncargado;
     }
     
     

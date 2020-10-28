@@ -1,22 +1,23 @@
 package Entidad;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
 public class Solicitud {
     private String id;
-    private Date date;
-    private Computador computador;
-    private Usuario usuario;
+    private LocalDateTime fecha;
+    private int idComputador;
+    private String idUsuario;
 
     public Solicitud() {
     }
 
-    public Solicitud(String id, Date date, Computador computador, Usuario usuario) {
+    public Solicitud(String id, LocalDateTime fecha, int idComputador, String usuario) {
         this.id = id;
-        this.date = date;
-        this.computador = computador;
-        this.usuario = usuario;
+        this.fecha = fecha;
+        this.idComputador = idComputador;
+        this.idUsuario = idUsuario;
     }
 
     public String getId() {
@@ -27,28 +28,28 @@ public class Solicitud {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
-    public Computador getComputador() {
-        return computador;
+    public int getIdComputador() {
+        return idComputador;
     }
 
-    public void setComputador(Computador computador) {
-        this.computador = computador;
+    public void setIdComputador(int idComputador) {
+        this.idComputador = idComputador;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }  
     
 }

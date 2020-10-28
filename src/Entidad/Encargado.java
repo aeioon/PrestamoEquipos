@@ -1,6 +1,6 @@
 package Entidad;
 
-class Encargado {
+public class Encargado {
     private String id;
     private String contraseña;
     private String nombres;

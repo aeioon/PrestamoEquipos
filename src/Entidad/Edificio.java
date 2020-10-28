@@ -1,7 +1,7 @@
 package Entidad;
 
 
-class Edificio {
+public class Edificio {
     
     private int id;
     private String nombre;
