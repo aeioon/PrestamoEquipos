@@ -46,3 +46,10 @@ public class ComputadorController {
         boolean confirmacion = computadorControl.changeComputerAvailability(comp);
         System.out.println(confirmacion);
         */
+
+        /*ProgramaController pc = new ProgramaController();
+        ArrayList<Programa> programs = pc.getAllPrograms();
+        for(int i = 0; i < programs.size(); i++){
+            System.out.println(programs.get(i).getId() + " " + programs.get(i).getNombre() + " " + programs.get(i).getVersion());
+        }
+        */
