@@ -130,12 +130,57 @@ public class ComputadorDAO {
         }
     }*/
     
-    public void changeAvailability(Computador comp){
-    
+    public boolean changeAvailability(Computador comp){
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet=-1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            if(comp.isDisponibilidad()){
+                resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 0");
+            }else{
+                resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1");
+            }
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+
+            }
+        }
     }
     
     public String[][] getInfo(Programa[] programs){
-        String[][] hola = {{"1","2","3"}, {"4","5","6"}, {"7","8","9"}, {"10","11","12"}};
-        return hola;
+        String[][] informacion = {{" "," "," "}, {" ",""," "}};
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("");
+            return informacion;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return informacion;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return informacion;
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 }
