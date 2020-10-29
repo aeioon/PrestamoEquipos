@@ -4,6 +4,7 @@ import Control.ValidarLogin;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,7 +31,9 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class LoginController implements Initializable {
-
+    
+    
+    
     @FXML
     private Label escudolb;
 
@@ -80,6 +83,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
 
@@ -132,5 +136,4 @@ public class LoginController implements Initializable {
             }
         });
     }
-
 }
