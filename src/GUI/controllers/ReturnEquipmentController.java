@@ -7,7 +7,12 @@ package GUI.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -16,9 +21,28 @@ import javafx.fxml.Initializable;
  */
 public class ReturnEquipmentController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button exitReturnBtn;
+
+    @FXML
+    private Button returnEquipmentBtn;
+
+    @FXML
+    private Text equipmentText;
+
+    @FXML
+    private TableView<?> usedEquipment;
+
+    @FXML
+    void exitReturnBtnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void returnEquipmentBtnAction(ActionEvent event) {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
