@@ -17,6 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -35,14 +38,15 @@ public class StudentHomeController  implements Initializable{
         window.setScene(newScene);
         window.show();
     }
-
- 
+    
     @FXML
     private Button requestLoanBtn;
 
     @FXML
     private Button returnEquiBtn;
 
+    @FXML
+    private Label iconTest;
     
     @FXML
     private Button faqBtn;
@@ -63,7 +67,6 @@ public class StudentHomeController  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
     }
 
 }
