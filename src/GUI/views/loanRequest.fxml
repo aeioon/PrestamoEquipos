@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -9,21 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.LoanRequestController">
-    <stylesheets>
-        <URL value="@loanrequest.css" />
-    </stylesheets>
+<AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/loanrequest.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.LoanRequestController">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
             <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER" />
          </bottom>
-         <center>
+         <top>
+            <fx:include source="sections/header.fxml" />
+         </top>
+         <left>
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="386.0" layoutY="36.0" prefHeight="42.0" prefWidth="762.0">
@@ -43,12 +39,12 @@
                   <Label layoutX="387.0" layoutY="319.0" prefHeight="27.0" prefWidth="626.0" text="Etiqueta que notifica luego de presionar busqueda. Ejem 20 comp disponibles, no existe el programa, etc)" />
                   <TableView fx:id="availableComputersTable" layoutX="386.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
                   <Button fx:id="askLoanBtn" layoutX="983.0" layoutY="541.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
-                  <Button fx:id="backHomeBtn" layoutX="130.0" layoutY="36.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver" />
+                  <Button fx:id="backHomeBtn" layoutX="138.0" layoutY="48.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children></AnchorPane>
-         </center>
-         <top>
-            <fx:include fx:id="header" source="/GUI/views/sections/header.fxml"/>
-         </top>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>

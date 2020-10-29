@@ -18,7 +18,7 @@
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
          </center>
          <top>
-            <fx:include fx:id="header" source="/GUI/views/sections/header.fxml"/>
+            <fx:include source="sections/header.fxml" />
          </top>
       </BorderPane>
    </children>

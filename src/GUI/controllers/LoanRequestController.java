@@ -4,11 +4,11 @@ import Control.ProgramaController;
 import Entidad.Programa;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,12 +16,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.MenuItem;
+
 
 /**
  * FXML Controller class
@@ -102,9 +108,46 @@ public class LoanRequestController implements Initializable {
         availableProgramsTable.setItems(programList);
         availableProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
     }
+    
+    
+    void initActions(){
 
+        availableProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent click) {
+                if(click.getClickCount()==2){
+                    System.out.println("accion de doble click");
+                }
+            }
+        });
+        
+        availableProgramsTable.setOnMouseClicked((MouseEvent click) -> {
+            System.out.println("item seleccionado:");
+            if(click.getButton() == MouseButton.SECONDARY){
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem item1 = new MenuItem("MenuItem1");
+                item1.setOnAction((ActionEvent event) -> {
+                    
+                });
+                MenuItem item2 = new MenuItem("MenuItem2");
+                item2.setOnAction((ActionEvent event) -> {
+
+                });
+                contextMenu.getItems().addAll(item1, item2);
+                 availableProgramsTable.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                        @Override
+                        public void handle(ContextMenuEvent event) {
+                            contextMenu.show(availableProgramsTable, event.getScreenX(), event.getScreenY());
+                        }
+                    });
+                }
+            }
+        );
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         insertDataIntoTable();
+        initActions();
     }       
 }

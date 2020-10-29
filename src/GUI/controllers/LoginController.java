@@ -21,7 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -32,8 +32,7 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
     
-    
-    
+
     @FXML
     private Label escudolb;
 
@@ -60,6 +59,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private Button loginBtn;
+    
+    
+    
 
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
