@@ -58,7 +58,17 @@ public class StudentHomeController  implements Initializable{
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
-        
+        //cambio
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 390, 490);
+            Stage stage = new Stage();
+            stage.setTitle("Devolver prestamo");
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+        }
     }
     
     @FXML
