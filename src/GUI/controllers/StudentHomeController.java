@@ -36,15 +36,17 @@ public class StudentHomeController  implements Initializable{
         window.show();
     }
 
-    @FXML
-    private Button userInfoBtn;
-
+ 
     @FXML
     private Button requestLoanBtn;
 
     @FXML
     private Button returnEquiBtn;
 
+    
+    @FXML
+    private Button faqBtn;
+    
     @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
         changeScene(event, "/GUI/views/loanRequest.fxml");
@@ -54,10 +56,9 @@ public class StudentHomeController  implements Initializable{
     void returnEquiBtnAction(ActionEvent event) {
         
     }
-
+    
     @FXML
-    void userInfoBtnAction(ActionEvent event) throws IOException {
-        changeScene(event, "/GUI/views/login.fxml");   
+    void faqBtnAction(ActionEvent event) {
     }
 
     @Override

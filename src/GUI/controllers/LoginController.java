@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,8 +35,8 @@ public class LoginController implements Initializable {
     private Label escudolb;
 
     @FXML
-    private Text welcomeText;
-
+    private Text logoAppLogin;
+    
     @FXML
     private TextField userLoginTF;
 

@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -17,34 +19,52 @@
          <center>
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="343.0" layoutY="209.0" prefHeight="100.0" prefWidth="594.0">
+                  <Text fill="#91b33b" layoutX="494.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al sistema de préstamo de equipos de la Facultad de Ingeniería de la Universidad Nacional de Colombia" textAlignment="CENTER" wrappingWidth="584.80859375">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="200.0" layoutY="88.0" prefHeight="349.0" prefWidth="238.0">
                      <children>
-                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="100.0" prefWidth="230.0" text="Solicitar un prestamo">
+                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="80.0" prefWidth="250.0" text="Solicitar un prestamo">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Button>
-                        <Separator prefWidth="200.0" visible="false" />
-                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="100.0" prefWidth="230.0" text="Devolver Equipo">
+                        <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
+                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="80.0" prefWidth="250.0" text="Devolver Equipo">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Button>
+                        <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
+                        <Button fx:id="faqBtn" mnemonicParsing="false" onAction="#faqBtnAction" prefHeight="80.0" prefWidth="250.0" text="FAQ">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Button>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </center>
          <top>
-            <AnchorPane id="header-wrapper" prefHeight="91.0" prefWidth="1141.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
+            <AnchorPane id="header-wrapper" prefHeight="78.0" prefWidth="1280.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="userInfoBtn" layoutX="1055.0" layoutY="1.0" mnemonicParsing="false" onAction="#userInfoBtnAction" prefHeight="84.0" prefWidth="222.0" text="InfoUsuario" />
-                  <Text fill="#94b43b" layoutX="109.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="128.13671875">
+                  <Text fill="#91b33b" layoutX="130.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="313.13671875">
                      <font>
                         <Font name="System Bold" size="41.0" />
                      </font>
                   </Text>
                   <Separator layoutY="86.0" prefHeight="5.0" prefWidth="1274.0" />
+                  <AnchorPane layoutX="930.0" layoutY="2.0" prefWidth="220.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91b33be8" height="87.0" layoutY="-2.0" stroke="#738a2773" strokeType="INSIDE" width="220.0" />
+                        <Circle fill="#f5f5f5" layoutX="38.0" layoutY="45.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Text fill="WHITE" layoutX="89.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de Usuario" />
+                        <Text fill="WHITE" layoutX="89.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario@unal.edu.co" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </top>

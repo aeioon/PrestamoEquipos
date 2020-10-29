@@ -1,7 +1,10 @@
 package GUI.controllers;
 
+import Control.ProgramaController;
+import Entidad.Programa;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 /**
  * FXML Controller class
  * @author ion
@@ -23,9 +27,9 @@ public class LoanRequestController implements Initializable {
 
     
     //table injectors
+    //a program array to test the injector
     
-    
-    
+    ArrayList<String> listAvailable;
     
     @FXML
     private TextField searchProgramTF;
@@ -65,8 +69,6 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
 
-    
-    
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
 
@@ -78,7 +80,5 @@ public class LoanRequestController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+    }       
 }

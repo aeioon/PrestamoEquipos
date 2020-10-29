@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,36 +26,43 @@
          <center>
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="438.0" layoutY="45.0" prefHeight="42.0" prefWidth="762.0">
+                  <HBox layoutX="386.0" layoutY="36.0" prefHeight="42.0" prefWidth="762.0">
                      <children>
                         <TextField fx:id="searchProgramTF" prefHeight="40.0" prefWidth="628.0" text="Buscador de programas" />
                         <Separator disable="true" opacity="0.0" prefHeight="9.0" prefWidth="43.0" />
                         <Button fx:id="searchProgramBtn" mnemonicParsing="false" onAction="#searchProgramBtnAction" prefHeight="42.0" prefWidth="168.0" text="Buscar" />
                      </children>
                   </HBox>
-                  <HBox layoutX="440.0" layoutY="106.0" prefHeight="200.0" prefWidth="760.0">
+                  <HBox layoutX="387.0" layoutY="107.0" prefHeight="200.0" prefWidth="760.0">
                      <children>
                         <TableView fx:id="availableProgramsTable" prefHeight="200.0" prefWidth="400.0" />
                         <Separator opacity="0.0" prefHeight="9.0" prefWidth="142.0" />
                         <TableView fx:id="selectedProgramsTable" prefHeight="203.0" prefWidth="400.0" />
                      </children>
                   </HBox>
-                  <Label layoutX="440.0" layoutY="315.0" prefHeight="27.0" prefWidth="626.0" text="Etiqueta que notifica luego de presionar busqueda. Ejem 20 comp disponibles, no existe el programa, etc)" />
-                  <TableView fx:id="availableComputersTable" layoutX="439.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
-                  <Button fx:id="askLoanBtn" layoutX="1038.0" layoutY="549.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
-                  <Button fx:id="backHomeBtn" layoutX="108.0" layoutY="24.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver" />
+                  <Label layoutX="387.0" layoutY="319.0" prefHeight="27.0" prefWidth="626.0" text="Etiqueta que notifica luego de presionar busqueda. Ejem 20 comp disponibles, no existe el programa, etc)" />
+                  <TableView fx:id="availableComputersTable" layoutX="386.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
+                  <Button fx:id="askLoanBtn" layoutX="983.0" layoutY="541.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
+                  <Button fx:id="backHomeBtn" layoutX="130.0" layoutY="36.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver" />
                </children></AnchorPane>
          </center>
          <top>
-            <AnchorPane id="header-wrapper" prefHeight="91.0" prefWidth="1141.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
+            <AnchorPane id="header-wrapper" prefHeight="78.0" prefWidth="1280.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="userInfoBtn" layoutX="1055.0" layoutY="1.0" mnemonicParsing="false" onAction="#userInfoBtnAction" prefHeight="84.0" prefWidth="222.0" text="InfoUsuario" />
-                  <Text fill="#94b43b" layoutX="109.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="128.13671875">
+                  <Text fill="#91b33b" layoutX="130.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="313.13671875">
                      <font>
                         <Font name="System Bold" size="41.0" />
                      </font>
                   </Text>
                   <Separator layoutY="86.0" prefHeight="5.0" prefWidth="1274.0" />
+                  <AnchorPane layoutX="930.0" layoutY="2.0" prefWidth="220.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91b33be8" height="87.0" layoutY="-2.0" stroke="#738a2773" strokeType="INSIDE" width="220.0" />
+                        <Circle fill="#f5f5f5" layoutX="38.0" layoutY="45.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Text fill="WHITE" layoutX="89.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de Usuario" />
+                        <Text fill="WHITE" layoutX="89.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario@unal.edu.co" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </top>
