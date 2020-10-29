@@ -49,24 +49,7 @@
             </AnchorPane>
          </center>
          <top>
-            <AnchorPane id="header-wrapper" prefHeight="78.0" prefWidth="1280.0" stylesheets="@../style/studenthome.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Text fill="#91b33b" layoutX="130.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" wrappingWidth="313.13671875">
-                     <font>
-                        <Font name="System Bold" size="41.0" />
-                     </font>
-                  </Text>
-                  <Separator layoutY="86.0" prefHeight="5.0" prefWidth="1274.0" />
-                  <AnchorPane layoutX="930.0" layoutY="2.0" prefWidth="220.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91b33be8" height="87.0" layoutY="-2.0" stroke="#738a2773" strokeType="INSIDE" width="220.0" />
-                        <Circle fill="#f5f5f5" layoutX="38.0" layoutY="45.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Text fill="WHITE" layoutX="89.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de Usuario" />
-                        <Text fill="WHITE" layoutX="89.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario@unal.edu.co" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
+            <fx:include fx:id="header" source="/GUI/views/sections/header.fxml"/>
          </top>
       </BorderPane>
    </children>
