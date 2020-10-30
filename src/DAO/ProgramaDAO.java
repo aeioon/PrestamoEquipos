@@ -20,7 +20,7 @@ public class ProgramaDAO {
         static final String DB_PASSWD
             = "4waxA687";
     
-    public ArrayList<Programa> getAll() {
+    public ArrayList<Programa> getAllProgramsAvailable() {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;

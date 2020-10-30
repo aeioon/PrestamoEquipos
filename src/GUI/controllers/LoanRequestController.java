@@ -49,7 +49,7 @@ public class LoanRequestController implements Initializable {
     @FXML private Button searchProgramBtn;
     @FXML private TableView<Programa> availableProgramsTable;
     @FXML private TableView<Programa> selectedProgramsTable;
-    @FXML private TableView<Computador> availableComputersTable;
+    @FXML private TableView<String> availableComputersTable;
     @FXML private Button askLoanBtn;
     @FXML private Button rightArrowBtn;
     @FXML private Button leftArrowBtn;
@@ -58,6 +58,7 @@ public class LoanRequestController implements Initializable {
     
     
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
+    private ObservableList<String> computerList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
 
 
@@ -112,9 +113,25 @@ public class LoanRequestController implements Initializable {
         selectedProgramList.forEach(p-> {
             arrayListTest.add(p);
         });
+               
+        //CC1.getInfoComputadores(arrayListTest).forEach(p -> {
+        //    computerList.add(p);
+        //});  
         
-        String[][] arrayComputers = CC1.getInfoComputadores(arrayListTest);
-        System.out.println(arrayComputers[0][2]);    
+        //crea columnas y selecciona el atributo de Programa
+        TableColumn computerIdCol = new TableColumn("Id");
+        computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn IdEdificioCol = new TableColumn("Id_Edificio");
+        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("Id Edificio"));
+        TableColumn nombreEdificioCol = new TableColumn("Nombre_Edificio");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("Nombre edificio"));
+        TableColumn nombreSalaCol = new TableColumn("Nombre_Sala");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("Nombre sala"));
+        
+        //asigna la lista de items y las columnas a la TableView
+        availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        availableComputersTable.setItems(computerList);
+        availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
     }
     
     void addProgram(Programa p){

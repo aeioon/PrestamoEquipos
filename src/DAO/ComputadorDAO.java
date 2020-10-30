@@ -12,15 +12,16 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 public class ComputadorDAO {
-    static final String DB_URL =
-            "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
-    static final String DB_DRV =
-            "com.mysql.jdbc.Driver";
-    static final String DB_USER =
-            "admin";
-    static final String DB_PASSWD =
-            "4waxA687";
-    
+
+    static final String DB_URL
+            = "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
+    static final String DB_DRV
+            = "com.mysql.jdbc.Driver";
+    static final String DB_USER
+            = "admin";
+    static final String DB_PASSWD
+            = "4waxA687";
+
     public boolean crear(Computador object) {
         Connection connection = null;
         Statement statement = null;
@@ -29,8 +30,8 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Computador(`Sistema_Operativo`, `Hardware`, `Disponibilidad`, `SalaId_sala`) VALUES (\"" + object.getSistemaOperativo() + "\",\"" + object.getHardware()+ "\"," 
-                    + (object.isDisponibilidad()?"1":"0") + "," + object.getIdSala() + ")");
+            resultSet = statement.executeUpdate("INSERT INTO Computador(`Sistema_Operativo`, `Hardware`, `Disponibilidad`, `SalaId_sala`) VALUES (\"" + object.getSistemaOperativo() + "\",\"" + object.getHardware() + "\","
+                    + (object.isDisponibilidad() ? "1" : "0") + "," + object.getIdSala() + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -56,9 +57,9 @@ public class ComputadorDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Computador "
                     + "WHERE Id_Equipo = " + par.getId());
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (SQLException ex) {
@@ -87,11 +88,11 @@ public class ComputadorDAO {
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("UPDATE Computador "
                     + "SET Id_Equipo = " + newComp.getId() + " , "
-                    + "Sistema_Operativo = '" + newComp.getSistemaOperativo()+ "' , "
+                    + "Sistema_Operativo = '" + newComp.getSistemaOperativo() + "' , "
                     + "Hardware = '" + newComp.getHardware() + "' , "
-                    + "Disponibilidad = " + (newComp.isDisponibilidad()?"1":"0") + " , "
+                    + "Disponibilidad = " + (newComp.isDisponibilidad() ? "1" : "0") + " , "
                     + "SalaId_sala = " + newComp.getIdSala()
-                    + " WHERE Id_Equipo=" + oldComp.getId()+ ";");
+                    + " WHERE Id_Equipo=" + oldComp.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -112,11 +113,11 @@ public class ComputadorDAO {
         Statement statement = null;
         int resultSet;
         try {
-            resultSet=-1;
+            resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("DELETE FROM Computador "
-                    + "WHERE Id_Equipo= " + object.getId()+ ";");
+                    + "WHERE Id_Equipo= " + object.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -131,8 +132,8 @@ public class ComputadorDAO {
             }
         }
     }
-    
-    public boolean changeAvailability(Computador comp){
+
+    public boolean changeAvailabilityWhenBorrow(Computador computador) {
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -140,13 +141,8 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            if (comp.isDisponibilidad()) {
-                String update = "UPDATE Computador SET Disponibilidad = 0 WHERE Id_Equipo =" + comp.getId() + ";";
-                resultSet = statement.executeUpdate(update);
-            } else {
-                String update = "UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo =" + comp.getId() + ";";
-                resultSet = statement.executeUpdate(update);
-            }
+            String update = "UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = "+ computador.getId();
+            resultSet = statement.executeUpdate(update);
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -161,32 +157,31 @@ public class ComputadorDAO {
         }
     }
     
-    public static int getNextRequestId(){
-        String[] informacion = null;
+    public boolean changeAvailabilityWhenReturn(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
-        ResultSet resultSet = null;
-        int nextId = 0;
+        int resultSet;
         try {
-            resultSet = null;
+            resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT Id_Solicitud FROM Solicitud ORDER BY Id_Solicitud DESC LIMIT 1";                                
-            resultSet = statement.executeQuery(consulta);
-            resultSet.next();
-            nextId = Integer.parseInt(resultSet.getString(1)) + 1;
-            return nextId;
+            String update = "UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = "+ usuario.getId();
+            resultSet = statement.executeUpdate(update);
+            return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
-            return nextId;
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
         }
     }
-    
-    public void createRequest(Computador comp, Usuario user){
-        String request = "INSERT INTO Solicitud (Fecha, ComputadorId_Equipo, UsuarioId_Usuario) VALUES (curdate(), '" + comp.getId() + "', '" + user.getId() + "');";
-    }
 
-    public String[][] getInfo(ArrayList<Programa> programs) {
+    public String[][] getInfoComputersAvailable(ArrayList<Programa> programs) {
         String[][] informacion = null;
         Connection connection = null;
         Statement statement = null;
@@ -235,9 +230,5 @@ public class ComputadorDAO {
 
             }
         }
-    }
-    
-    public static void main(String[] args) {
-       
     }
 }

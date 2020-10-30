@@ -1,55 +1,42 @@
 package Control;
-    
+
 import DAO.ComputadorDAO;
+import DAO.SolicitudDAO;
+import DAO.UsuarioDAO;
 import Entidad.Programa;
 import Entidad.Computador;
+import Entidad.Solicitud;
+import Entidad.Usuario;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ComputadorController {
-    
+
     ComputadorDAO computadorDao = new ComputadorDAO();
+    SolicitudDAO solicitudDao = new SolicitudDAO();
+    UsuarioDAO usuarioDao = new UsuarioDAO();
 
     public ComputadorController() {
     }
-    
-    public String[][] getInfoComputadores(ArrayList<Programa> programs){
-        String[][] computadores = computadorDao.getInfo(programs);
+
+    public String[][] getInfoComputadores(ArrayList<Programa> programs) {
+        String[][] computadores = new String[0][0];
+        if (programs.size() != 0) {
+            computadores = computadorDao.getInfoComputersAvailable(programs);
+        }
         return computadores;
     }
-    
-    public boolean changeComputerAvailability(Computador comp){
-        return computadorDao.changeAvailability(comp);
+
+    public boolean makeBorrow(Usuario usuario, Computador comp){
+        LocalDateTime now = LocalDateTime.now();
+        Solicitud solicitud = new Solicitud(0, now, comp.getId(), usuario.getId(), 1);
+        solicitudDao.crear(solicitud);
+        return computadorDao.changeAvailabilityWhenBorrow(comp);
     }
+    
+    public boolean makeReturn(Usuario usuario){
+        return computadorDao.changeAvailabilityWhenReturn(usuario);
+    }
+
 }
-
-
-/*
-        ComputadorController computadorControl = new ComputadorController();
-        ArrayList<Programa> programs = new ArrayList<>();
-        Programa programa1 = new Programa(1, "Join", "18.4");
-        Programa programa2 = new Programa(2, "Join", "18.4");
-        Programa programa3 = new Programa(3, "Join", "18.4");
-        programs.add(programa1);
-        programs.add(programa2);
-        programs.add(programa3);
-        String[][] computadores = computadorControl.getInfoComputadores(programs);
-        for(int i = 0; i < computadores.length; i++){
-            for(int j = 0; j < computadores[i].length; j++){
-                System.out.print(computadores[i][j] + " ");
-            }
-            System.out.print("\n");
-        }
-        */
-        /*
-        Computador comp = new Computador(1, "Sistem", "Ram", true, null);
-        ComputadorController computadorControl = new ComputadorController();
-        boolean confirmacion = computadorControl.changeComputerAvailability(comp);
-        System.out.println(confirmacion);
-        */
-
-        /*ProgramaController pc = new ProgramaController();
-        ArrayList<Programa> programs = pc.getAllPrograms();
-        for(int i = 0; i < programs.size(); i++){
-            System.out.println(programs.get(i).getId() + " " + programs.get(i).getNombre() + " " + programs.get(i).getVersion());
-        }
-        */

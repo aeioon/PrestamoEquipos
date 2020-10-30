@@ -12,7 +12,7 @@ public class ProgramaController {
     }
     
     public ArrayList<Programa> getAllPrograms(){
-        ArrayList<Programa> programas = programaDao.getAll(); 
+        ArrayList<Programa> programas = programaDao.getAllProgramsAvailable(); 
         return programas;
     }
     

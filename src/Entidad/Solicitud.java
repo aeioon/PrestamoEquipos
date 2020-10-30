@@ -5,26 +5,28 @@ import java.util.Date;
 
 
 public class Solicitud {
-    private String id;
+    private int id;
     private LocalDateTime fecha;
     private int idComputador;
     private String idUsuario;
+    private int Estado;
 
     public Solicitud() {
     }
 
-    public Solicitud(String id, LocalDateTime fecha, int idComputador, String usuario) {
+    public Solicitud(int id, LocalDateTime fecha, int idComputador, String usuario, int estado) {
         this.id = id;
         this.fecha = fecha;
         this.idComputador = idComputador;
         this.idUsuario = idUsuario;
+        this.Estado = estado;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,5 +53,13 @@ public class Solicitud {
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }  
-    
+
+    public int getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(int Estado) {
+        this.Estado = Estado;
+    }
+   
 }
