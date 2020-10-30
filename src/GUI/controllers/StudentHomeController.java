@@ -1,7 +1,7 @@
 package GUI.controllers;
 
-import Control.ComputadorController;
-import Control.ProgramaController;
+import Control.RealizarPrestamo;
+import Control.RealizarDevolucion;
 import DAO.ComputadorDAO;
 import Entidad.Computador;
 import Entidad.Programa;

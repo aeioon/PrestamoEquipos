@@ -133,52 +133,6 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean changeAvailabilityWhenBorrow(Computador computador) {
-        Connection connection = null;
-        Statement statement = null;
-        int resultSet;
-        try {
-            resultSet = -1;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computador.getId());
-            return resultSet > 0;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
-    public boolean changeAvailabilityWhenReturn(Usuario usuario) {
-        Connection connection = null;
-        Statement statement = null;
-        int resultSet;
-        try {
-            resultSet = -1;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
-            return resultSet > 0;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
     /**
      * Retorna una matriz de computadores disponibles con su informacion
      *

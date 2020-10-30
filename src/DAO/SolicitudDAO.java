@@ -1,8 +1,9 @@
-
 package DAO;
 
+import static DAO.ComputadorDAO.DB_URL;
 import Entidad.Solicitud;
 import Entidad.Programa;
+import Entidad.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,21 +12,75 @@ import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-
 public class SolicitudDAO {
-     static final String DB_URL =
-            "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
-    static final String DB_DRV =
-            "com.mysql.jdbc.Driver";
-    static final String DB_USER =
-            "admin";
-    static final String DB_PASSWD =
-            "4waxA687";
-    
+
+    static final String DB_URL
+            = "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
+    static final String DB_DRV
+            = "com.mysql.jdbc.Driver";
+    static final String DB_USER
+            = "admin";
+    static final String DB_PASSWD
+            = "4waxA687";
+
+    public boolean VerifyInactivity(Usuario usuario) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = " + usuario.getId());
+            while(resultSet.next()){
+                if(resultSet.getInt(1) == 1){
+                    return false;
+                }
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return resultSet.next();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+
+    public boolean ChangeRequestStatus(Usuario usuario) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet query = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+
     public boolean crear(Solicitud object) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String fecha = object.getFecha().format(formatter);
-        
+
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -34,7 +89,7 @@ public class SolicitudDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
-                    + fecha + "'," + object.getIdComputador() + ",'" + object.getIdUsuario()+ "'," + object.getEstado() + ")");
+                    + fecha + "'," + object.getIdComputador() + ",'" + object.getIdUsuario() + "'," + 1 + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -60,9 +115,9 @@ public class SolicitudDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Solicitud "
                     + "WHERE Id_Solicitud = " + par.getId());
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (SQLException ex) {
@@ -97,7 +152,7 @@ public class SolicitudDAO {
                     + "ComputadorId_Equipo = " + newSolicitud.getIdComputador() + " , "
                     + "UsuarioId_Usuario = '" + newSolicitud.getIdUsuario() + " ' ,"
                     + "Estado = " + newSolicitud.getEstado()
-                    + "WHERE Id_Solicitud=" + oldSolicitud.getId()+ ";");
+                    + "WHERE Id_Solicitud=" + oldSolicitud.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -118,11 +173,11 @@ public class SolicitudDAO {
         Statement statement = null;
         int resultSet;
         try {
-            resultSet=-1;
+            resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("DELETE FROM Solicitud "
-                    + "WHERE Id_Solicitud= " + object.getId()+ ";");
+                    + "WHERE Id_Solicitud= " + object.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -137,5 +192,5 @@ public class SolicitudDAO {
             }
         }
     }
-   
+
 }

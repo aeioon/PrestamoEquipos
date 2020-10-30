@@ -1,7 +1,7 @@
 package GUI.controllers;
 
-import Control.ComputadorController;
-import Control.ProgramaController;
+import Control.RealizarPrestamo;
+import Control.RealizarDevolucion;
 import Entidad.Computador;
 import Entidad.Programa;
 import java.io.IOException;
@@ -42,8 +42,8 @@ import javafx.scene.control.MenuItem;
 public class LoanRequestController implements Initializable {
     
     //quizas metodo estatico
-    ProgramaController PC1 = new ProgramaController();
-    ComputadorController CC1 = new ComputadorController();
+    RealizarDevolucion RD = new RealizarDevolucion();
+    RealizarPrestamo RP = new RealizarPrestamo();
     
     public class ComputerRow {
             String id;
@@ -244,7 +244,7 @@ public class LoanRequestController implements Initializable {
 
     void insertAvailablePrograms(){
         
-        PC1.getAllPrograms().forEach(p -> {
+        RP.getAllPrograms().forEach(p -> {
             programList.add(p);
         });  
         
