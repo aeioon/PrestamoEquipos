@@ -1,6 +1,7 @@
 package DAO;
 
 import Entidad.Computador;
+import Entidad.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -140,9 +141,11 @@ public class ComputadorDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             if (comp.isDisponibilidad()) {
-                resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 0");
+                String update = "UPDATE Computador SET Disponibilidad = 0 WHERE Id_Equipo =" + comp.getId() + ";";
+                resultSet = statement.executeUpdate(update);
             } else {
-                resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1");
+                String update = "UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo =" + comp.getId() + ";";
+                resultSet = statement.executeUpdate(update);
             }
             return resultSet > 0;
         } catch (SQLException ex) {
@@ -152,11 +155,35 @@ public class ComputadorDAO {
             try {
                 statement.close();
                 connection.close();
-
             } catch (SQLException ex) {
 
             }
         }
+    }
+    
+    public static int getNextRequestId(){
+        String[] informacion = null;
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int nextId = 0;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            String consulta = "SELECT Id_Solicitud FROM Solicitud ORDER BY Id_Solicitud DESC LIMIT 1";                                
+            resultSet = statement.executeQuery(consulta);
+            resultSet.next();
+            nextId = Integer.parseInt(resultSet.getString(1)) + 1;
+            return nextId;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return nextId;
+        }
+    }
+    
+    public void createRequest(Computador comp, Usuario user){
+        String request = "INSERT INTO Solicitud (Fecha, ComputadorId_Equipo, UsuarioId_Usuario) VALUES (curdate(), '" + comp.getId() + "', '" + user.getId() + "');";
     }
 
     public String[][] getInfo(ArrayList<Programa> programs) {
@@ -208,5 +235,9 @@ public class ComputadorDAO {
 
             }
         }
+    }
+    
+    public static void main(String[] args) {
+       
     }
 }
