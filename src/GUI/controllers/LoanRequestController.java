@@ -45,14 +45,13 @@ public class LoanRequestController implements Initializable {
     ProgramaController PC1 = new ProgramaController();
     ComputadorController CC1 = new ComputadorController();
     
-    
-    class computerRow {
+    public class ComputerRow {
             String id;
             String idEdifio;
             String nombreEdificio;
             String nombreSala;
 
-            public computerRow(String id, String idEdifio, String nombreEdificio, String nombreSala) {
+            ComputerRow(String id, String idEdifio, String nombreEdificio, String nombreSala) {
                 this.id = id;
                 this.idEdifio = idEdifio;
                 this.nombreEdificio = nombreEdificio;
@@ -92,11 +91,12 @@ public class LoanRequestController implements Initializable {
             }
             
         }
+    
     @FXML private TextField searchProgramTF;
     @FXML private Button searchProgramBtn;
     @FXML private TableView<Programa> availableProgramsTable;
     @FXML private TableView<Programa> selectedProgramsTable;
-    @FXML private TableView<computerRow> availableComputersTable;
+    @FXML private TableView<ComputerRow> availableComputersTable;
     @FXML private Button askLoanBtn;
     @FXML private Button rightArrowBtn;
     @FXML private Button leftArrowBtn;
@@ -106,9 +106,10 @@ public class LoanRequestController implements Initializable {
     
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
-    private ObservableList<computerRow> computerList = FXCollections.observableArrayList();
+    private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
     
     //Buscador de programas
+    
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b->true);
     public void searchProgram() {
         searchProgramTF.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -141,6 +142,10 @@ public class LoanRequestController implements Initializable {
  
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
+        
+        //lanzar popUp de confirmacion
+        
+        
     }
     
     @FXML
@@ -151,14 +156,11 @@ public class LoanRequestController implements Initializable {
         window.setScene(newScene);
         window.show();
     }
-
     
     
-    
-    @FXML
-    void searchProgramBtnAction(ActionEvent event) {
+    void insertComputers(){
         
-
+        /*
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(p->{
             selectedProgramArr.add(p);
@@ -167,6 +169,7 @@ public class LoanRequestController implements Initializable {
         CC1.getInfoComputadores(selectedProgramArr).forEach(p -> {
             computerList.add(p);
         });  
+        */
         
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
@@ -174,14 +177,50 @@ public class LoanRequestController implements Initializable {
         TableColumn IdEdificioCol = new TableColumn("Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("IdEdificio"));
         TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("NombreEdificio"));
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
         TableColumn nombreSalaCol = new TableColumn("Nombre Sala");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("NombreSala"));
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
         
         //asigna la lista de items y las columnas a la TableView
+        
         availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableComputersTable.setItems(computerList);
         availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
+    }
+    @FXML
+    void searchProgramBtnAction(ActionEvent event) {
+        
+        //Se instancia un arrayList de programas y se llena con los programas seleccionados 
+        
+        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
+        selectedProgramList.forEach(program->{
+            selectedProgramArr.add(program);
+        });
+
+        //Hacerlo con funcion de control  = CC1.();
+        ArrayList<String[]> availableComputersInfo = new ArrayList<>();
+        String test [] = new String [4];  
+        test [0] = "texto1";
+        test [1] = "texto2";
+        test [2] = "texto3";
+        test [3] = "texto4";
+        
+        /* descomentar para probar
+        availableComputersInfo.forEach(computer -> {
+            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+        });    
+        */
+        
+        //test
+        availableComputersInfo.add(test);
+        
+        availableComputersInfo.forEach(computer -> {
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if(!computerList.contains(temp)){
+                computerList.add(temp);
+            }
+        });
+        selectedProgramsTable.refresh();
     }
     
     void addProgram(Programa p){
@@ -202,7 +241,7 @@ public class LoanRequestController implements Initializable {
 
     @FXML
     void userInfoBtnAction(ActionEvent event) {}
-    
+
     void insertAvailablePrograms(){
         
         PC1.getAllPrograms().forEach(p -> {
@@ -290,6 +329,7 @@ public class LoanRequestController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         insertAvailablePrograms();
         insertSelectedPrograms();
+        insertComputers();
         initActions();
         searchProgram();
     }       
