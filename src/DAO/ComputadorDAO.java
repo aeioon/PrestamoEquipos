@@ -180,7 +180,14 @@ public class ComputadorDAO {
             }
         }
     }
-
+    
+    /**
+    * Retorna una matriz de computadores disponibles con su informacion
+    *
+    * @param  programs  lista de programas seleccionados
+    * @return         array[C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala]
+    */
+    
     public String[][] getInfoComputersAvailable(ArrayList<Programa> programs) {
         String[][] informacion = null;
         Connection connection = null;
@@ -201,6 +208,7 @@ public class ComputadorDAO {
                     consulta = consulta + ",";
                 }
             }
+            
             consulta = consulta + ");";
             System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
@@ -208,6 +216,8 @@ public class ComputadorDAO {
             int columnsNumber = rsmd.getColumnCount();
             System.out.println(columnsNumber);
             informacion = new String[columnsNumber][4];
+           
+            
             for (int i = 0; i < columnsNumber; i++) {
                 if (resultSet.next()) {
                     informacion[i][0] = resultSet.getString(1);
@@ -216,6 +226,8 @@ public class ComputadorDAO {
                     informacion[i][3] = resultSet.getString(4);
                 }
             }
+
+            
             return informacion;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
