@@ -5,6 +5,7 @@ import DAO.SolicitudDAO;
 import DAO.UsuarioDAO;
 import Entidad.Programa;
 import Entidad.Computador;
+import Entidad.FilaComputador;
 import Entidad.Solicitud;
 import Entidad.Usuario;
 import java.time.LocalDateTime;
@@ -20,8 +21,8 @@ public class ComputadorController {
     public ComputadorController() {
     }
 
-    public String[][] getInfoComputadores(ArrayList<Programa> programs) {
-        String[][] computadores = new String[0][0];
+    public ArrayList<FilaComputador> getInfoComputadores(ArrayList<Programa> programs) {
+        ArrayList<FilaComputador> computadores = new String[0][0];
         if (programs.size() != 0) {
             computadores = computadorDao.getInfoComputersAvailable(programs);
         }
