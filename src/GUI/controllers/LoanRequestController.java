@@ -45,11 +45,58 @@ public class LoanRequestController implements Initializable {
     ProgramaController PC1 = new ProgramaController();
     ComputadorController CC1 = new ComputadorController();
     
+    
+    class computerRow {
+            String id;
+            String idEdifio;
+            String nombreEdificio;
+            String nombreSala;
+
+            public computerRow(String id, String idEdifio, String nombreEdificio, String nombreSala) {
+                this.id = id;
+                this.idEdifio = idEdifio;
+                this.nombreEdificio = nombreEdificio;
+                this.nombreSala = nombreSala;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getIdEdifio() {
+                return idEdifio;
+            }
+
+            public void setIdEdifio(String idEdifio) {
+                this.idEdifio = idEdifio;
+            }
+
+            public String getNombreEdificio() {
+                return nombreEdificio;
+            }
+
+            public void setNombreEdificio(String nombreEdificio) {
+                this.nombreEdificio = nombreEdificio;
+            }
+
+            public String getNombreSala() {
+                return nombreSala;
+            }
+
+            public void setNombreSala(String nombreSala) {
+                this.nombreSala = nombreSala;
+            }
+            
+        }
     @FXML private TextField searchProgramTF;
     @FXML private Button searchProgramBtn;
     @FXML private TableView<Programa> availableProgramsTable;
     @FXML private TableView<Programa> selectedProgramsTable;
-    @FXML private TableView<String> availableComputersTable;
+    @FXML private TableView<computerRow> availableComputersTable;
     @FXML private Button askLoanBtn;
     @FXML private Button rightArrowBtn;
     @FXML private Button leftArrowBtn;
@@ -58,10 +105,9 @@ public class LoanRequestController implements Initializable {
     
     
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
-    private ObservableList<String> computerList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
-
-
+    private ObservableList<computerRow> computerList = FXCollections.observableArrayList();
+    
     //Buscador de programas
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b->true);
     public void searchProgram() {
@@ -106,27 +152,38 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
 
+    
+    
+    
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
         
-        ArrayList<Programa> arrayListTest = new ArrayList<>();
-        selectedProgramList.forEach(p-> {
-            arrayListTest.add(p);
+
+        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
+        selectedProgramList.forEach(p->{
+            selectedProgramArr.add(p);
         });
-               
-        //CC1.getInfoComputadores(arrayListTest).forEach(p -> {
-        //    computerList.add(p);
-        //});  
+
+        String[][] availableComputersInfo = CC1.getInfoComputadores(selectedProgramArr);
+        
+        int i = 0;
+        while(availableComputersInfo[i] != null){
+            computerList.add(new computerRow(availableComputersInfo[i][0],
+                                            availableComputersInfo[i][1],
+                                            availableComputersInfo[i][2],
+                                            availableComputersInfo[i][3]));
+            i++;
+        }
         
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn IdEdificioCol = new TableColumn("Id_Edificio");
-        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("Id Edificio"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre_Edificio");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("Nombre edificio"));
-        TableColumn nombreSalaCol = new TableColumn("Nombre_Sala");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("Nombre sala"));
+        TableColumn IdEdificioCol = new TableColumn("Edificio");
+        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("IdEdificio"));
+        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("NombreEdificio"));
+        TableColumn nombreSalaCol = new TableColumn("Nombre Sala");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("NombreSala"));
         
         //asigna la lista de items y las columnas a la TableView
         availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -151,8 +208,7 @@ public class LoanRequestController implements Initializable {
     }
 
     @FXML
-    void userInfoBtnAction(ActionEvent event) {
-    }
+    void userInfoBtnAction(ActionEvent event) {}
     
     void insertAvailablePrograms(){
         
