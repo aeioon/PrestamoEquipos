@@ -1,12 +1,17 @@
 package GUI.controllers;
 
+import Control.ComputadorController;
 import Control.ProgramaController;
+import Entidad.Computador;
 import Entidad.Programa;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,36 +40,62 @@ import javafx.scene.control.MenuItem;
  */
 
 public class LoanRequestController implements Initializable {
+    
+    //quizas metodo estatico
+    ProgramaController PC1 = new ProgramaController();
+    ComputadorController CC1 = new ComputadorController();
+    
+    @FXML private TextField searchProgramTF;
+    @FXML private Button searchProgramBtn;
+    @FXML private TableView<Programa> availableProgramsTable;
+    @FXML private TableView<Programa> selectedProgramsTable;
+    @FXML private TableView<Computador> availableComputersTable;
+    @FXML private Button askLoanBtn;
+    @FXML private Button rightArrowBtn;
+    @FXML private Button leftArrowBtn;
+    @FXML private Button backHomeBtn;
+    @FXML private Button userInfoBtn;
+    
+    
+    private ObservableList<Programa> programList = FXCollections.observableArrayList();
+    private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
 
+
+    //Buscador de programas
+    FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b->true);
+    public void searchProgram() {
+        searchProgramTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPrograms.setPredicate(programa -> {
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (programa.getNombre().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            
+            SortedList<Programa> sortedData = new SortedList<>(filteredPrograms);
+            sortedData.comparatorProperty().bind(availableProgramsTable.comparatorProperty());
+            availableProgramsTable.setItems(sortedData);
+        });
+    }
+    
     @FXML
-    private TextField searchProgramTF;
-
-    @FXML
-    private Button searchProgramBtn;
-
-    @FXML
-    private TableView<Programa> availableProgramsTable;
-
-    @FXML
-    private TableView<?> selectedProgramsTable;
-
-    @FXML
-    private TableView<?> availableComputersTable;
-
-    @FXML
-    private Button askLoanBtn;
-
-    @FXML
-    private Button backHomeBtn;
-
-    @FXML
-    private Button userInfoBtn;
-
-    @FXML
-    void AskLoanBtnAction(ActionEvent event) {
-
+    void rightArrowBtnAction(ActionEvent event) {
+        Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
+        addProgram(programSelected);
     }
 
+    @FXML
+    void leftArrowBtnAction(ActionEvent event) {
+        Programa programSelected = selectedProgramsTable.getSelectionModel().getSelectedItem();
+        unselectProgram(programSelected);
+    }
+ 
+    @FXML
+    void AskLoanBtnAction(ActionEvent event) {
+    }
+    
     @FXML
     void backHomeBtn(ActionEvent event) throws IOException {
         Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
@@ -76,22 +107,38 @@ public class LoanRequestController implements Initializable {
 
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
-
+        
+        ArrayList<Programa> arrayListTest = new ArrayList<>();
+        selectedProgramList.forEach(p-> {
+            arrayListTest.add(p);
+        });
+        
+        String[][] arrayComputers = CC1.getInfoComputadores(arrayListTest);
+        System.out.println(arrayComputers[0][2]);    
+    }
+    
+    void addProgram(Programa p){
+        if(!selectedProgramList.contains(p)){
+            selectedProgramList.add(p);
+            selectedProgramsTable.refresh();
+            initActions();
+        }
+        
+    }
+    
+    void unselectProgram(Programa p){
+        if(selectedProgramList.contains(p)){
+            selectedProgramList.remove(p);
+            initActions();
+        }    
     }
 
     @FXML
     void userInfoBtnAction(ActionEvent event) {
-
     }
     
-    //table 
-    //a program array to test the injector
-    private ObservableList<Programa> programList = FXCollections.observableArrayList();
-    
-    void insertDataIntoTable(){
+    void insertAvailablePrograms(){
         
-        //quizas metodo estatico
-        ProgramaController PC1 = new ProgramaController();
         PC1.getAllPrograms().forEach(p -> {
             programList.add(p);
         });  
@@ -103,26 +150,53 @@ public class LoanRequestController implements Initializable {
         programNameCol.setCellValueFactory(new PropertyValueFactory("nombre"));
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
+        
         //asigna la lista de items y las columnas a la TableView
-        availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
         availableProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+   
     }
     
+    void insertSelectedPrograms(){
+        //crea columnas y selecciona el atributo de Programa
+        TableColumn programIdCol = new TableColumn("Id");
+        programIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn programNameCol = new TableColumn("Programa");
+        programNameCol.setCellValueFactory(new PropertyValueFactory("nombre"));
+        TableColumn programVersionCol = new TableColumn("Version");
+        programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
+        
+        selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        selectedProgramsTable.setItems(selectedProgramList);
+        selectedProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+    }
     
     void initActions(){
-
         availableProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent click) {
                 if(click.getClickCount()==2){
-                    System.out.println("accion de doble click");
+                    System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
+                    Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
+                    addProgram(programSelected);
                 }
             }
         });
         
+        selectedProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent click) {
+                if(click.getClickCount()==2){
+                    System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
+                    Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
+                    unselectProgram(programSelected);
+                }
+            }
+        });    
+        
+        /*
         availableProgramsTable.setOnMouseClicked((MouseEvent click) -> {
-            System.out.println("item seleccionado:");
             if(click.getButton() == MouseButton.SECONDARY){
                 ContextMenu contextMenu = new ContextMenu();
                 MenuItem item1 = new MenuItem("MenuItem1");
@@ -143,11 +217,14 @@ public class LoanRequestController implements Initializable {
                 }
             }
         );
+        */
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        insertDataIntoTable();
+        insertAvailablePrograms();
+        insertSelectedPrograms();
         initActions();
+        searchProgram();
     }       
 }

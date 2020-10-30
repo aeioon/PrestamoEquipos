@@ -60,9 +60,6 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginBtn;
     
-    
-    
-
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
         Usuario usuario = new Usuario();
@@ -88,7 +85,6 @@ public class LoginController implements Initializable {
         
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
-
         userLoginTF.requestFocus();
 
         AdvertenciapLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));

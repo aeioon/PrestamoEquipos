@@ -37,12 +37,10 @@ public class ReturnEquipmentController implements Initializable {
     void exitReturnBtnAction(ActionEvent event) {
 
     }
-
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) {
 
     }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
