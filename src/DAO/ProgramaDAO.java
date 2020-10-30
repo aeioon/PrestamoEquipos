@@ -1,12 +1,13 @@
 package DAO;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import Entidad.Computador;
 import Entidad.Programa;
 import java.sql.DriverManager;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class ProgramaDAO {
@@ -47,4 +48,112 @@ public class ProgramaDAO {
             }
         }
     }
+    
+    public boolean crear(Programa object) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("INSERT INTO Programa (`Nombre`, `Version`) VALUES"
+                    + " ('" + object.getVersion() + "','" + object.getVersion()+ "')");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println("Error en SQL" + ex);
+            }
+        }
+
+    }
+
+    public boolean leer(Programa par) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Programa "
+                    + "WHERE Id_Programa = " + par.getId());
+            if(resultSet.next()){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return resultSet.next();
+            } catch (SQLException ex) {
+
+            }
+        }
+
+    }
+
+    public boolean actualizar(Programa oldPrograma, Programa newPrograma) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("UPDATE Programa "
+                    + "SET Id_Programa = " + newPrograma.getId() + " , "
+                    + "Version = '" + newPrograma.getVersion()
+                    + "' WHERE Id_Programa=" + oldPrograma.getId()+ ";");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+
+    public boolean eliminar(Programa object) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet=-1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("DELETE FROM Programa "
+                    + "WHERE Id_Programa= " + object.getId()+ ";");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+
+            }
+        }
+    }    
 }

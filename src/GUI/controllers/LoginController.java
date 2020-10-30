@@ -4,6 +4,7 @@ import Control.ValidarLogin;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,13 +31,14 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class LoginController implements Initializable {
+    
 
     @FXML
     private Label escudolb;
 
     @FXML
-    private Text welcomeText;
-
+    private Text logoAppLogin;
+    
     @FXML
     private TextField userLoginTF;
 
@@ -56,7 +59,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private Button loginBtn;
-
+    
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
         Usuario usuario = new Usuario();
@@ -79,9 +82,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
-
         userLoginTF.requestFocus();
 
         AdvertenciapLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
@@ -131,5 +134,4 @@ public class LoginController implements Initializable {
             }
         });
     }
-
 }

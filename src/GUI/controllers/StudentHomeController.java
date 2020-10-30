@@ -17,6 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -35,10 +38,7 @@ public class StudentHomeController  implements Initializable{
         window.setScene(newScene);
         window.show();
     }
-
-    @FXML
-    private Button userInfoBtn;
-
+    
     @FXML
     private Button requestLoanBtn;
 
@@ -46,23 +46,37 @@ public class StudentHomeController  implements Initializable{
     private Button returnEquiBtn;
 
     @FXML
+    private Label iconTest;
+    
+    @FXML
+    private Button faqBtn;
+    
+    @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
         changeScene(event, "/GUI/views/loanRequest.fxml");
     }
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
-        
+        //cambio
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 390, 490);
+            Stage stage = new Stage();
+            stage.setTitle("Devolver prestamo");
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+        }
     }
-
+    
     @FXML
-    void userInfoBtnAction(ActionEvent event) throws IOException {
-        changeScene(event, "/GUI/views/login.fxml");   
+    void faqBtnAction(ActionEvent event) {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
     }
 
 }
