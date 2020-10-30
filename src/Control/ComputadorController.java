@@ -32,7 +32,7 @@ public class ComputadorController {
 
     public void makeBorrow(Usuario usuario, Computador comp, ArrayList<Programa> programs) {
         LocalDateTime now = LocalDateTime.now();
-        Solicitud solicitud = new Solicitud(0, now, comp.getId(), usuario.getId(), 1);
+        Solicitud solicitud = new Solicitud(0, now, comp, usuario, 1);
         solicitudDao.crear(solicitud);
         computadorDao.changeAvailabilityWhenBorrow(comp);
         for(int i = 0; i < programs.size(); i++){

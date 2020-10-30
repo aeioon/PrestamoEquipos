@@ -7,20 +7,22 @@ import java.util.Date;
 public class Solicitud {
     private int id;
     private LocalDateTime fecha;
-    private int idComputador;
-    private String idUsuario;
+     private Computador computador;
+    private Usuario usuario;
     private int Estado;
+   
+   
 
     public Solicitud() {
     }
 
-    public Solicitud(int id, LocalDateTime fecha, int idComputador, String usuario, int estado) {
+    public Solicitud(int id, LocalDateTime fecha, Computador computador, Usuario usuario, int Estado) {
         this.id = id;
         this.fecha = fecha;
-        this.idComputador = idComputador;
-        this.idUsuario = idUsuario;
-        this.Estado = estado;
-    }
+        this.computador = computador;
+        this.usuario = usuario;
+        this.Estado = Estado;
+    }    
 
     public int getId() {
         return id;
@@ -38,22 +40,23 @@ public class Solicitud {
         this.fecha = fecha;
     }
 
-    public int getIdComputador() {
-        return idComputador;
+    public Computador getComputador() {
+        return computador;
     }
 
-    public void setIdComputador(int idComputador) {
-        this.idComputador = idComputador;
+    public void setComputador(Computador computador) {
+        this.computador = computador;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
-    }  
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
+    
     public int getEstado() {
         return Estado;
     }

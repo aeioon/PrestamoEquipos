@@ -34,7 +34,7 @@ public class SolicitudDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
-                    + fecha + "'," + object.getIdComputador() + ",'" + object.getIdUsuario()+ "'," + object.getEstado() + ")");
+                    + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + object.getEstado() + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -94,8 +94,8 @@ public class SolicitudDAO {
             resultSet = statement.executeUpdate("UPDATE Solicitud "
                     + "SET Id_Solicitud = " + newSolicitud.getId() + " , "
                     + "Fecha = '" + fecha + "' , "
-                    + "ComputadorId_Equipo = " + newSolicitud.getIdComputador() + " , "
-                    + "UsuarioId_Usuario = '" + newSolicitud.getIdUsuario() + " ' ,"
+                    + "ComputadorId_Equipo = " + newSolicitud.getComputador().getId() + " , "
+                    + "UsuarioId_Usuario = '" + newSolicitud.getUsuario().getId() + " ' ,"
                     + "Estado = " + newSolicitud.getEstado()
                     + "WHERE Id_Solicitud=" + oldSolicitud.getId()+ ";");
             return resultSet > 0;
