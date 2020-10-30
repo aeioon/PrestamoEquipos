@@ -39,8 +39,8 @@ public class RealizarPrestamo {
     public void makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
         if (solicitudDao.VerifyInactivity(usuario)) {
             Solicitud solicitud = new Solicitud();
-            solicitud.setIdUsuario(usuario.getId());
-            solicitud.setIdComputador(computer.getId());
+            solicitud.setUsuario(usuario);
+            solicitud.setComputador(computer);
             solicitudDao.crear(solicitud);
             for (int i = 0; i < programs.size(); i++) {
                 programaSolicitudDao.crear(programs.get(i), solicitud);

@@ -6,17 +6,20 @@ public class Usuario {
     private String constraseña;
     private String nombres;
     private String apellidos;
-    private boolean activo;
+    private String carrera;
+    private String facultad;
+   
 
     public Usuario() {
     }
 
-    public Usuario(String id, String constraseña, String nombres, String apellidos, boolean activo) {
+    public Usuario(String id, String constraseña, String nombres, String apellidos, String carrera, String facultad) {
         this.id = id;
         this.constraseña = constraseña;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.activo = activo;
+        this.carrera = carrera;
+        this.facultad = facultad;
     }
 
     public String getId() {
@@ -49,16 +52,23 @@ public class Usuario {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }   
+
+    public String getCarrera() {
+        return carrera;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public String getFacultad() {
+        return facultad;
     }
-    
+
+    public void setFacultad(String facultad) {
+        this.facultad = facultad;
+    }
     
     
 }
