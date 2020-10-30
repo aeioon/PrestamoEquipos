@@ -31,7 +31,7 @@ public class ComputadorDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("INSERT INTO Computador(`Sistema_Operativo`, `Hardware`, `Disponibilidad`, `SalaId_sala`) VALUES (\"" + object.getSistemaOperativo() + "\",\"" + object.getHardware() + "\","
-                    + (object.isDisponibilidad() ? "1" : "0") + "," + object.getIdSala() + ")");
+                    + (object.isDisponibilidad() ? "1" : "0") + "," + object.getSala().getId() + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -46,7 +46,7 @@ public class ComputadorDAO {
         }
 
     }
-
+    
     public boolean leer(Computador par) {
         Connection connection = null;
         Statement statement = null;
@@ -91,7 +91,7 @@ public class ComputadorDAO {
                     + "Sistema_Operativo = '" + newComp.getSistemaOperativo() + "' , "
                     + "Hardware = '" + newComp.getHardware() + "' , "
                     + "Disponibilidad = " + (newComp.isDisponibilidad() ? "1" : "0") + " , "
-                    + "SalaId_sala = " + newComp.getIdSala()
+                    + "SalaId_sala = " + newComp.getSala().getId()
                     + " WHERE Id_Equipo=" + oldComp.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
@@ -141,8 +141,7 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String update = "UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = "+ computador.getId();
-            resultSet = statement.executeUpdate(update);
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computador.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -156,7 +155,7 @@ public class ComputadorDAO {
             }
         }
     }
-    
+
     public boolean changeAvailabilityWhenReturn(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
@@ -165,8 +164,7 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String update = "UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = "+ usuario.getId();
-            resultSet = statement.executeUpdate(update);
+            resultSet = statement.executeUpdate("UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -180,21 +178,19 @@ public class ComputadorDAO {
             }
         }
     }
-    
+
     /**
-    * Retorna una matriz de computadores disponibles con su informacion
-    *
-    * @param  programs  lista de programas seleccionados
-    * @return         array[C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala]
-    */
-    
-    public String[][] getInfoComputersAvailable(ArrayList<Programa> programs) {
-        String[][] informacion = null;
+     * Retorna una matriz de computadores disponibles con su informacion
+     *
+     * @param programs lista de programas seleccionados
+     * @return array[C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala]
+     */
+    public ArrayList<String[]> getInfoComputersAvailable(ArrayList<Programa> programs) {
+        ArrayList<String[]> informacion = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala\n"
@@ -208,26 +204,18 @@ public class ComputadorDAO {
                     consulta = consulta + ",";
                 }
             }
-            
             consulta = consulta + ");";
-            System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
-            ResultSetMetaData rsmd = resultSet.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            System.out.println(columnsNumber);
-            informacion = new String[columnsNumber][4];
-           
-            
-            for (int i = 0; i < columnsNumber; i++) {
-                if (resultSet.next()) {
-                    informacion[i][0] = resultSet.getString(1);
-                    informacion[i][1] = resultSet.getString(2);
-                    informacion[i][2] = resultSet.getString(3);
-                    informacion[i][3] = resultSet.getString(4);
-                }
+
+            while(resultSet.next()){
+                String[] fila = new String[4];
+                fila[0] = resultSet.getString(1);
+                fila[1] = resultSet.getString(2);
+                fila[2] = resultSet.getString(3);
+                fila[3] = resultSet.getString(4);
+                informacion.add(fila);
             }
 
-            
             return informacion;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

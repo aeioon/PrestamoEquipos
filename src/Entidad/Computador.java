@@ -7,7 +7,7 @@ public class Computador {
     private String hardware;
     private boolean disponibilidad;
     private Sala sala;
-
+    
     public Computador(int id, String sistemaOperativo, String hardware, boolean disponibilidad, Sala sala) {
         this.id = id;
         this.sistemaOperativo = sistemaOperativo;
@@ -51,7 +51,7 @@ public class Computador {
         this.disponibilidad = disponibilidad;
     }
 
-    public Sala getIdSala() {
+    public Sala getSala() {
         return sala;
     }
 

@@ -163,17 +163,10 @@ public class LoanRequestController implements Initializable {
         selectedProgramList.forEach(p->{
             selectedProgramArr.add(p);
         });
-
-        String[][] availableComputersInfo = CC1.getInfoComputadores(selectedProgramArr);
-        
-        int i = 0;
-        while(availableComputersInfo[i] != null){
-            computerList.add(new computerRow(availableComputersInfo[i][0],
-                                            availableComputersInfo[i][1],
-                                            availableComputersInfo[i][2],
-                                            availableComputersInfo[i][3]));
-            i++;
-        }
+        CC1.getInfoComputadores(selectedProgramArr)
+        CC1.getInfoComputadores(selectedProgramArr).forEach(p -> {
+            computerList.add(p);
+        });  
         
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
