@@ -1,49 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="680.0" minWidth="1000.0" prefHeight="680.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.StudentHomeController">
-    <stylesheets>
-        <URL value="@studenthome.css" />
-    </stylesheets>
+<AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="680.0" prefWidth="1000.0" stylesheets="@../style/studenthome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.StudentHomeController">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #3454BB;" BorderPane.alignment="CENTER" />
+              <Button styleClass="git-button" />
+            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER" />
          </bottom>
-         <top>
-            <BorderPane prefHeight="74.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-               <right>
-                  <Button fx:id="userInfoBtn" mnemonicParsing="false" onAction="#userInfoBtnAction" prefHeight="90.0" prefWidth="222.0" text="InfoUsuario" BorderPane.alignment="CENTER" />
-               </right></BorderPane>
-         </top>
          <center>
             <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="203.0" layoutY="221.0" prefHeight="100.0" prefWidth="594.0">
+                  <Text fill="#91b33b" layoutX="494.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al sistema de préstamo de equipos de la Facultad de Ingeniería de la Universidad Nacional de Colombia" textAlignment="CENTER" wrappingWidth="584.80859375">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="200.0" layoutY="88.0" prefHeight="349.0" prefWidth="238.0">
                      <children>
-                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="100.0" prefWidth="230.0" text="Solicitar un prestamo">
+                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="80.0" prefWidth="250.0" text="Solicitar un prestamo">
                            <font>
                               <Font size="13.0" />
                            </font>
+                           <graphic>
+                              <Label fx:id="iconTest" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <Separator prefWidth="200.0" visible="false" />
-                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="100.0" prefWidth="230.0" text="Devolver Equipo">
+                        <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
+                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="80.0" prefWidth="250.0" text="Devolver Equipo">
                            <font>
                               <Font size="13.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
+                        <Button fx:id="faqBtn" mnemonicParsing="false" onAction="#faqBtnAction" prefHeight="80.0" prefWidth="250.0" text="Preguntas Frecuentes">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </center>
+         <top>
+         
+         </top>
+         <top>
+            <fx:include fx:id="header" source="sections/header.fxml" />
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
