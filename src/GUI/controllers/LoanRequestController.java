@@ -189,7 +189,7 @@ public class LoanRequestController implements Initializable {
             selectedProgramArr.add(program);
         });
 
-        //Hacerlo con funcion de control
+        //Hacerlo con funcion de control  = CC1.();
         ArrayList<String[]> availableComputersInfo = new ArrayList<>();
         String test [] = new String [4];  
         test [0] = "texto1";
@@ -197,6 +197,13 @@ public class LoanRequestController implements Initializable {
         test [2] = "texto3";
         test [3] = "texto4";
         
+        /* descomentar para probar
+        availableComputersInfo.forEach(computer -> {
+            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+        });    
+        */
+        
+        //test
         availableComputersInfo.add(test);
         
         availableComputersInfo.forEach(computer -> {
