@@ -133,7 +133,39 @@ public class SolicitudDAO {
 
             }
         }
+    }
+    
+    public String getInfo(Usuario user){
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, SA.Id_Sala"
+                    + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)"
+                    + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala"
+                    + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio"
+                    + " WHERE S.UsuarioID_Usuario = " + user.getId() + " AND S.Estado = 1");
+            if (resultSet.next()) {
+                return "Devolución exitosa del equipo " + resultSet.getInt(1) + " del edificio " + resultSet.getInt(2) + ", " + resultSet.getString(3) + " de la sala " + resultSet.getInt(4);
+            } else {
+                return "Fallo en la devolución";
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return "Fallo en la devolución";
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return "Fallo en la devolución";
+            } catch (SQLException ex) {
 
+            }
+        }
     }
 
     public boolean actualizar(Solicitud oldSolicitud, Solicitud newSolicitud) {
