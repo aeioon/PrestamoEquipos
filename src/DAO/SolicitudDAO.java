@@ -142,7 +142,8 @@ public class SolicitudDAO {
         }
     }
     
-    public String getInfo(Usuario user){
+    public String[] getInfo(Usuario user){
+        String[] datos = {"","","",""};
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -156,19 +157,21 @@ public class SolicitudDAO {
                     + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio"
                     + " WHERE S.UsuarioID_Usuario = " + user.getId() + " AND S.Estado = 1");
             if (resultSet.next()) {
-                return "Devolución exitosa del equipo " + resultSet.getInt(1) + " del edificio " + resultSet.getInt(2) + ", " + resultSet.getString(3) + " de la sala " + resultSet.getInt(4);
-            } else {
-                return "Fallo en la devolución";
+                datos[0] = Integer.toString(resultSet.getInt(1));
+                datos[1] = Integer.toString(resultSet.getInt(2));
+                datos[2] = resultSet.getString(3);
+                datos[3] = Integer.toString(resultSet.getInt(4));
             }
+            return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
-            return "Fallo en la devolución";
+            return datos;
         } finally {
             try {
                 resultSet.close();
                 statement.close();
                 connection.close();
-                return "Fallo en la devolución";
+                return datos;
             } catch (SQLException ex) {
 
             }

@@ -133,6 +133,54 @@ public class ComputadorDAO {
         }
     }
 
+    public boolean occupyComputer(Computador computer){
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer.getId());
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
+    public boolean freeComputer(int computer){
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer);
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
     /**
      * Retorna un areglo computadores disponibles con su informacion
      *

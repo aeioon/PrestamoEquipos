@@ -41,7 +41,7 @@ public class RealizarPrestamo {
             solicitud.setComputador(computer);
             boolean seCreo = solicitudDao.crear(solicitud);
             if (seCreo) {
-                //computadorDao
+                computadorDao.occupyComputer(computer);
                 for (int i = 0; i < programs.size(); i++) {
                     programaSolicitudDao.crear(programs.get(i), solicitud);
                 }
