@@ -34,7 +34,7 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {        
+    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
         if (solicitudDao.VerifyInactivity(usuario)) {
             Solicitud solicitud = new Solicitud();
             solicitud.setUsuario(usuario);
@@ -42,6 +42,7 @@ public class RealizarPrestamo {
             boolean seCreo = solicitudDao.crear(solicitud);
             if (seCreo) {
                 computadorDao.occupyComputer(computer);
+                solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
                 for (int i = 0; i < programs.size(); i++) {
                     programaSolicitudDao.crear(programs.get(i), solicitud);
                 }

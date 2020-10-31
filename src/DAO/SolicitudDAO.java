@@ -23,6 +23,33 @@ public class SolicitudDAO {
     static final String DB_PASSWD
             = "4waxA687";
 
+    public int getIdSolicitud(Solicitud solicitud){
+        int id = -1;
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() +"' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + "AND Solicitud.Estado = 1");
+            id = resultSet.getInt(1);
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return id;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return id;
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
     public boolean VerifyInactivity(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
