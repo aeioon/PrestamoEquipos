@@ -133,57 +133,11 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean changeAvailabilityWhenBorrow(Computador computador) {
-        Connection connection = null;
-        Statement statement = null;
-        int resultSet;
-        try {
-            resultSet = -1;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computador.getId());
-            return resultSet > 0;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
-    public boolean changeAvailabilityWhenReturn(Usuario usuario) {
-        Connection connection = null;
-        Statement statement = null;
-        int resultSet;
-        try {
-            resultSet = -1;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
-            return resultSet > 0;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
     /**
-     * Retorna una matriz de computadores disponibles con su informacion
+     * Retorna un areglo computadores disponibles con su informacion
      *
      * @param programs lista de programas seleccionados
-     * @return array[C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala]
+     * @return arrayList
      */
     public ArrayList<String[]> getInfoComputersAvailable(ArrayList<Programa> programs) {
         ArrayList<String[]> informacion = new ArrayList<>();
@@ -193,11 +147,15 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala\n"
-                    + "FROM ((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
-                    + "INNER JOIN Sala AS S ON C.SalaId_sala = S.Id_sala) \n"
-                    + "INNER JOIN Edificio AS E ON S.EdificioId_Edificio = E.Id_Edificio\n"
-                    + "WHERE CP.Id_Programa IN(";
+            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Id_sala, SO.Estado\n" +
+                    "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo)\n" +
+                    "INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n" +
+                    "INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n" +
+                    "INNER JOIN Solicitud AS SO ON C.Id_Equipo = SO.ComputadorId_Equipo)" +
+                    "WHERE SO.Estado = 0";
+            if(programs.size() != 0){
+                consulta = consulta + "AND CP.Id_Programa IN(";
+            }
             for (int i = 0; i < programs.size(); i++) {
                 consulta = consulta + programs.get(i).getId();
                 if (i != (programs.size() - 1)) {
@@ -231,4 +189,5 @@ public class ComputadorDAO {
             }
         }
     }
+
 }

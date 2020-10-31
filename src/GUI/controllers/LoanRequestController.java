@@ -1,7 +1,7 @@
 package GUI.controllers;
 
-import Control.ComputadorController;
-import Control.ProgramaController;
+import Control.RealizarPrestamo;
+import Control.RealizarDevolucion;
 import Entidad.Computador;
 import Entidad.Programa;
 import java.io.IOException;
@@ -43,8 +43,8 @@ import javafx.scene.control.MenuItem;
 public class LoanRequestController implements Initializable {
     
     //quizas metodo estatico
-    ProgramaController PC1 = new ProgramaController();
-    ComputadorController CC1 = new ComputadorController();
+    RealizarDevolucion RD = new RealizarDevolucion();
+    RealizarPrestamo RP = new RealizarPrestamo();
     
     public class ComputerRow {
             String id;
@@ -161,6 +161,21 @@ public class LoanRequestController implements Initializable {
     
     void insertComputers(){
         
+        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
+        selectedProgramList.forEach(p->{
+            selectedProgramArr.add(p);
+        });
+         
+        ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
+           
+        availableComputersInfo.forEach(computer -> {
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if(!computerList.contains(temp)){
+                computerList.add(temp);
+            }
+        });
+        selectedProgramsTable.refresh();
+        
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -178,8 +193,6 @@ public class LoanRequestController implements Initializable {
         availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
     }
     
-    
-    FilteredList<ComputerRow> filteredComputers = new FilteredList<>(computerList, b->true);
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
         
@@ -195,30 +208,21 @@ public class LoanRequestController implements Initializable {
         });
         
         selectedProgramsTable.refresh();
-        /*
+        
+        /* Mover de OnChanged, toca modificar.
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(program->{
             selectedProgramArr.add(program);
         });
 
-        //Hacerlo con funcion de control  = CC1.();
+        
         ArrayList<String[]> availableComputersInfo = new ArrayList<>();
-        String test [] = new String [4];  
-        test [0] = "texto1";
-        test [1] = "texto2";
-        test [2] = "texto3";
-        test [3] = "texto4";
         
-        
-        /* descomentar para probar
+
         availableComputersInfo.forEach(computer -> {
-            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]));
         });    
-        */
-        
-        /*
-        availableComputersInfo.add(test);
-        
+         
         availableComputersInfo.forEach(computer -> {
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if(!computerList.contains(temp)){
@@ -250,7 +254,7 @@ public class LoanRequestController implements Initializable {
 
     void insertAvailablePrograms(){
         
-        PC1.getAllPrograms().forEach(p -> {
+        RP.getAllPrograms().forEach(p -> {
             programList.add(p);
         });  
         
