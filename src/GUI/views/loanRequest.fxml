@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -26,12 +25,10 @@
                <children>
                   <HBox layoutX="386.0" layoutY="36.0" prefHeight="42.0" prefWidth="762.0">
                      <children>
-                        <TextField fx:id="searchProgramTF" prefHeight="40.0" prefWidth="628.0" promptText="Ingrese el nombre del programa" />
-                        <Separator disable="true" opacity="0.0" prefHeight="9.0" prefWidth="43.0" />
-                        <Button fx:id="searchProgramBtn" mnemonicParsing="false" onAction="#searchProgramBtnAction" prefHeight="42.0" prefWidth="168.0" text="no-buscar" />
+                        <TextField fx:id="searchProgramTF" prefHeight="40.0" prefWidth="819.0" promptText="Ingrese el nombre del programa" />
                      </children>
                   </HBox>
-                  <HBox layoutX="387.0" layoutY="110.0" prefHeight="200.0" prefWidth="760.0">
+                  <HBox layoutX="387.0" layoutY="84.0" prefHeight="200.0" prefWidth="760.0">
                      <children>
                         <TableView fx:id="availableProgramsTable" prefHeight="200.0" prefWidth="400.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -59,13 +56,18 @@
                         <TableView fx:id="selectedProgramsTable" prefHeight="203.0" prefWidth="400.0" />
                      </children>
                   </HBox>
-                  <Label fx:id="warningText" layoutX="387.0" layoutY="317.0" prefHeight="27.0" prefWidth="705.0" textFill="#ee0808" />
-                  <TableView fx:id="availableComputersTable" layoutX="386.0" layoutY="346.0" prefHeight="189.0" prefWidth="762.0" />
-                  <Button fx:id="askLoanBtn" layoutX="983.0" layoutY="541.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
                   <Button fx:id="backHomeBtn" layoutX="133.0" layoutY="36.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
+                  <Button fx:id="searchComputersBtn" layoutX="979.0" layoutY="296.0" mnemonicParsing="false" onAction="#searchComputersBtnAction" prefHeight="34.0" prefWidth="168.0" text="Buscar Computadores" />
+                  <AnchorPane fx:id="computerTableSection" layoutX="378.0" layoutY="322.0" prefHeight="275.0" prefWidth="776.0" visible="false">
+                     <children>
+                        <Button fx:id="askLoanBtn" layoutX="605.0" layoutY="216.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
+                        <Label fx:id="warningText" layoutX="7.0" layoutY="3.0" prefHeight="27.0" prefWidth="476.0" textFill="#ee0808" />
+                        <TableView fx:id="availableComputersTable" layoutX="8.0" layoutY="33.0" prefHeight="170.0" prefWidth="762.0" />
+                     </children>
+                  </AnchorPane>
                </children></AnchorPane>
          </left>
       </BorderPane>

@@ -37,6 +37,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -101,7 +102,7 @@ public class LoanRequestController implements Initializable {
     @FXML
     private TextField searchProgramTF;
     @FXML
-    private Button searchProgramBtn;
+    private Button searchComputersBtn;
     @FXML
     private TableView<Programa> availableProgramsTable;
     @FXML
@@ -160,37 +161,42 @@ public class LoanRequestController implements Initializable {
     
     @FXML
     private Label warningText;
-
+    
+    @FXML
+    private AnchorPane computerTableSection;
 
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
+        
         /*
         * data para test
-        * se testea con el usuario de id 1
-        * se instancia un computador con la id del computador seleccinoado
-        * se instancia una lista de programas con los seleccionados
         * se envian a las demas vistos por medio de un singleton LoanDataHolder.
          */
         
-        Usuario u = sessionHolder.getUser();
-        Computador c = new Computador();
-        c.setId(idComputerSelected);
+        Usuario user = sessionHolder.getUser();
+        Computador selectedComputer = new Computador();
+        selectedComputer.setId(idComputerSelected);
         ArrayList<Programa> programList = new ArrayList<>();
         selectedProgramList.forEach(p -> {
             programList.add(p);
         });
+        
+        if(user.getId()==null){
+            warningText.setText("Error relacionado a la sesion");
+            System.out.println("Error relacionado a la sesion.");
+        }
 
         if (idComputerSelected != 0) {
             try {
                 LoanDataHolder holder = LoanDataHolder.getInstance();
                 
-                holder.setComputer(c);
-                holder.setUser(u);
+                holder.setComputer(selectedComputer);
+                holder.setUser(user);
                 holder.setPrograms(programList);
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 323, 421);
+                Scene scene = new Scene(fxmlLoader.load(), 437 , 209);
                 Stage stagePop = new Stage();
                 stagePop.setTitle("Confirmar prestamo");
                 stagePop.setScene(scene);
@@ -200,6 +206,7 @@ public class LoanRequestController implements Initializable {
                 System.err.println(String.format("Error: %s", e.getMessage()));
             }
         } else {
+            System.out.println("Olvidaste seleccionar un computador");
             warningText.setText("Olvidaste seleccionar un computador");
         }
 
@@ -236,8 +243,9 @@ public class LoanRequestController implements Initializable {
     }
 
     @FXML
-    void searchProgramBtnAction(ActionEvent event) {
+    void searchComputersBtnAction(ActionEvent event) {
 
+        computerTableSection.setVisible(true);
         computerList.clear();
         availableComputersTable.refresh();
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
@@ -246,10 +254,6 @@ public class LoanRequestController implements Initializable {
         });
 
         ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
-
-        ComputerRow test = new ComputerRow("357", "NombreTest", "IdEdificioo", "nombreSalaTest");
-        computerList.add(test);
-        System.out.println(test.getId() + " " + test.getIdEdificio() + " " + test.getIdEdificio() + " " + test.getNombreSala());
 
         availableComputersInfo.forEach(computer -> {
             System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
