@@ -26,8 +26,8 @@ public class EdificioDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Edificio" + "(`Nombre`)"
-                    + " VALUES ( '" + object.getNombre()+"' );");
+            resultSet = statement.executeUpdate("INSERT INTO Edificio" + "(`Código`, `Nombre`)"
+                    + " VALUES ( " + object.getCodigo() + " , '"+ object.getNombre()+"' );");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -84,6 +84,7 @@ public class EdificioDAO {
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("UPDATE Edifico "
                     + "SET Id_Edificio = " + newEd.getId() + " , " 
+                    + "Codigo = " + newEd.getCodigo() + " , "
                     + "Nombre = '" + newEd.getNombre()
                     + "' WHERE Id_Edifcio= " + oldEd.getId()+ ";");
             return resultSet > 0;
