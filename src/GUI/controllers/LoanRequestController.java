@@ -148,8 +148,7 @@ public class LoanRequestController implements Initializable {
     }
  
     @FXML
-    void AskLoanBtnAction(ActionEvent event) {
-          
+    void AskLoanBtnAction(ActionEvent event) {   
         int id = idComputerSelected;
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();

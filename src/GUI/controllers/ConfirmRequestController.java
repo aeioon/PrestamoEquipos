@@ -44,7 +44,6 @@ public class ConfirmRequestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cancelRequestBtn.fire();
     }
 
 }
