@@ -26,7 +26,7 @@ public class Main extends Application  {
         Usuario u = new Usuario();
         u.setId("dbustos");
         Computador c = new Computador();
-        c.setId(1);
+        c.setId(2);
         ArrayList<Programa> p = new ArrayList<>();
         RealizarPrestamo RP = new RealizarPrestamo();
         System.out.println(RP.makeBorrow(u, c, p));
@@ -39,7 +39,7 @@ public class Main extends Application  {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //testBorrow();
+        testBorrow();
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/loanRequest.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
