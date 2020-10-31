@@ -25,6 +25,6 @@
                </font></Button>
          </children>
       </AnchorPane>
-      <Text fx:id="equipmentText" layoutX="79.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actualmente estas {mensaje}" wrappingWidth="232.13671875" />
+      <Text fx:id="equipmentText" layoutX="177.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="36.13671875" />
    </children>
 </AnchorPane>

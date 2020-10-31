@@ -40,14 +40,8 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        RealizarDevolucion RD = new RealizarDevolucion();
-        if(RD.makeReturn(u)){
-            System.out.println("Se realizo la devolucion!");
-            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
-            stage.close();
-        } else {
-            message.setText("Fallo devolucion");
-        }
+        Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
