@@ -147,31 +147,27 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT DISTINCT C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Id_sala\n"
-                    + "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
-                    + "	INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n"
-                    + "	INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n"
-                    + "WHERE  C.Disponibilidad = 1";
-            if (programs.size() != 0) {
-                for (int i = 0; i < programs.size(); i++) {
-                    consulta = consulta + " AND CP.Id_Programa = " + programs.get(i).getId();
-                    if (i != (programs.size() - 1)) {
-                        consulta = consulta + " AND C.Id_Equipo IN(\n"
-                                + "SELECT DISTINCT C.Id_Equipo\n"
-                                + "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
-                                + "	INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n"
-                                + "	INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n"
-                                + "WHERE  C.Disponibilidad = 1";
+            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala\n" +
+                               "FROM (((SELECT DISTINCT Computador_Programa.Id_Equipo\n" +
+                                      "FROM Computador_Programa LEFT JOIN (SELECT DISTINCT Todos.Id_Equipo, Todos.Id_Programa \n" +
+                                      "FROM ((SELECT DISTINCT EquiposP.Id_Equipo, P.Id_Programa \n" +
+                                      "FROM (SELECT DISTINCT CP.Id_Equipo FROM Computador_Programa AS CP) AS EquiposP INNER JOIN (SELECT* FROM Programa";
+            if(programs.size() != 0){
+                consulta = consulta + " WHERE Id_Programa IN(";
+                for(int i = 0; i < programs.size(); i++){
+                    consulta = consulta + programs.get(i).getId();
+                    if(i != programs.size() - 1){
+                        consulta = consulta + ",";
                     }
                 }
-                for (int i = 0; i < programs.size()-1; i++) {
-                    consulta = consulta + ")";
-                }                
-            } 
-            consulta = consulta + ";";
-
+                consulta = consulta + ")";
+            }         
+            consulta = consulta +      ") AS P) AS Todos\n" +
+                                       "LEFT JOIN Computador_Programa ON Computador_Programa.Id_Programa = Todos.Id_Programa AND Computador_Programa.Id_Equipo = Todos.Id_Equipo)\n" +
+                                       "WHERE Computador_Programa.Id_Programa IS NULL) AS SinRequest ON Computador_Programa.Id_Equipo = SinRequest.Id_Equipo\n" +
+                                  "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio";
+            System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
-
             while (resultSet.next()) {
                 String[] fila = new String[4];
                 
@@ -180,7 +176,7 @@ public class ComputadorDAO {
                 fila[2] = Integer.toString(resultSet.getInt(3));
                 fila[3] = resultSet.getString(4);
                 informacion.add(fila);
-                System.out.println(fila[0]+" "+fila[1]+" "+fila[2]+" "+fila[3]+"\n");
+                System.out.println("FILA ES" + fila[0]+" "+fila[1]+" "+fila[2]+" "+fila[3]+"\n");
             }
 
             return informacion;
