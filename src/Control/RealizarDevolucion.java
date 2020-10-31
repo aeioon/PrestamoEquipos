@@ -14,9 +14,12 @@ public class RealizarDevolucion {
     public RealizarDevolucion() {
     }
     
-    public void makeReturn(Usuario usuario) {
-        SolicitudDao.ChangeRequestStatus(usuario);
-        return;
+    public String makeReturn(Usuario usuario) {        
+        if(!SolicitudDao.ChangeRequestStatus(usuario)){
+            return "Error en la devolución del equipo";
+        }else{
+            return SolicitudDao.getInfo(usuario);
+        }        
     }
     
 }

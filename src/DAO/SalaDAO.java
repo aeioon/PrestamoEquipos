@@ -26,7 +26,8 @@ public class SalaDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Sala (`Nombre`, `EncargadoId_Encargado`, `EdificioId_Edifico`) VALUES ('" + object.getNombre()+ "', '" + object.getEncargado().getId()+ "'," 
+            resultSet = statement.executeUpdate("INSERT INTO Sala (`Codigo`, `Nombre`, `Tipo`, `EncargadoId_Encargado`, `EdificioId_Edificio`)"
+                    + " VALUES ('" + object.getCodigo()+ "', '" + object.getNombre() + "', '" + object.getTipo()+ "', '" + object.getEncargado().getId()+ "'," 
                     + object.getEdificio().getId() + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
@@ -84,7 +85,9 @@ public class SalaDAO {
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("UPDATE Sala "
                     + "SET Id_Sala = " + newSala.getId() + " , "
+                    + "Codigo = '" + newSala.getCodigo() +  "' , "
                     + "Nombre = '" + newSala.getNombre() +  "' , "
+                    + "Tipo = '" + newSala.getTipo() +  "' , "
                     + "EncargadoId_Encargado = '" + newSala.getEncargado().getId() + "' , "
                     + "EdificioId_Edificio = " + newSala.getEdificio().getId()
                     + " WHERE Id_Sala=" + oldSala.getId()+ ";");

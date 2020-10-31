@@ -46,7 +46,7 @@ public class ComputadorDAO {
         }
 
     }
-    
+
     public boolean leer(Computador par) {
         Connection connection = null;
         Statement statement = null;
@@ -172,7 +172,7 @@ public class ComputadorDAO {
 
             resultSet = statement.executeQuery(consulta);
 
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 String[] fila = new String[4];
                 
                 fila[0] = Integer.toString(resultSet.getInt(1));
@@ -198,5 +198,4 @@ public class ComputadorDAO {
             }
         }
     }
-
 }
