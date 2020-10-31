@@ -3,18 +3,22 @@ package Entidad;
 
 public class Sala {
     private int id;
+    private String codigo;
     private String nombre;
-    private int idEdificio;
-    private String idEncargado;
+    private String tipo;
+    private Edificio edificio;
+    private Encargado encargado;
 
     public Sala() {
     }
 
-    public Sala(int id, String nombre, int idEedificio, String idEncargado) {
+    public Sala(int id, String codigo, String nombre, String tipo, Edificio edificio, Encargado encargado) {
         this.id = id;
+        this.codigo = codigo;
         this.nombre = nombre;
-        this.idEdificio = idEedificio;
-        this.idEncargado = idEncargado;
+        this.tipo = tipo;
+        this.edificio = edificio;
+        this.encargado = encargado;
     }
 
     public int getId() {
@@ -25,6 +29,14 @@ public class Sala {
         this.id = id;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -33,22 +45,29 @@ public class Sala {
         this.nombre = nombre;
     }
 
-    public int getIdEdificio() {
-        return idEdificio;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setIdEdificio(int idEdificio) {
-        this.idEdificio = idEdificio;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getIdEncargado() {
-        return idEncargado;
+    public Edificio getEdificio() {
+        return edificio;
     }
 
-    public void setIdEncargado(String idEncargado) {
-        this.idEncargado = idEncargado;
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
     }
-    
-    
+
+    public Encargado getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Encargado encargado) {
+        this.encargado = encargado;
+    }
+
     
 }

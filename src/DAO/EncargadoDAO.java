@@ -57,7 +57,7 @@ public class EncargadoDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Encargado "
-                    + "WHERE Id_Encargado = '" + par.getId()+ "'");
+                    + "WHERE Id_Encargado = BINARY '" + par.getId()+ "'");
             if(resultSet.next()){
                 return true;
             }else{
@@ -117,7 +117,7 @@ public class EncargadoDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("DELETE FROM Encargado "
-                    + "WHERE Id_Encargado= '" + object.getId()+ "';");
+                    + "WHERE Id_Encargado = BINARY'" + object.getId()+ "';");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

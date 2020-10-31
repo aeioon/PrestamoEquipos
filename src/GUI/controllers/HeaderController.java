@@ -39,8 +39,8 @@ public class HeaderController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nombreEstudianteT.setText(Main.getUsuarioLogueado().getNombres() + " " + Main.getUsuarioLogueado().getApellidos());
-        correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
+        //nombreEstudianteT.setText(Main.getUsuarioLogueado().getNombres() + " " + Main.getUsuarioLogueado().getApellidos());
+        //correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
         formatoIngenieriaL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Logo_n.png"))));
     }    
     

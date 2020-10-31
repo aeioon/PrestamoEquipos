@@ -1,10 +1,11 @@
 package GUI.controllers;
 
-import Control.ComputadorController;
-import Control.ProgramaController;
+import Control.RealizarPrestamo;
+import Control.RealizarDevolucion;
 import DAO.ComputadorDAO;
 import Entidad.Computador;
 import Entidad.Programa;
+import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +31,9 @@ import javafx.stage.Stage;
  */
 
 public class StudentHomeController  implements Initializable{
+    
+    
+    SessionHolder sessionHolder = SessionHolder.getInstance();
     
     //temporal
     void changeScene(ActionEvent event, String fxml) throws IOException{
@@ -61,7 +66,33 @@ public class StudentHomeController  implements Initializable{
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
-        //cambio
+        /*
+        * data para test
+        * se testea con el usuario de id 1
+        * se instancia un computador con la id del computador seleccinoado
+        * se instancia una lista de programas con los seleccionados
+        * se envian a las demas vistos por medio de un singleton LoanDataHolder.
+         */
+        //Usuario u = sessionHolder.getInstance().getUser();
+        /*
+        try {
+            LoanDataHolder holder = LoanDataHolder.getInstance();
+            //holder.setComputer(c);
+            holder.setUser(u);
+            holder.setPrograms(programList);
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 323, 421);
+            Stage stagePop = new Stage();
+            stagePop.setTitle("Confirmar prestamo");
+            stagePop.setScene(scene);
+            stagePop.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println(String.format("Error: %s", e.getMessage()));
+        }*/
+        /*
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
@@ -72,7 +103,8 @@ public class StudentHomeController  implements Initializable{
             stage.setScene(scene);
             stage.showAndWait();
         } catch (IOException e) {
-        }
+        }*/
+
     }
     
     @FXML

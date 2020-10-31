@@ -28,8 +28,10 @@ public class ProgramaSolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Programa_Solicitud(`Id_Programa`, `Id_Solicitud`) VALUES (" +
-                    programa.getId() + ", " + solicitud.getId() + ")");
+            String consulta = "INSERT INTO Programa_Solicitud(`Id_Programa`, `Id_Solicitud`) VALUES (" +
+                    programa.getId() + ", " + solicitud.getId() + ")";
+            System.out.println(consulta);
+            resultSet = statement.executeUpdate(consulta);
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

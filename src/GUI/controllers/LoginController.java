@@ -73,7 +73,6 @@ public class LoginController implements Initializable {
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
             if (validar.verificarLogin(usuario)) {
-                Main.setUsuarioLogueado(usuario);
                 Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -84,6 +83,7 @@ public class LoginController implements Initializable {
                 AdvertenciapLB.setVisible(true);
             }
         }
+        System.out.println(validar.getUsuario().getNombres());
     }
 
     @Override

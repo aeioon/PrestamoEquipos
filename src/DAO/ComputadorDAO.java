@@ -46,7 +46,7 @@ public class ComputadorDAO {
         }
 
     }
-    
+
     public boolean leer(Computador par) {
         Connection connection = null;
         Statement statement = null;
@@ -133,7 +133,7 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean changeAvailabilityWhenBorrow(Computador computador) {
+    public boolean occupyComputer(Computador computer){
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -141,7 +141,7 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computador.getId());
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 0 WHERE Id_Equipo = " + computer.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -150,13 +150,14 @@ public class ComputadorDAO {
             try {
                 statement.close();
                 connection.close();
+
             } catch (SQLException ex) {
 
             }
         }
     }
-
-    public boolean changeAvailabilityWhenReturn(Usuario usuario) {
+    
+    public boolean freeComputer(int computer){
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -164,7 +165,7 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador_Solicitud SET Disponibilidad = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer);
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -173,17 +174,18 @@ public class ComputadorDAO {
             try {
                 statement.close();
                 connection.close();
+
             } catch (SQLException ex) {
 
             }
         }
     }
-
+    
     /**
-     * Retorna una matriz de computadores disponibles con su informacion
+     * Retorna un areglo computadores disponibles con su informacion
      *
      * @param programs lista de programas seleccionados
-     * @return array[C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala]
+     * @return arrayList
      */
     public ArrayList<String[]> getInfoComputersAvailable(ArrayList<Programa> programs) {
         ArrayList<String[]> informacion = new ArrayList<>();
@@ -193,27 +195,37 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala\n"
-                    + "FROM ((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
-                    + "INNER JOIN Sala AS S ON C.SalaId_sala = S.Id_sala) \n"
-                    + "INNER JOIN Edificio AS E ON S.EdificioId_Edificio = E.Id_Edificio\n"
-                    + "WHERE CP.Id_Programa IN(";
-            for (int i = 0; i < programs.size(); i++) {
-                consulta = consulta + programs.get(i).getId();
-                if (i != (programs.size() - 1)) {
-                    consulta = consulta + ",";
+            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Id_sala\n" +
+                               "FROM (((SELECT DISTINCT Computador_Programa.Id_Equipo\n" +
+                                      "FROM Computador_Programa LEFT JOIN (SELECT DISTINCT Todos.Id_Equipo, Todos.Id_Programa \n" +
+                                      "FROM ((SELECT DISTINCT EquiposP.Id_Equipo, P.Id_Programa \n" +
+                                      "FROM (SELECT DISTINCT CP.Id_Equipo FROM Computador_Programa AS CP) AS EquiposP INNER JOIN (SELECT* FROM Programa";
+            if(programs.size() != 0){
+                consulta = consulta + " WHERE Id_Programa IN(";
+                for(int i = 0; i < programs.size(); i++){
+                    consulta = consulta + programs.get(i).getId();
+                    if(i != programs.size() - 1){
+                        consulta = consulta + ",";
+                    }
                 }
-            }
-            consulta = consulta + ");";
+                consulta = consulta + ")";
+            }         
+            consulta = consulta +      ") AS P) AS Todos\n" +
+                                       "LEFT JOIN Computador_Programa ON Computador_Programa.Id_Programa = Todos.Id_Programa AND Computador_Programa.Id_Equipo = Todos.Id_Equipo)\n" +
+                                       "WHERE Computador_Programa.Id_Programa IS NULL) AS SinRequest ON Computador_Programa.Id_Equipo = SinRequest.Id_Equipo\n" +
+                                  "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio\n" +
+                                  "WHERE C.Disponibilidad = 1";
+            System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
-
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 String[] fila = new String[4];
-                fila[0] = resultSet.getString(1);
+                
+                fila[0] = Integer.toString(resultSet.getInt(1));
                 fila[1] = resultSet.getString(2);
-                fila[2] = resultSet.getString(3);
+                fila[2] = Integer.toString(resultSet.getInt(3));
                 fila[3] = resultSet.getString(4);
                 informacion.add(fila);
+                System.out.println("FILA ES" + fila[0]+" "+fila[1]+" "+fila[2]+" "+fila[3]+"\n");
             }
 
             return informacion;
