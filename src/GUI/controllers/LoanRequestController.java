@@ -361,7 +361,7 @@ public class LoanRequestController implements Initializable {
         availableComputersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
+                if (click.getClickCount() == 1) {
                     idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
                     System.out.println("Id del computador seleccionado " + availableComputersTable.getSelectionModel().getSelectedItem().getId());
                 }

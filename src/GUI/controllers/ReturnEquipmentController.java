@@ -5,6 +5,8 @@
  */
 package GUI.controllers;
 
+import Control.RealizarDevolucion;
+import Entidad.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -20,6 +23,8 @@ import javafx.scene.text.Text;
  * @author ion
  */
 public class ReturnEquipmentController implements Initializable {
+    
+    Usuario user = SessionHolder.getInstance().getUser();
 
     @FXML
     private Button exitReturnBtn;
@@ -39,7 +44,14 @@ public class ReturnEquipmentController implements Initializable {
     }
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) {
-
+        RealizarDevolucion RD = new RealizarDevolucion();
+        if(RD.makeReturn(user)){
+            System.out.println("Se realizo la devolucion!");
+            Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            equipmentText.setText("Fallo en la devolucion");
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -73,37 +73,18 @@ public class StudentHomeController  implements Initializable{
         * se instancia una lista de programas con los seleccionados
         * se envian a las demas vistos por medio de un singleton LoanDataHolder.
          */
-        //Usuario u = sessionHolder.getInstance().getUser();
-        /*
         try {
-            LoanDataHolder holder = LoanDataHolder.getInstance();
-            //holder.setComputer(c);
-            holder.setUser(u);
-            holder.setPrograms(programList);
-
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 323, 421);
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 390, 490);
             Stage stagePop = new Stage();
-            stagePop.setTitle("Confirmar prestamo");
+            stagePop.setTitle("Confirmar devolucion");
             stagePop.setScene(scene);
             stagePop.showAndWait();
 
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
-        }*/
-        /*
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 390, 490);
-            Stage stage = new Stage();
-            stage.setTitle("Devolver prestamo");
-            stage.setScene(scene);
-            stage.showAndWait();
-        } catch (IOException e) {
-        }*/
-
+        }
     }
     
     @FXML

@@ -32,7 +32,9 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() +"' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + "AND Solicitud.Estado = 1");
+            String query = "SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() +"' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + " AND Solicitud.Estado = 1";
+            System.out.println(query);
+            resultSet = statement.executeQuery(query);
             id = resultSet.getInt(1);
             return id;
         } catch (SQLException ex) {
