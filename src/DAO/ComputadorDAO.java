@@ -213,7 +213,8 @@ public class ComputadorDAO {
             consulta = consulta +      ") AS P) AS Todos\n" +
                                        "LEFT JOIN Computador_Programa ON Computador_Programa.Id_Programa = Todos.Id_Programa AND Computador_Programa.Id_Equipo = Todos.Id_Equipo)\n" +
                                        "WHERE Computador_Programa.Id_Programa IS NULL) AS SinRequest ON Computador_Programa.Id_Equipo = SinRequest.Id_Equipo\n" +
-                                  "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio";
+                                  "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio\n" +
+                                  "WHERE C.Disponibilidad = 1";
             System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
