@@ -78,6 +78,7 @@ public class LoginController implements Initializable {
                 AdvertenciapLB.setVisible(true);
             }
         }
+        System.out.println(validar.getUsuario().getNombres());
     }
 
     @Override

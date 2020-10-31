@@ -4,6 +4,7 @@ import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
 import Entidad.Programa;
+import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -148,19 +149,34 @@ public class LoanRequestController implements Initializable {
     }
  
     @FXML
-    void AskLoanBtnAction(ActionEvent event) {   
+    void AskLoanBtnAction(ActionEvent event) {  
+        //Test data
+        Usuario u = new Usuario();
+        u.setNombres("Camilo Garcia");
+        Computador c = new Computador();
+        c.setSistemaOperativo("Debian");
+        ArrayList<Programa> programList = new ArrayList<>();
+        selectedProgramList.forEach(p->{
+            programList.add(p);
+        });
+         
+        
         int id = idComputerSelected;
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
+                
         try {
+            
+            LoanDataHolder holder = LoanDataHolder.getInstance();
+            holder.setComputer(c);
+            holder.setUser(u);
+            holder.setPrograms(programList);
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 323, 421);
             Stage stagePop = new Stage();
-            stage.setUserData(id);
-            stage.setTitle("Confirmar prestamo");
-            stage.setScene(scene);
-            stage.showAndWait();
+            stagePop.setTitle("Confirmar prestamo");
+            stagePop.setScene(scene);
+            stagePop.showAndWait();
             
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
