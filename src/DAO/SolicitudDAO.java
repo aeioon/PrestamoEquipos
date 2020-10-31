@@ -23,7 +23,7 @@ public class SolicitudDAO {
     static final String DB_PASSWD
             = "4waxA687";
 
-    public int getIdSolicitud(Solicitud solicitud){
+    public int getIdSolicitud(Solicitud solicitud) {
         int id = -1;
         Connection connection = null;
         Statement statement = null;
@@ -32,10 +32,12 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String query = "SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() +"' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + " AND Solicitud.Estado = 1";
+            String query = "SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() + "' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + " AND Solicitud.Estado = 1";
             System.out.println(query);
             resultSet = statement.executeQuery(query);
-            id = resultSet.getInt(1);
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
             return id;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -51,7 +53,7 @@ public class SolicitudDAO {
             }
         }
     }
-    
+
     public boolean VerifyInactivity(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
@@ -60,9 +62,9 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = '" + usuario.getId() +"'");
-            while(resultSet.next()){
-                if(resultSet.getInt(1) == 1){
+            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) == 1) {
                     return false;
                 }
             }
@@ -91,7 +93,7 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId()+"'");
+            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -108,15 +110,14 @@ public class SolicitudDAO {
 
     public boolean crear(Solicitud object) {
         System.out.println("Inicio de Funcion");
-        
+
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //String fecha = object.getFecha().format(formatter);
-
         Connection connection = null;
         Statement statement = null;
-        
+
         int resultSet;
-        
+
         System.out.println("AntesTry");
         try {
             resultSet = -1;
@@ -170,9 +171,9 @@ public class SolicitudDAO {
             }
         }
     }
-    
-    public String[] getInfo(Usuario user){
-        String[] datos = {"","","",""};
+
+    public String[] getInfo(Usuario user) {
+        String[] datos = {"", "", "", ""};
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -193,7 +194,7 @@ public class SolicitudDAO {
                 datos[2] = resultSet.getString(3);
                 datos[3] = Integer.toString(resultSet.getInt(4));
             }
-            
+
             return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
