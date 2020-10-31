@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -47,50 +49,52 @@ public class LoanRequestController implements Initializable {
     RealizarPrestamo RP = new RealizarPrestamo();
     
     public class ComputerRow {
-            String id;
-            String idEdifio;
-            String nombreEdificio;
-            String nombreSala;
+        public String id;
+        public String nombreEdificio;
+        public String idEdificio;
+        public String nombreSala;
 
-            ComputerRow(String id, String idEdifio, String nombreEdificio, String nombreSala) {
-                this.id =  id;
-                this.idEdifio = idEdifio;
-                this.nombreEdificio = nombreEdificio;
-                this.nombreSala = nombreSala;
-            }
+        public ComputerRow(String id, String nombreEdificio, String idEdificio, String nombreSala) {
+            this.id = id;
+            this.nombreEdificio = nombreEdificio;
+            this.idEdificio = idEdificio;
+            this.nombreSala = nombreSala;
+        }
 
-            public String getId() {
-                return id;
-            }
+        public String getId() {
+            return id;
+        }
 
-            public void setId(String id) {
-                this.id = id;
-            }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            public String getIdEdifio() {
-                return idEdifio;
-            }
+        public String getNombreEdificio() {
+            return nombreEdificio;
+        }
 
-            public void setIdEdifio(String idEdifio) {
-                this.idEdifio = idEdifio;
-            }
+        public void setNombreEdificio(String nombreEdificio) {
+            this.nombreEdificio = nombreEdificio;
+        }
 
-            public String getNombreEdificio() {
-                return nombreEdificio;
-            }
+        public String getIdEdificio() {
+            return idEdificio;
+        }
 
-            public void setNombreEdificio(String nombreEdificio) {
-                this.nombreEdificio = nombreEdificio;
-            }
+        public void setIdEdificio(String idEdificio) {
+            this.idEdificio = idEdificio;
+        }
 
-            public String getNombreSala() {
-                return nombreSala;
-            }
+        public String getNombreSala() {
+            return nombreSala;
+        }
 
-            public void setNombreSala(String nombreSala) {
-                this.nombreSala = nombreSala;
-            }
-            
+        public void setNombreSala(String nombreSala) {
+            this.nombreSala = nombreSala;
+        }
+        
+        
+        
         }
     
     @FXML private TextField searchProgramTF;
@@ -109,8 +113,9 @@ public class LoanRequestController implements Initializable {
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
     
-    //Buscador de programas
+    private int idComputerSelected;
     
+    //Buscador de programas
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b->true);
     public void searchProgram() {
         
@@ -144,9 +149,23 @@ public class LoanRequestController implements Initializable {
  
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
-        
-        //lanzar popUp de confirmacion
- 
+          
+        int id = idComputerSelected;
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 323, 421);
+            Stage stagePop = new Stage();
+            stage.setUserData(id);
+            stage.setTitle("Confirmar prestamo");
+            stage.setScene(scene);
+            stage.showAndWait();
+            
+        } catch (IOException e) {
+            System.err.println(String.format("Error: %s", e.getMessage()));
+        }
     }
     
     @FXML
@@ -158,44 +177,58 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
     
-    
     void insertComputers(){
         
+        /*Solamente llena tabla de computadores.
+         *crea columnas y selecciona el atributo de Programa
+        
+        */
+        TableColumn computerIdCol = new TableColumn("Id");
+        computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
+        TableColumn IdEdificioCol = new TableColumn("Id Edificio");
+        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
+        TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
+        nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+        
+        //asigna la lista de items y las columnas a la TableView
+        
+        availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        availableComputersTable.getColumns().addAll(computerIdCol, nombreEdificioCol, IdEdificioCol, nombreSalaCol);
+        availableComputersTable.setItems(computerList);
+    }
+    
+    @FXML
+    void searchProgramBtnAction(ActionEvent event) {
+        
+        computerList.clear();
+        availableComputersTable.refresh();
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(p->{
             selectedProgramArr.add(p);
         });
          
         ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
-           
+        
+        
+        ComputerRow test = new ComputerRow("357", "NombreTest", "IdEdificioo", "nombreSalaTest");
+        computerList.add(test);
+        System.out.println(test.getId()+" "+ test.getIdEdificio()+" "+test.getIdEdificio()+" "+test.getNombreSala());
+        
         availableComputersInfo.forEach(computer -> {
+            System.out.println(computer[0]+""+ computer[1]+ ""+ computer[2]+""+ computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if(!computerList.contains(temp)){
                 computerList.add(temp);
             }
         });
-        selectedProgramsTable.refresh();
         
-        //crea columnas y selecciona el atributo de Programa
-        TableColumn computerIdCol = new TableColumn("Id");
-        computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn IdEdificioCol = new TableColumn("Edificio");
-        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("IdEdificio"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
-        TableColumn nombreSalaCol = new TableColumn("Nombre Sala");
-        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+        availableComputersTable.refresh();
         
-        //asigna la lista de items y las columnas a la TableView
         
-        availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        availableComputersTable.setItems(computerList);
-        availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
-    }
-    
-    @FXML
-    void searchProgramBtnAction(ActionEvent event) {
-        
+        /* 
+         * Codigo para actualizar la tabla de computadores instanteneamente tras seleccionar los programas.
         selectedProgramList.addListener(new ListChangeListener<Programa>() {
             @Override
             public void onChanged(javafx.collections.ListChangeListener.Change<? extends Programa> pChange) {
@@ -205,32 +238,7 @@ public class LoanRequestController implements Initializable {
                 availableComputersTable.setItems(computerList);
                 availableComputersTable.refresh();   
             }
-        });
-        
-        selectedProgramsTable.refresh();
-        
-        /* Mover de OnChanged, toca modificar.
-        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
-        selectedProgramList.forEach(program->{
-            selectedProgramArr.add(program);
-        });
-
-        
-        ArrayList<String[]> availableComputersInfo = new ArrayList<>();
-        
-
-        availableComputersInfo.forEach(computer -> {
-            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]));
-        });    
-         
-        availableComputersInfo.forEach(computer -> {
-            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
-            if(!computerList.contains(temp)){
-                computerList.add(temp);
-            }
-        });
-        selectedProgramsTable.refresh();
-        */
+        }); */
     }
     
     void addProgram(Programa p){
@@ -248,7 +256,7 @@ public class LoanRequestController implements Initializable {
             initActions();
         }    
     }
-
+    
     @FXML
     void userInfoBtnAction(ActionEvent event) {}
 
@@ -288,15 +296,16 @@ public class LoanRequestController implements Initializable {
         selectedProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
     }
     
-    
-    public void searchComputers() {   
-    }
-    
     void initActions(){
+        
+        /*
+         *Cumplen la misma función que las flechas, se mantienen por usabilidad.
+        */
+        
         availableProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent click) {
-                if(click.getClickCount()==2){
+                if(click.getClickCount() == 2){
                     System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
                     Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
                     addProgram(programSelected);
@@ -307,47 +316,35 @@ public class LoanRequestController implements Initializable {
         selectedProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent click) {
-                if(click.getClickCount()==2){
+                if(click.getClickCount() == 2){
                     System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
                     Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
                     unselectProgram(programSelected);
                 }
             }
-        });    
-        
-        /*
-        availableProgramsTable.setOnMouseClicked((MouseEvent click) -> {
-            if(click.getButton() == MouseButton.SECONDARY){
-                ContextMenu contextMenu = new ContextMenu();
-                MenuItem item1 = new MenuItem("MenuItem1");
-                item1.setOnAction((ActionEvent event) -> {
-                    
-                });
-                MenuItem item2 = new MenuItem("MenuItem2");
-                item2.setOnAction((ActionEvent event) -> {
-
-                });
-                contextMenu.getItems().addAll(item1, item2);
-                 availableProgramsTable.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-                        @Override
-                        public void handle(ContextMenuEvent event) {
-                            contextMenu.show(availableProgramsTable, event.getScreenX(), event.getScreenY());
-                        }
-                    });
+        }); 
+  
+        availableComputersTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent click) {
+                if(click.getClickCount() == 2){
+                    idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                    System.out.println("Id del computador seleccionado "+ availableComputersTable.getSelectionModel().getSelectedItem().getId());
                 }
             }
-        );
-        */
+        });
+
     }
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //reemplazar por initData();
+        
+        //reemplazar por initData();    
         insertAvailablePrograms();
         insertSelectedPrograms();
-        insertComputers();
-        searchComputers();
         initActions();
+        insertComputers();
         searchProgram();
-    }       
+
+
+    }
 }

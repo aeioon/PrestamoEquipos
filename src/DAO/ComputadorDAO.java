@@ -147,31 +147,40 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Id_sala, SO.Estado\n" +
-                    "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo)\n" +
-                    "INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n" +
-                    "INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n" +
-                    "INNER JOIN Solicitud AS SO ON C.Id_Equipo = SO.ComputadorId_Equipo)" +
-                    "WHERE SO.Estado = 0";
-            if(programs.size() != 0){
-                consulta = consulta + "AND CP.Id_Programa IN(";
-            }
-            for (int i = 0; i < programs.size(); i++) {
-                consulta = consulta + programs.get(i).getId();
-                if (i != (programs.size() - 1)) {
-                    consulta = consulta + ",";
+            String consulta = "SELECT DISTINCT C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Id_sala\n"
+                    + "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
+                    + "	INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n"
+                    + "	INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n"
+                    + "WHERE  C.Disponibilidad = 1";
+            if (programs.size() != 0) {
+                for (int i = 0; i < programs.size(); i++) {
+                    consulta = consulta + " AND CP.Id_Programa = " + programs.get(i).getId();
+                    if (i != (programs.size() - 1)) {
+                        consulta = consulta + " AND C.Id_Equipo IN(\n"
+                                + "SELECT DISTINCT C.Id_Equipo\n"
+                                + "FROM (((Computador_Programa AS CP INNER JOIN Computador AS C ON CP.Id_Equipo = C.Id_Equipo) \n"
+                                + "	INNER JOIN Sala AS SA ON C.SalaId_sala = SA.Id_sala) \n"
+                                + "	INNER JOIN Edificio AS E ON SA.EdificioId_Edificio = E.Id_Edificio) \n"
+                                + "WHERE  C.Disponibilidad = 1";
+                    }
                 }
-            }
-            consulta = consulta + ");";
+                for (int i = 0; i < programs.size()-1; i++) {
+                    consulta = consulta + ")";
+                }                
+            } 
+            consulta = consulta + ";";
+
             resultSet = statement.executeQuery(consulta);
 
             while(resultSet.next()){
                 String[] fila = new String[4];
-                fila[0] = resultSet.getString(1);
+                
+                fila[0] = Integer.toString(resultSet.getInt(1));
                 fila[1] = resultSet.getString(2);
-                fila[2] = resultSet.getString(3);
+                fila[2] = Integer.toString(resultSet.getInt(3));
                 fila[3] = resultSet.getString(4);
                 informacion.add(fila);
+                System.out.println(fila[0]+" "+fila[1]+" "+fila[2]+" "+fila[3]+"\n");
             }
 
             return informacion;
