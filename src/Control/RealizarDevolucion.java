@@ -8,18 +8,24 @@ import Entidad.Usuario;
 import java.util.ArrayList;
 
 public class RealizarDevolucion {
-    
-    SolicitudDAO SolicitudDao = new SolicitudDAO();
-    
+
+    SolicitudDAO solicitudDao = new SolicitudDAO();
+    String infoReturn = "";
+
     public RealizarDevolucion() {
     }
-    
-    public String makeReturn(Usuario usuario) {        
-        if(!SolicitudDao.ChangeRequestStatus(usuario)){
-            return "Error en la devolución del equipo";
-        }else{
-            return SolicitudDao.getInfo(usuario);
-        }        
+
+    public boolean makeReturn(Usuario usuario) {
+        if (solicitudDao.VerifyInactivity(usuario)) {
+            infoReturn = solicitudDao.getInfo(usuario);
+            if (solicitudDao.ChangeRequestStatus(usuario)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
-    
+
 }

@@ -13,8 +13,8 @@ public class ValidarLogin {
     
     public boolean verificarLogin(Usuario usuario){
         if(usuarioDao.leer(usuario)){
-            System.out.println("Bienvenido");
             this.usuario = usuario;
+            System.out.println("Bienvenido");
             return true;
         }else{
             System.out.println("Datos incorrectos");
