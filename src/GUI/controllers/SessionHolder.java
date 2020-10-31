@@ -12,10 +12,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Camilo
+ * @author ion
  */
 public class SessionHolder {
 
+    private Usuario user;
     private SessionHolder() {}
     
     private static SessionHolder holder = new SessionHolder();
@@ -23,6 +24,21 @@ public class SessionHolder {
     public static SessionHolder getInstance() {
         return holder;
     }
-    
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
+    public static SessionHolder getHolder() {
+        return holder;
+    }
+
+    public static void setHolder(SessionHolder holder) {
+        SessionHolder.holder = holder;
+    } 
 }
 

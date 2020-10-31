@@ -27,10 +27,10 @@ public class ConfirmRequestController implements Initializable {
     @FXML private Button cancelRequestBtn;
     @FXML private Button loanBtn;
     
-    LoanDataHolder holder = LoanDataHolder.getInstance();
-    Usuario u = holder.getUser();
-    Computador c = holder.getComputer();
-    ArrayList<Programa> p = holder.getPrograms();
+    LoanDataHolder loanHolder = LoanDataHolder.getInstance();
+    Usuario u = SessionHolder.getInstance().getUser();
+    Computador c = loanHolder.getComputer();
+    ArrayList<Programa> p = loanHolder.getPrograms();
         
     int idSelected;
 
