@@ -21,10 +21,11 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario) {
         if (!solicitudDao.VerifyInactivity(usuario)) {
-            infoIdEquipo = solicitudDao.getInfo(usuario)[0];
-            infoIdEdificio = solicitudDao.getInfo(usuario)[1];
-            infoNombreEdificio = solicitudDao.getInfo(usuario)[2];
-            infoCodigoSala = solicitudDao.getInfo(usuario)[3];
+            String[] datos = solicitudDao.getInfo(usuario);    
+            infoIdEquipo = datos[0];
+            infoIdEdificio = datos[1];
+            infoNombreEdificio = datos[2];
+            infoCodigoSala = datos[3];
             if (solicitudDao.ChangeRequestStatus(usuario)) {                
                 computadroDao.freeComputer(Integer.parseInt(infoIdEquipo));
                 return true;
@@ -35,5 +36,37 @@ public class RealizarDevolucion {
             return false;
         }
     }
+    
+     public String getInfoIdEquipo() {
+        return infoIdEquipo;
+    }
 
+    public void setInfoIdEquipo(String infoIdEquipo) {
+        this.infoIdEquipo = infoIdEquipo;
+    }
+
+    public String getInfoIdEdificio() {
+        return infoIdEdificio;
+    }
+
+    public void setInfoIdEdificio(String infoIdEdificio) {
+        this.infoIdEdificio = infoIdEdificio;
+    }
+
+    public String getInfoNombreEdificio() {
+        return infoNombreEdificio;
+    }
+
+    public void setInfoNombreEdificio(String infoNombreEdificio) {
+        this.infoNombreEdificio = infoNombreEdificio;
+    }
+
+    public String getInfoCodigoSala() {
+        return infoCodigoSala;
+    }
+
+    public void setInfoCodigoSala(String infoCodigoSala) {
+        this.infoCodigoSala = infoCodigoSala;
+    }
+    
 }

@@ -48,7 +48,8 @@ public class LoanRequestController implements Initializable {
     //quizas metodo estatico
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
-
+    SessionHolder sessionHolder = SessionHolder.getInstance();
+    
     public class ComputerRow {
 
         public String id;
@@ -170,8 +171,8 @@ public class LoanRequestController implements Initializable {
         * se instancia una lista de programas con los seleccionados
         * se envian a las demas vistos por medio de un singleton LoanDataHolder.
          */
-        Usuario u = new Usuario();
-        u.setId("1");
+        
+        Usuario u = sessionHolder.getUser();
         Computador c = new Computador();
         c.setId(idComputerSelected);
         ArrayList<Programa> programList = new ArrayList<>();
@@ -179,10 +180,10 @@ public class LoanRequestController implements Initializable {
             programList.add(p);
         });
 
-        int id = idComputerSelected;
         if (idComputerSelected != 0) {
             try {
                 LoanDataHolder holder = LoanDataHolder.getInstance();
+                
                 holder.setComputer(c);
                 holder.setUser(u);
                 holder.setPrograms(programList);

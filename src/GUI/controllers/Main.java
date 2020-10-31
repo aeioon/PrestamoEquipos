@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Control.RealizarDevolucion;
 import Control.RealizarPrestamo;
 import Entidad.Computador;
 import Entidad.Programa;
@@ -22,25 +23,31 @@ public class Main extends Application  {
         launch(args);
     }
     
-    void testBorrow(){
+    void testBorrow(String userId, int computerId){
         Usuario u = new Usuario();
-        u.setId("dbustos");
+        u.setId(userId);
         Computador c = new Computador();
-        c.setId(2);
+        c.setId(computerId);
         ArrayList<Programa> p = new ArrayList<>();
+        p.add(new Programa(1, "NetBeans", "8.2"));
         RealizarPrestamo RP = new RealizarPrestamo();
         System.out.println(RP.makeBorrow(u, c, p));
     }
     
     void testReturn(){
-        
+        Usuario u = new Usuario();
+        u.setId("dbustos");
+        RealizarDevolucion RD = new RealizarDevolucion();
+        System.out.println(RD.makeReturn(u));
+        System.out.println(RD.getInfoIdEquipo()+" "+RD.getInfoIdEdificio()+" "+RD.getInfoCodigoSala()+" "+RD.getInfoNombreEdificio());
     }
     
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        testBorrow();
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/loanRequest.fxml"));
+        testReturn();
+        testBorrow("dbustos", 1);
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Prestamo de equipos de computo");

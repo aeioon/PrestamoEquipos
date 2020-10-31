@@ -62,7 +62,7 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = " + usuario.getId());
+            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId()+"'");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -151,17 +151,20 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, SA.Id_Sala"
-                    + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)"
-                    + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala"
-                    + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio"
-                    + " WHERE S.UsuarioID_Usuario = " + user.getId() + " AND S.Estado = 1");
+            String consulta = "SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, SA.Id_Sala\n"
+                    + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)\n"
+                    + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala)\n"
+                    + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
+                    + " WHERE S.UsuarioID_Usuario = '" + user.getId() + "' AND S.Estado = 1\n";
+            System.out.println(consulta);
+            resultSet = statement.executeQuery(consulta);
             if (resultSet.next()) {
                 datos[0] = Integer.toString(resultSet.getInt(1));
                 datos[1] = Integer.toString(resultSet.getInt(2));
                 datos[2] = resultSet.getString(3);
                 datos[3] = Integer.toString(resultSet.getInt(4));
             }
+            
             return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

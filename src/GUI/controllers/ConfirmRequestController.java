@@ -37,7 +37,7 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
         RealizarDevolucion RD = new RealizarDevolucion();
-        //Llamar devolucion para hacer prueba      
+        RD.makeReturn(u);
     }
 
     @FXML
@@ -47,7 +47,11 @@ public class ConfirmRequestController implements Initializable {
     
     }
     void printData(){
-        System.out.println("Id de usuario es "+u.getId()+" del computador es "+c.getId()+ " Lista de programas "+p.toString());    
+        System.out.println("Id de usuario es "+u.getId()+" del computador es "+c.getId()+ " Lista de programas ");
+        p.forEach(program-> {
+            System.out.println(program.getNombre());
+        });
+        
     }
 
     @Override
