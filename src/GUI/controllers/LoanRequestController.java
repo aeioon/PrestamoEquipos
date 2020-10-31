@@ -160,16 +160,20 @@ public class LoanRequestController implements Initializable {
     
     void insertComputers(){
         
-        /*
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(p->{
             selectedProgramArr.add(p);
         });
-        CC1.getInfoComputadores(selectedProgramArr)
-        CC1.getInfoComputadores(selectedProgramArr).forEach(p -> {
-            computerList.add(p);
-        });  
-        */
+         
+        ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
+           
+        availableComputersInfo.forEach(computer -> {
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if(!computerList.contains(temp)){
+                computerList.add(temp);
+            }
+        });
+        selectedProgramsTable.refresh();
         
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
@@ -187,6 +191,7 @@ public class LoanRequestController implements Initializable {
         availableComputersTable.setItems(computerList);
         availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
     }
+    
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
         
@@ -197,23 +202,14 @@ public class LoanRequestController implements Initializable {
             selectedProgramArr.add(program);
         });
 
-        //Hacerlo con funcion de control  = CC1.();
+        
         ArrayList<String[]> availableComputersInfo = new ArrayList<>();
-        String test [] = new String [4];  
-        test [0] = "texto1";
-        test [1] = "texto2";
-        test [2] = "texto3";
-        test [3] = "texto4";
         
-        /* descomentar para probar
+
         availableComputersInfo.forEach(computer -> {
-            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]));
         });    
-        */
-        
-        //test
-        availableComputersInfo.add(test);
-        
+         
         availableComputersInfo.forEach(computer -> {
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if(!computerList.contains(temp)){

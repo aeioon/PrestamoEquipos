@@ -30,9 +30,7 @@ public class RealizarPrestamo {
 
     public ArrayList<String[]> getInfoComputers(ArrayList<Programa> programs) {
         ArrayList<String[]> computadores = new ArrayList<>();
-        if (programs.size() != 0) {
-            computadores = computadorDao.getInfoComputersAvailable(programs);
-        }
+        computadores = computadorDao.getInfoComputersAvailable(programs);
         return computadores;
     }
 
