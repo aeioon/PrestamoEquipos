@@ -12,6 +12,6 @@
    <children>
       <Button fx:id="cancelRequestBtn" layoutX="48.0" layoutY="349.0" mnemonicParsing="false" onAction="#cancelRequestBtnAction" prefHeight="37.0" prefWidth="92.0" text="DevolucionTest" />
       <Button fx:id="loanBtn" layoutX="181.0" layoutY="349.0" mnemonicParsing="false" onAction="#loanBtnAction" prefHeight="37.0" prefWidth="92.0" text="SolicitarTest" />
-      <Text layoutX="94.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion y Calendario" />
+      <Text fx:id="message" layoutX="139.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mensaje" />
    </children>
 </AnchorPane>

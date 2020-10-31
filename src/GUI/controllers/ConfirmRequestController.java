@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -33,18 +34,32 @@ public class ConfirmRequestController implements Initializable {
     ArrayList<Programa> p = loanHolder.getPrograms();
         
     int idSelected;
+    
+    @FXML
+    private Text message;
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
         RealizarDevolucion RD = new RealizarDevolucion();
-        RD.makeReturn(u);
+        if(RD.makeReturn(u)){
+            System.out.println("Se realizo la devolucion!");
+            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            message.setText("Fallo devolucion");
+        }
     }
 
     @FXML
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
-        RP.makeBorrow(u, c, p);
-    
+        if(RP.makeBorrow(u, c, p)){
+            System.out.println("Se realizo el prestamo!");
+            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            message.setText("Fallo el prestamo");
+        }
     }
     void printData(){
         System.out.println("Id de usuario es "+u.getId()+" del computador es "+c.getId()+ " Lista de programas ");
