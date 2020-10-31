@@ -34,16 +34,22 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
+    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {        
         if (solicitudDao.VerifyInactivity(usuario)) {
             Solicitud solicitud = new Solicitud();
             solicitud.setUsuario(usuario);
-            solicitud.setComputador(computer);            
-            for (int i = 0; i < programs.size(); i++) {
-                programaSolicitudDao.crear(programs.get(i), solicitud);
+            solicitud.setComputador(computer);
+            boolean seCreo = solicitudDao.crear(solicitud);
+            if (seCreo) {
+                //computadorDao
+                for (int i = 0; i < programs.size(); i++) {
+                    programaSolicitudDao.crear(programs.get(i), solicitud);
+                }
+                return true;
+            } else {
+                return false;
             }
-            return solicitudDao.crear(solicitud);
         }
-        return false;        
+        return false;
     }
 }

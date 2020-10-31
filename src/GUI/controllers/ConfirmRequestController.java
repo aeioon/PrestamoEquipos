@@ -1,5 +1,7 @@
 package GUI.controllers;
 
+import Control.RealizarDevolucion;
+import Control.RealizarPrestamo;
 import Entidad.Computador;
 import Entidad.Programa;
 import Entidad.Usuario;
@@ -25,28 +27,32 @@ public class ConfirmRequestController implements Initializable {
     @FXML private Button cancelRequestBtn;
     @FXML private Button loanBtn;
     
-    
+    LoanDataHolder holder = LoanDataHolder.getInstance();
+    Usuario u = holder.getUser();
+    Computador c = holder.getComputer();
+    ArrayList<Programa> p = holder.getPrograms();
+        
     int idSelected;
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        LoanDataHolder holder = LoanDataHolder.getInstance();
-        Usuario u = holder.getUser();
-        Computador c = holder.getComputer();
-        ArrayList<Programa> p = holder.getPrograms();
-        
-        System.out.println("El usuariop es "+u.getNombres()+" el SO del computador es "+c.getSistemaOperativo()+ " Lista de programas "+p.toString());
+        RealizarDevolucion RD = new RealizarDevolucion();
+        //Llamar devolucion para hacer prueba      
     }
-    
-    @FXML
-    void receiveData(MouseEvent event) {}
 
     @FXML
-    void loanBtnAction(ActionEvent event) {}
+    void loanBtnAction(ActionEvent event) {
+        RealizarPrestamo RP = new RealizarPrestamo();
+        RP.makeBorrow(u, c, p);
+    
+    }
+    void printData(){
+        System.out.println("Id de usuario es "+u.getId()+" del computador es "+c.getId()+ " Lista de programas "+p.toString());    
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        printData();
     }
 
 }

@@ -1,5 +1,10 @@
 package GUI.controllers;
 
+import Control.RealizarPrestamo;
+import Entidad.Computador;
+import Entidad.Programa;
+import Entidad.Usuario;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +21,22 @@ public class Main extends Application  {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    void testBorrow(){
+        Usuario u = new Usuario();
+        u.setId("dbustos");
+        Computador c = new Computador();
+        c.setId(1);
+        ArrayList<Programa> p = new ArrayList<>();
+        RealizarPrestamo RP = new RealizarPrestamo();
+        
+        RP.makeBorrow(u, c, p); 
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
+        testBorrow();
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/loanRequest.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Prestamo de equipos de computo");

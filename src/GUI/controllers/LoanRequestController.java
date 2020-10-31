@@ -150,11 +150,17 @@ public class LoanRequestController implements Initializable {
  
     @FXML
     void AskLoanBtnAction(ActionEvent event) {  
-        //Test data
+        /*
+        * data para test
+        * se testea con el usuario de id 1
+        * se instancia un computador con la id del computador seleccinoado
+        * se instancia una lista de programas con los seleccionados
+        * se envian a las demas vistos por medio de un singleton LoanDataHolder.
+        */
         Usuario u = new Usuario();
-        u.setNombres("Camilo Garcia");
+        u.setId("1");
         Computador c = new Computador();
-        c.setSistemaOperativo("Debian");
+        c.setId(idComputerSelected);
         ArrayList<Programa> programList = new ArrayList<>();
         selectedProgramList.forEach(p->{
             programList.add(p);

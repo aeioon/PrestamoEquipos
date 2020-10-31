@@ -31,7 +31,7 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = " + usuario.getId());
+            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = '" + usuario.getId() +"'");
             while(resultSet.next()){
                 if(resultSet.getInt(1) == 1){
                     return false;
@@ -78,18 +78,25 @@ public class SolicitudDAO {
     }
 
     public boolean crear(Solicitud object) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String fecha = object.getFecha().format(formatter);
+        System.out.println("Inicio de Funcion");
+        
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //String fecha = object.getFecha().format(formatter);
 
         Connection connection = null;
         Statement statement = null;
+        
         int resultSet;
+        
+        System.out.println("AntesTry");
         try {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
+            System.out.println("AntesUpdate");
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
-                    + fecha + "'," + object.getComputador() + ",'" + object.getUsuario() + "'," + 1 + ")");
+                    + "2020-05-02 10:10:10" + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
+            System.out.println("despuesUpdate");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
