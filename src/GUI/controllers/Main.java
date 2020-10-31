@@ -29,13 +29,18 @@ public class Main extends Application  {
         c.setId(1);
         ArrayList<Programa> p = new ArrayList<>();
         RealizarPrestamo RP = new RealizarPrestamo();
-        
-        RP.makeBorrow(u, c, p); 
+        System.out.println(RP.makeBorrow(u, c, p));
     }
+    
+    void testReturn(){
+        
+    }
+    
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
+        //testBorrow();
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/loanRequest.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Prestamo de equipos de computo");

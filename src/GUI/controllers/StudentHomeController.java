@@ -65,6 +65,8 @@ public class StudentHomeController  implements Initializable{
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
+        
+        
         //cambio
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
