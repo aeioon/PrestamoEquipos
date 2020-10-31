@@ -11,8 +11,10 @@ public class ValidarLogin {
     }
     
     public boolean verificarLogin(Usuario usuario){
+        System.out.println("Usuario:" + usuario.getId());
+        System.out.println("Contraseña:" + usuario.getConstraseña());
         if(usuarioDao.leer(usuario)){
-            System.out.println("Bienvenido");
+            System.out.println("Datos correctos, Bienvenido");
             return true;
         }else{
             System.out.println("Datos incorrectos");

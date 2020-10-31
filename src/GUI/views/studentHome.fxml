@@ -12,13 +12,22 @@
 
 <AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="680.0" prefWidth="1000.0" stylesheets="@../style/studenthome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.StudentHomeController">
    <children>
-      <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
               <Button styleClass="git-button" />
-            <AnchorPane prefHeight="28.0" prefWidth="1000.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="91.0" prefWidth="1283.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="escudoBlanco" layoutX="1092.0" prefHeight="91.0" prefWidth="197.0" />
+               </children></AnchorPane>
          </bottom>
-         <center>
-            <AnchorPane prefHeight="509.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <top>
+         
+         </top>
+         <top>
+            <fx:include fx:id="header" source="sections/header.fxml" />
+         </top>
+         <left>
+            <AnchorPane prefHeight="628.0" prefWidth="1283.0" style="-fx-background-color: #f0f0f0;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="#91b33b" layoutX="494.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al sistema de préstamo de equipos de la Facultad de Ingeniería de la Universidad Nacional de Colombia" textAlignment="CENTER" wrappingWidth="584.80859375">
                      <font>
@@ -27,9 +36,9 @@
                   </Text>
                   <VBox layoutX="200.0" layoutY="88.0" prefHeight="349.0" prefWidth="238.0">
                      <children>
-                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="80.0" prefWidth="250.0" text="Solicitar un prestamo">
+                        <Button fx:id="requestLoanBtn" mnemonicParsing="false" onAction="#requestLoanBtnAction" prefHeight="87.0" prefWidth="238.0" style="-fx-background-color: #565a5c;" text="Solicitar un prestamo" textFill="WHITE">
                            <font>
-                              <Font size="13.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                            <graphic>
                               <Label fx:id="iconTest" />
@@ -39,18 +48,18 @@
                            </cursor>
                         </Button>
                         <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
-                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="80.0" prefWidth="250.0" text="Devolver Equipo">
+                        <Button fx:id="returnEquiBtn" mnemonicParsing="false" onAction="#returnEquiBtnAction" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #565a5c;" text="Devolver Equipo" textFill="WHITE">
                            <font>
-                              <Font size="13.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
                         <Separator disable="true" opacity="0.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="1.0" />
-                        <Button fx:id="faqBtn" mnemonicParsing="false" onAction="#faqBtnAction" prefHeight="80.0" prefWidth="250.0" text="Preguntas Frecuentes">
+                        <Button fx:id="faqBtn" mnemonicParsing="false" onAction="#faqBtnAction" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #565a5c;" text="Preguntas Frecuentes" textFill="WHITE">
                            <font>
-                              <Font size="13.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -60,13 +69,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-         </center>
-         <top>
-         
-         </top>
-         <top>
-            <fx:include fx:id="header" source="sections/header.fxml" />
-         </top>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>

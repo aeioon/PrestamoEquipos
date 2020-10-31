@@ -52,6 +52,9 @@ public class StudentHomeController  implements Initializable{
     private Button faqBtn;
     
     @FXML
+    private Label escudoBlanco;
+    
+    @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
         changeScene(event, "/GUI/views/loanRequest.fxml");
     }
@@ -62,9 +65,10 @@ public class StudentHomeController  implements Initializable{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 390, 490);
+            Scene scene = new Scene(fxmlLoader.load(), 300, 300);
             Stage stage = new Stage();
             stage.setTitle("Devolver prestamo");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
             stage.setScene(scene);
             stage.showAndWait();
         } catch (IOException e) {
@@ -77,6 +81,7 @@ public class StudentHomeController  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
     }
 
 }

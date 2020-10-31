@@ -4,7 +4,6 @@ import Control.ValidarLogin;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,7 +20,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -32,13 +32,12 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
     
-
-    @FXML
-    private Label escudolb;
+     @FXML
+    private BorderPane panelPrincipal;
 
     @FXML
     private Text logoAppLogin;
-    
+
     @FXML
     private TextField userLoginTF;
 
@@ -59,6 +58,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private Button loginBtn;
+
+    @FXML
+    private Pane panelLogin;
+
+    @FXML
+    private Label escudolb;
     
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
@@ -68,6 +73,7 @@ public class LoginController implements Initializable {
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
             if (validar.verificarLogin(usuario)) {
+                Main.setUsuarioLogueado(usuario);
                 Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -89,7 +95,7 @@ public class LoginController implements Initializable {
 
         AdvertenciapLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
         AdvertenciausLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
-        escudolb.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Escudo_color_200.png"))));
+        escudolb.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Escudo_color.png"))));
         userLogoLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/user.png"))));
         lockLogoLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/lock.png"))));
 
