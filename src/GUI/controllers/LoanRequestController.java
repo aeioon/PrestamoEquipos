@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -52,7 +53,7 @@ public class LoanRequestController implements Initializable {
             String nombreSala;
 
             ComputerRow(String id, String idEdifio, String nombreEdificio, String nombreSala) {
-                this.id = id;
+                this.id =  id;
                 this.idEdifio = idEdifio;
                 this.nombreEdificio = nombreEdificio;
                 this.nombreSala = nombreSala;
@@ -112,6 +113,7 @@ public class LoanRequestController implements Initializable {
     
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b->true);
     public void searchProgram() {
+        
         searchProgramTF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPrograms.setPredicate(programa -> {
                 String lowerCaseFilter = newValue.toLowerCase();
@@ -144,8 +146,7 @@ public class LoanRequestController implements Initializable {
     void AskLoanBtnAction(ActionEvent event) {
         
         //lanzar popUp de confirmacion
-        
-        
+ 
     }
     
     @FXML
@@ -159,17 +160,6 @@ public class LoanRequestController implements Initializable {
     
     
     void insertComputers(){
-        
-        /*
-        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
-        selectedProgramList.forEach(p->{
-            selectedProgramArr.add(p);
-        });
-        CC1.getInfoComputadores(selectedProgramArr)
-        CC1.getInfoComputadores(selectedProgramArr).forEach(p -> {
-            computerList.add(p);
-        });  
-        */
         
         //crea columnas y selecciona el atributo de Programa
         TableColumn computerIdCol = new TableColumn("Id");
@@ -187,11 +177,25 @@ public class LoanRequestController implements Initializable {
         availableComputersTable.setItems(computerList);
         availableComputersTable.getColumns().addAll(computerIdCol, IdEdificioCol, nombreEdificioCol, nombreSalaCol);
     }
+    
+    
+    FilteredList<ComputerRow> filteredComputers = new FilteredList<>(computerList, b->true);
     @FXML
     void searchProgramBtnAction(ActionEvent event) {
         
-        //Se instancia un arrayList de programas y se llena con los programas seleccionados 
+        selectedProgramList.addListener(new ListChangeListener<Programa>() {
+            @Override
+            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Programa> pChange) {
+
+                ComputerRow test = new ComputerRow("1", "texto1", "textto2", "texto3");
+                computerList.add(test);
+                availableComputersTable.setItems(computerList);
+                availableComputersTable.refresh();   
+            }
+        });
         
+        selectedProgramsTable.refresh();
+        /*
         ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(program->{
             selectedProgramArr.add(program);
@@ -205,13 +209,14 @@ public class LoanRequestController implements Initializable {
         test [2] = "texto3";
         test [3] = "texto4";
         
+        
         /* descomentar para probar
         availableComputersInfo.forEach(computer -> {
             computerList.add(new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
         });    
         */
         
-        //test
+        /*
         availableComputersInfo.add(test);
         
         availableComputersInfo.forEach(computer -> {
@@ -221,6 +226,7 @@ public class LoanRequestController implements Initializable {
             }
         });
         selectedProgramsTable.refresh();
+        */
     }
     
     void addProgram(Programa p){
@@ -264,6 +270,7 @@ public class LoanRequestController implements Initializable {
     }
     
     void insertSelectedPrograms(){
+        
         //crea columnas y selecciona el atributo de Programa
         TableColumn programIdCol = new TableColumn("Id");
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -275,6 +282,10 @@ public class LoanRequestController implements Initializable {
         selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         selectedProgramsTable.setItems(selectedProgramList);
         selectedProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+    }
+    
+    
+    public void searchComputers() {   
     }
     
     void initActions(){
@@ -327,9 +338,11 @@ public class LoanRequestController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //reemplazar por initData();
         insertAvailablePrograms();
         insertSelectedPrograms();
         insertComputers();
+        searchComputers();
         initActions();
         searchProgram();
     }       
