@@ -3,21 +3,28 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="272.0" minWidth="390.0" prefHeight="272.0" prefWidth="435.0" stylesheets="@../style/returnequipment.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ReturnEquipmentController">
+<AnchorPane minHeight="272.0" minWidth="390.0" prefHeight="200.0" prefWidth="300.0" stylesheets="@../style/returnequipment.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ReturnEquipmentController">
    <children>
       <BorderPane prefHeight="259.0" prefWidth="503.0" AnchorPane.bottomAnchor="231.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-113.0" AnchorPane.topAnchor="0.0">
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <AnchorPane layoutX="32.0" layoutY="166.0" prefHeight="77.0" prefWidth="371.0">
+      <AnchorPane layoutX="10.0" layoutY="161.0" prefHeight="77.0" prefWidth="371.0">
          <children>
-            <Button fx:id="exitReturnBtn" layoutX="40.0" layoutY="21.0" mnemonicParsing="false" onAction="#exitReturnBtnAction" prefHeight="35.0" prefWidth="127.0" text="Cancelar" />
-            <Button fx:id="returnEquipmentBtn" layoutX="202.0" layoutY="21.0" mnemonicParsing="false" onAction="#returnEquipmentBtnAction" prefHeight="35.0" prefWidth="127.0" text="Retornar" />
+            <Button fx:id="exitReturnBtn" layoutX="39.0" layoutY="21.0" mnemonicParsing="false" onAction="#exitReturnBtnAction" prefHeight="35.0" prefWidth="127.0" style="-fx-background-color: #94b43b;" text="Cancelar">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="18.0" />
+               </font></Button>
+            <Button fx:id="returnEquipmentBtn" layoutX="202.0" layoutY="21.0" mnemonicParsing="false" onAction="#returnEquipmentBtnAction" prefHeight="35.0" prefWidth="127.0" style="-fx-background-color: #94b43b;" text="Retornar">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="18.0" />
+               </font></Button>
          </children>
       </AnchorPane>
-      <Text fx:id="equipmentText" layoutX="134.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actualmente estas {mensaje}" wrappingWidth="164.13671875" />
+      <Text fx:id="equipmentText" layoutX="79.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actualmente estas {mensaje}" wrappingWidth="232.13671875" />
    </children>
 </AnchorPane>

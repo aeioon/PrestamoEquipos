@@ -11,7 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -24,12 +28,20 @@ public class HeaderController implements Initializable {
     @FXML
     private Rectangle userBox;
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Text nombreEstudianteT;
+
+    @FXML
+    private Text correoEstudianteT;
+
+    @FXML
+    private Label formatoIngenieriaL;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        //nombreEstudianteT.setText(Main.getUsuarioLogueado().getNombres() + " " + Main.getUsuarioLogueado().getApellidos());
+        //correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
+        formatoIngenieriaL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Logo_n.png"))));
     }    
     
 }

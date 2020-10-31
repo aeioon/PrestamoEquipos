@@ -57,7 +57,11 @@ public class StudentHomeController  implements Initializable{
     private Button faqBtn;
     
     @FXML
+    private Label escudoBlanco;
+    
+    @FXML
     private Text welcomeUserText;
+    
     
     @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
@@ -93,6 +97,7 @@ public class StudentHomeController  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
         welcomeUserText.setText("¡Hola "+sessionHolder.getUser().getId()+"!");
     }
 

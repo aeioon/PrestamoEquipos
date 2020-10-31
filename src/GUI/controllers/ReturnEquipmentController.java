@@ -40,6 +40,8 @@ public class ReturnEquipmentController implements Initializable {
 
     @FXML
     void exitReturnBtnAction(ActionEvent event) {
+        Stage stage = (Stage) exitReturnBtn.getScene().getWindow();
+        stage.close();
 
     }
     @FXML

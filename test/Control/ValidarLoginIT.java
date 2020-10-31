@@ -41,7 +41,7 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
-        usuario.setConstraseña("unal2020");
+        usuario.setConstraseña("");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
         boolean result = instance.verificarLogin(usuario);
