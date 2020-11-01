@@ -34,8 +34,8 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
-        if (solicitudDao.VerifyInactivity(usuario)) {
+    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs, boolean activo) {
+        if (!activo) {
             Solicitud solicitud = new Solicitud();
             solicitud.setUsuario(usuario);
             solicitud.setComputador(computer);
@@ -50,7 +50,8 @@ public class RealizarPrestamo {
             } else {
                 return false;
             }
+        } else {
+            return false;
         }
-        return false;
     }
 }
