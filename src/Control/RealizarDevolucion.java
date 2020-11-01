@@ -37,6 +37,14 @@ public class RealizarDevolucion {
         }
     }
     
+    public boolean isInactivity(Usuario usuario){
+        if(!solicitudDao.VerifyInactivity(usuario)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
      public String getInfoIdEquipo() {
         return infoIdEquipo;
     }
