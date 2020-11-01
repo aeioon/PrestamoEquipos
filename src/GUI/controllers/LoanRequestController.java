@@ -166,7 +166,7 @@ public class LoanRequestController implements Initializable {
                 stagePop.showAndWait();
 
                 //Vuelve al home si se hizo un prestamo.
-                if (!cargarDatos.isActivo()) {
+                if (cargarDatos.isActivo()) {
                     changeScene(event, "/GUI/views/studentHome.fxml");
                 }
 

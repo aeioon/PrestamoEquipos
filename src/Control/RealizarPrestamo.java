@@ -12,6 +12,7 @@ import Entidad.Usuario;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.application.Platform;
 
 public class RealizarPrestamo {
 
@@ -19,6 +20,7 @@ public class RealizarPrestamo {
     SolicitudDAO solicitudDao = new SolicitudDAO();
     ProgramaDAO programaDao = new ProgramaDAO();
     ProgramaSolicitudDAO programaSolicitudDao = new ProgramaSolicitudDAO();
+    boolean estadoPrestamo = true;
 
     public RealizarPrestamo() {
     }
@@ -39,14 +41,24 @@ public class RealizarPrestamo {
             Solicitud solicitud = new Solicitud();
             solicitud.setUsuario(usuario);
             solicitud.setComputador(computer);
-            boolean seCreo = solicitudDao.crear(solicitud);
-            if (seCreo) {
-                computadorDao.occupyComputer(computer);
-                solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-                for (int i = 0; i < programs.size(); i++) {
-                    programaSolicitudDao.crear(programs.get(i), solicitud);
-                }
-                return true;
+            estadoPrestamo = estadoPrestamo && solicitudDao.crear(solicitud);
+            if (estadoPrestamo) {
+                estadoPrestamo = estadoPrestamo && computadorDao.occupyComputer(computer);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < programs.size(); i++) {
+                                    estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                                }
+                            }
+                        });
+                    }
+                }).start();
+                return estadoPrestamo;
             } else {
                 return false;
             }

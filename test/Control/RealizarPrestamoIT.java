@@ -70,7 +70,7 @@ public class RealizarPrestamoIT {
         programs.add(new Programa(1, "NetBeans", "8.2"));
         RealizarPrestamo instance = new RealizarPrestamo();
         boolean expResult = true;
-        boolean result = instance.makeBorrow(usuario, computer, programs);
+        boolean result = instance.makeBorrow(usuario, computer, programs, false);
         System.out.println("Resultado:" + result);
         assertEquals(expResult, result);
     }
@@ -86,7 +86,7 @@ public class RealizarPrestamoIT {
         programs.add(new Programa(1, "NetBeans", "8.2"));
         RealizarPrestamo instance = new RealizarPrestamo();
         boolean expResult = false;
-        boolean result = instance.makeBorrow(usuario, computer, programs);
+        boolean result = instance.makeBorrow(usuario, computer, programs, false);
         System.out.println("Resultado:" + result);
         assertEquals(expResult, result);
     }

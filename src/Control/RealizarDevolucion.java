@@ -18,8 +18,18 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
         if (activo) {
-            estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
-            estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
+                }
+            }).start();
             return estadoSolicitud;
         } else {
             return false;
