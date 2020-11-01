@@ -40,8 +40,7 @@ public class Main extends Application  {
         Usuario u = new Usuario();
         u.setId("acardenaso");
         RealizarDevolucion RD = new RealizarDevolucion();
-        System.out.println(RD.makeReturn(u));
-        System.out.println(RD.getInfoIdEquipo()+" "+RD.getInfoIdEdificio()+" "+RD.getInfoCodigoSala()+" "+RD.getInfoNombreEdificio());
+        System.out.println(RD.makeReturn(u, 2, false));
     }
     
     

@@ -11,71 +11,19 @@ public class RealizarDevolucion {
 
     SolicitudDAO solicitudDao = new SolicitudDAO();
     ComputadorDAO computadroDao = new ComputadorDAO();
-    String infoIdEquipo = "";
-    String infoNombreEdificio = "";
-    String infoIdEdificio = "";
-    String infoCodigoSala = "";
+    boolean estadoSolicitud = true;
 
     public RealizarDevolucion() {
     }
 
-    public boolean makeReturn(Usuario usuario) {
-        if (!solicitudDao.VerifyInactivity(usuario)) {
-            infoIdEquipo = solicitudDao.getInfo(usuario)[1];
-            if (solicitudDao.ChangeRequestStatus(usuario)) {
-                computadroDao.freeComputer(Integer.parseInt(infoIdEquipo));
-                return true;
-            } else {
-                return false;
-            }
+    public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
+        if (activo) {
+            estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
+            estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
+            return estadoSolicitud;
         } else {
             return false;
         }
-    }
 
-    public boolean isInactivity(Usuario usuario) {
-        if (!solicitudDao.VerifyInactivity(usuario)) {
-            String[] datos = solicitudDao.getInfo(usuario);
-            infoIdEquipo = datos[0];
-            infoNombreEdificio = datos[1];
-            infoIdEdificio = datos[2];
-            infoCodigoSala = datos[3];
-            return true;
-        } else {
-            return false;
-        }
     }
-
-    public String getInfoIdEquipo() {
-        return infoIdEquipo;
-    }
-
-    public void setInfoIdEquipo(String infoIdEquipo) {
-        this.infoIdEquipo = infoIdEquipo;
-    }
-
-    public String getInfoIdEdificio() {
-        return infoIdEdificio;
-    }
-
-    public void setInfoIdEdificio(String infoIdEdificio) {
-        this.infoIdEdificio = infoIdEdificio;
-    }
-
-    public String getInfoNombreEdificio() {
-        return infoNombreEdificio;
-    }
-
-    public void setInfoNombreEdificio(String infoNombreEdificio) {
-        this.infoNombreEdificio = infoNombreEdificio;
-    }
-
-    public String getInfoCodigoSala() {
-        return infoCodigoSala;
-    }
-
-    public void setInfoCodigoSala(String infoCodigoSala) {
-        this.infoCodigoSala = infoCodigoSala;
-    }
-
 }

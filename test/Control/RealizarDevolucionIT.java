@@ -48,7 +48,7 @@ public class RealizarDevolucionIT {
         usuario.setId("acardenaso");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = true;
-        boolean result = instance.makeReturn(usuario);
+        boolean result = instance.makeReturn(usuario, 2, true);
         assertEquals(expResult, result);
     }
     
@@ -59,7 +59,7 @@ public class RealizarDevolucionIT {
         usuario.setId("ggarciaro");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario);
+        boolean result = instance.makeReturn(usuario, 2, true);
         assertEquals(expResult, result);
     }
     
@@ -67,10 +67,10 @@ public class RealizarDevolucionIT {
     public void testFalloDevolucion2() {
         System.out.println("testFalloDevolucion2");
         Usuario usuario = new Usuario();
-        usuario.setId("dbustos");
+        usuario.setId("cchavezb");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario);
+        boolean result = instance.makeReturn(usuario, 3, false);
         assertEquals(expResult, result);
     }
     
@@ -81,7 +81,7 @@ public class RealizarDevolucionIT {
         usuario.setId("jgarciam");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario);
+        boolean result = instance.makeReturn(usuario, 3, true);
         assertEquals(expResult, result);
     }
 

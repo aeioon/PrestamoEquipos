@@ -49,7 +49,7 @@ public class UsuarioDAOIT {
         usuario.setConstraseña("Unal2020");
         UsuarioDAO instance = new UsuarioDAO();
         boolean expResult = true;
-        boolean result = instance.leer(usuario);
+        boolean result = instance.validar(usuario);
         assertEquals(expResult, result);
     }
     

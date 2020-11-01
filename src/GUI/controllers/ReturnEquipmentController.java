@@ -49,7 +49,7 @@ public class ReturnEquipmentController implements Initializable {
 
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) {
-        if (RD.makeReturn(cargarDatos.getUser())) {
+        if (RD.makeReturn(cargarDatos.getUser(), Integer.parseInt(cargarDatos.getInfoIdEquipo()), cargarDatos.isActivo())) {
             System.out.println("Se realizo la devolucion!");
             cargarDatos.setActivo(false);
             Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
