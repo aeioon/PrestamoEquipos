@@ -19,6 +19,7 @@ public final class LoanDataHolder {
     private Usuario user;
     private Computador computer;
     private ArrayList<Programa> programs;
+    private ComputerRow row;
     
     private LoanDataHolder() {}
     
@@ -27,6 +28,15 @@ public final class LoanDataHolder {
     public static LoanDataHolder getInstance() {
         return holder;
     }
+
+    public ComputerRow getRow() {
+        return row;
+    }
+
+    public void setRow(ComputerRow row) {
+        this.row = row;
+    }
+    
 
     public Usuario getUser() {
         return user;

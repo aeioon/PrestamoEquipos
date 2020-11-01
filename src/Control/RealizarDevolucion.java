@@ -21,11 +21,6 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario) {
         if (!solicitudDao.VerifyInactivity(usuario)) {
-            String[] datos = solicitudDao.getInfo(usuario);    
-            infoIdEquipo = datos[0];
-            infoIdEdificio = datos[1];
-            infoNombreEdificio = datos[2];
-            infoCodigoSala = datos[3];
             if (solicitudDao.ChangeRequestStatus(usuario)) {                
                 computadroDao.freeComputer(Integer.parseInt(infoIdEquipo));
                 return true;
@@ -33,6 +28,19 @@ public class RealizarDevolucion {
                 return false;
             }
         } else {
+            return false;
+        }
+    }
+    
+    public boolean isInactivity(Usuario usuario){
+        if(!solicitudDao.VerifyInactivity(usuario)){
+            String[] datos = solicitudDao.getInfo(usuario);    
+            infoIdEquipo = datos[0];
+            infoIdEdificio = datos[1];
+            infoNombreEdificio = datos[2];
+            infoCodigoSala = datos[3];
+            return true;
+        }else{
             return false;
         }
     }

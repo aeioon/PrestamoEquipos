@@ -11,3 +11,8 @@
 #lognBtn:pressed{
     -fx-background-color: #6D901D;
 }
+#panelLogin {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+}
+

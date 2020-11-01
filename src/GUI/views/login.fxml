@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -19,10 +20,10 @@
          <center>
             <AnchorPane style="-fx-background-image: url('/resources/cyt.jpg');" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="panelLogin" layoutX="436.0" layoutY="104.0" prefHeight="512.0" prefWidth="409.0" style="-fx-background-color: white;">
+                  <Pane fx:id="panelLogin" layoutX="436.0" layoutY="104.0" prefHeight="512.0" prefWidth="409.0">
                      <children>
                         <Label fx:id="escudolb" alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="14.0" prefHeight="120.0" prefWidth="254.0" />
-                        <GridPane layoutX="10.0" layoutY="231.0" prefHeight="230.0" prefWidth="370.0">
+                        <GridPane layoutX="48.0" layoutY="225.0" prefHeight="230.0" prefWidth="328.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="57.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="321.0" />
@@ -35,21 +36,36 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField fx:id="userLoginTF" prefHeight="39.0" prefWidth="322.0" GridPane.columnIndex="1" />
                               <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <bottom>
-                                    <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#loginBtnAction" prefHeight="34.0" prefWidth="189.0" stylesheets="@../style/login.css" text="Login" BorderPane.alignment="CENTER">
-                                       <font>
-                                          <Font name="Lucida Bright Demibold" size="15.0" />
-                                       </font>
-                                    </Button>
-                                 </bottom>
+                                 <center>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button fx:id="loginBtn" layoutX="43.0" layoutY="6.0" mnemonicParsing="false" onAction="#loginBtnAction" prefHeight="34.0" prefWidth="189.0" stylesheets="@../style/login.css" text="Login">
+                                             <font>
+                                                <Font name="Lucida Bright Demibold" size="15.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </AnchorPane>
+                                 </center>
                               </BorderPane>
-                              <Label fx:id="AdvertenciausLB" prefHeight="21.0" prefWidth="311.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="AdvertenciapLB" prefHeight="21.0" prefWidth="313.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="AdvertenciausLB" prefHeight="21.0" prefWidth="281.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="AdvertenciapLB" prefHeight="21.0" prefWidth="280.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="userLogoLB" prefHeight="35.0" prefWidth="47.0" />
                               <Label fx:id="lockLogoLB" prefHeight="28.0" prefWidth="47.0" GridPane.rowIndex="2" />
-                              <PasswordField fx:id="passwordLoginTF" prefHeight="40.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <TextField fx:id="userLoginTF" layoutX="8.0" layoutY="4.0" maxWidth="280.0" prefHeight="39.0" prefWidth="280.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <PasswordField fx:id="passwordLoginTF" layoutX="8.0" layoutY="3.0" maxWidth="280.0" minWidth="280.0" prefHeight="40.0" prefWidth="322.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </GridPane>
                         <Text fx:id="logoAppLogin" layoutX="27.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido" textAlignment="CENTER" wrappingWidth="357.880859375">

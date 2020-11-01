@@ -32,22 +32,20 @@ public class ConfirmRequestController implements Initializable {
     Usuario u = SessionHolder.getInstance().getUser();
     Computador c = loanHolder.getComputer();
     ArrayList<Programa> p = loanHolder.getPrograms();
+    ComputerRow pr = loanHolder.getRow();
         
     int idSelected;
     
     @FXML
     private Text message;
+    
+    @FXML
+    private Text computerText;
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        RealizarDevolucion RD = new RealizarDevolucion();
-        if(RD.makeReturn(u)){
-            System.out.println("Se realizo la devolucion!");
-            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
-            stage.close();
-        } else {
-            message.setText("Fallo devolucion");
-        }
+        Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -61,17 +59,10 @@ public class ConfirmRequestController implements Initializable {
             message.setText("Fallo el prestamo");
         }
     }
-    void printData(){
-        System.out.println("Id de usuario es "+u.getId()+" del computador es "+c.getId()+ " Lista de programas ");
-        p.forEach(program-> {
-            System.out.println(program.getNombre());
-        });
-        
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        printData();
+        computerText.setText("Computador #"+ pr.getId()+" en el edificio "+pr.getNombreEdificio()+" con ID "+pr.getIdEdificio()+" en la sala "+pr.getNombreSala());
     }
 
 }

@@ -9,6 +9,7 @@ import Control.RealizarDevolucion;
 import Entidad.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +26,8 @@ import javafx.stage.Stage;
 public class ReturnEquipmentController implements Initializable {
     
     Usuario user = SessionHolder.getInstance().getUser();
-
+    RealizarDevolucion RD = new RealizarDevolucion();
+    
     @FXML
     private Button exitReturnBtn;
 
@@ -34,6 +36,10 @@ public class ReturnEquipmentController implements Initializable {
 
     @FXML
     private Text equipmentText;
+    
+    
+    @FXML
+    private Text stateText;
 
     @FXML
     private TableView<?> usedEquipment;
@@ -42,11 +48,10 @@ public class ReturnEquipmentController implements Initializable {
     void exitReturnBtnAction(ActionEvent event) {
         Stage stage = (Stage) exitReturnBtn.getScene().getWindow();
         stage.close();
-
     }
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) {
-        RealizarDevolucion RD = new RealizarDevolucion();
+        
         if(RD.makeReturn(user)){
             System.out.println("Se realizo la devolucion!");
             Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
@@ -57,7 +62,27 @@ public class ReturnEquipmentController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        equipmentText.setText("Revisando el estado de tu cuenta...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (RD.isInactivity(user)) {
+                            equipmentText.setVisible(false);
+                            stateText.setText("Debes devolver el equipo "+RD.getInfoIdEquipo()+
+                                              " en la sala "+RD.getInfoCodigoSala()+
+                                              " con codigo "+RD.getInfoCodigoSala()+
+                                              ". La sala se encuentra en el edificio "+RD.getInfoNombreEdificio()+".");
+                        } else {
+                            equipmentText.setVisible(false);    
+                            stateText.setText("No debes devolver ningun equipo");
+                        }
+                    }
+                });
+            }
+        }).start();
     }    
     
 }

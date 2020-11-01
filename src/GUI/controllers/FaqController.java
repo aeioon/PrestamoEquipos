@@ -5,6 +5,7 @@
  */
 package GUI.controllers;
 
+import Entidad.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -15,6 +16,8 @@ import javafx.fxml.Initializable;
  * @author ion
  */
 public class FaqController implements Initializable {
+    
+    Usuario user = SessionHolder.getInstance().getUser();
 
     /**
      * Initializes the controller class.
