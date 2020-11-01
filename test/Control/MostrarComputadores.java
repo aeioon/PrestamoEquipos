@@ -52,10 +52,8 @@ public class MostrarComputadores {
         programs.add(new Programa(1, "NetBeans", "8.2"));
         RealizarPrestamo instance = new RealizarPrestamo();
         ArrayList<String[]> expResult = new ArrayList<>();
-        String[] exp1 ={"1","CyT","1","1"};
-        String[] exp2 ={"2","CyT","1","1"};
-        String[] exp3 ={"3","CyT","1","1"};
-        expResult.add(exp1);
+        String[] exp2 ={"2","CyT","1","402"};
+        String[] exp3 ={"3","CyT","1","402"};
         expResult.add(exp2);
         expResult.add(exp3);
         ArrayList<String[]> result = instance.getInfoComputers(programs);

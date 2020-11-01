@@ -52,7 +52,6 @@ public class RealizarPrestamoIT {
         expResult.add(new Programa(1, "NetBeans", "8.2"));
         expResult.add(new Programa(2, "CodeBlocks", "3.0"));
         expResult.add(new Programa(3, "VisualParadigm", "4.0"));
-        expResult.add(new Programa(4, "Soft4", "ver1"));
         ArrayList<Programa> result = instance.getAllPrograms();
         assertEquals(result, expResult);
     }

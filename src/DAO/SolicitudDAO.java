@@ -181,7 +181,7 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, SA.Id_Sala\n"
+            String consulta = "SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, SA.Codigo\n"
                     + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)\n"
                     + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala)\n"
                     + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
@@ -192,7 +192,7 @@ public class SolicitudDAO {
                 datos[0] = Integer.toString(resultSet.getInt(1));
                 datos[1] = Integer.toString(resultSet.getInt(2));
                 datos[2] = resultSet.getString(3);
-                datos[3] = Integer.toString(resultSet.getInt(4));
+                datos[3] = resultSet.getString(4);
             }
 
             return datos;

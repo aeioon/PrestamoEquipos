@@ -21,7 +21,8 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario) {
         if (!solicitudDao.VerifyInactivity(usuario)) {
-            if (solicitudDao.ChangeRequestStatus(usuario)) {                
+            infoIdEquipo = solicitudDao.getInfo(usuario)[0];
+            if (solicitudDao.ChangeRequestStatus(usuario)) {
                 computadroDao.freeComputer(Integer.parseInt(infoIdEquipo));
                 return true;
             } else {
@@ -31,21 +32,21 @@ public class RealizarDevolucion {
             return false;
         }
     }
-    
-    public boolean isInactivity(Usuario usuario){
-        if(!solicitudDao.VerifyInactivity(usuario)){
-            String[] datos = solicitudDao.getInfo(usuario);    
+
+    public boolean isInactivity(Usuario usuario) {
+        if (!solicitudDao.VerifyInactivity(usuario)) {
+            String[] datos = solicitudDao.getInfo(usuario);
             infoIdEquipo = datos[0];
             infoIdEdificio = datos[1];
             infoNombreEdificio = datos[2];
             infoCodigoSala = datos[3];
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
-     public String getInfoIdEquipo() {
+
+    public String getInfoIdEquipo() {
         return infoIdEquipo;
     }
 
@@ -76,5 +77,5 @@ public class RealizarDevolucion {
     public void setInfoCodigoSala(String infoCodigoSala) {
         this.infoCodigoSala = infoCodigoSala;
     }
-    
+
 }
