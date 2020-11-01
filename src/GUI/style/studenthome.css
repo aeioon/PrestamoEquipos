@@ -3,5 +3,23 @@
  */
 
 #requestLoanBtn{
+    -fx-background-color:  #565a5c;
 }
-#iconTest {}
+#returnEquiBtn {
+    -fx-background-color:  #565a5c;
+}
+#faqBtn {
+    -fx-background-color:  #565a5c;
+}
+#requestLoanBtn:hover{
+    -fx-background-color:  #4d5052;
+      
+}
+#returnEquiBtn:hover{
+    -fx-background-color:  #4d5052;
+      
+}
+#faqBtn:hover{
+    -fx-background-color:  #4d5052;
+      
+}

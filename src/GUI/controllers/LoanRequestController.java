@@ -38,6 +38,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -221,6 +222,8 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
 
+
+    
     void insertComputers() {
 
         /*Solamente llena tabla de computadores.
@@ -235,11 +238,13 @@ public class LoanRequestController implements Initializable {
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
         TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
         nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+        
 
         //asigna la lista de items y las columnas a la TableView
         availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableComputersTable.getColumns().addAll(computerIdCol, nombreEdificioCol, IdEdificioCol, nombreSalaCol);
         availableComputersTable.setItems(computerList);
+        
     }
 
     @FXML
@@ -301,9 +306,6 @@ public class LoanRequestController implements Initializable {
 
     void insertAvailablePrograms() {
 
-        RP.getAllPrograms().forEach(p -> {
-            programList.add(p);
-        });
 
         //crea columnas y selecciona el atributo de Programa
         TableColumn programIdCol = new TableColumn("Id");
@@ -317,6 +319,10 @@ public class LoanRequestController implements Initializable {
         availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
         availableProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+
+        RP.getAllPrograms().forEach(p -> {
+            programList.add(p);
+        });
 
     }
 
@@ -376,13 +382,25 @@ public class LoanRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        //reemplazar por initData();    
-        insertAvailablePrograms();
+        
+        
         insertSelectedPrograms();
         initActions();
         insertComputers();
-        searchProgram();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                insertAvailablePrograms();
+                searchProgram();
+                   /* Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            
+                        }
+                    });*/
+                }
+            }).start();  
 
     }
 }
