@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
@@ -14,6 +16,11 @@
             <Circle fill="WHITE" layoutX="84.0" layoutY="46.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
                         <Text fx:id="nombreEstudianteT" fill="WHITE" layoutX="122.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre1 " wrappingWidth="217.1294252872467" />
                         <Text fx:id="correoEstudianteT" fill="WHITE" layoutX="122.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuarioUNAL@unal.edu.co" wrappingWidth="217.12941122055054" />
+            <ImageView fitHeight="39.0" fitWidth="37.0" layoutX="68.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../static/icons/user.PNG" />
+               </image>
+            </ImageView>
          </children>
                   </AnchorPane>
       <Label fx:id="formatoIngenieriaL" layoutX="-1.0" prefHeight="91.0" prefWidth="322.0" />
