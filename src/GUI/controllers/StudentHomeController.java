@@ -71,6 +71,7 @@ public class StudentHomeController implements Initializable {
             Scene scene = new Scene(fxmlLoader.load(), 390, 210);
             Stage stagePop = new Stage();
             stagePop.setTitle("ERROR");
+            stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
             stagePop.setScene(scene);
             stagePop.showAndWait();
         }
@@ -85,6 +86,7 @@ public class StudentHomeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 390, 272);
                 Stage stagePop = new Stage();
                 stagePop.setTitle("Confirmar devolucion");
+                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                 stagePop.setScene(scene);
                 stagePop.showAndWait();
             } else {
@@ -94,6 +96,7 @@ public class StudentHomeController implements Initializable {
                 Stage stagePop = new Stage();
                 stagePop.setTitle("Error");
                 stagePop.setScene(scene);
+                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
                 stagePop.showAndWait();
             }
 

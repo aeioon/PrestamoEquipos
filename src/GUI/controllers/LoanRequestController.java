@@ -336,6 +336,10 @@ public class LoanRequestController implements Initializable {
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
                     try {
+                        cargarDatos.setInfoIdEquipo(availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                        cargarDatos.setInfoNombreEdificio(availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio());
+                        cargarDatos.setInfoIdEdificio(availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio());
+                        cargarDatos.setInfoCodigoSala(availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala());
                         idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
                         System.out.println("Id del computador seleccionado " + availableComputersTable.getSelectionModel().getSelectedItem().getId());
                     } catch (Exception e) {

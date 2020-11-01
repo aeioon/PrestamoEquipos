@@ -59,6 +59,12 @@ public class ConfirmRequestController implements Initializable {
         if(RP.makeBorrow(cargarDatos.getUser(), computador, programs, cargarDatos.isActivo())){
             System.out.println("Se realizo el prestamo!");
             cargarDatos.setActivo(true);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    cargarDatos.cargar(cargarDatos.getUser());
+                }
+            }).start();
             Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
             stage.close();
         } else {
