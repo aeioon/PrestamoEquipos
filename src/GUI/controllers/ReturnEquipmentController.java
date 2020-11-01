@@ -39,9 +39,9 @@ public class ReturnEquipmentController implements Initializable {
     private Text stateText;
 
     @FXML
-    private TableView<?> usedEquipment;
+    private Button aceptarBtn;
 
-    @FXML
+    @FXML 
     void exitReturnBtnAction(ActionEvent event) {
         Stage stage = (Stage) exitReturnBtn.getScene().getWindow();
         stage.close();

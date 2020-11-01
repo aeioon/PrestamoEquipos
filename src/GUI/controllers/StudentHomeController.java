@@ -65,6 +65,14 @@ public class StudentHomeController implements Initializable {
     void requestLoanBtnAction(ActionEvent event) throws IOException {
         if (!cargarDatos.isActivo()) {
             changeScene(event, "/GUI/views/loanRequest.fxml");
+        } else {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/noBorrow.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 390, 210);
+            Stage stagePop = new Stage();
+            stagePop.setTitle("ERROR");
+            stagePop.setScene(scene);
+            stagePop.showAndWait();
         }
     }
 
@@ -77,6 +85,14 @@ public class StudentHomeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 390, 272);
                 Stage stagePop = new Stage();
                 stagePop.setTitle("Confirmar devolucion");
+                stagePop.setScene(scene);
+                stagePop.showAndWait();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 390, 210);
+                Stage stagePop = new Stage();
+                stagePop.setTitle("Error");
                 stagePop.setScene(scene);
                 stagePop.showAndWait();
             }
