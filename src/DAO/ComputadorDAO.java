@@ -209,7 +209,9 @@ public class ComputadorDAO {
                     }
                 }
                 consulta = consulta + ")";
-            }         
+            }else{
+                consulta = consulta + " WHERE Id_Programa < 0";
+            }       
             consulta = consulta +      ") AS P) AS Todos\n" +
                                        "LEFT JOIN Computador_Programa ON Computador_Programa.Id_Programa = Todos.Id_Programa AND Computador_Programa.Id_Equipo = Todos.Id_Equipo)\n" +
                                        "WHERE Computador_Programa.Id_Programa IS NULL) AS SinRequest ON Computador_Programa.Id_Equipo = SinRequest.Id_Equipo\n" +
