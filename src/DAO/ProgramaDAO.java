@@ -58,7 +58,7 @@ public class ProgramaDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("INSERT INTO Programa (`Nombre`, `Version`) VALUES"
-                    + " ('" + object.getVersion() + "','" + object.getVersion()+ "')");
+                    + " ('" + object.getNombre() + "','" + object.getVersion()+ "')");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

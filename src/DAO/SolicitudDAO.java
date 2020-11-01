@@ -215,19 +215,16 @@ public class SolicitudDAO {
         Connection connection = null;
         Statement statement = null;
         int resultSet;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String fecha = newSolicitud.getFecha().format(formatter);
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //String fecha = newSolicitud.getFecha().format(formatter);
         try {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("UPDATE Solicitud "
-                    + "SET Id_Solicitud = " + newSolicitud.getId() + " , "
-                    + "Fecha = '" + fecha + "' , "
-                    + "ComputadorId_Equipo = " + newSolicitud.getComputador().getId() + " , "
-                    + "UsuarioId_Usuario = '" + newSolicitud.getUsuario().getId() + " ' ,"
-                    + "Estado = " + newSolicitud.getEstado()
-                    + "WHERE Id_Solicitud=" + oldSolicitud.getId() + ";");
+                    //+ " Fecha = '" + fecha + "' , "
+                    + " SET Estado = " + newSolicitud.getEstado()
+                    + " WHERE Id_Solicitud =" + oldSolicitud.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -252,7 +249,7 @@ public class SolicitudDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeUpdate("DELETE FROM Solicitud "
-                    + "WHERE Id_Solicitud= " + object.getId() + ";");
+                    + "WHERE Id_Solicitud = " + object.getId() + ";");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

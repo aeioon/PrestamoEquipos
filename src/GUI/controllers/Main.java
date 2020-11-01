@@ -38,7 +38,7 @@ public class Main extends Application  {
     
     void testReturn(){
         Usuario u = new Usuario();
-        u.setId("dbustos");
+        u.setId("acardenaso");
         RealizarDevolucion RD = new RealizarDevolucion();
         System.out.println(RD.makeReturn(u));
         System.out.println(RD.getInfoIdEquipo()+" "+RD.getInfoIdEdificio()+" "+RD.getInfoCodigoSala()+" "+RD.getInfoNombreEdificio());
@@ -48,7 +48,7 @@ public class Main extends Application  {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //testReturn();
-        //testBorrow("dbustos", 1);
+        //testBorrow("cchavezb", 1);
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

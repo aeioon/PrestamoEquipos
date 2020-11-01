@@ -37,13 +37,61 @@ public class ValidarLoginIT {
      * Test of verificarLogin method, of class ValidarLogin.
      */
     @Test
-    public void testVerificarLogin() {
+    public void testUsuarioIncorrecto() {
+        System.out.println("verificarLogin");
+        Usuario usuario = new Usuario();
+        usuario.setId("DBUSTOS");
+        usuario.setConstraseña("123");
+        ValidarLogin instance = new ValidarLogin();
+        boolean expResult = false;
+        boolean result = instance.verificarLogin(usuario);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        if(result != expResult){
+            fail("The test case is a prototype.");
+        }
+    }
+    
+    @Test
+    public void testContraseñaIncorrecta() {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
-        usuario.setConstraseña("");
+        usuario.setConstraseña("unal2020");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
+        boolean result = instance.verificarLogin(usuario);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        if(result != expResult){
+            fail("The test case is a prototype.");
+        }
+    }
+    
+    @Test
+    public void testDatosIncorrectos() {
+        System.out.println("verificarLogin");
+        Usuario usuario = new Usuario();
+        usuario.setId("Acardenaso");
+        usuario.setConstraseña("unal2020");
+        ValidarLogin instance = new ValidarLogin();
+        boolean expResult = false;
+        boolean result = instance.verificarLogin(usuario);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        if(result != expResult){
+            fail("The test case is a prototype.");
+        }
+    }
+    
+    @Test
+    public void testDatosCorrectos() {
+        System.out.println("verificarLogin");
+        Usuario usuario = new Usuario();
+        usuario.setId("ggarciaro");
+        usuario.setConstraseña("12345");
+        ValidarLogin instance = new ValidarLogin();
+        boolean expResult = true;
         boolean result = instance.verificarLogin(usuario);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

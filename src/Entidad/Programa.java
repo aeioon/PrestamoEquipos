@@ -1,5 +1,7 @@
 package Entidad;
 
+import java.util.Objects;
+
 public class Programa {
     private int id;
     private String nombre;
@@ -12,6 +14,30 @@ public class Programa {
         this.id = id;
         this.nombre = nombre;
         this.version = version;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Programa other = (Programa) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.version, other.version)) {
+            return false;
+        }
+        return true;
     }
 
     public int getId() {
@@ -36,5 +62,6 @@ public class Programa {
 
     public void setVersion(String version) {
         this.version = version;
-    }    
+    } 
+    
 }
