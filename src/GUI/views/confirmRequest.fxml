@@ -13,10 +13,10 @@
    <children>
       <Button fx:id="cancelRequestBtn" layoutX="93.0" layoutY="135.0" mnemonicParsing="false" onAction="#cancelRequestBtnAction" prefHeight="37.0" prefWidth="92.0" text="Cancelar" />
       <Button fx:id="loanBtn" layoutX="244.0" layoutY="135.0" mnemonicParsing="false" onAction="#loanBtnAction" prefHeight="37.0" prefWidth="92.0" text="Solicitar" />
-      <Text fx:id="message" layoutX="128.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Seguro que quieres solicitar el préstamo del siguiente computador?" textAlignment="CENTER" wrappingWidth="180.134765625">
+      <Text fx:id="message" layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Seguro que quieres solicitar el préstamo del siguiente computador?" textAlignment="CENTER" wrappingWidth="397.134765625">
          <font>
-            <Font size="13.0" />
+            <Font name="System Bold" size="18.0" />
          </font></Text>
-      <Text fx:id="computerText" layoutX="128.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="180.1347617805004" />
+      <Text fx:id="computerText" layoutX="59.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="332.1347629725933" />
    </children>
 </AnchorPane>

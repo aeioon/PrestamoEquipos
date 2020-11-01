@@ -57,12 +57,13 @@ public class ConfirmRequestController implements Initializable {
             stage.close();
         } else {
             message.setText("Fallo el prestamo");
+            computerText.setText("");
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #"+ pr.getId()+" en el edificio "+pr.getNombreEdificio()+" con ID "+pr.getIdEdificio()+" en la sala "+pr.getNombreSala());
+        computerText.setText("Computador #"+ pr.getId()+" en el edificio "+pr.getNombreEdificio()+" "+pr.getIdEdificio()+" de la sala "+pr.getNombreSala());
     }
 
 }

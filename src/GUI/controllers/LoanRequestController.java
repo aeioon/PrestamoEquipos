@@ -37,6 +37,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -57,6 +58,8 @@ public class LoanRequestController implements Initializable {
 
     @FXML
     private TextField searchProgramTF;
+    @FXML
+    private Label user;
     @FXML
     private Button searchComputersBtn;
     @FXML
@@ -159,6 +162,7 @@ public class LoanRequestController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 437 , 209);
                 Stage stagePop = new Stage();
+                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                 stagePop.setTitle("Confirmar prestamo");
                 stagePop.setScene(scene);
                 stagePop.showAndWait();

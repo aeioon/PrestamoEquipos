@@ -5,3 +5,27 @@
 #backArrowIcon {
     -fx-background-color: transparent;
 }
+
+#backHomeBtn {
+     -fx-background-color:  #565a5c;
+}
+
+#backHomeBtn:hover {
+     -fx-background-color:  #4d5052;
+}
+
+#searchComputersBtn {
+     -fx-background-color:  #94b43b;
+}
+
+#searchComputersBtn:hover {
+     -fx-background-color:  #82A424;
+}
+
+#askLoanBtn {
+     -fx-background-color:  #94b43b;
+}
+
+#askLoanBtn:hover {
+     -fx-background-color:  #82A424;
+}

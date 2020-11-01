@@ -73,8 +73,7 @@ public class ReturnEquipmentController implements Initializable {
                             equipmentText.setVisible(false);
                             stateText.setText("Debes devolver el equipo "+RD.getInfoIdEquipo()+
                                               " en la sala "+RD.getInfoCodigoSala()+
-                                              " con codigo "+RD.getInfoCodigoSala()+
-                                              ". La sala se encuentra en el edificio "+RD.getInfoNombreEdificio()+".");
+                                              " del edificio "+RD.getInfoNombreEdificio()+".");
                         } else {
                             equipmentText.setVisible(false);    
                             stateText.setText("No debes devolver ningun equipo");

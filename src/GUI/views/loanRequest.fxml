@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/loanrequest.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.LoanRequestController">
    <children>
@@ -23,17 +24,17 @@
          <left>
             <AnchorPane prefHeight="600.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="133.0" layoutY="24.0" prefHeight="42.0" prefWidth="762.0">
+                  <HBox layoutX="83.0" layoutY="24.0" prefHeight="42.0" prefWidth="841.0">
                      <children>
-                        <TextField fx:id="searchProgramTF" prefHeight="40.0" prefWidth="819.0" promptText="Ingrese el nombre del programa" />
+                        <TextField fx:id="searchProgramTF" prefHeight="40.0" prefWidth="883.0" promptText="Ingrese el nombre del programa" />
                      </children>
                   </HBox>
-                  <HBox layoutX="134.0" layoutY="96.0" prefHeight="200.0" prefWidth="760.0">
+                  <HBox layoutX="80.0" layoutY="98.0" prefHeight="200.0" prefWidth="840.0">
                      <children>
-                        <TableView fx:id="availableProgramsTable" prefHeight="200.0" prefWidth="400.0" />
+                        <TableView fx:id="availableProgramsTable" prefHeight="200.0" prefWidth="410.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="rightArrowBtn" layoutX="30.0" layoutY="24.0" mnemonicParsing="false" onAction="#rightArrowBtnAction">
+                              <Button fx:id="rightArrowBtn" layoutX="46.0" layoutY="46.0" mnemonicParsing="false" onAction="#rightArrowBtnAction">
                                  <graphic>
                                     <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -42,7 +43,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="leftArrowBtn" layoutX="30.0" layoutY="104.0" mnemonicParsing="false" onAction="#leftArrowBtnAction">
+                              <Button fx:id="leftArrowBtn" layoutX="46.0" layoutY="122.0" mnemonicParsing="false" onAction="#leftArrowBtnAction">
                                  <graphic>
                                     <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -53,19 +54,25 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <TableView fx:id="selectedProgramsTable" prefHeight="203.0" prefWidth="400.0" />
+                        <TableView fx:id="selectedProgramsTable" prefHeight="200.0" prefWidth="429.0" />
                      </children>
                   </HBox>
-                  <Button fx:id="backHomeBtn" layoutX="985.0" layoutY="24.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver">
+                  <Button fx:id="backHomeBtn" layoutX="1075.0" layoutY="24.0" mnemonicParsing="false" onAction="#backHomeBtn" prefHeight="42.0" prefWidth="156.0" text="Volver" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="searchComputersBtn" layoutX="726.0" layoutY="305.0" mnemonicParsing="false" onAction="#searchComputersBtnAction" prefHeight="34.0" prefWidth="168.0" text="Buscar Computadores" />
-                  <AnchorPane fx:id="computerTableSection" layoutX="126.0" layoutY="339.0" prefHeight="275.0" prefWidth="776.0">
+                  <Button fx:id="searchComputersBtn" layoutX="80.0" layoutY="315.0" mnemonicParsing="false" onAction="#searchComputersBtnAction" prefHeight="37.0" prefWidth="182.0" text="Buscar Computadores">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="computerTableSection" layoutX="69.0" layoutY="339.0" prefHeight="275.0" prefWidth="860.0">
                      <children>
-                        <Button fx:id="askLoanBtn" layoutX="605.0" layoutY="216.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="38.0" prefWidth="165.0" text="Solicitar Prestamo" />
+                        <Button fx:id="askLoanBtn" layoutX="675.0" layoutY="213.0" mnemonicParsing="false" onAction="#AskLoanBtnAction" prefHeight="39.0" prefWidth="176.0" text="Solicitar Prestamo">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
                         <Label fx:id="warningText" layoutX="7.0" layoutY="3.0" prefHeight="27.0" prefWidth="476.0" textFill="#ee0808" />
-                        <TableView fx:id="availableComputersTable" layoutX="8.0" layoutY="33.0" prefHeight="170.0" prefWidth="762.0" />
+                        <TableView fx:id="availableComputersTable" layoutX="8.0" layoutY="33.0" prefHeight="170.0" prefWidth="843.0" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>

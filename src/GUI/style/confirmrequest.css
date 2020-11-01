@@ -5,3 +5,11 @@
 .mainFxmlClass {
 
 }
+
+#loanBtn, #cancelRequestBtn {
+    -fx-background-color:  #94b43b;
+}
+
+#loanBtn:hover, #cancelRequestBtn:hover {
+    -fx-background-color:  #82A424;
+}
