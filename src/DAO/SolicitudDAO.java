@@ -187,6 +187,7 @@ public class SolicitudDAO {
                     + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
                     + " WHERE S.UsuarioID_Usuario = '" + user.getId() + "' AND S.Estado = 1\n";
             System.out.println(consulta);
+            // Comentario
             resultSet = statement.executeQuery(consulta);
             if (resultSet.next()) {
                 datos[0] = Integer.toString(resultSet.getInt(1));
