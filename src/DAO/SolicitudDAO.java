@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -110,9 +111,8 @@ public class SolicitudDAO {
 
     public boolean crear(Solicitud object) {
         System.out.println("Inicio de Funcion");
-
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        //String fecha = object.getFecha().format(formatter);
+        java.util.Date miObjetoJavaUtilDate = new Date();
+        Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
         Connection connection = null;
         Statement statement = null;
 
@@ -125,7 +125,7 @@ public class SolicitudDAO {
             statement = connection.createStatement();
             System.out.println("AntesUpdate");
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
-                    + "2020-05-02 10:10:10" + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
+                    + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
             System.out.println("despuesUpdate");
             return resultSet > 0;
         } catch (SQLException ex) {
