@@ -29,7 +29,6 @@ public class ConfirmRequestController implements Initializable {
     CargarDatos cargarDatos = CargarDatos.getInstance();
     
     LoanDataHolder loanHolder = LoanDataHolder.getInstance();
-    Usuario u = SessionHolder.getInstance().getUser();
     Computador c = loanHolder.getComputer();
     ArrayList<Programa> p = loanHolder.getPrograms();
     ComputerRow pr = loanHolder.getRow();
@@ -57,7 +56,7 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
-        if(RP.makeBorrow(u, c, p)){
+        if(RP.makeBorrow(cargarDatos.getUser(), c, p)){
             System.out.println("Se realizo el prestamo!");
             cargarDatos.setActivo(true);
             Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();

@@ -75,10 +75,7 @@ public class LoginController implements Initializable {
         usuario.setConstraseña(passwordLoginTF.getText());
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            if (validar.verificarLogin(usuario)) {                
-                SessionHolder sesionHolder = SessionHolder.getInstance();
-                sesionHolder.setUser(usuario);
-                
+            if (validar.verificarLogin(usuario)) {                                
                 cargarDatos.cargarUsuario(usuario);
                 cargarDatos.cargar(usuario);
                 System.out.println(cargarDatos.getUser().getId());

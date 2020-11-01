@@ -21,7 +21,7 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario) {
         if (!solicitudDao.VerifyInactivity(usuario)) {
-            infoIdEquipo = solicitudDao.getInfo(usuario)[0];
+            infoIdEquipo = solicitudDao.getInfo(usuario)[1];
             if (solicitudDao.ChangeRequestStatus(usuario)) {
                 computadroDao.freeComputer(Integer.parseInt(infoIdEquipo));
                 return true;

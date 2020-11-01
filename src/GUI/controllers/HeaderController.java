@@ -5,6 +5,7 @@
  */
 package GUI.controllers;
 
+import Control.CargarDatos;
 import Entidad.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,7 +26,7 @@ import javafx.scene.text.Text;
  */
 public class HeaderController implements Initializable {
     
-    Usuario userLogged = SessionHolder.getInstance().getUser();
+    CargarDatos cargarDatos = CargarDatos.getInstance();
     
     @FXML
     private Rectangle userBox;
@@ -45,7 +46,7 @@ public class HeaderController implements Initializable {
         //correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
         formatoIngenieriaL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Logo_n.png"))));
         //Luego con getNombres();
-        nombreEstudianteT.setText(userLogged.getId());
+        nombreEstudianteT.setText(cargarDatos.getUser().getId());
     }    
     
 }

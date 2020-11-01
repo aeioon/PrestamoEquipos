@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Control.CargarDatos;
 import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
@@ -41,7 +42,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-
 /**
  * FXML Controller class
  *
@@ -50,11 +50,9 @@ import javafx.scene.text.Text;
 public class LoanRequestController implements Initializable {
 
     //quizas metodo estatico
+    CargarDatos cargarDatos = CargarDatos.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
-    SessionHolder sessionHolder = SessionHolder.getInstance();
-    
-   
 
     @FXML
     private TextField searchProgramTF;
@@ -84,15 +82,15 @@ public class LoanRequestController implements Initializable {
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
 
     private int idComputerSelected;
-    
-    void changeScene(ActionEvent event, String fxml) throws IOException{
+
+    void changeScene(ActionEvent event, String fxml) throws IOException {
         Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
         Scene newScene = new Scene(newParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newScene);
         window.show();
     }
-    
+
     //Buscador de programas
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b -> true);
 
@@ -125,34 +123,34 @@ public class LoanRequestController implements Initializable {
         Programa programSelected = selectedProgramsTable.getSelectionModel().getSelectedItem();
         unselectProgram(programSelected);
     }
-    
+
     @FXML
     private Label warningText;
-    
+
     @FXML
     private AnchorPane computerTableSection;
 
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
 
-        Usuario user = sessionHolder.getUser();
+        Usuario user = cargarDatos.getUser();
         Computador selectedComputer = new Computador();
         selectedComputer.setId(idComputerSelected);
         ArrayList<Programa> programList = new ArrayList<>();
-        
+
         selectedProgramList.forEach(p -> {
             programList.add(p);
         });
-        
-        if(user.getId()==null){
+
+        if (user.getId() == null) {
             warningText.setText("Error relacionado a la sesion");
             System.out.println("Error relacionado a la sesion.");
         }
-        
+
         if (idComputerSelected != 0) {
             try {
                 LoanDataHolder holder = LoanDataHolder.getInstance();
-                
+
                 holder.setComputer(selectedComputer);
                 holder.setUser(user);
                 holder.setPrograms(programList);
@@ -160,17 +158,16 @@ public class LoanRequestController implements Initializable {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 437 , 209);
+                Scene scene = new Scene(fxmlLoader.load(), 437, 209);
                 Stage stagePop = new Stage();
                 stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                 stagePop.setTitle("Confirmar prestamo");
                 stagePop.setScene(scene);
                 stagePop.showAndWait();
-                
+
                 //Vuelve al home si se hizo un prestamo.
-                
                 if (RD.isInactivity(user)) {
-                    changeScene(event,"/GUI/views/studentHome.fxml");
+                    changeScene(event, "/GUI/views/studentHome.fxml");
                 }
 
             } catch (IOException e) {
@@ -192,8 +189,6 @@ public class LoanRequestController implements Initializable {
         window.show();
     }
 
-
-    
     void insertComputers() {
 
         /*Solamente llena tabla de computadores.
@@ -208,13 +203,12 @@ public class LoanRequestController implements Initializable {
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
         TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
         nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
-        
 
         //asigna la lista de items y las columnas a la TableView
         availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableComputersTable.getColumns().addAll(computerIdCol, nombreEdificioCol, IdEdificioCol, nombreSalaCol);
         availableComputersTable.setItems(computerList);
-        
+
     }
 
     @FXML
@@ -275,7 +269,6 @@ public class LoanRequestController implements Initializable {
     }
 
     void insertAvailablePrograms() {
-
 
         //crea columnas y selecciona el atributo de Programa
         TableColumn programIdCol = new TableColumn("Id");
@@ -342,8 +335,12 @@ public class LoanRequestController implements Initializable {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
-                    idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
-                    System.out.println("Id del computador seleccionado " + availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                    try {
+                        idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                        System.out.println("Id del computador seleccionado " + availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                    } catch (Exception e) {
+                        
+                    }
                 }
             }
         });
@@ -352,8 +349,7 @@ public class LoanRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+
         insertSelectedPrograms();
         initActions();
         insertComputers();
@@ -363,14 +359,14 @@ public class LoanRequestController implements Initializable {
             public void run() {
                 insertAvailablePrograms();
                 searchProgram();
-                   /* Platform.runLater(new Runnable() {
+                /* Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                             
                         }
                     });*/
-                }
-            }).start();  
+            }
+        }).start();
 
     }
 }
