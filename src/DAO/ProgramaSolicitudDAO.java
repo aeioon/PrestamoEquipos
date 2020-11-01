@@ -1,6 +1,5 @@
 package DAO;
 
-import static DAO.SolicitudDAO.DB_URL;
 import Entidad.Solicitud;
 import java.sql.Connection;
 import java.sql.DriverManager;

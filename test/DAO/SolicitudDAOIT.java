@@ -56,7 +56,7 @@ public class SolicitudDAOIT {
         computador.setId(3);
         object.setUsuario(usuario);
         object.setComputador(computador);
-        SolicitudDAO instance = new SolicitudDAO();
+        SolicitudD instance = new SolicitudD();
         boolean expResult = true;
         boolean result = instance.crear(object);
         assertEquals(expResult, result);
@@ -70,7 +70,7 @@ public class SolicitudDAOIT {
         System.out.println("leer");
         Solicitud par = new Solicitud();
         par.setId(106);
-        SolicitudDAO instance = new SolicitudDAO();
+        SolicitudD instance = new SolicitudD();
         boolean expResult = true;
         boolean result = instance.leer(par);
         assertEquals(expResult, result);
@@ -84,7 +84,7 @@ public class SolicitudDAOIT {
         System.out.println("getInfo");
         Usuario user = new Usuario();
         user.setId("acardenaso");
-        SolicitudDAO instance = new SolicitudDAO();
+        SolicitudD instance = new SolicitudD();
         String[] expResult ={"2","1","CyT","1"};
         String[] result = instance.getInfo(user);
         assertArrayEquals(expResult, result);
@@ -100,7 +100,7 @@ public class SolicitudDAOIT {
         oldSolicitud.setId(109);
         Solicitud newSolicitud = new Solicitud();
         newSolicitud.setEstado(0);
-        SolicitudDAO instance = new SolicitudDAO();
+        SolicitudD instance = new SolicitudD();
         boolean expResult = true;
         boolean result = instance.actualizar(oldSolicitud, newSolicitud);
         assertEquals(expResult, result);
@@ -114,7 +114,7 @@ public class SolicitudDAOIT {
         System.out.println("eliminar");
         Solicitud object = new Solicitud();
         object.setId(123);
-        SolicitudDAO instance = new SolicitudDAO();
+        SolicitudD instance = new SolicitudD();
         boolean expResult = true;
         boolean result = instance.eliminar(object);
         assertEquals(expResult, result);

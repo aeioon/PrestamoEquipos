@@ -2,18 +2,18 @@ package Control;
 
 import DAO.ComputadorDAO;
 import DAO.ProgramaDAO;
-import DAO.SolicitudDAO;
+import DAO.SolicitudD;
 import Entidad.Programa;
 import Entidad.Usuario;
 import java.util.ArrayList;
 
 public class RealizarDevolucion {
 
-    SolicitudDAO solicitudDao = new SolicitudDAO();
+    SolicitudD solicitudDao = new SolicitudD();
     ComputadorDAO computadroDao = new ComputadorDAO();
     String infoIdEquipo = "";
-    String infoIdEdificio = "";
     String infoNombreEdificio = "";
+    String infoIdEdificio = "";
     String infoCodigoSala = "";
 
     public RealizarDevolucion() {
@@ -37,8 +37,8 @@ public class RealizarDevolucion {
         if (!solicitudDao.VerifyInactivity(usuario)) {
             String[] datos = solicitudDao.getInfo(usuario);
             infoIdEquipo = datos[0];
-            infoIdEdificio = datos[1];
-            infoNombreEdificio = datos[2];
+            infoNombreEdificio = datos[1];
+            infoIdEdificio = datos[2];
             infoCodigoSala = datos[3];
             return true;
         } else {
