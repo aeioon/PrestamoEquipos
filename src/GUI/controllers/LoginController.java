@@ -75,9 +75,14 @@ public class LoginController implements Initializable {
         usuario.setConstraseña(passwordLoginTF.getText());
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            if (validar.verificarLogin(usuario)) {                                
-                cargarDatos.cargarUsuario(usuario);
-                cargarDatos.cargar(usuario);
+            if (validar.verificarLogin(usuario)) { 
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        cargarDatos.cargar(usuario);
+                    }
+                }).start();
+                cargarDatos.setUser(usuario);
                 System.out.println(cargarDatos.getUser().getId());
                 Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);

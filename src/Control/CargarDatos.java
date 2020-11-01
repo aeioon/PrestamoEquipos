@@ -31,20 +31,27 @@ public class CargarDatos {
             @Override
             public void run() {
                 cargarSolicitud(usuario);
-                System.out.println("fallo1");
+                System.out.println("Carga solicitud");
             }
         }).start();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 cargarActivity(usuario);
-                System.out.println("fallo2");
+                System.out.println("Carga actividad");
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cargarUsuario(usuario);
+                System.out.println("Carga Usuario");
             }
         }).start();
     }
 
     public void cargarUsuario(Usuario usuario) {
-        this.setUser(usuarioDao.leer(usuario));
+        user = usuarioDao.leer(usuario);
     }
 
     public void cargarSolicitud(Usuario usuario) {
