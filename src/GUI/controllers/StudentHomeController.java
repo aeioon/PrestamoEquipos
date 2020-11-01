@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Control.CargarDatos;
 import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import DAO.ComputadorDAO;
@@ -29,21 +30,19 @@ import javafx.stage.Stage;
  *
  * @author ion
  */
+public class StudentHomeController implements Initializable {
 
-public class StudentHomeController implements Initializable{
-    
-    
-    SessionHolder sessionHolder = SessionHolder.getInstance();
-    
+    CargarDatos cargarDatos = CargarDatos.getInstance();
+
     //temporal
-    void changeScene(ActionEvent event, String fxml) throws IOException{
+    void changeScene(ActionEvent event, String fxml) throws IOException {
         Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
         Scene newScene = new Scene(newParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newScene);
         window.show();
     }
-    
+
     @FXML
     private Button requestLoanBtn;
 
@@ -52,38 +51,41 @@ public class StudentHomeController implements Initializable{
 
     @FXML
     private Label iconTest;
-    
+
     @FXML
     private Button faqBtn;
-    
+
     @FXML
     private Label escudoBlanco;
-    
+
     @FXML
     private Text welcomeUserText;
-    
-    
+
     @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
-        changeScene(event, "/GUI/views/loanRequest.fxml");
+        if (!cargarDatos.isActivo()) {
+            changeScene(event, "/GUI/views/loanRequest.fxml");
+        }
     }
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 390, 272);
-            Stage stagePop = new Stage();
-            stagePop.setTitle("Confirmar devolucion");
-            stagePop.setScene(scene);
-            stagePop.showAndWait();
+            if (cargarDatos.isActivo()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 390, 272);
+                Stage stagePop = new Stage();
+                stagePop.setTitle("Confirmar devolucion");
+                stagePop.setScene(scene);
+                stagePop.showAndWait();
+            }
 
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
     }
-    
+
     @FXML
     void faqBtnAction(ActionEvent event) {
     }
@@ -91,7 +93,7 @@ public class StudentHomeController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
-        welcomeUserText.setText("¡Hola "+sessionHolder.getUser().getId()+"!");
+        welcomeUserText.setText("¡Hola " + cargarDatos.getUser().getId() + "!");
     }
 
 }

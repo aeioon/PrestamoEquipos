@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Control.CargarDatos;
 import Control.RealizarDevolucion;
 import Control.RealizarPrestamo;
 import Entidad.Computador;
@@ -25,14 +26,19 @@ import javafx.stage.Stage;
 
 public class ConfirmRequestController implements Initializable {
 
-    @FXML private Button cancelRequestBtn;
-    @FXML private Button loanBtn;
+    CargarDatos cargarDatos = CargarDatos.getInstance();
     
     LoanDataHolder loanHolder = LoanDataHolder.getInstance();
     Usuario u = SessionHolder.getInstance().getUser();
     Computador c = loanHolder.getComputer();
     ArrayList<Programa> p = loanHolder.getPrograms();
     ComputerRow pr = loanHolder.getRow();
+    @FXML 
+    private Button cancelRequestBtn;
+    
+    @FXML 
+    private Button loanBtn;
+    
         
     int idSelected;
     
@@ -53,6 +59,7 @@ public class ConfirmRequestController implements Initializable {
         RealizarPrestamo RP = new RealizarPrestamo();
         if(RP.makeBorrow(u, c, p)){
             System.out.println("Se realizo el prestamo!");
+            cargarDatos.setActivo(true);
             Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
             stage.close();
         } else {
@@ -63,7 +70,7 @@ public class ConfirmRequestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #"+ pr.getId()+" en el edificio "+pr.getNombreEdificio()+" "+pr.getIdEdificio()+" de la sala "+pr.getNombreSala());
+        computerText.setText("Computador #"+ cargarDatos.getInfoIdEquipo()+" en el edificio "+cargarDatos.getInfoIdEdificio()+" "+cargarDatos.getInfoNombreEdificio()+" de la sala "+cargarDatos.getInfoCodigoSala());
     }
 
 }

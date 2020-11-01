@@ -32,7 +32,6 @@
                </cursor></Button>
          </children>
       </AnchorPane>
-      <Text fx:id="equipmentText" layoutX="46.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="304.13671875" />
       <Text fx:id="stateText" layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="304.13671875" />
    </children>
 </AnchorPane>

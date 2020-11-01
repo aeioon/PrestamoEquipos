@@ -22,6 +22,13 @@ public class Usuario {
         this.facultad = facultad;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", constrase\u00f1a=" + constraseña + ", nombres=" + nombres + ", apellidos=" + apellidos + ", carrera=" + carrera + ", facultad=" + facultad + '}';
+    }
+
+    
+    
     public String getId() {
         return id;
     }

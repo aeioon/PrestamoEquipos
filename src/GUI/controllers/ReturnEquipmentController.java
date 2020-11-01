@@ -5,6 +5,7 @@
  */
 package GUI.controllers;
 
+import Control.CargarDatos;
 import Control.RealizarDevolucion;
 import Entidad.Usuario;
 import java.net.URL;
@@ -24,20 +25,16 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class ReturnEquipmentController implements Initializable {
-    
-    Usuario user = SessionHolder.getInstance().getUser();
+
+    CargarDatos cargarDatos = CargarDatos.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
-    
+
     @FXML
     private Button exitReturnBtn;
 
     @FXML
     private Button returnEquipmentBtn;
 
-    @FXML
-    private Text equipmentText;
-    
-    
     @FXML
     private Text stateText;
 
@@ -49,39 +46,24 @@ public class ReturnEquipmentController implements Initializable {
         Stage stage = (Stage) exitReturnBtn.getScene().getWindow();
         stage.close();
     }
+
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) {
-        
-        if(RD.makeReturn(user)){
+        if (RD.makeReturn(cargarDatos.getUser())) {
             System.out.println("Se realizo la devolucion!");
+            cargarDatos.setActivo(false);
             Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
             stage.close();
         } else {
-            equipmentText.setText("Fallo en la devolucion");
+            stateText.setText("Fallo en la devolucion");
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        equipmentText.setText("Revisando el estado de tu cuenta...");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (RD.isInactivity(user)) {
-                            equipmentText.setVisible(false);
-                            stateText.setText("Debes devolver el equipo "+RD.getInfoIdEquipo()+
-                                              " en la sala "+RD.getInfoCodigoSala()+
-                                              " del edificio "+RD.getInfoNombreEdificio()+".");
-                        } else {
-                            equipmentText.setVisible(false);    
-                            stateText.setText("No debes devolver ningun equipo");
-                        }
-                    }
-                });
-            }
-        }).start();
-    }    
-    
+        stateText.setText("Debes devolver el equipo " + cargarDatos.getInfoIdEquipo()
+                + " en la sala " + cargarDatos.getInfoCodigoSala()
+                + " del edificio " + cargarDatos.getInfoNombreEdificio() + ".");
+    }
+
 }

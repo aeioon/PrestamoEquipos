@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class SolicitudD {
+public class SolicitudDAO {
 
     static final String DB_URL
             = "jdbc:mysql://database-1.cpxq1relua92.us-east-1.rds.amazonaws.com:3306/prestamoequipos";
@@ -173,7 +173,7 @@ public class SolicitudD {
     }
 
     public String[] getInfo(Usuario user) {
-        String[] datos = {"", "", "", ""};
+        String[] datos = {"", "", "", "", ""};
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -181,7 +181,7 @@ public class SolicitudD {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Codigo\n"
+            String consulta = "SELECT S.Id_Solicitud, C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Codigo\n"
                     + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)\n"
                     + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala)\n"
                     + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
@@ -191,9 +191,10 @@ public class SolicitudD {
             resultSet = statement.executeQuery(consulta);
             if (resultSet.next()) {
                 datos[0] = Integer.toString(resultSet.getInt(1));
-                datos[1] = resultSet.getString(2);
-                datos[2] = Integer.toString(resultSet.getInt(3));
-                datos[3] = resultSet.getString(4);
+                datos[1] = Integer.toString(resultSet.getInt(2));
+                datos[2] = resultSet.getString(3);
+                datos[3] = Integer.toString(resultSet.getInt(4));
+                datos[4] = resultSet.getString(5);
             }
 
             return datos;

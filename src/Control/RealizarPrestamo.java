@@ -3,7 +3,7 @@ package Control;
 import DAO.ComputadorDAO;
 import DAO.ProgramaDAO;
 import DAO.ProgramaSolicitudDAO;
-import DAO.SolicitudD;
+import DAO.SolicitudDAO;
 import DAO.UsuarioDAO;
 import Entidad.Programa;
 import Entidad.Computador;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class RealizarPrestamo {
 
     ComputadorDAO computadorDao = new ComputadorDAO();
-    SolicitudD solicitudDao = new SolicitudD();
+    SolicitudDAO solicitudDao = new SolicitudDAO();
     ProgramaDAO programaDao = new ProgramaDAO();
     ProgramaSolicitudDAO programaSolicitudDao = new ProgramaSolicitudDAO();
 

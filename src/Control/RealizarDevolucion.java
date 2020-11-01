@@ -2,14 +2,14 @@ package Control;
 
 import DAO.ComputadorDAO;
 import DAO.ProgramaDAO;
-import DAO.SolicitudD;
+import DAO.SolicitudDAO;
 import Entidad.Programa;
 import Entidad.Usuario;
 import java.util.ArrayList;
 
 public class RealizarDevolucion {
 
-    SolicitudD solicitudDao = new SolicitudD();
+    SolicitudDAO solicitudDao = new SolicitudDAO();
     ComputadorDAO computadroDao = new ComputadorDAO();
     String infoIdEquipo = "";
     String infoNombreEdificio = "";
