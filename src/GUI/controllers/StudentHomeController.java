@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,12 +96,6 @@ public class StudentHomeController implements Initializable {
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
                         try {
                             if (cargarDatos.isCarga()) {
                                 if (cargarDatos.isActivo()) {
@@ -129,19 +125,45 @@ public class StudentHomeController implements Initializable {
                             System.err.println(String.format("Error: %s", e.getMessage()));
                         }
                     }
-                });
-            }
-        }).start();
-    }
 
     @FXML
-    void faqBtnAction(ActionEvent event) {
+    void faqBtnAction(ActionEvent event) throws IOException {
     }
+    
+    @FXML
+    private Text currentComputerHomeText;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
         welcomeUserText.setText("¡Hola " + cargarDatos.getUser().getId() + "!");
+        
+        Thread computerInfo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            while(!cargarDatos.isCargaSolicitud()){
+                                Thread.sleep(1000);
+                            }
+                            if(cargarDatos.isActivo()){
+                                currentComputerHomeText.setText("Actualmente tiene asignado el computador " + cargarDatos.getInfoIdEquipo()
+                                        + " en la sala " + cargarDatos.getInfoCodigoSala()
+                                        + " del edificio " + cargarDatos.getInfoNombreEdificio() + ".");
+                            }
+                        
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }            
+                    }
+                });
+            }
+            
+        });      
+        computerInfo.setDaemon(true);
+        computerInfo.start();    
     }
 
 }
