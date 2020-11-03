@@ -15,6 +15,7 @@ public class CargarDatos {
     private String infoNombreEdificio = "";
     private String infoIdEdificio = "";
     private String infoCodigoSala = "";
+    private boolean carga = false;
 
     private CargarDatos() {
 
@@ -64,11 +65,20 @@ public class CargarDatos {
     }
 
     public void cargarActivity(Usuario usuario) {
+        carga = true;
         if (!solicitudDao.VerifyInactivity(usuario)) {
             activo = true;
         } else {
             activo = false;
         }
+    }
+
+    public boolean isCarga() {
+        return carga;
+    }
+
+    public void setCarga(boolean carga) {
+        this.carga = carga;
     }
 
     public SolicitudDAO getSolicitudDao() {
