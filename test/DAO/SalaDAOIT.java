@@ -66,6 +66,17 @@ public class SalaDAOIT {
         boolean result = instance.leer(par);
         assertEquals(expResult, result);
     }
+    
+    @Test
+    public void testLeer2() {
+        System.out.println("leer");
+        Sala par = new Sala();
+        par.setId(2);
+        SalaDAO instance = new SalaDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of actualizar method, of class SalaDAO.

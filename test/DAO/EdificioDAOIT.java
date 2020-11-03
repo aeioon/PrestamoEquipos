@@ -39,10 +39,21 @@ public class EdificioDAOIT {
     }
     
     @Test
-    public void testLeer() {
+    public void testLeer1() {
         System.out.println("leer");
         Edificio par = new Edificio();
         par.setId(1);
+        EdificioDAO instance = new EdificioDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testLeer2() {
+        System.out.println("leer");
+        Edificio par = new Edificio();
+        par.setId(25);
         EdificioDAO instance = new EdificioDAO();
         boolean expResult = true;
         boolean result = instance.leer(par);

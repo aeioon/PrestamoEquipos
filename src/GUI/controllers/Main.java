@@ -25,28 +25,29 @@ public class Main extends Application  {
         launch(args);
     }
     
-    /*void testBorrow(String userId, int computerId){
+    void testBorrow(String userId, int computerId){
         Usuario u = new Usuario();
         u.setId(userId);
         Computador c = new Computador();
         c.setId(computerId);
         ArrayList<Programa> p = new ArrayList<>();
-        p.add(new Programa(1, "NetBeans", "8.2"));
+        //p.add(new Programa(1, "NetBeans", "8.2"));
+        p.add(new Programa(2, "CodeBlocks", "3.0"));
         RealizarPrestamo RP = new RealizarPrestamo();
         System.out.println(RP.makeBorrow(u, c, p, false));
     }
     
     void testReturn(){
         Usuario u = new Usuario();
-        u.setId("acardenaso");
+        u.setId("dbustos");
         RealizarDevolucion RD = new RealizarDevolucion();
         System.out.println(RD.makeReturn(u, 2, true));
-    }*/
+    }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //testReturn();
-        //testBorrow("cchavezb", 1);
+        testReturn();
+        //testBorrow("dbustos", 2);
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
