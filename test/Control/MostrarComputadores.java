@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sun.applet.Main;
 
 /**
  *
@@ -39,14 +40,10 @@ public class MostrarComputadores {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     
     @Test
     public void testGetInfoComputersNetbeans() {
+        GUI.controllers.Main.precondicionesMostrarComputadores1();
         System.out.println("getInfoComputersNetbeans");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(1, "NetBeans", "8.2"));
@@ -133,26 +130,8 @@ public class MostrarComputadores {
     }
     
     @Test
-    public void testGetInfoComputersCodeblockComputador2Ocupado() {
-        System.out.println("getInfoComputersNetbeansVisualParadigm");
-        ArrayList<Programa> programs = new ArrayList<>();
-        programs.add(new Programa(2, "Codeblocks", "3.0"));
-        RealizarPrestamo instance = new RealizarPrestamo();
-        ArrayList<String[]> expResult = null;
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
-        for (int i = 0; i < result.size(); i++) {
-            for (int j = 0; j <4 ; j++) {
-                assertEquals(expResult.get(i)[0], result.get(i)[0]);
-                assertEquals(expResult.get(i)[1], result.get(i)[1]);
-                assertEquals(expResult.get(i)[2], result.get(i)[2]);
-                assertEquals(expResult.get(i)[3], result.get(i)[3]);
-            }
-        }
-    }
-    
-    @Test
     public void testGetInfoComputersNetbeansCodeblocks() {
-        System.out.println("getInfoComputersNetbeansVisualParadigm");
+        System.out.println("getInfoComputersNetbeansCodeBlocks");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(1, "NetBeans", "8.2"));
         programs.add(new Programa(2, "CodeBlocks", "3.0"));
@@ -173,7 +152,7 @@ public class MostrarComputadores {
     
     @Test
     public void testGetInfoComputersVisualParadigmCodeblocks() {
-        System.out.println("getInfoComputersNetbeansVisualParadigm");
+        System.out.println("getInfoComputersVisualParadigmCodeblocks");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(3, "VisualParadigm", "4.0"));
         programs.add(new Programa(2, "CodeBlocks", "3.0"));
@@ -194,7 +173,7 @@ public class MostrarComputadores {
     
     @Test
     public void testGetInfoComputersVisualParadigmCodeblocksNetBeans() {
-        System.out.println("getInfoComputersNetbeansVisualParadigm");
+        System.out.println("getInfoComputersVisualParadigmCodeblocksNetBeans");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(3, "VisualParadigm", "4.0"));
         programs.add(new Programa(2, "CodeBlocks", "3.0"));
@@ -203,6 +182,26 @@ public class MostrarComputadores {
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp2);
+        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        for (int i = 0; i < result.size(); i++) {
+            for (int j = 0; j <4 ; j++) {
+                assertEquals(expResult.get(i)[0], result.get(i)[0]);
+                assertEquals(expResult.get(i)[1], result.get(i)[1]);
+                assertEquals(expResult.get(i)[2], result.get(i)[2]);
+                assertEquals(expResult.get(i)[3], result.get(i)[3]);
+            }
+        }
+    }
+    
+    @Test
+    public void testGetInfoComputersCodeblockComputador2Ocupado() {
+        GUI.controllers.Main.precondicionesMostrarComputadores2();
+        GUI.controllers.Main.testBorrow("dbustos", 2);
+        System.out.println("getInfoComputersCodeblockComputador2Ocupado");
+        ArrayList<Programa> programs = new ArrayList<>();
+        programs.add(new Programa(2, "Codeblocks", "3.0"));
+        RealizarPrestamo instance = new RealizarPrestamo();
+        ArrayList<String[]> expResult = null;
         ArrayList<String[]> result = instance.getInfoComputers(programs);
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {

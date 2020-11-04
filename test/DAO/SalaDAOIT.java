@@ -37,22 +37,7 @@ public class SalaDAOIT {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of crear method, of class SalaDAO.
-     */
-//    @Test
-//    public void testCrear() {
-//        System.out.println("crear");
-//        Sala object = new Sala();
-//        SalaDAO instance = new SalaDAO();
-//        boolean expResult = false;
-//        boolean result = instance.crear(object);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
+    
     /**
      * Test of leer method, of class SalaDAO.
      */
@@ -77,6 +62,21 @@ public class SalaDAOIT {
         boolean result = instance.leer(par);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of crear method, of class SalaDAO.
+     */
+//    @Test
+//    public void testCrear() {
+//        System.out.println("crear");
+//        Sala object = new Sala();
+//        SalaDAO instance = new SalaDAO();
+//        boolean expResult = false;
+//        boolean result = instance.crear(object);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of actualizar method, of class SalaDAO.
