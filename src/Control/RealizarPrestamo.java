@@ -51,8 +51,12 @@ public class RealizarPrestamo {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                for (int i = 0; i < programs.size(); i++) {
-                                    estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                                try {
+                                    for (int i = 0; i < programs.size(); i++) {
+                                        estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("No identifica la solicitud");
                                 }
                             }
                         });
