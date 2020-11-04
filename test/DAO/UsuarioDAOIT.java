@@ -38,19 +38,123 @@ public class UsuarioDAOIT {
     public void tearDown() {
     }
 
+
     /**
      * Test of leer method, of class UsuarioDAO.
      */
     @Test
-    public void testLeer() {
-        System.out.println("leer");
+    public void testLeer1() {
+        System.out.println("leer1");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
         usuario.setConstraseña("Unal2020");
         UsuarioDAO instance = new UsuarioDAO();
-        boolean expResult = true;
-        boolean result = instance.validar(usuario);
-        assertEquals(expResult, result);
+        Usuario expResult = new Usuario();
+        expResult.setId("acardenaso");
+        expResult.setConstraseña("Unal2020");
+        expResult.setNombres("Ángela María");
+        expResult.setApellidos("Cárdenas Orjuela");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.leer(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getConstraseña(), result.getConstraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
     }
     
+    @Test
+    public void testLeer2() {
+        System.out.println("leer2");
+        Usuario usuario = new Usuario();
+        usuario.setId("dbustos");
+        usuario.setConstraseña("123");
+        UsuarioDAO instance = new UsuarioDAO();
+        Usuario expResult = new Usuario();
+        expResult.setId("dbustos");
+        expResult.setConstraseña("123");
+        expResult.setNombres("David Julian");
+        expResult.setApellidos("Bustos Cortes");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.leer(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getConstraseña(), result.getConstraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+    
+    @Test
+    public void testLeer3() {
+        System.out.println("leer3");
+        Usuario usuario = new Usuario();
+        usuario.setId("ggarciaro");
+        usuario.setConstraseña("12345");
+        UsuarioDAO instance = new UsuarioDAO();
+        Usuario expResult = new Usuario();
+        expResult.setId("ggarciaro");
+        expResult.setConstraseña("12345");
+        expResult.setNombres("Gabriela María");
+        expResult.setApellidos("García Romero");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.leer(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getConstraseña(), result.getConstraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+    
+    @Test
+    public void testLeer4() {
+        System.out.println("leer4");
+        Usuario usuario = new Usuario();
+        usuario.setId("jgarciam");
+        usuario.setConstraseña("adios");
+        UsuarioDAO instance = new UsuarioDAO();
+        Usuario expResult = new Usuario();
+        expResult.setId("jgarciam");
+        expResult.setConstraseña("adios");
+        expResult.setNombres("Juan Camilo");
+        expResult.setApellidos("García Martinez");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.leer(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getConstraseña(), result.getConstraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+    
+    @Test
+    public void testLeer5() {
+        System.out.println("leer5");
+        Usuario usuario = new Usuario();
+        usuario.setId("cchavezb");
+        usuario.setConstraseña("hola");
+        UsuarioDAO instance = new UsuarioDAO();
+        Usuario expResult = new Usuario();
+        expResult.setId("cchavezb");
+        expResult.setConstraseña("hola");
+        expResult.setNombres("Cristian Alejandro");
+        expResult.setApellidos("Chávez Becerra");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.leer(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getConstraseña(), result.getConstraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+//    
 }

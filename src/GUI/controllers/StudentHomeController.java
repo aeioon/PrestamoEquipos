@@ -96,40 +96,40 @@ public class StudentHomeController implements Initializable {
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
-                        try {
-                            if (cargarDatos.isCarga()) {
-                                if (cargarDatos.isActivo()) {
-                                    FXMLLoader fxmlLoader = new FXMLLoader();
-                                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-                                    Scene scene = new Scene(fxmlLoader.load(), 390, 272);
-                                    Stage stagePop = new Stage();
-                                    stagePop.setTitle("Confirmar devolucion");
-                                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
-                                    stagePop.setScene(scene);
-                                    stagePop.showAndWait();
-                                } else {
-                                    FXMLLoader fxmlLoader = new FXMLLoader();
-                                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
-                                    Scene scene = new Scene(fxmlLoader.load(), 390, 210);
-                                    Stage stagePop = new Stage();
-                                    stagePop.setTitle("Error");
-                                    stagePop.setScene(scene);
-                                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
-                                    stagePop.showAndWait();
-                                }
-                            }else{
-                                System.out.println("pensando");
-                            }
+        try {
+            if (cargarDatos.isCarga()) {
+                if (cargarDatos.isActivo()) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 390, 272);
+                    Stage stagePop = new Stage();
+                    stagePop.setTitle("Confirmar devolucion");
+                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
+                    stagePop.setScene(scene);
+                    stagePop.showAndWait();
+                } else {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 390, 210);
+                    Stage stagePop = new Stage();
+                    stagePop.setTitle("Error");
+                    stagePop.setScene(scene);
+                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
+                    stagePop.showAndWait();
+                }
+            } else {
+                System.out.println("pensando");
+            }
 
-                        } catch (IOException e) {
-                            System.err.println(String.format("Error: %s", e.getMessage()));
-                        }
-                    }
+        } catch (IOException e) {
+            System.err.println(String.format("Error: %s", e.getMessage()));
+        }
+    }
 
     @FXML
     void faqBtnAction(ActionEvent event) throws IOException {
     }
-    
+
     @FXML
     private Text currentComputerHomeText;
 
@@ -137,7 +137,7 @@ public class StudentHomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
         welcomeUserText.setText("¡Hola " + cargarDatos.getUser().getId() + "!");
-        
+
         Thread computerInfo = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -145,25 +145,25 @@ public class StudentHomeController implements Initializable {
                     @Override
                     public void run() {
                         try {
-                            while(!cargarDatos.isCargaSolicitud()){
+                            while (!cargarDatos.isCargaSolicitud()) {
                                 Thread.sleep(1000);
                             }
-                            if(cargarDatos.isActivo()){
+                            if (cargarDatos.isActivo()) {
                                 currentComputerHomeText.setText("Actualmente tiene asignado el computador " + cargarDatos.getInfoIdEquipo()
                                         + " en la sala " + cargarDatos.getInfoCodigoSala()
                                         + " del edificio " + cargarDatos.getInfoNombreEdificio() + ".");
                             }
-                        
+
                         } catch (InterruptedException ex) {
                             Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                        }            
+                        }
                     }
                 });
             }
-            
-        });      
+
+        });
         computerInfo.setDaemon(true);
-        computerInfo.start();    
+        computerInfo.start();
     }
 
 }

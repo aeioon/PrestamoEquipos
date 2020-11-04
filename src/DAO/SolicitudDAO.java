@@ -110,23 +110,17 @@ public class SolicitudDAO {
     }
 
     public boolean crear(Solicitud object) {
-        System.out.println("Inicio de Funcion");
         java.util.Date miObjetoJavaUtilDate = new Date();
         Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
         Connection connection = null;
         Statement statement = null;
-
         int resultSet;
-
-        System.out.println("AntesTry");
         try {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            System.out.println("AntesUpdate");
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
                     + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
-            System.out.println("despuesUpdate");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

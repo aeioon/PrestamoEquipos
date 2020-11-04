@@ -42,49 +42,62 @@ public class RealizarDevolucionIT {
      * Test of makeReturn method, of class RealizarDevolucion.
      */
     @Test
-    public void testDevolucion() {
+    public void testDevolucion1() {
         System.out.println("makeReturn");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = true;
         boolean result = instance.makeReturn(usuario, 2, true);
+        System.out.println("Resultado:" + result);
         assertEquals(expResult, result);
     }
     
-    @Test
-    public void testFalloDevolucion1() {
-        System.out.println("testFalloDevolucion1");
-        Usuario usuario = new Usuario();
-        usuario.setId("ggarciaro");
-        RealizarDevolucion instance = new RealizarDevolucion();
-        boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 2, true);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testDevolucion2() {
+//        System.out.println("makeReturn");
+//        Usuario usuario = new Usuario();
+//        usuario.setId("dbustos");
+//        RealizarDevolucion instance = new RealizarDevolucion();
+//        boolean expResult = true;
+//        boolean result = instance.makeReturn(usuario, 2, true);
+//        assertEquals(expResult, result);
+//    }
     
-    @Test
-    public void testFalloDevolucion2() {
-        System.out.println("testFalloDevolucion2");
-        Usuario usuario = new Usuario();
-        usuario.setId("cchavezb");
-        RealizarDevolucion instance = new RealizarDevolucion();
-        boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 3, false);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testFalloDevolucion3() {
-        System.out.println("testFalloDevolucion3");
-        Usuario usuario = new Usuario();
-        usuario.setId("jgarciam");
-        RealizarDevolucion instance = new RealizarDevolucion();
-        boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 3, true);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testFalloDevolucion1() {
+//        System.out.println("testFalloDevolucion1");
+//        Usuario usuario = new Usuario();
+//        usuario.setId("ggarciaro");
+//        RealizarDevolucion instance = new RealizarDevolucion();
+//        boolean expResult = false;
+//        boolean result = instance.makeReturn(usuario, 2, false);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testFalloDevolucion2() {
+//        System.out.println("testFalloDevolucion2");
+//        Usuario usuario = new Usuario();
+//        usuario.setId("cchavezb");
+//        RealizarDevolucion instance = new RealizarDevolucion();
+//        boolean expResult = false;
+//        boolean result = instance.makeReturn(usuario, 3, false);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testFalloDevolucion3() {
+//        System.out.println("testFalloDevolucion3");
+//        Usuario usuario = new Usuario();
+//        usuario.setId("jgarciam");
+//        RealizarDevolucion instance = new RealizarDevolucion();
+//        boolean expResult = false;
+//        boolean result = instance.makeReturn(usuario, 3, false);
+//        assertEquals(expResult, result);
+//    }
 
    
     
 }
+

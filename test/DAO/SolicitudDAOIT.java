@@ -46,35 +46,35 @@ public class SolicitudDAOIT {
     /**
      * Test of crear method, of class SolicitudDAO.
      */
-    @Test
-    public void testCrear() {
-        System.out.println("crear");
-        Solicitud object = new Solicitud();
-        Usuario usuario = new Usuario();
-        usuario.setId("jgarciam");
-        Computador computador = new Computador();
-        computador.setId(3);
-        object.setUsuario(usuario);
-        object.setComputador(computador);
-        SolicitudDAO instance = new SolicitudDAO();
-        boolean expResult = true;
-        boolean result = instance.crear(object);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of leer method, of class SolicitudDAO.
-     */
-    @Test
-    public void testLeer() {
-        System.out.println("leer");
-        Solicitud par = new Solicitud();
-        par.setId(106);
-        SolicitudDAO instance = new SolicitudDAO();
-        boolean expResult = true;
-        boolean result = instance.leer(par);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testCrear() {
+//        System.out.println("crear");
+//        Solicitud object = new Solicitud();
+//        Usuario usuario = new Usuario();
+//        usuario.setId("jgarciam");
+//        Computador computador = new Computador();
+//        computador.setId(3);
+//        object.setUsuario(usuario);
+//        object.setComputador(computador);
+//        SolicitudDAO instance = new SolicitudDAO();
+//        boolean expResult = true;
+//        boolean result = instance.crear(object);
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of leer method, of class SolicitudDAO.
+//     */
+//    @Test
+//    public void testLeer() {
+//        System.out.println("leer");
+//        Solicitud par = new Solicitud();
+//        par.setId(98);
+//        SolicitudDAO instance = new SolicitudDAO();
+//        boolean expResult = true;
+//        boolean result = instance.leer(par);
+//        assertEquals(expResult, result);
+//    }
 
     /**
      * Test of getInfo method, of class SolicitudDAO.
@@ -85,7 +85,7 @@ public class SolicitudDAOIT {
         Usuario user = new Usuario();
         user.setId("acardenaso");
         SolicitudDAO instance = new SolicitudDAO();
-        String[] expResult ={"2","1","CyT","1"};
+        String[] expResult ={"99","1","CyT","1","304"};
         String[] result = instance.getInfo(user);
         assertArrayEquals(expResult, result);
     }
@@ -93,31 +93,31 @@ public class SolicitudDAOIT {
     /**
      * Test of actualizar method, of class SolicitudDAO.
      */
-    @Test
-    public void testActualizar() {
-        System.out.println("actualizar");
-        Solicitud oldSolicitud = new Solicitud();
-        oldSolicitud.setId(109);
-        Solicitud newSolicitud = new Solicitud();
-        newSolicitud.setEstado(0);
-        SolicitudDAO instance = new SolicitudDAO();
-        boolean expResult = true;
-        boolean result = instance.actualizar(oldSolicitud, newSolicitud);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of eliminar method, of class SolicitudDAO.
-     */
-    @Test
-    public void testEliminar() {
-        System.out.println("eliminar");
-        Solicitud object = new Solicitud();
-        object.setId(123);
-        SolicitudDAO instance = new SolicitudDAO();
-        boolean expResult = true;
-        boolean result = instance.eliminar(object);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testActualizar() {
+//        System.out.println("actualizar");
+//        Solicitud oldSolicitud = new Solicitud();
+//        oldSolicitud.setId(99);
+//        Solicitud newSolicitud = new Solicitud();
+//        newSolicitud.setEstado(1);
+//        SolicitudDAO instance = new SolicitudDAO();
+//        boolean expResult = true;
+//        boolean result = instance.actualizar(oldSolicitud, newSolicitud);
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of eliminar method, of class SolicitudDAO.
+//     */
+//    @Test
+//    public void testEliminar() {
+//        System.out.println("eliminar");
+//        Solicitud object = new Solicitud();
+//        object.setId(100);
+//        SolicitudDAO instance = new SolicitudDAO();
+//        boolean expResult = true;
+//        boolean result = instance.eliminar(object);
+//        assertEquals(expResult, result);
+//    }
     
 }

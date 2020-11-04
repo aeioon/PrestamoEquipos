@@ -41,10 +41,32 @@ public class ComputadorDAOIT {
     }
     
     @Test
-    public void testLeer() {
+    public void testLeer1() {
         System.out.println("leer");
         Computador par = new Computador();
         par.setId(1);
+        ComputadorDAO instance = new ComputadorDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testLeer2() {
+        System.out.println("leer");
+        Computador par = new Computador();
+        par.setId(2);
+        ComputadorDAO instance = new ComputadorDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testLeer3() {
+        System.out.println("leer");
+        Computador par = new Computador();
+        par.setId(3);
         ComputadorDAO instance = new ComputadorDAO();
         boolean expResult = true;
         boolean result = instance.leer(par);

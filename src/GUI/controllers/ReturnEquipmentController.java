@@ -52,7 +52,6 @@ public class ReturnEquipmentController implements Initializable {
         if (RD.makeReturn(cargarDatos.getUser(), Integer.parseInt(cargarDatos.getInfoIdEquipo()), cargarDatos.isActivo())) {
             System.out.println("Se realizo la devolucion!");
             cargarDatos.setActivo(false);
-            cargarDatos.setCarga(false);
             Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
             stage.close();
         } else {

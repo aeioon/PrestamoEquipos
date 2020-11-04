@@ -46,8 +46,8 @@ public class ProgramaDAOIT {
     public void testCrear() {
         System.out.println("crear");
         Programa object = new Programa();
-        object.setNombre("Word");
-        object.setVersion("16");
+        object.setNombre("Acces");
+        object.setVersion("6.0");
         ProgramaDAO instance = new ProgramaDAO();
         boolean expResult = true;
         boolean result = instance.crear(object);
@@ -58,10 +58,32 @@ public class ProgramaDAOIT {
      * Test of leer method, of class ProgramaDAO.
      */
     @Test
-    public void testLeer() {
-        System.out.println("leer");
+    public void testLeer1() {
+        System.out.println("leer1");
         Programa par = new Programa();
         par.setId(1);
+        ProgramaDAO instance = new ProgramaDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testLeer2() {
+        System.out.println("leer2");
+        Programa par = new Programa();
+        par.setId(2);
+        ProgramaDAO instance = new ProgramaDAO();
+        boolean expResult = true;
+        boolean result = instance.leer(par);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testLeer3() {
+        System.out.println("leer3");
+        Programa par = new Programa();
+        par.setId(3);
         ProgramaDAO instance = new ProgramaDAO();
         boolean expResult = true;
         boolean result = instance.leer(par);
@@ -71,32 +93,32 @@ public class ProgramaDAOIT {
     /**
      * Test of actualizar method, of class ProgramaDAO.
      */
-    @Test
-    public void testActualizar() {
-        System.out.println("actualizar");
-        Programa oldPrograma = new Programa();
-        oldPrograma.setId(6);
-        Programa newPrograma = new Programa();
-        newPrograma.setNombre("Soft5");
-        newPrograma.setVersion("ver2");
-        ProgramaDAO instance = new ProgramaDAO();
-        boolean expResult = true;
-        boolean result = instance.actualizar(oldPrograma, newPrograma);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of eliminar method, of class ProgramaDAO.
-     */
-    @Test
-    public void testEliminar() {
-        System.out.println("eliminar");
-        Programa object = new Programa();
-        object.setId(5);
-        ProgramaDAO instance = new ProgramaDAO();
-        boolean expResult = true;
-        boolean result = instance.eliminar(object);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testActualizar() {
+//        System.out.println("actualizar");
+//        Programa oldPrograma = new Programa();
+//        oldPrograma.setId(6);
+//        Programa newPrograma = new Programa();
+//        newPrograma.setNombre("Soft5");
+//        newPrograma.setVersion("ver2");
+//        ProgramaDAO instance = new ProgramaDAO();
+//        boolean expResult = true;
+//        boolean result = instance.actualizar(oldPrograma, newPrograma);
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of eliminar method, of class ProgramaDAO.
+//     */
+//    @Test
+//    public void testEliminar() {
+//        System.out.println("eliminar");
+//        Programa object = new Programa();
+//        object.setId(5);
+//        ProgramaDAO instance = new ProgramaDAO();
+//        boolean expResult = true;
+//        boolean result = instance.eliminar(object);
+//        assertEquals(expResult, result);
+//    }
     
 }
