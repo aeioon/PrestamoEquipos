@@ -17,13 +17,10 @@ public class RealizarDevolucion {
     }
 
     public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
-        System.out.println("hola entre en la función");
         if (activo) {
-            System.out.println("Estoy activo");
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("voy a cambiar el estado de la solicitud");
                     estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
                 }
             }).start();

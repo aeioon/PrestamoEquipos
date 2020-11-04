@@ -86,23 +86,17 @@ public class SolicitudDAO {
     }
 
     public boolean ChangeRequestStatus(Usuario usuario) {
-        System.out.println("Estoiy en la funciónn de cambiar de estado");
         Connection connection = null;
         Statement statement = null;
         ResultSet query = null;
         int resultSet;
         try {
             resultSet = -1;
-            System.out.println("se crea el driver");
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            System.out.println("se crea la base de datos");
             statement = connection.createStatement();
-            System.out.println("aqui va a comenzar el cambio");
             resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
-            System.out.println("se supone que ya debio cambiar de estado");
             return resultSet > 0;
         } catch (SQLException ex) {
-            System.out.println("falle");
             System.out.println("Error en SQL" + ex);
             return false;
         } finally {
@@ -116,23 +110,17 @@ public class SolicitudDAO {
     }
 
     public boolean crear(Solicitud object) {
-        System.out.println("Inicio de Funcion");
         java.util.Date miObjetoJavaUtilDate = new Date();
         Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
         Connection connection = null;
         Statement statement = null;
-
         int resultSet;
-
-        System.out.println("AntesTry");
         try {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            System.out.println("AntesUpdate");
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
                     + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
-            System.out.println("despuesUpdate");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
