@@ -44,17 +44,17 @@ public class RealizarPrestamoIT {
     /**
      * Test of getAllPrograms method, of class RealizarPrestamo.
      */
-//    @Test
-//    public void testGetAllPrograms() {
-//        System.out.println("getAllPrograms");
-//        RealizarPrestamo instance = new RealizarPrestamo();
-//        ArrayList<Programa> expResult = new ArrayList<>();
-//        expResult.add(new Programa(1, "NetBeans", "8.2"));
-//        expResult.add(new Programa(2, "CodeBlocks", "3.0"));
-//        expResult.add(new Programa(3, "VisualParadigm", "4.0"));
-//        ArrayList<Programa> result = instance.getAllPrograms();
-//        assertEquals(result, expResult);
-//    }
+    @Test
+    public void testGetAllPrograms() {
+        System.out.println("getAllPrograms");
+        RealizarPrestamo instance = new RealizarPrestamo();
+        ArrayList<Programa> expResult = new ArrayList<>();
+        expResult.add(new Programa(1, "NetBeans", "8.2"));
+        expResult.add(new Programa(2, "CodeBlocks", "3.0"));
+        expResult.add(new Programa(3, "VisualParadigm", "4.0"));
+        ArrayList<Programa> result = instance.getAllPrograms();
+        assertEquals(result, expResult);
+    }
 
     /**
      * Test of makeBorrow method, of class RealizarPrestamo.
