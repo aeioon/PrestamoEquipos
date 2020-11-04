@@ -16,17 +16,17 @@ public class CargarDatos {
     private String infoIdEdificio = "";
     private String infoCodigoSala = "";
     private boolean carga = false;
+    private boolean cargaSolicitud = false;
 
     private CargarDatos() {
 
     }
-
     private static CargarDatos holder = new CargarDatos();
 
     public static CargarDatos getInstance() {
         return holder;
     }
-
+    
     public void cargar(Usuario usuario) {
         new Thread(new Runnable() {
             @Override
@@ -50,6 +50,14 @@ public class CargarDatos {
             }
         }).start();
     }
+    
+    public void resetData(){
+        activo = false;
+        carga = false;
+        cargaSolicitud = false;
+    }
+
+   
 
     public void cargarUsuario(Usuario usuario) {
         user = usuarioDao.leer(usuario);
@@ -62,6 +70,7 @@ public class CargarDatos {
         infoNombreEdificio = datos[2];
         infoIdEdificio = datos[3];
         infoCodigoSala = datos[4];
+        cargaSolicitud = true;
     }
 
     public void cargarActivity(Usuario usuario) {
@@ -160,4 +169,13 @@ public class CargarDatos {
     public static void setHolder(CargarDatos holder) {
         CargarDatos.holder = holder;
     }
+    
+     public boolean isCargaSolicitud() {
+        return cargaSolicitud;
+    }
+
+    public void setCargaSolicitud(boolean cargaSolicitud) {
+        this.cargaSolicitud = cargaSolicitud;
+    }
+    
 }
