@@ -62,53 +62,53 @@ public class RealizarPrestamoIT {
     
     
     //Caso A
-//    @Test
-//    public void testPrestamoEsudianteNoDisponibleyComputadorDisponible1CasoA() {
-//        System.out.println("makeBorrow");
-//        Usuario usuario = new Usuario();
-//        usuario.setId("cchavezb");
-//        Computador computer = new Computador();
-//        computer.setId(3);
-//        ArrayList<Programa> programs = new ArrayList<>();
-//        programs.add(new Programa(1, "NetBeans", "8.2"));
-//        RealizarPrestamo instance = new RealizarPrestamo();
-//        boolean expResult = false;
-//        boolean result = instance.makeBorrow(usuario, computer, programs, true);
-//        System.out.println("Resultado:" + result);
-//        assertEquals(expResult, result);
-//    }
-//    
-//    @Test
-//    public void testPrestamoEsudianteyComputadorDisponible1CasoA() {
-//        System.out.println("makeBorrow");
-//        Usuario usuario = new Usuario();
-//        usuario.setId("acardenaso");
-//        Computador computer = new Computador();
-//        computer.setId(2);
-//        ArrayList<Programa> programs = new ArrayList<>();
-//        programs.add(new Programa(2, "CodeBlocks", "3.0"));
-//        RealizarPrestamo instance = new RealizarPrestamo();
-//        boolean expResult = true;
-//        boolean result = instance.makeBorrow(usuario, computer, programs, false);
-//        System.out.println("Resultado:" + result);
-//        assertEquals(expResult, result);
-//    }
-//    
-//    @Test
-//    public void testPrestamoEsudianteyComputadorDisponible2CasoA() {
-//        System.out.println("makeBorrow");
-//        Usuario usuario = new Usuario();
-//        usuario.setId("ggarciaro");
-//        Computador computer = new Computador();
-//        computer.setId(3);
-//        ArrayList<Programa> programs = new ArrayList<>();
-//        programs.add(new Programa(1, "NetBeans", "8.2"));
-//        RealizarPrestamo instance = new RealizarPrestamo();
-//        boolean expResult = true;
-//        boolean result = instance.makeBorrow(usuario, computer, programs, false);
-//        System.out.println("Resultado:" + result);
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testPrestamoEsudianteNoDisponibleyComputadorDisponible1CasoA() {
+        System.out.println("makeBorrow");
+        Usuario usuario = new Usuario();
+        usuario.setId("cchavezb");
+        Computador computer = new Computador();
+        computer.setId(3);
+        ArrayList<Programa> programs = new ArrayList<>();
+        programs.add(new Programa(1, "NetBeans", "8.2"));
+        RealizarPrestamo instance = new RealizarPrestamo();
+        boolean expResult = false;
+        boolean result = instance.makeBorrow(usuario, computer, programs, true);
+        System.out.println("Resultado:" + result);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testPrestamoEsudianteyComputadorDisponible1CasoA() {
+        System.out.println("makeBorrow");
+        Usuario usuario = new Usuario();
+        usuario.setId("acardenaso");
+        Computador computer = new Computador();
+        computer.setId(2);
+        ArrayList<Programa> programs = new ArrayList<>();
+        programs.add(new Programa(2, "CodeBlocks", "3.0"));
+        RealizarPrestamo instance = new RealizarPrestamo();
+        boolean expResult = true;
+        boolean result = instance.makeBorrow(usuario, computer, programs, false);
+        System.out.println("Resultado:" + result);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testPrestamoEsudianteyComputadorDisponible2CasoA() {
+        System.out.println("makeBorrow");
+        Usuario usuario = new Usuario();
+        usuario.setId("ggarciaro");
+        Computador computer = new Computador();
+        computer.setId(3);
+        ArrayList<Programa> programs = new ArrayList<>();
+        programs.add(new Programa(1, "NetBeans", "8.2"));
+        RealizarPrestamo instance = new RealizarPrestamo();
+        boolean expResult = true;
+        boolean result = instance.makeBorrow(usuario, computer, programs, false);
+        System.out.println("Resultado:" + result);
+        assertEquals(expResult, result);
+    }
     
     //Caso B
     @Test

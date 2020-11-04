@@ -86,17 +86,23 @@ public class SolicitudDAO {
     }
 
     public boolean ChangeRequestStatus(Usuario usuario) {
+        System.out.println("Estoiy en la funciónn de cambiar de estado");
         Connection connection = null;
         Statement statement = null;
         ResultSet query = null;
         int resultSet;
         try {
             resultSet = -1;
+            System.out.println("se crea el driver");
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            System.out.println("se crea la base de datos");
             statement = connection.createStatement();
+            System.out.println("aqui va a comenzar el cambio");
             resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
+            System.out.println("se supone que ya debio cambiar de estado");
             return resultSet > 0;
         } catch (SQLException ex) {
+            System.out.println("falle");
             System.out.println("Error en SQL" + ex);
             return false;
         } finally {
