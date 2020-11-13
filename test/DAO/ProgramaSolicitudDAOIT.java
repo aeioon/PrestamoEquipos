@@ -47,9 +47,9 @@ public class ProgramaSolicitudDAOIT {
     public void testCrear() {
         System.out.println("crear");
         Programa programa = new Programa();
-        programa.setId(3);
+        programa.setId(1);
         Solicitud solicitud = new Solicitud();
-        solicitud.setId(99);
+        solicitud.setId(168);
         ProgramaSolicitudDAO instance = new ProgramaSolicitudDAO();
         boolean expResult = true;
         boolean result = instance.crear(programa, solicitud);

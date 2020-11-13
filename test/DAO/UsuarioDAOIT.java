@@ -155,6 +155,5 @@ public class UsuarioDAOIT {
         assertEquals(expResult.getApellidos(), result.getApellidos());
         assertEquals(expResult.getCarrera(), result.getCarrera());
         assertEquals(expResult.getFacultad(), result.getFacultad());
-    }
-//    
+    }   
 }

@@ -42,17 +42,17 @@ public class ProgramaDAOIT {
     /**
      * Test of crear method, of class ProgramaDAO.
      */
-    @Test
-    public void testCrear() {
-        System.out.println("crear");
-        Programa object = new Programa();
-        object.setNombre("Acces");
-        object.setVersion("6.0");
-        ProgramaDAO instance = new ProgramaDAO();
-        boolean expResult = true;
-        boolean result = instance.crear(object);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testCrear() {
+//        System.out.println("crear");
+//        Programa object = new Programa();
+//        object.setNombre("Acces");
+//        object.setVersion("6.0");
+//        ProgramaDAO instance = new ProgramaDAO();
+//        boolean expResult = true;
+//        boolean result = instance.crear(object);
+//        assertEquals(expResult, result);
+//    }
 
     /**
      * Test of leer method, of class ProgramaDAO.
@@ -114,7 +114,7 @@ public class ProgramaDAOIT {
 //    public void testEliminar() {
 //        System.out.println("eliminar");
 //        Programa object = new Programa();
-//        object.setId(5);
+//        object.setId(9);
 //        ProgramaDAO instance = new ProgramaDAO();
 //        boolean expResult = true;
 //        boolean result = instance.eliminar(object);

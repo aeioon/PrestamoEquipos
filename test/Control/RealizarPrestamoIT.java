@@ -64,6 +64,7 @@ public class RealizarPrestamoIT {
     //Caso A
     @Test
     public void testPrestamoEsudianteNoDisponibleyComputadorDisponible1CasoA() {
+        GUI.controllers.Main.precondicionesPrestamoCasoA();
         System.out.println("makeBorrow");
         Usuario usuario = new Usuario();
         usuario.setId("cchavezb");
@@ -129,6 +130,7 @@ public class RealizarPrestamoIT {
     
     @Test
     public void testPrestamoEsudianteNoDisponibleyComputadorDisponible2CasoB() {
+        GUI.controllers.Main.precondicionesPrestamoCasoB();
         System.out.println("makeBorrow");
         Usuario usuario = new Usuario();
         usuario.setId("ggarciaro");
