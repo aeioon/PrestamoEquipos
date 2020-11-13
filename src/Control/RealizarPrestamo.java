@@ -44,24 +44,10 @@ public class RealizarPrestamo {
             estadoPrestamo = estadoPrestamo && solicitudDao.crear(solicitud);
             if (estadoPrestamo) {
                 estadoPrestamo = estadoPrestamo && computadorDao.occupyComputer(computer);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    for (int i = 0; i < programs.size(); i++) {
-                                        estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
-                                    }
-                                } catch (Exception e) {
-                                    System.out.println("No identifica la solicitud");
-                                }
-                            }
-                        });
-                    }
-                }).start();
+                solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
+                for (int i = 0; i < programs.size(); i++) {
+                    estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                }
                 return estadoPrestamo;
             } else {
                 return false;

@@ -12,7 +12,6 @@ public class RealizarDevolucion {
     SolicitudDAO solicitudDao = new SolicitudDAO();
     ComputadorDAO computadroDao = new ComputadorDAO();
     boolean estadoSolicitud = true;
-    boolean freeComputer = false;
 
     public RealizarDevolucion() {
     }
@@ -20,17 +19,10 @@ public class RealizarDevolucion {
     public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
         if (activo) {
             estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
-                    freeComputer = true;
-                }
-            }).start();
+            estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
             return estadoSolicitud;
-        } else {
+        }else{
             return false;
         }
-
     }
 }
