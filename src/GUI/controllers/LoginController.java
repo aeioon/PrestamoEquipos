@@ -84,7 +84,8 @@ public class LoginController implements Initializable {
                 }).start();
                 cargarDatos.setUser(usuario);
                 System.out.println(cargarDatos.getUser().getId());
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                //Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);
