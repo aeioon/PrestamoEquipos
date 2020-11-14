@@ -4,11 +4,11 @@ import DAO.ProgramaDAO;
 import Entidad.Programa;
 import java.util.ArrayList;
 
-public class ManegeSoftware {
+public class ManageSoftware {
     
     ProgramaDAO programaDao = new ProgramaDAO();
     
-    public ArrayList<Programa> getAllProgramsAvailable(){
+    public ArrayList<Programa> getAllPrograms(){
         ArrayList<Programa> programas = programaDao.getAllProgramsAvailable();
         return programas;
     }

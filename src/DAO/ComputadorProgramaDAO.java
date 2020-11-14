@@ -102,6 +102,45 @@ public class ComputadorProgramaDAO {
 
             }
         }
+    }
+    
+    public ArrayList<String[]> equiposSinPrograma(Programa programa) {
+        ArrayList<String[]> computadores = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT Equipos.Id_Equipo, ED.Id_Edificio, ED.Nombre, SA.Codigo\n" +
+                                               "FROM (((SELECT Computador.Id_Equipo\n" +
+                                                     "FROM Computador LEFT JOIN (Select Id_Equipo FROM Computador_Programa WHERE Id_Programa =" + programa.getId() + ") AS CP ON Computador.Id_Equipo = CP.Id_Equipo\n" +
+                                                     "WHERE CP.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador ON Equipos.Id_Equipo = Computador.Id_Equipo)\n" +
+                                                     "INNER JOIN Sala AS SA ON Computador.SalaId_sala = SA.Id_Sala)\n" +
+                                                     "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio;");
+            while (resultSet.next()) {
+                String[] computador = {"", "", "", ""};
+                computador[0] = resultSet.getInt(1) + "";
+                computador[1] = resultSet.getInt(2) + "";
+                computador[2] = resultSet.getString(3);
+                computador[3] = resultSet.getString(4);
+                computadores.add(computador);
+            }
+            return computadores;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return computadores;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return computadores;
+            } catch (SQLException ex) {
+
+            }
+        }
 
     }
 }

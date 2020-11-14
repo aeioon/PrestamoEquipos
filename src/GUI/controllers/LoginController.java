@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
             if (validar.verificarLogin(usuario)) {
                 cargarDatosUsuario.cargar(usuario);
                 cargarDatosUsuario.cargarUsuario(usuario);
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);

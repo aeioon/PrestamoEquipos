@@ -6,7 +6,7 @@ import Entidad.Computador;
 import Entidad.Programa;
 import java.util.ArrayList;
 
-public class ManegeSoftwareTeams {
+public class ManageSoftwareTeams {
 
     ProgramaDAO programaDao = new ProgramaDAO();
     ComputadorProgramaDAO computadorProgramaDao = new ComputadorProgramaDAO();
@@ -16,6 +16,11 @@ public class ManegeSoftwareTeams {
         return computadores;
     }
 
+    public ArrayList<String[]> equiposSinPrograma(Programa programa){
+        ArrayList<String[]> computadores = computadorProgramaDao.equiposSinPrograma(programa);
+        return computadores;
+    }
+    
     public boolean adherirEquipos(ArrayList<Computador> computadores, Programa programa) {
         boolean adicion = true;
         for (int i = 0; i < computadores.size(); i++) {

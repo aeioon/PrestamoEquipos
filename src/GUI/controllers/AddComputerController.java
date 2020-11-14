@@ -5,8 +5,12 @@
  */
 package GUI.controllers;
 
+import Control.ManageSoftware;
+import Control.ManageSoftwareTeams;
 import Entidad.Programa;
+import static GUI.controllers.SoftwareManagementController.selectedProgram;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +36,9 @@ import javafx.scene.input.MouseEvent;
  */
 public class AddComputerController implements Initializable {
 
+    ManageSoftwareTeams MST = new ManageSoftwareTeams();
+    Programa programa = SoftwareManagementController.getSelectedProgram();
+    
     @FXML
     private TextField searchComputersTF;
 
@@ -111,13 +118,15 @@ public class AddComputerController implements Initializable {
 
     @FXML
     void addAllBtnAction(ActionEvent event) {
-
+        //MST.adherirEquipos(computadores, programa);
     }
 
     @FXML
     void addBtnAction(ActionEvent event) {
-
+        
+        //MST.adherirEquipos(computadores, programa);
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -127,13 +136,15 @@ public class AddComputerController implements Initializable {
        searchComputers();
        initActions();
        //Testing
-       
-       
-       
-       ComputerRow c1 = new ComputerRow("111","test1","1","2");
-       ComputerRow c2 = new ComputerRow("112","test2","1","3");
-       ComputerRow c3 = new ComputerRow("113","test3","1","4");
-       computerList.addAll(c1, c2, c3);
+
+       ArrayList<String[]> availableComputersInfo = MST.equiposSinPrograma(selectedProgram);
+        availableComputersInfo.forEach(computer -> {
+            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if (!computerList.contains(temp)) {
+                computerList.add(temp);
+            }
+        });
     }    
     
 }
