@@ -121,10 +121,15 @@ public class AddComputerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+       System.out.println("Programa seleccionado en la otra ventana "+  SoftwareManagementController.getSelectedProgram().getNombre());
+        
        insertComputers();
        searchComputers();
        initActions();
        //Testing
+       
+       
+       
        ComputerRow c1 = new ComputerRow("111","test1","1","2");
        ComputerRow c2 = new ComputerRow("112","test2","1","3");
        ComputerRow c3 = new ComputerRow("113","test3","1","4");
