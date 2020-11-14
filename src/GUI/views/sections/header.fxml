@@ -24,7 +24,7 @@
                   <Image url="@../../static/icons/user.PNG" />
                </image>
             </ImageView>
-            <Button fx:id="logoutBtn" graphicTextGap="1.0" layoutX="106.0" layoutY="55.0" mnemonicParsing="false" onAction="#logoutBtnAction" prefHeight="17.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="Cerrar Sesion" textAlignment="CENTER" textFill="#f8f8f8">
+            <Button fx:id="logoutBtn" graphicTextGap="1.0" layoutX="106.0" layoutY="55.0" mnemonicParsing="false" onAction="#logoutBtnAction" prefHeight="17.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="Cerrar Sesión" textAlignment="CENTER" textFill="#f8f8f8">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
