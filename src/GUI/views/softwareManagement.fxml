@@ -33,7 +33,7 @@
                      <children>
                         <TableView fx:id="computerTable" layoutY="54.0" prefHeight="358.0" prefWidth="481.0" />
                         <Text fx:id="programPaneText" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos de computo con el software seleccionado" wrappingWidth="288.13671875" />
-                        <Button fx:id="deleteComputerBtn" layoutY="434.0" mnemonicParsing="false" onAction="#deleteComputerBtnAction" prefHeight="34.0" prefWidth="125.0" text="Quitar Equipo" />
+                        <Button fx:id="removeComputerBtn" layoutY="434.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="34.0" prefWidth="125.0" text="Quitar Equipo" />
                         <Button fx:id="addComputerBtn" layoutX="381.0" layoutY="434.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="35.0" prefWidth="100.0" text="Agregar Equipo" />
                      </children>
                   </AnchorPane>

@@ -47,11 +47,14 @@ public class SoftwareManagementController implements Initializable {
     @FXML private AnchorPane computerListPane;
     @FXML private TableView<ComputerRow> computerTable;
     @FXML private Text programPaneText;
-    @FXML private Button deleteComputerBtn;
+    @FXML private Button removeComputerBtn;
     @FXML private Button addComputerBtn;
     
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
+    
+    
+    static Programa selectedProgram = new Programa();
     
     void insertPrograms() {
          /*Solamente llena tabla de programas. */
@@ -99,6 +102,9 @@ public class SoftwareManagementController implements Initializable {
         
     }
     
+    //AddComputer y removeComputer deben enviar la informacion del programa seleccionado originalmente a las ventanas correspondiente
+    //Debe ser almacenado o solo se necesita la ID?
+    
     @FXML void addComputerBtnAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -107,13 +113,14 @@ public class SoftwareManagementController implements Initializable {
             Stage stagePop = new Stage();
             stagePop.setScene(scene);
             stagePop.showAndWait();
+            
 
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
     }
 
-    @FXML void deleteComputerBtnAction(ActionEvent event) {
+    @FXML void removeComputerBtnAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/removeComputer.fxml"));
@@ -128,12 +135,18 @@ public class SoftwareManagementController implements Initializable {
     }
     
     
+    //esta vez se usara un getter estatico para enviar los datos.
+    
+    public static Programa getSelectedProgram() {
+        return selectedProgram;
+    }
+
+    
     //Buscador de programas
     
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b -> true);
 
     public void searchProgram() {
-
         programSearchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPrograms.setPredicate(programa -> {
                 String lowerCaseFilter = newValue.toLowerCase();
@@ -151,18 +164,20 @@ public class SoftwareManagementController implements Initializable {
     }
      
     void initActions() {
+        
         allProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                    System.out.println(allProgramsTable.getSelectionModel().getSelectedItem());
-                    Programa programSelected = allProgramsTable.getSelectionModel().getSelectedItem();
-                    System.out.println(programSelected.getNombre());
+                    selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
+                    selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
+                    selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
+                    System.out.println(selectedProgram.getNombre());
                     //Debe llamar a los computadores que usan este programa.
                     //La forma mas sencilla es con una consulta que dada la Id traiga los computadores.
-                    ComputerRow comTeste = new ComputerRow(Integer.toString(programSelected.getId()), "Test", "Test", "Test");
-                    computerList.add(comTeste);
-                    computerTable.refresh();
+                    //ComputerRow comTest = new ComputerRow(Integer.toString(programSelected.getId()), "Test", "Test", "Test");
+                    //computerList.add(comTest);
+                    // computerTable.refresh();
                 }
             }
         });
