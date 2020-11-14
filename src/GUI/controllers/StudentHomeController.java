@@ -65,23 +65,39 @@ public class StudentHomeController implements Initializable {
     private Text welcomeUserText;
 
     @FXML
-    private Text currentComputerHomeText;
-
-    @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
-        try {
-            changeScene(event, "/GUI/views/loanRequest.fxml");
-        } catch (IOException e) {
-            System.err.println(String.format("Error: %s", e.getMessage()));
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (!cargarDatos.isActivo()) {
+                                changeScene(event, "/GUI/views/loanRequest.fxml");
+                            } else {
+                                FXMLLoader fxmlLoader = new FXMLLoader();
+                                fxmlLoader.setLocation(getClass().getResource("/GUI/views/noBorrow.fxml"));
+                                Scene scene = new Scene(fxmlLoader.load(), 390, 210);
+                                Stage stagePop = new Stage();
+                                stagePop.setTitle("ERROR");
+                                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
+                                stagePop.setScene(scene);
+                                stagePop.showAndWait();
+                            }
+                        } catch (IOException e) {
+                            System.err.println(String.format("Error: %s", e.getMessage()));
+                        }
+                    }
+                });
+            }
+        }).start();
     }
-//Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
-//          stage.close();
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
         try {
-            if (cargarDatos.isCargaSolicitud()) {
+            if (cargarDatos.isCarga()) {
                 if (cargarDatos.isActivo()) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
@@ -91,32 +107,6 @@ public class StudentHomeController implements Initializable {
                     stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                     stagePop.setScene(scene);
                     stagePop.showAndWait();
-                    
-                    Thread computerInfo = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                                    Thread.sleep(1000);
-                                }
-                                if (cargarDatos.isActivo()) {
-                                    String computadores = "Actualmente tiene asignado:\n\n";
-                                    for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
-                                        computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
-                                                + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
-                                    }
-                                    currentComputerHomeText.setText(computadores);
-                                }else{
-                                    currentComputerHomeText.setText("");
-                                }
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    });
-                    computerInfo.setDaemon(true);
-                    computerInfo.start();
-
                 } else {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
@@ -140,6 +130,9 @@ public class StudentHomeController implements Initializable {
     void faqBtnAction(ActionEvent event) throws IOException {
     }
 
+    @FXML
+    private Text currentComputerHomeText;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
@@ -148,22 +141,26 @@ public class StudentHomeController implements Initializable {
         Thread computerInfo = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                        Thread.sleep(1000);
-                    }
-                    if (cargarDatos.isActivo()) {
-                        String computadores = "Actualmente tiene asignado:\n\n";
-                        for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
-                            computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
-                                    + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (!cargarDatos.isCargaSolicitud()) {
+                                Thread.sleep(1000);
+                            }
+                            if (cargarDatos.isActivo()) {
+                                currentComputerHomeText.setText("Actualmente tiene asignado el computador " + cargarDatos.getInfoIdEquipo()
+                                        + " en la sala " + cargarDatos.getInfoCodigoSala()
+                                        + " del edificio " + cargarDatos.getInfoNombreEdificio() + ".");
+                            }
+
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        currentComputerHomeText.setText(computadores);
                     }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                });
             }
+
         });
         computerInfo.setDaemon(true);
         computerInfo.start();

@@ -80,6 +80,18 @@ public class SolicitudDAOIT {
     /**
      * Test of actualizar method, of class SolicitudDAO.
      */
+    @Test
+    public void testActualizar() {
+        System.out.println("actualizar");
+        Solicitud oldSolicitud = new Solicitud();
+        oldSolicitud.setId(99);
+        Solicitud newSolicitud = new Solicitud();
+        newSolicitud.setEstado(1);
+        SolicitudDAO instance = new SolicitudDAO();
+        boolean expResult = true;
+        boolean result = instance.actualizar(oldSolicitud, newSolicitud);
+        assertEquals(expResult, result);
+    }
     
     /**
      * Test of getInfo method, of class SolicitudDAO.

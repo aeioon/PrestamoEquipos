@@ -23,31 +23,32 @@ import javafx.stage.Stage;
  *
  * @author ion
  */
+
 public class ConfirmRequestController implements Initializable {
 
     CargarDatos cargarDatos = CargarDatos.getInstance();
-
+    
     LoanDataHolder loanHolder = LoanDataHolder.getInstance();
     Computador computador = loanHolder.getComputer();
     ArrayList<Programa> programs = loanHolder.getPrograms();
     ComputerRow pr = loanHolder.getRow();
-    @FXML
+    @FXML 
     private Button cancelRequestBtn;
-
-    @FXML
+    
+    @FXML 
     private Button loanBtn;
-
+    
+        
     int idSelected;
-
+    
     @FXML
     private Text message;
-
+    
     @FXML
     private Text computerText;
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        cargarDatos.getDatosSolicitud().remove(cargarDatos.getDatosSolicitud().size()-1);
         Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
         stage.close();
     }
@@ -55,9 +56,10 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
-        if (RP.makeBorrow(cargarDatos.getUser(), computador, programs)) {
+        if(RP.makeBorrow(cargarDatos.getUser(), computador, programs, cargarDatos.isActivo())){
             System.out.println("Se realizo el prestamo!");
             cargarDatos.setActivo(true);
+            cargarDatos.setCarga(false);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -74,10 +76,7 @@ public class ConfirmRequestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #" + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[1]
-                + " en el edificio " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[2]
-                + " " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[3]
-                + " de la sala " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[4]);
+        computerText.setText("Computador #"+ cargarDatos.getInfoIdEquipo()+" en el edificio "+cargarDatos.getInfoIdEdificio()+" "+cargarDatos.getInfoNombreEdificio()+" de la sala "+cargarDatos.getInfoCodigoSala());
     }
 
 }

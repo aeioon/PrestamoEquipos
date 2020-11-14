@@ -8,16 +8,20 @@ public class Solicitud {
     private int id;
     private LocalDateTime fecha;
      private Computador computador;
-    private Usuario usuario;   
+    private Usuario usuario;
+    private int Estado;
+   
+   
 
     public Solicitud() {
     }
 
-    public Solicitud(int id, LocalDateTime fecha, Computador computador, Usuario usuario) {
+    public Solicitud(int id, LocalDateTime fecha, Computador computador, Usuario usuario, int Estado) {
         this.id = id;
         this.fecha = fecha;
         this.computador = computador;
         this.usuario = usuario;
+        this.Estado = Estado;
     }    
 
     public int getId() {
@@ -52,4 +56,13 @@ public class Solicitud {
         this.usuario = usuario;
     }
 
+    
+    public int getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(int Estado) {
+        this.Estado = Estado;
+    }
+   
 }

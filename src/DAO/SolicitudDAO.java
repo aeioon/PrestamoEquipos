@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class SolicitudDAO {
@@ -34,7 +33,7 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String query = "SELECT max(Id_Solicitud) FROM Solicitud WHERE UsuarioId_Usuario = '" +  solicitud.getUsuario().getId() + "' AND ComputadorId_Equipo ='" + solicitud.getComputador().getId() + "';";
+            String query = "SELECT Id_Solicitud FROM Solicitud WHERE UsuarioId_Usuario = '" + solicitud.getUsuario().getId() + "' AND ComputadorId_Equipo = " + solicitud.getComputador().getId() + " AND Solicitud.Estado = 1";
             System.out.println(query);
             resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
@@ -56,7 +55,7 @@ public class SolicitudDAO {
         }
     }
 
-    public boolean VerifyActivity(Usuario usuario) {
+    public boolean VerifyInactivity(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -64,13 +63,13 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT Disponibilidad " +
-                                               "FROM (Usuario AS US INNER JOIN Solicitud AS SO ON US.Id_Usuario = SO.UsuarioId_Usuario) INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo " + 
-                                               "WHERE Disponibilidad = 0 AND Id_Usuario ='" + usuario.getId() + "';");
+            resultSet = statement.executeQuery("SELECT Estado FROM Solicitud WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
             while (resultSet.next()) {
-                return true;
+                if (resultSet.getInt(1) == 1) {
+                    return false;
+                }
             }
-            return false;
+            return true;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
             return false;
@@ -120,8 +119,8 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
-                    + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "')");
+            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`, `Estado`) VALUES ('"
+                    + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "'," + 1 + ")");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -167,8 +166,8 @@ public class SolicitudDAO {
         }
     }
 
-    public ArrayList<String[]> getInfo(Usuario user) {
-        ArrayList<String[]> datos = new ArrayList<>();
+    public String[] getInfo(Usuario user) {
+        String[] datos = {"", "", "", "", ""};
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -176,24 +175,22 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT max(SO.Id_Solicitud), CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
-                              "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
-                              "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                              "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                              "WHERE  CO.Disponibilidad = 0 AND SO.UsuarioID_Usuario = '" + user.getId() + "'\n" +
-                              "GROUP BY CO.Id_Equipo;";
+            String consulta = "SELECT S.Id_Solicitud, C.Id_Equipo, E.Nombre, E.Id_Edificio, SA.Codigo\n"
+                    + " FROM ((Solicitud AS S INNER JOIN Computador AS C ON S.ComputadorID_Equipo = C.Id_Equipo)\n"
+                    + " INNER JOIN Sala AS SA ON C.SalaId_Sala = SA.Id_Sala)\n"
+                    + " INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
+                    + " WHERE S.UsuarioID_Usuario = '" + user.getId() + "' AND S.Estado = 1\n";
             System.out.println(consulta);
             // Comentario
             resultSet = statement.executeQuery(consulta);
-            while(resultSet.next()) {
-                String[] computador = {"","","","",""};
-                computador[0] = Integer.toString(resultSet.getInt(1));
-                computador[1] = Integer.toString(resultSet.getInt(2));
-                computador[2] = resultSet.getString(3);
-                computador[3] = Integer.toString(resultSet.getInt(4));
-                computador[4] = resultSet.getString(5);
-                datos.add(computador);
+            if (resultSet.next()) {
+                datos[0] = Integer.toString(resultSet.getInt(1));
+                datos[1] = Integer.toString(resultSet.getInt(2));
+                datos[2] = resultSet.getString(3);
+                datos[3] = Integer.toString(resultSet.getInt(4));
+                datos[4] = resultSet.getString(5);
             }
+
             return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -204,6 +201,35 @@ public class SolicitudDAO {
                 statement.close();
                 connection.close();
                 return datos;
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+
+    public boolean actualizar(Solicitud oldSolicitud, Solicitud newSolicitud) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //String fecha = newSolicitud.getFecha().format(formatter);
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("UPDATE Solicitud "
+                    //+ " Fecha = '" + fecha + "' , "
+                    + " SET Estado = " + newSolicitud.getEstado()
+                    + " WHERE Id_Solicitud =" + oldSolicitud.getId() + ";");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+
             } catch (SQLException ex) {
 
             }
