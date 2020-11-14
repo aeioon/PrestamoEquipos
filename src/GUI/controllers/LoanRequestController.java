@@ -149,13 +149,7 @@ public class LoanRequestController implements Initializable {
 
         if (idComputerSelected != 0) {
             try {
-                LoanDataHolder holder = LoanDataHolder.getInstance();
-
-                holder.setComputer(selectedComputer);
-                holder.setUser(user);
-                holder.setPrograms(programList);
-                holder.setRow(availableComputersTable.getSelectionModel().getSelectedItem());
-
+                cargarDatos.setPrograms(programList);
                 String[] computadorSelecionado = {"", "", "" ,"", ""};
                 computadorSelecionado[0] = "0";
                 computadorSelecionado[1] = availableComputersTable.getSelectionModel().getSelectedItem().getId();

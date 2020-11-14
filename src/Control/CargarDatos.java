@@ -2,15 +2,17 @@ package Control;
 
 import DAO.SolicitudDAO;
 import DAO.UsuarioDAO;
+import Entidad.Programa;
 import Entidad.Usuario;
 import java.util.ArrayList;
 
 public class CargarDatos {
 
+    ArrayList<Programa> programs = new ArrayList<Programa>();
     SolicitudDAO solicitudDao = new SolicitudDAO();
     UsuarioDAO usuarioDao = new UsuarioDAO();
     private Usuario user = new Usuario();
-
+    
     ArrayList<String[]> datosSolicitud = new ArrayList<>();
 
     private boolean activo = false;
@@ -149,6 +151,14 @@ public class CargarDatos {
 
     public void setCargaSolicitud(boolean cargaSolicitud) {
         this.cargaSolicitud = cargaSolicitud;
+    }
+
+    public ArrayList<Programa> getPrograms() {
+        return programs;
+    }
+
+    public void setPrograms(ArrayList<Programa> programs) {
+        this.programs = programs;
     }
 
 }
