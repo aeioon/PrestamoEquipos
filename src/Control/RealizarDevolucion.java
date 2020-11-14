@@ -6,20 +6,19 @@ import DAO.SolicitudDAO;
 import Entidad.Programa;
 import Entidad.Usuario;
 import java.util.ArrayList;
+import Entidad.Computador;
 
 public class RealizarDevolucion {
 
     SolicitudDAO solicitudDao = new SolicitudDAO();
     ComputadorDAO computadorDao = new ComputadorDAO();
-    boolean estadoSolicitud = true;
 
     public RealizarDevolucion() {
     }
 
-    public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
+    public boolean makeReturn(Usuario usuario, Computador computador, boolean activo) {
         if (activo) {
-            estadoSolicitud = estadoSolicitud && computadorDao.freeComputer(id_Equipo);
-            return estadoSolicitud;
+            return computadorDao.freeComputer(computador);
         } else {
             return false;
         }

@@ -43,7 +43,7 @@ public class MostrarComputadores {
     
     @Test
     public void testGetInfoComputersNetbeans() {
-        GUI.controllers.Main.precondicionesMostrarComputadores1();
+        Precondiciones.precondicionesMostrarComputadores1();
         System.out.println("getInfoComputersNetbeans");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(1, "NetBeans", "8.2"));
@@ -195,8 +195,8 @@ public class MostrarComputadores {
     
     @Test
     public void testGetInfoComputersCodeblockComputador2Ocupado() {
-        GUI.controllers.Main.precondicionesMostrarComputadores2();
-        GUI.controllers.Main.testBorrow("dbustos", 2);
+        Precondiciones.precondicionesMostrarComputadores2();
+        Precondiciones.testBorrow("dbustos", 2);
         System.out.println("getInfoComputersCodeblockComputador2Ocupado");
         ArrayList<Programa> programs = new ArrayList<>();
         programs.add(new Programa(2, "Codeblocks", "3.0"));

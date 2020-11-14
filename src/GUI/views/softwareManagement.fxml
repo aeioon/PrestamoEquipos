@@ -28,15 +28,17 @@
                <children>
                   <TableView fx:id="allProgramsTable" layoutX="291.0" layoutY="93.0" prefHeight="357.0" prefWidth="397.0" />
                   <TextField fx:id="programSearchTF" layoutX="291.0" layoutY="39.0" prefHeight="31.0" prefWidth="398.0" promptText="Buscar programa" />
-                  <Button fx:id="addProgramBtn" layoutX="291.0" layoutY="474.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="145.0" text="Agregar un producto" />
+                  <Button fx:id="addProgramBtn" layoutX="291.0" layoutY="474.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="169.0" text="Agregar un producto" />
                   <AnchorPane fx:id="computerListPane" layoutX="726.0" layoutY="39.0" prefHeight="482.0" prefWidth="503.0">
                      <children>
                         <TableView fx:id="computerTable" layoutY="54.0" prefHeight="358.0" prefWidth="481.0" />
-                        <Text fx:id="programPaneText" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos de computo con el software seleccionado" wrappingWidth="288.13671875" />
+                        <Text fx:id="programPaneText" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos de computo con el software seleccionado" wrappingWidth="337.13671875" />
                         <Button fx:id="removeComputerBtn" layoutY="434.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="34.0" prefWidth="125.0" text="Quitar Equipo" />
                         <Button fx:id="addComputerBtn" layoutX="381.0" layoutY="434.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="35.0" prefWidth="100.0" text="Agregar Equipo" />
+                        <Label fx:id="warningText" layoutX="252.0" layoutY="4.0" prefHeight="21.0" prefWidth="229.0" textFill="#eb0000" />
                      </children>
                   </AnchorPane>
+                  <Button fx:id="removeProgramBtn" layoutX="535.0" layoutY="475.0" mnemonicParsing="false" onAction="#removeProgramBtnAction" prefHeight="31.0" prefWidth="153.0" text="Quitar Programa" />
                </children></AnchorPane>
          </left>
       </BorderPane>

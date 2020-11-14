@@ -5,8 +5,9 @@
  */
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Control.RealizarDevolucion;
+import Entidad.Computador;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
  */
 public class ReturnEquipmentController implements Initializable {
 
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
 
     @FXML
@@ -54,7 +55,9 @@ public class ReturnEquipmentController implements Initializable {
 
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) throws IOException {
-        if (RD.makeReturn(cargarDatos.getUser(), Integer.parseInt(cargarDatos.getDatosSolicitud().get(0)[1]), cargarDatos.isActivo())) {
+        Computador computador = new Computador();
+        computador.setId(Integer.parseInt(cargarDatos.getDatosSolicitud().get(0)[1]));
+        if (RD.makeReturn(cargarDatos.getUser(), computador, cargarDatos.isActivo())) {
             System.out.println("Se realizo la devolucion!");
             new Thread(new Runnable() {
                 @Override

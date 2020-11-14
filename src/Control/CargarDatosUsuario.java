@@ -6,7 +6,7 @@ import Entidad.Programa;
 import Entidad.Usuario;
 import java.util.ArrayList;
 
-public class CargarDatos {
+public class CargarDatosUsuario {
 
     ArrayList<Programa> programs = new ArrayList<Programa>();
     SolicitudDAO solicitudDao = new SolicitudDAO();
@@ -20,12 +20,12 @@ public class CargarDatos {
     private boolean cargarActividad = false;
     private boolean cargarUsuario = false;
     
-    private CargarDatos() {
+    private CargarDatosUsuario() {
 
     }
-    private static CargarDatos holder = new CargarDatos();
+    private static CargarDatosUsuario holder = new CargarDatosUsuario();
 
-    public static CargarDatos getInstance() {
+    public static CargarDatosUsuario getInstance() {
         return holder;
     }
 
@@ -137,12 +137,12 @@ public class CargarDatos {
         this.cargarActividad = cargarActividad;
     }
 
-    public static CargarDatos getHolder() {
+    public static CargarDatosUsuario getHolder() {
         return holder;
     }
 
-    public static void setHolder(CargarDatos holder) {
-        CargarDatos.holder = holder;
+    public static void setHolder(CargarDatosUsuario holder) {
+        CargarDatosUsuario.holder = holder;
     }
 
     public boolean isCargaSolicitud() {

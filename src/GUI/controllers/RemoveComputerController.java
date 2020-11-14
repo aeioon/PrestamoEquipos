@@ -5,7 +5,11 @@
  */
 package GUI.controllers;
 
+import Control.ManageSoftwareTeams;
+import Entidad.Programa;
+import static GUI.controllers.SoftwareManagementController.selectedProgram;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +39,10 @@ public class RemoveComputerController implements Initializable {
     // unificar si se manda el tipo de operacion desde la vista SoftwareManagmenteController.
     // Por ello, por ahora todas los tests se hacen en Add y luego se traen aca o se unen.
 
-     @FXML
+    ManageSoftwareTeams MST = new ManageSoftwareTeams();
+    Programa programa = SoftwareManagementController.getSelectedProgram();
+    
+    @FXML
     private TextField searchComputersTF;
 
     @FXML
@@ -123,7 +130,15 @@ public class RemoveComputerController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        ArrayList<String[]> availableComputersInfo = MST.equiposSinPrograma(selectedProgram);
+        availableComputersInfo.forEach(computer -> {
+            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if (!computerList.contains(temp)) {
+                computerList.add(temp);
+            }
+        });
     }    
     
 }

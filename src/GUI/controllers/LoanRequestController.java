@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
@@ -50,7 +50,7 @@ import javafx.scene.text.Text;
 public class LoanRequestController implements Initializable {
 
     //quizas metodo estatico
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
 

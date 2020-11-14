@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Control.ValidarLogin;
 import Entidad.Usuario;
 import java.io.IOException;
@@ -33,7 +33,7 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
 
     @FXML
     private BorderPane panelPrincipal;
@@ -76,9 +76,9 @@ public class LoginController implements Initializable {
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
             if (validar.verificarLogin(usuario)) {
-                cargarDatos.cargar(usuario);
-                cargarDatos.cargarUsuario(usuario);
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                cargarDatosUsuario.cargar(usuario);
+                cargarDatosUsuario.cargarUsuario(usuario);
+                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);

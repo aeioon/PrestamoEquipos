@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import DAO.ComputadorDAO;
@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  */
 public class StudentHomeController implements Initializable {
 
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
 
     //temporal
     void changeScene(ActionEvent event, String fxml) throws IOException {
@@ -97,7 +97,7 @@ public class StudentHomeController implements Initializable {
                         public void run() {
                             try {
                                 while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                                    Thread.sleep(1000);
+                                    Thread.sleep(500);
                                 }
                                 if (cargarDatos.isActivo()) {
                                     String computadores = "Actualmente tiene asignado:\n\n";
@@ -150,7 +150,7 @@ public class StudentHomeController implements Initializable {
             public void run() {
                 try {
                     while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
                     if (cargarDatos.isActivo()) {
                         String computadores = "Actualmente tiene asignado:\n\n";
