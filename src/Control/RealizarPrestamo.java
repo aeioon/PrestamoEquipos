@@ -16,11 +16,10 @@ import javafx.application.Platform;
 
 public class RealizarPrestamo {
 
+    ProgramaSolicitudDAO programaSolicitudDao = new ProgramaSolicitudDAO();
     ComputadorDAO computadorDao = new ComputadorDAO();
     SolicitudDAO solicitudDao = new SolicitudDAO();
     ProgramaDAO programaDao = new ProgramaDAO();
-    ProgramaSolicitudDAO programaSolicitudDao = new ProgramaSolicitudDAO();
-    boolean estadoPrestamo = true;
 
     public RealizarPrestamo() {
     }
@@ -40,8 +39,8 @@ public class RealizarPrestamo {
         Solicitud solicitud = new Solicitud();
         solicitud.setUsuario(usuario);
         solicitud.setComputador(computer);
-        estadoPrestamo = estadoPrestamo && solicitudDao.crear(solicitud);
-        if (estadoPrestamo) {
+        if (solicitudDao.crear(solicitud)) {
+            boolean estadoPrestamo = true;
             solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
             for (int i = 0; i < programs.size(); i++) {
                 estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);

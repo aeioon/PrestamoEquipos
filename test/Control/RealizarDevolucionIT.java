@@ -5,6 +5,7 @@
  */
 package Control;
 
+import Entidad.Computador;
 import Entidad.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,13 +44,15 @@ public class RealizarDevolucionIT {
      */
     @Test
     public void testDevolucion1() {
-        GUI.controllers.Main.precondicionesDevolucion();
+        Precondiciones.precondicionesDevolucion();
         System.out.println("makeReturn");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = true;
-        boolean result = instance.makeReturn(usuario, 1, true);
+        Computador computador = new Computador();
+        computador.setId(1);
+        boolean result = instance.makeReturn(usuario, computador, true);
         System.out.println("Resultado:" + result);
         assertEquals(expResult, result);
     }
@@ -61,7 +64,9 @@ public class RealizarDevolucionIT {
         usuario.setId("dbustos");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = true;
-        boolean result = instance.makeReturn(usuario, 2, true);
+        Computador computador = new Computador();
+        computador.setId(2);
+        boolean result = instance.makeReturn(usuario, computador, true);
         assertEquals(expResult, result);
     }
 
@@ -72,7 +77,9 @@ public class RealizarDevolucionIT {
         usuario.setId("ggarciaro");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 2, false);
+        Computador computador = new Computador();
+        computador.setId(2);
+        boolean result = instance.makeReturn(usuario, computador, false);
         assertEquals(expResult, result);
     }
 
@@ -83,7 +90,9 @@ public class RealizarDevolucionIT {
         usuario.setId("cchavezb");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 3, false);
+        Computador computador = new Computador();
+        computador.setId(3);
+        boolean result = instance.makeReturn(usuario, computador, false);
         assertEquals(expResult, result);
     }
 
@@ -94,7 +103,9 @@ public class RealizarDevolucionIT {
         usuario.setId("jgarciam");
         RealizarDevolucion instance = new RealizarDevolucion();
         boolean expResult = false;
-        boolean result = instance.makeReturn(usuario, 3, false);
+        Computador computador = new Computador();
+        computador.setId(3);
+        boolean result = instance.makeReturn(usuario, computador, false);
         assertEquals(expResult, result);
     }
 

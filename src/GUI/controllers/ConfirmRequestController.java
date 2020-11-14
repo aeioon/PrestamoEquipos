@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Control.RealizarDevolucion;
 import Control.RealizarPrestamo;
 import Entidad.Computador;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  */
 public class ConfirmRequestController implements Initializable {
 
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
     
     @FXML
     private Button cancelRequestBtn;

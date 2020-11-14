@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.CargarDatos;
+import Control.CargarDatosUsuario;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  */
 public class HeaderController implements Initializable {
     
-    CargarDatos cargarDatos = CargarDatos.getInstance();
+    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
     
     @FXML
     private Rectangle userBox;

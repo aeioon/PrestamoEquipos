@@ -43,7 +43,7 @@ public class SolicitudDAOIT {
      */
     @Test
     public void testCrear() {
-        GUI.controllers.Main.habilitarDisponibilidad();
+        Control.Precondiciones.habilitarDisponibilidad();
         System.out.println("crear");
         Solicitud object = new Solicitud();
         Usuario usuario = new Usuario();

@@ -157,7 +157,7 @@ public class ComputadorDAO {
         }
     }
     
-    public boolean freeComputer(int computer){
+    public boolean freeComputer(Computador computer){
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -165,7 +165,7 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer);
+            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
