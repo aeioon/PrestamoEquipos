@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="680.0" prefWidth="1000.0" stylesheets="@../style/softwaremanagement.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.SoftwareManagementController">
+   <children>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <AnchorPane prefHeight="91.0" prefWidth="1283.0" style="-fx-background-color: #94b43b;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="escudoBlanco" layoutX="1092.0" prefHeight="91.0" prefWidth="197.0" />
+               </children></AnchorPane>
+         </bottom>
+         <top>
+         
+         </top>
+         <top>
+            <fx:include fx:id="header" source="sections/header.fxml" />
+         </top>
+         <left>
+            <AnchorPane prefHeight="628.0" prefWidth="1283.0" style="-fx-background-color: #f0f0f0;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="allProgramsTable" layoutX="291.0" layoutY="93.0" prefHeight="357.0" prefWidth="397.0" />
+                  <TextField fx:id="programSearchTF" layoutX="291.0" layoutY="39.0" prefHeight="31.0" prefWidth="398.0" promptText="Buscar programa" />
+                  <Button fx:id="addProgramBtn" layoutX="291.0" layoutY="474.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="145.0" text="Agregar un producto" />
+                  <AnchorPane fx:id="computerListPane" layoutX="726.0" layoutY="39.0" prefHeight="482.0" prefWidth="503.0">
+                     <children>
+                        <TableView fx:id="computerTable" layoutY="54.0" prefHeight="358.0" prefWidth="481.0" />
+                        <Text fx:id="programPaneText" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos de computo con el software seleccionado" wrappingWidth="288.13671875" />
+                        <Button fx:id="deleteComputerBtn" layoutY="434.0" mnemonicParsing="false" onAction="#deleteComputerBtnAction" prefHeight="34.0" prefWidth="125.0" text="Quitar Equipo" />
+                        <Button fx:id="addComputerBtn" layoutX="381.0" layoutY="434.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="35.0" prefWidth="100.0" text="Agregar Equipo" />
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

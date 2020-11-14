@@ -65,7 +65,8 @@ public class HeaderController implements Initializable {
         //correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
         formatoIngenieriaL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Logo_n.png"))));
         //Luego con getNombres();
-        nombreEstudianteT.setText(cargarDatos.getUser().getId());
+        nombreEstudianteT.setText(cargarDatos.getUser().getNombres() + " " + cargarDatos.getUser().getApellidos());
+        correoEstudianteT.setText(cargarDatos.getUser().getId() + "@unal.edu.co");
     }    
     
 }

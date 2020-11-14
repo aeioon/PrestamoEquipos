@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import Entidad.Computador;
@@ -76,36 +71,6 @@ public class SolicitudDAOIT {
         boolean result = instance.leer(par);
         assertEquals(expResult, result);
     } 
-
-    /**
-     * Test of actualizar method, of class SolicitudDAO.
-     */
-    @Test
-    public void testActualizar() {
-        System.out.println("actualizar");
-        Solicitud oldSolicitud = new Solicitud();
-        oldSolicitud.setId(99);
-        Solicitud newSolicitud = new Solicitud();
-        newSolicitud.setEstado(1);
-        SolicitudDAO instance = new SolicitudDAO();
-        boolean expResult = true;
-        boolean result = instance.actualizar(oldSolicitud, newSolicitud);
-        assertEquals(expResult, result);
-    }
-    
-    /**
-     * Test of getInfo method, of class SolicitudDAO.
-     */
-    @Test
-    public void testGetInfo() {
-        System.out.println("getInfo");
-        Usuario user = new Usuario();
-        user.setId("acardenaso");
-        SolicitudDAO instance = new SolicitudDAO();
-        String[] expResult ={"99","1","CyT","1","304"};
-        String[] result = instance.getInfo(user);
-        assertArrayEquals(expResult, result);
-    }
 
     /**
      * Test of eliminar method, of class SolicitudDAO.

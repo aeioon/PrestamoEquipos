@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="730.0" styleClass="mainFxmlClass" stylesheets="@../style/addcomputer.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.AddComputerController">
+   <children>
+      <TextField fx:id="searchComputersTF" layoutX="33.0" layoutY="27.0" prefHeight="34.0" prefWidth="537.0" promptText="Buscar Equipos" />
+      <TableView fx:id="computersTable" layoutX="33.0" layoutY="72.0" prefHeight="251.0" prefWidth="666.0" />
+      <Button fx:id="addAllBtn" layoutX="466.0" layoutY="347.0" mnemonicParsing="false" onAction="#addAllBtnAction" prefHeight="34.0" prefWidth="113.0" text="Agregar Todo" />
+      <Button fx:id="addBtn" layoutX="586.0" layoutY="347.0" mnemonicParsing="false" onAction="#addBtnAction" prefHeight="34.0" prefWidth="113.0" text="Agregar" />
+   </children>
+</AnchorPane>
