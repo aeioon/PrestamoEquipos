@@ -10,27 +10,18 @@ import java.util.ArrayList;
 public class RealizarDevolucion {
 
     SolicitudDAO solicitudDao = new SolicitudDAO();
-    ComputadorDAO computadroDao = new ComputadorDAO();
+    ComputadorDAO computadorDao = new ComputadorDAO();
     boolean estadoSolicitud = true;
-    boolean freeComputer = false;
 
     public RealizarDevolucion() {
     }
 
     public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
         if (activo) {
-            estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
-                    freeComputer = true;
-                }
-            }).start();
+            estadoSolicitud = estadoSolicitud && computadorDao.freeComputer(id_Equipo);
             return estadoSolicitud;
         } else {
             return false;
         }
-
     }
 }

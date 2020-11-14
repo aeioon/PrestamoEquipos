@@ -2,22 +2,24 @@ package Control;
 
 import DAO.SolicitudDAO;
 import DAO.UsuarioDAO;
+import Entidad.Programa;
 import Entidad.Usuario;
+import java.util.ArrayList;
 
 public class CargarDatos {
 
+    ArrayList<Programa> programs = new ArrayList<Programa>();
     SolicitudDAO solicitudDao = new SolicitudDAO();
     UsuarioDAO usuarioDao = new UsuarioDAO();
     private Usuario user = new Usuario();
-    private boolean activo;
-    private String infoIdSolicitud = "";
-    private String infoIdEquipo = "";
-    private String infoNombreEdificio = "";
-    private String infoIdEdificio = "";
-    private String infoCodigoSala = "";
-    private boolean carga = false;
-    private boolean cargaSolicitud = false;
+    
+    ArrayList<String[]> datosSolicitud = new ArrayList<>();
 
+    private boolean activo = false;
+    private boolean cargaSolicitud = false;
+    private boolean cargarActividad = false;
+    private boolean cargarUsuario = false;
+    
     private CargarDatos() {
 
     }
@@ -26,12 +28,15 @@ public class CargarDatos {
     public static CargarDatos getInstance() {
         return holder;
     }
-    
+
     public void cargar(Usuario usuario) {
+        cargaSolicitud = false;
+        cargarActividad = false;
+        cargarUsuario = false;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                cargarSolicitud(usuario);
+                cargarSolicitudes(usuario);
                 System.out.println("Carga solicitud");
             }
         }).start();
@@ -46,50 +51,52 @@ public class CargarDatos {
             @Override
             public void run() {
                 cargarUsuario(usuario);
-                System.out.println("Carga Usuario");
+                System.out.println("Carga usuario");
             }
         }).start();
     }
-    
-    public void resetData(){
-        activo = false;
-        carga = false;
-        cargaSolicitud = false;
-    }
-
-   
 
     public void cargarUsuario(Usuario usuario) {
         user = usuarioDao.leer(usuario);
+        cargarUsuario = true;
     }
-
-    public void cargarSolicitud(Usuario usuario) {
-        String[] datos = solicitudDao.getInfo(usuario);
-        infoIdSolicitud = datos[0];
-        infoIdEquipo = datos[1];
-        infoNombreEdificio = datos[2];
-        infoIdEdificio = datos[3];
-        infoCodigoSala = datos[4];
+    
+    public void cargarSolicitudes(Usuario usuario) {
+        datosSolicitud = solicitudDao.getInfo(usuario);
         cargaSolicitud = true;
     }
 
     public void cargarActivity(Usuario usuario) {
-        carga = true;
-        if (!solicitudDao.VerifyInactivity(usuario)) {
+        if (solicitudDao.VerifyActivity(usuario)) {
             activo = true;
         } else {
             activo = false;
         }
+        cargarActividad = true;
+    }
+    
+    public void resetData() {
+        activo = false;
+        cargaSolicitud = false;
+        cargarActividad = false;
     }
 
-    public boolean isCarga() {
-        return carga;
+    public ArrayList<String[]> getDatosSolicitud() {
+        return datosSolicitud;
     }
 
-    public void setCarga(boolean carga) {
-        this.carga = carga;
+    public void setDatosSolicitud(ArrayList<String[]> datosSolicitud) {
+        this.datosSolicitud = datosSolicitud;
     }
 
+    public boolean isCargarUsuario() {
+        return cargarUsuario;
+    }
+
+    public void setCargarUsuario(boolean cargarUsuario) {
+        this.cargarUsuario = cargarUsuario;
+    }
+    
     public SolicitudDAO getSolicitudDao() {
         return solicitudDao;
     }
@@ -122,44 +129,12 @@ public class CargarDatos {
         this.activo = activo;
     }
 
-    public String getInfoIdSolicitud() {
-        return infoIdSolicitud;
+    public boolean isCargarActividad() {
+        return cargarActividad;
     }
 
-    public void setInfoIdSolicitud(String infoIdSolicitud) {
-        this.infoIdSolicitud = infoIdSolicitud;
-    }
-
-    public String getInfoIdEquipo() {
-        return infoIdEquipo;
-    }
-
-    public void setInfoIdEquipo(String infoIdEquipo) {
-        this.infoIdEquipo = infoIdEquipo;
-    }
-
-    public String getInfoNombreEdificio() {
-        return infoNombreEdificio;
-    }
-
-    public void setInfoNombreEdificio(String infoNombreEdificio) {
-        this.infoNombreEdificio = infoNombreEdificio;
-    }
-
-    public String getInfoIdEdificio() {
-        return infoIdEdificio;
-    }
-
-    public void setInfoIdEdificio(String infoIdEdificio) {
-        this.infoIdEdificio = infoIdEdificio;
-    }
-
-    public String getInfoCodigoSala() {
-        return infoCodigoSala;
-    }
-
-    public void setInfoCodigoSala(String infoCodigoSala) {
-        this.infoCodigoSala = infoCodigoSala;
+    public void setCargarActividad(boolean cargarActividad) {
+        this.cargarActividad = cargarActividad;
     }
 
     public static CargarDatos getHolder() {
@@ -169,13 +144,21 @@ public class CargarDatos {
     public static void setHolder(CargarDatos holder) {
         CargarDatos.holder = holder;
     }
-    
-     public boolean isCargaSolicitud() {
+
+    public boolean isCargaSolicitud() {
         return cargaSolicitud;
     }
 
     public void setCargaSolicitud(boolean cargaSolicitud) {
         this.cargaSolicitud = cargaSolicitud;
     }
-    
+
+    public ArrayList<Programa> getPrograms() {
+        return programs;
+    }
+
+    public void setPrograms(ArrayList<Programa> programs) {
+        this.programs = programs;
+    }
+
 }

@@ -34,7 +34,7 @@ public class Main extends Application  {
         p.add(new Programa(1, "NetBeans", "8.2"));
         //p.add(new Programa(2, "CodeBlocks", "3.0"));
         RealizarPrestamo RP = new RealizarPrestamo();
-        System.out.println(RP.makeBorrow(u, c, p, false));
+        System.out.println(RP.makeBorrow(u, c, p));
     }
     
     void testReturn(){

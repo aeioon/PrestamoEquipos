@@ -149,13 +149,15 @@ public class LoanRequestController implements Initializable {
 
         if (idComputerSelected != 0) {
             try {
-                LoanDataHolder holder = LoanDataHolder.getInstance();
-
-                holder.setComputer(selectedComputer);
-                holder.setUser(user);
-                holder.setPrograms(programList);
-                holder.setRow(availableComputersTable.getSelectionModel().getSelectedItem());
-
+                cargarDatos.setPrograms(programList);
+                String[] computadorSelecionado = {"", "", "" ,"", ""};
+                computadorSelecionado[0] = "0";
+                computadorSelecionado[1] = availableComputersTable.getSelectionModel().getSelectedItem().getId();
+                computadorSelecionado[2] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
+                computadorSelecionado[3] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
+                computadorSelecionado[4] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
+                cargarDatos.getDatosSolicitud().add(computadorSelecionado);
+                
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -223,7 +225,11 @@ public class LoanRequestController implements Initializable {
         });
 
         ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
-
+        if(availableComputersInfo.size() != 0){
+            warningText.setText("");
+        }else{
+            warningText.setText("No hay computadores disponibles");
+        }
         availableComputersInfo.forEach(computer -> {
             System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
@@ -233,19 +239,6 @@ public class LoanRequestController implements Initializable {
         });
 
         availableComputersTable.refresh();
-
-        /* 
-         * Codigo para actualizar la tabla de computadores instanteneamente tras seleccionar los programas.
-        selectedProgramList.addListener(new ListChangeListener<Programa>() {
-            @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Programa> pChange) {
-
-                ComputerRow test = new ComputerRow("1", "texto1", "textto2", "texto3");
-                computerList.add(test);
-                availableComputersTable.setItems(computerList);
-                availableComputersTable.refresh();   
-            }
-        }); */
     }
 
     void addProgram(Programa p) {
@@ -336,14 +329,10 @@ public class LoanRequestController implements Initializable {
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
                     try {
-                        cargarDatos.setInfoIdEquipo(availableComputersTable.getSelectionModel().getSelectedItem().getId());
-                        cargarDatos.setInfoNombreEdificio(availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio());
-                        cargarDatos.setInfoIdEdificio(availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio());
-                        cargarDatos.setInfoCodigoSala(availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala());
                         idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
-                        System.out.println("Id del computador seleccionado " + availableComputersTable.getSelectionModel().getSelectedItem().getId());
+                        System.out.println("Id del computador seleccionado " + idComputerSelected);
                     } catch (Exception e) {
-                        
+
                     }
                 }
             }

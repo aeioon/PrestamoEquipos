@@ -36,36 +36,17 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs, boolean activo) {
-        if (!activo) {
-            Solicitud solicitud = new Solicitud();
-            solicitud.setUsuario(usuario);
-            solicitud.setComputador(computer);
-            estadoPrestamo = estadoPrestamo && solicitudDao.crear(solicitud);
-            if (estadoPrestamo) {
-                estadoPrestamo = estadoPrestamo && computadorDao.occupyComputer(computer);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    for (int i = 0; i < programs.size(); i++) {
-                                        estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
-                                    }
-                                } catch (Exception e) {
-                                    System.out.println("No identifica la solicitud");
-                                }
-                            }
-                        });
-                    }
-                }).start();
-                return estadoPrestamo;
-            } else {
-                return false;
+    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
+        Solicitud solicitud = new Solicitud();
+        solicitud.setUsuario(usuario);
+        solicitud.setComputador(computer);
+        estadoPrestamo = estadoPrestamo && solicitudDao.crear(solicitud);
+        if (estadoPrestamo) {
+            solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
+            for (int i = 0; i < programs.size(); i++) {
+                estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
             }
+            return estadoPrestamo;
         } else {
             return false;
         }

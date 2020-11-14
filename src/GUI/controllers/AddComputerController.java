@@ -32,7 +32,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class AddComputerController implements Initializable {
 
-     @FXML
+    @FXML
     private TextField searchComputersTF;
 
     @FXML

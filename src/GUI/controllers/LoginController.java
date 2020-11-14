@@ -32,9 +32,9 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class LoginController implements Initializable {
-    
+
     CargarDatos cargarDatos = CargarDatos.getInstance();
-    
+
     @FXML
     private BorderPane panelPrincipal;
 
@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private Label escudolb;
-    
+
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
         Usuario usuario = new Usuario();
@@ -75,17 +75,10 @@ public class LoginController implements Initializable {
         usuario.setConstraseña(passwordLoginTF.getText());
         ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            if (validar.verificarLogin(usuario)) { 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cargarDatos.cargar(usuario);
-                    }
-                }).start();
-                cargarDatos.setUser(usuario);
-                System.out.println(cargarDatos.getUser().getId());
-                //Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
+            if (validar.verificarLogin(usuario)) {
+                cargarDatos.cargar(usuario);
+                cargarDatos.cargarUsuario(usuario);
+                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);
@@ -100,7 +93,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
         userLoginTF.requestFocus();
