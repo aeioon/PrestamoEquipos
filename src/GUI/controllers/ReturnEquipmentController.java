@@ -8,12 +8,17 @@ package GUI.controllers;
 import Control.CargarDatos;
 import Control.RealizarDevolucion;
 import Entidad.Usuario;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
@@ -41,17 +46,22 @@ public class ReturnEquipmentController implements Initializable {
     @FXML
     private Button aceptarBtn;
 
-    @FXML 
+    @FXML
     void exitReturnBtnAction(ActionEvent event) {
         Stage stage = (Stage) exitReturnBtn.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void returnEquipmentBtnAction(ActionEvent event) {
-        if (RD.makeReturn(cargarDatos.getUser(), Integer.parseInt(cargarDatos.getInfoIdEquipo()), cargarDatos.isActivo())) {
+    void returnEquipmentBtnAction(ActionEvent event) throws IOException {
+        if (RD.makeReturn(cargarDatos.getUser(), Integer.parseInt(cargarDatos.getDatosSolicitud().get(0)[1]), cargarDatos.isActivo())) {
             System.out.println("Se realizo la devolucion!");
-            cargarDatos.setActivo(false);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    cargarDatos.cargar(cargarDatos.getUser());
+                }
+            }).start();
             Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
             stage.close();
         } else {
@@ -61,9 +71,9 @@ public class ReturnEquipmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        stateText.setText("Debes devolver el equipo " + cargarDatos.getInfoIdEquipo()
-                + " en la sala " + cargarDatos.getInfoCodigoSala()
-                + " del edificio " + cargarDatos.getInfoNombreEdificio() + ".");
+        stateText.setText("Debes devolver el equipo " + cargarDatos.getDatosSolicitud().get(0)[1]
+                + " en la sala " + cargarDatos.getDatosSolicitud().get(0)[4]
+                + " del edificio " + cargarDatos.getDatosSolicitud().get(0)[2] + ".");
     }
 
 }

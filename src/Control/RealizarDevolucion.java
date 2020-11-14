@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class RealizarDevolucion {
 
     SolicitudDAO solicitudDao = new SolicitudDAO();
-    ComputadorDAO computadroDao = new ComputadorDAO();
+    ComputadorDAO computadorDao = new ComputadorDAO();
     boolean estadoSolicitud = true;
 
     public RealizarDevolucion() {
@@ -18,10 +18,9 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario, int id_Equipo, boolean activo) {
         if (activo) {
-            estadoSolicitud = estadoSolicitud && solicitudDao.ChangeRequestStatus(usuario);
-            estadoSolicitud = estadoSolicitud && computadroDao.freeComputer(id_Equipo);
+            estadoSolicitud = estadoSolicitud && computadorDao.freeComputer(id_Equipo);
             return estadoSolicitud;
-        }else{
+        } else {
             return false;
         }
     }

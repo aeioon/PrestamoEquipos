@@ -71,7 +71,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <Label fx:id="warningText" layoutX="7.0" layoutY="3.0" prefHeight="27.0" prefWidth="476.0" textFill="#ee0808" />
+                        <Label fx:id="warningText" layoutX="229.0" layoutY="1.0" prefHeight="27.0" prefWidth="476.0" textFill="#ee0808" />
                         <TableView fx:id="availableComputersTable" layoutX="8.0" layoutY="33.0" prefHeight="170.0" prefWidth="843.0" />
                      </children>
                   </AnchorPane>
