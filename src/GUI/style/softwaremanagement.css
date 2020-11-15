@@ -2,6 +2,9 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
-
+.button {
+    -fx-background-color:  #94b43b;
+}
+.button:hover {
+    -fx-background-color:  #82A424;
 }

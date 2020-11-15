@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,25 +32,30 @@ public class AddProgramController implements Initializable {
 
     ManageSoftware MS = new ManageSoftware();
 
-    @FXML
-    private TextField programNameTF;
+    @FXML private TextField programNameTF;
 
-    @FXML
-    private Button createProgramBtn;
+    @FXML private TextField programVersionTF;
+    
+    @FXML private Button createProgramBtn;
+    
+    @FXML private Label nameTFWarning;
 
-    @FXML
-    private TextField programVersionTF;
+    @FXML private Label versionTFWarning;
 
     @FXML
     void createProgramBtnAction(ActionEvent event) {
-        Programa programa = new Programa();
-        programa.setNombre(programNameTF.getText());
-        programa.setVersion(programVersionTF.getText());
-        //if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            MS.crear(programa);
-        //}
-        Stage stage = (Stage) createProgramBtn.getScene().getWindow();
-        stage.close();
+        System.out.println(programNameTF.getText().length()+ ""+ programVersionTF.getText().length());
+        //Si los TF estan vacios no se hace nada, manda notificacion.
+        if (programNameTF.getText().length() != 0 && programVersionTF.getText().length() != 0) {
+            Programa programa = new Programa();
+            programa.setNombre(programNameTF.getText());
+            programa.setVersion(programVersionTF.getText());
+            if(MS.crear(programa)){
+                Stage stage = (Stage) createProgramBtn.getScene().getWindow();            
+            }
+          
+
+        }
     }
 
     @Override
@@ -59,18 +65,14 @@ public class AddProgramController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    System.out.println("Textfield on focus");
-                    //AdvertenciausLB.setVisible(false);
+                    nameTFWarning.setVisible(false);
                 } else {
-                    System.out.println("Textfield out focus");
-                    //AdvertenciapLB.setVisible(false);
+                    nameTFWarning.setVisible(false);
                     if (programNameTF.getText().length() != 0) {
-                        //AdvertenciausLB.setVisible(false);
-                        System.out.println(programNameTF.getText());
+                        nameTFWarning.setVisible(false);
                     } else {
-                        System.out.println("no hay usuario");
-                        //AdvertenciausLB.setText("No se ha ingresado un usuario");
-                        //AdvertenciausLB.setVisible(true);
+                        nameTFWarning.setText("No se ha ingresado un nombre");
+                        nameTFWarning.setVisible(true);
                     }
                 }
             }
@@ -80,17 +82,14 @@ public class AddProgramController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    System.out.println("Textfield on focus");
-                    //AdvertenciapLB.setVisible(false);
+                    versionTFWarning.setVisible(false);
                 } else {
-                    System.out.println("Textfield out focus");
-                    //AdvertenciapLB.setVisible(false);
+                    versionTFWarning.setVisible(false);
                     if (String.valueOf(programVersionTF.getText()).length() == 0) {
-                        System.out.println("no hay contraseña");
-                        //AdvertenciapLB.setText("No se ha ingresado una contraseña");
-                        //AdvertenciapLB.setVisible(true);
+                        versionTFWarning.setText("No se ha ingresado una version");
+                        versionTFWarning.setVisible(true);
                     } else {
-                        //AdvertenciapLB.setVisible(false);
+                        versionTFWarning.setVisible(false);
                     }
                 }
             }
