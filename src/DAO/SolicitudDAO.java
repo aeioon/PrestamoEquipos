@@ -70,8 +70,9 @@ public class SolicitudDAO {
                                                         "INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
                                                         "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
                                                         "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                                                "WHERE  CO.Disponibilidad = 0 AND US.Id_Usuario = '" + usuario.getId() + "'AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
+                                                "WHERE US.Id_Usuario = '" + usuario.getId() + "'AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
                                                                 "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin \n"+
                                                                 "GROUP BY Computador.Id_Equipo);");
             while (resultSet.next()) {
                 return true;
@@ -86,30 +87,6 @@ public class SolicitudDAO {
                 statement.close();
                 connection.close();
                 return resultSet.next();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
-    public boolean ChangeRequestStatus(Usuario usuario) {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet query = null;
-        int resultSet;
-        try {
-            resultSet = -1;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Solicitud SET Estado = 0 WHERE UsuarioId_Usuario = '" + usuario.getId() + "'");
-            return resultSet > 0;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                statement.close();
-                connection.close();
             } catch (SQLException ex) {
 
             }

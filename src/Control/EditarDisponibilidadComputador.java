@@ -17,6 +17,7 @@ public class EditarDisponibilidadComputador {
     ComputadorDAO computadorDao = new ComputadorDAO();
     
     public boolean changeAvailability(Computador computador){
-        return computadorDao.changeAvailability(computador);
+        //return computadorDao.changeAvailability(computador);
+        return true;
     }
 }
