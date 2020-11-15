@@ -25,7 +25,7 @@ public class MostrarInformacionComputadores {
         return computadorDao.getConcurrencePercentage();
     }    
     
-    public ArrayList<String[]> getHoleComputerInfo(Computador computer) {
+    public String[] getHoleComputerInfo(Computador computer) {
         return computadorDao.getHoleComputerInfo(computer);
     }
     

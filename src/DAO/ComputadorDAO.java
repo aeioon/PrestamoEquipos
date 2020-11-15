@@ -353,29 +353,29 @@ public class ComputadorDAO {
         }
     }
 
-    public ArrayList<String[]> getHoleComputerInfo(Computador computer) {
-        ArrayList<String[]> holeComputerInfo = new ArrayList<>();
+    public String[] getHoleComputerInfo(Computador computer) {
+        String[] datos = {"", "", "", "", "", "", "", "", ""};
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad, CO.Hardware, SA.EncargadoId_Encargado, EN.Nombres, EN.Apellidos\n" +
-                              "From (((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                                    "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n" +
-                                    "INNER JOIN Encargado as EN ON SA.EncargadoId_Encargado = EN.Id_Encargado)\n" +
-                                    "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
-                                                "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
-                                                "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                                                "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                                                "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
-                                                        "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
-                                                        "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo\n" +
-                                "WHERE CO.Id_Equipo =" + computer.getId();
+            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad, CO.Hardware, SA.EncargadoId_Encargado, EN.Nombres, EN.Apellidos\n"
+                    + "From (((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n"
+                    + "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n"
+                    + "INNER JOIN Encargado as EN ON SA.EncargadoId_Encargado = EN.Id_Encargado)\n"
+                    + "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n"
+                    + "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n"
+                    + "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n"
+                    + "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n"
+                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n"
+                    + "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n"
+                    + "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo\n"
+                    + "WHERE CO.Id_Equipo =" + computer.getId();
             resultSet = statement.executeQuery(consulta);
+
             if (resultSet.next()) {
-                String[] datos = {"", "", "", "", "", "", "", "", ""};
                 datos[0] = Integer.toString(resultSet.getInt(1));
                 datos[1] = resultSet.getString(2);
                 datos[2] = Integer.toString(resultSet.getInt(3));
@@ -387,10 +387,10 @@ public class ComputadorDAO {
                 datos[8] = resultSet.getString(9);
             }
 
-            return holeComputerInfo;
+            return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
-            return holeComputerInfo;
+            return datos;
         } finally {
             try {
                 resultSet.close();
