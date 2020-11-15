@@ -54,7 +54,7 @@ public class EquipmentInformationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         computador = ConcurrenceController.getSelectcomputador();
-        //ArrayList<String[]> datos = MIC.getHoleComputerInfo(computador);
+        //ArrayList<String[]> datos = MIC.getHoleComputerInfo(computador);       
     }    
     
 }
