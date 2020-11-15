@@ -15,21 +15,21 @@ import java.util.ArrayList;
  */
 public class MostrarInformaciónComputadores {
     
-    ComputadorDAO cdao = new ComputadorDAO();
+    ComputadorDAO computadorDao = new ComputadorDAO();
     
     public ArrayList<String[]> getConcurrenceInfo(){        
-        return cdao.getConcurrenceInfo();
+        return computadorDao.getConcurrenceInfo();
     }
     
     public double getConcurrencePercentage(){
-        return cdao.getConcurrencePercentage();
+        return computadorDao.getConcurrencePercentage();
     }    
     
-    public ArrayList<String> getHoleComputerInfo(Computador computer) {
-        return cdao.getHoleComputerInfo(computer);
+    public ArrayList<String[]> getHoleComputerInfo(Computador computer) {
+        return computadorDao.getHoleComputerInfo(computer);
     }
     
     public ArrayList<String> getComputerPrograms(Computador computer) {
-        return cdao.getComputerPrograms(computer);
+        return computadorDao.getComputerPrograms(computer);
     }
 }

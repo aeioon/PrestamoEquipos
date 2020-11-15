@@ -253,16 +253,16 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad\n" +
-                              "From ((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                                    "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n" +
-                                    "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
-                                            "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
-                                                    "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                                                    "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                                            "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
-                                                       "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
-                                            "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo";
+            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad\n"
+                    + "From ((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n"
+                    + "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n"
+                    + "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n"
+                    + "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n"
+                    + "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n"
+                    + "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n"
+                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n"
+                    + "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n"
+                    + "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo";
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
                 String[] fila = new String[5];
@@ -353,31 +353,39 @@ public class ComputadorDAO {
         }
     }
 
-    public ArrayList<String> getHoleComputerInfo(Computador computer) {
-        ArrayList<String> holeComputerInfo = new ArrayList<>();
+    public ArrayList<String[]> getHoleComputerInfo(Computador computer) {
+        ArrayList<String[]> holeComputerInfo = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "Select distinct C.Id_Equipo, So.UsuarioId_Usuario ,E.Código, S.Codigo, C.Disponibilidad, C.Hardware, S.EncargadoId_Encargado, En.Nombres, En.Apellidos\n"
-                    + "                    From (Computador as C INNER JOIN Sala as S ON C.SalaId_sala = S.Id_sala) \n"
-                    + "                    INNER JOIN Edificio as E ON S.EdificioId_Edificio = E.Id_Edificio\n"
-                    + "                    LEFT JOIN Encargado as En ON S.EncargadoId_Encargado = En.Id_Encargado\n"
-                    + "                    LEFT JOIN justActive as So ON So.ComputadorId_Equipo = C.Id_Equipo\n"
-                    + "WHERE C.Id_Equipo = " + computer.getId();
+            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad, CO.Hardware, SA.EncargadoId_Encargado, EN.Nombres, EN.Apellidos\n" +
+                              "From (((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                                    "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n" +
+                                    "INNER JOIN Encargado as EN ON SA.EncargadoId_Encargado = EN.Id_Encargado)\n" +
+                                    "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
+                                                "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
+                                                "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                                                "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
+                                                "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
+                                                        "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                        "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo\n" +
+                                "WHERE CO.Id_Equipo =" + computer.getId();
             resultSet = statement.executeQuery(consulta);
-            resultSet.next();
-            holeComputerInfo.add(Integer.toString(resultSet.getInt(1)));
-            holeComputerInfo.add(resultSet.getString(2));
-            holeComputerInfo.add(Integer.toString(resultSet.getInt(3)));
-            holeComputerInfo.add(Integer.toString(resultSet.getInt(4)));
-            holeComputerInfo.add(Integer.toString(resultSet.getInt(5)));
-            holeComputerInfo.add(resultSet.getString(6));
-            holeComputerInfo.add(resultSet.getString(7));
-            holeComputerInfo.add(resultSet.getString(8));
-            holeComputerInfo.add(resultSet.getString(9));
+            if (resultSet.next()) {
+                String[] datos = {"", "", "", "", "", "", "", "", ""};
+                datos[0] = Integer.toString(resultSet.getInt(1));
+                datos[1] = resultSet.getString(2);
+                datos[2] = Integer.toString(resultSet.getInt(3));
+                datos[3] = Integer.toString(resultSet.getInt(4));
+                datos[4] = Integer.toString(resultSet.getInt(5));
+                datos[5] = resultSet.getString(6);
+                datos[6] = resultSet.getString(7);
+                datos[7] = resultSet.getString(8);
+                datos[8] = resultSet.getString(9);
+            }
 
             return holeComputerInfo;
         } catch (SQLException ex) {
@@ -402,10 +410,10 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consultaProgramas = "Select distinct P.Nombre\n"
-                    + "From (Computador as C INNER JOIN Computador_Programa as CoP on C.Id_Equipo = CoP.Id_Equipo)\n"
-                    + "	INNER JOIN Programa as P On P.Id_Programa = CoP.Id_Programa\n"
-                    + "Where C.Id_Equipo = " + computer.getId();
+            String consultaProgramas = "Select distinct PO.Nombre\n"
+                    + "From (Computador as CO INNER JOIN Computador_Programa as CP on CO.Id_Equipo = CP.Id_Equipo)\n"
+                    + "INNER JOIN Programa as PO On PO.Id_Programa = CP.Id_Programa\n"
+                    + "Where CO.Id_Equipo = " + computer.getId();
             resultSet = statement.executeQuery(consultaProgramas);
             while (resultSet.next()) {
                 holeComputerInfo.add(resultSet.getString(1));
