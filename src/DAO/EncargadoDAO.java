@@ -82,7 +82,8 @@ public class EncargadoDAO {
 
     }
 
-    public boolean leer(Encargado par) {
+    public Encargado leer(Encargado encargado) {
+        Encargado datos = new Encargado();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -91,21 +92,23 @@ public class EncargadoDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Encargado "
-                    + "WHERE Id_Encargado = BINARY '" + par.getId()+ "'");
+                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()+ "'");
             if(resultSet.next()){
-                return true;
-            }else{
-                return false;
+                datos.setId(resultSet.getString(1));
+                datos.setContraseña(resultSet.getString(2));
+                datos.setNombres(resultSet.getString(3));
+                datos.setApellidos(resultSet.getString(4));
             }
+            return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
-            return false;
+            return datos;
         } finally {
             try {
                 resultSet.close();
                 statement.close();
                 connection.close();
-                return resultSet.next();
+                return datos;
             } catch (SQLException ex) {
 
             }

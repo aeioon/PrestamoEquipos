@@ -15,7 +15,7 @@ public class Encargado {
         this.nombres = nombres;
         this.apellidos = apellidos;
     }
-
+    
     public String getId() {
         return id;
     }

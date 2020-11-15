@@ -5,9 +5,12 @@
  */
 package GUI.controllers;
 
+import Control.CargarDatosAdministrador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +26,8 @@ import javafx.scene.layout.Pane;
  */
 public class AdminHomeController implements Initializable {
 
+    CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
+    
     @FXML
     private Button concurrenceB;
     
@@ -40,13 +45,21 @@ public class AdminHomeController implements Initializable {
     }
     
     @FXML
-    void managementBtnAction(ActionEvent event) {
-
+    void managementBtnAction(ActionEvent event) throws IOException {
+        principalPane.getChildren().clear();
+        Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
+        principalPane.getChildren().add(newParent);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            principalPane.getChildren().clear();
+            Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
+            principalPane.getChildren().add(newParent);
+        } catch (IOException ex) {
+            Logger.getLogger(AdminHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
 }

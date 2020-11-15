@@ -12,14 +12,15 @@ public class CargarDatosUsuario {
     SolicitudDAO solicitudDao = new SolicitudDAO();
     UsuarioDAO usuarioDao = new UsuarioDAO();
     private Usuario user = new Usuario();
-    
+
     ArrayList<String[]> datosSolicitud = new ArrayList<>();
 
+    private boolean carga = false;
     private boolean activo = false;
     private boolean cargaSolicitud = false;
     private boolean cargarActividad = false;
     private boolean cargarUsuario = false;
-    
+
     private CargarDatosUsuario() {
 
     }
@@ -30,6 +31,7 @@ public class CargarDatosUsuario {
     }
 
     public void cargar(Usuario usuario) {
+        carga = true;
         cargaSolicitud = false;
         cargarActividad = false;
         cargarUsuario = false;
@@ -56,11 +58,19 @@ public class CargarDatosUsuario {
         }).start();
     }
 
+    public boolean isCarga() {
+        return carga;
+    }
+
+    public void setCarga(boolean carga) {
+        this.carga = carga;
+    }
+
     public void cargarUsuario(Usuario usuario) {
         user = usuarioDao.leer(usuario);
         cargarUsuario = true;
     }
-    
+
     public void cargarSolicitudes(Usuario usuario) {
         datosSolicitud = solicitudDao.getInfo(usuario);
         cargaSolicitud = true;
@@ -74,11 +84,16 @@ public class CargarDatosUsuario {
         }
         cargarActividad = true;
     }
-    
+
     public void resetData() {
+        programs = new ArrayList<Programa>();
+        user = new Usuario();
+        datosSolicitud = new ArrayList<>();
         activo = false;
         cargaSolicitud = false;
         cargarActividad = false;
+        cargarUsuario = false;
+        carga = false;
     }
 
     public ArrayList<String[]> getDatosSolicitud() {
@@ -96,7 +111,7 @@ public class CargarDatosUsuario {
     public void setCargarUsuario(boolean cargarUsuario) {
         this.cargarUsuario = cargarUsuario;
     }
-    
+
     public SolicitudDAO getSolicitudDao() {
         return solicitudDao;
     }

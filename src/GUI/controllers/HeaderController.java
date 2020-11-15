@@ -5,6 +5,7 @@
  */
 package GUI.controllers;
 
+import Control.CargarDatosAdministrador;
 import Control.CargarDatosUsuario;
 import Entidad.Usuario;
 import java.io.IOException;
@@ -31,9 +32,10 @@ import javafx.stage.Stage;
  * @author ion
  */
 public class HeaderController implements Initializable {
-    
-    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
-    
+
+    CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
+    CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
+
     @FXML
     private Rectangle userBox;
 
@@ -45,28 +47,35 @@ public class HeaderController implements Initializable {
 
     @FXML
     private Label formatoIngenieriaL;
-    
+
     @FXML
     private Button logoutBtn;
 
     @FXML
     void logoutBtnAction(ActionEvent event) throws IOException {
         //Cerrar sesion.
+        cargarDatosAdministrador.resetData();
+        cargarDatosUsuario.resetData();
         Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene newScene = new Scene(newParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newScene);
         window.show();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //nombreEstudianteT.setText(Main.getUsuarioLogueado().getNombres() + " " + Main.getUsuarioLogueado().getApellidos());
         //correoEstudianteT.setText(Main.getUsuarioLogueado().getId() + "@unal.edu.co");
         formatoIngenieriaL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/Logo_n.png"))));
         //Luego con getNombres();
-        nombreEstudianteT.setText(cargarDatos.getUser().getNombres() + " " + cargarDatos.getUser().getApellidos());
-        correoEstudianteT.setText(cargarDatos.getUser().getId() + "@unal.edu.co");
-    }    
-    
+        if (cargarDatosUsuario.isCarga()) {
+            nombreEstudianteT.setText(cargarDatosUsuario.getUser().getNombres() + " " + cargarDatosUsuario.getUser().getApellidos());
+            correoEstudianteT.setText(cargarDatosUsuario.getUser().getId() + "@unal.edu.co");
+        } else {
+            nombreEstudianteT.setText(cargarDatosAdministrador.getEncargado().getNombres() + " " + cargarDatosAdministrador.getEncargado().getApellidos());
+            correoEstudianteT.setText(cargarDatosAdministrador.getEncargado().getId() + "@unal.edu.co");
+        }
+    }
+
 }

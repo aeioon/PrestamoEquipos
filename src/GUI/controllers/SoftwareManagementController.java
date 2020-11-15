@@ -46,8 +46,6 @@ import javafx.stage.Stage;
 public class SoftwareManagementController implements Initializable {
 
     @FXML
-    private Label escudoBlanco;
-    @FXML
     private TableView<Programa> allProgramsTable;
     @FXML
     private TextField programSearchTF;

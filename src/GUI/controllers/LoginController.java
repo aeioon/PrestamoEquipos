@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Control.CargarDatosAdministrador;
 import Control.CargarDatosUsuario;
 import Control.ValidarLogin;
 import Entidad.Encargado;
@@ -35,6 +36,7 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
+    CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
 
     @FXML
     private BorderPane panelPrincipal;
@@ -89,6 +91,7 @@ public class LoginController implements Initializable {
                 encargado.setId(userLoginTF.getText());
                 encargado.setContraseña(passwordLoginTF.getText());
                 if (validar.verificarAdministrador(encargado)) {
+                    cargarDatosAdministrador.cargar(encargado);
                     Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
                     Scene newScene = new Scene(newParent);
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
