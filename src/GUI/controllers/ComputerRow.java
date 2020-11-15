@@ -16,7 +16,7 @@ package GUI.controllers;
         public String idEdificio;
         public String nombreSala;
 
-        public ComputerRow(String id, String nombreEdificio, String idEdificio, String nombreSala) {
+        public ComputerRow(String id, String idEdificio, String nombreEdificio,  String nombreSala) {
             this.id = id;
             this.nombreEdificio = nombreEdificio;
             this.idEdificio = idEdificio;

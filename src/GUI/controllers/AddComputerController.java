@@ -52,10 +52,13 @@ public class AddComputerController implements Initializable {
     void insertComputersTable() {
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        
+        TableColumn nombreEdificioCol = new TableColumn("Edificio");
         nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
+        
         TableColumn IdEdificioCol = new TableColumn("Id Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
+        
         TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
         nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
 
@@ -68,7 +71,7 @@ public class AddComputerController implements Initializable {
     void insertSelectedCompsTable(){
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        TableColumn nombreEdificioCol = new TableColumn("Edificio");
         nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
         TableColumn IdEdificioCol = new TableColumn("Id Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
@@ -83,7 +86,6 @@ public class AddComputerController implements Initializable {
     void updateComputerData(){
         ArrayList<String[]> availableComputersInfo = MST.equiposSinPrograma(selectedProgram);
         availableComputersInfo.forEach(computer -> {
-            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if (!computerList.contains(temp)) {
                 computerList.add(temp);
@@ -167,6 +169,24 @@ public class AddComputerController implements Initializable {
         } else {
             System.out.println("Hubo un errror, imprimir en Label");
         }     
+    }
+    
+    
+    @FXML private Button rightArrowBtn;
+    @FXML private Button leftArrowBtn;
+
+    @FXML void leftArrowBtnAction(ActionEvent event) {
+        ComputerRow CRSelected = selectedComputersTable.getSelectionModel().getSelectedItem();
+        if(CRSelected != null)
+            unselectProgram(CRSelected);
+    }
+
+    @FXML
+    void rightArrowBtnAction(ActionEvent event) {
+        ComputerRow CRSelected = computersTable.getSelectionModel().getSelectedItem();
+        System.out.println(computersTable.getSelectionModel().getSelectedItem().getNombreEdificio());
+        if(CRSelected != null)
+            addComputer(CRSelected);
     }
     
     @Override

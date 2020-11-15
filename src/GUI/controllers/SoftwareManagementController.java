@@ -58,6 +58,7 @@ public class SoftwareManagementController implements Initializable {
     @FXML private Button addComputerBtn;
     @FXML private Label warningText;
     @FXML private Button removeProgramBtn;
+    @FXML private Button searchComputersBtn;
     
     // Lo relacionado al enum es para quizas reuinir ambas vistas add y remove en una sola, 
     // por ahora para probar se copia el codigo
@@ -104,7 +105,7 @@ public class SoftwareManagementController implements Initializable {
         computerId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn buildingName = new TableColumn("Edificio");
-        buildingName.setCellValueFactory(new PropertyValueFactory<>("idEdificio"));
+        buildingName.setCellValueFactory(new PropertyValueFactory<>("nombreEdificio"));
 
         TableColumn classroomId = new TableColumn("Sala");
         classroomId.setCellValueFactory(new PropertyValueFactory<>("nombreSala"));
@@ -121,6 +122,7 @@ public class SoftwareManagementController implements Initializable {
         ArrayList<String[]> availableComputersInfo = MST.mostrarEquipos(selectedProgram);
         if (availableComputersInfo.size() != 0) {
             warningText.setText("");
+            programPaneText.setText("Equipos que cuentan con "+ selectedProgram.getNombre());
         } else {
             warningText.setText("No hay computadores asignados a este equipo");
         }
@@ -137,7 +139,7 @@ public class SoftwareManagementController implements Initializable {
     @FXML
     void removeProgramBtnAction(ActionEvent event) {
         
-        Alert alert = new Alert(AlertType.CONFIRMATION, "¿Eliminar " + selectedProgram.getNombre() + " ?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "¿Eliminar " + selectedProgram.getNombre() + "?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
         
         if (alert.getResult() == ButtonType.YES) {
@@ -146,21 +148,12 @@ public class SoftwareManagementController implements Initializable {
             } catch (Exception e) {
                 System.out.println("No se pudo eliminar el programa");
             }
-            Thread computerInfo = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    updateProgramData();
-                }
-            });
-            computerInfo.setDaemon(true);
-            computerInfo.start();
+            updateProgramData();
         }
         // Hay que deseleccionar el item que fue eliminado para evitar excepcion por la llamadas que hace initActions
         allProgramsTable.getSelectionModel().clearSelection();
         //test
-        System.out.println(allProgramsTable.getSelectionModel().getSelectedIndex());
-
-           
+        System.out.println(allProgramsTable.getSelectionModel().getSelectedIndex());       
     }
 
     @FXML
@@ -250,6 +243,7 @@ public class SoftwareManagementController implements Initializable {
                     selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
                     System.out.println(selectedProgram.getNombre());
                 }
+                /*
                 if (click.getClickCount() == 2) {
                     System.out.println("2 clicks, mostrar los computadores");
                     selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
@@ -258,10 +252,19 @@ public class SoftwareManagementController implements Initializable {
                     System.out.println(selectedProgram.getNombre());
                     updateComputerData();
                     initActions();
-                }
+                }*/
             }
         });
     }
+    
+
+
+    @FXML
+    void searchComputersBtnAction(ActionEvent event) {
+        System.out.println(selectedProgram.getNombre());
+        updateComputerData();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
