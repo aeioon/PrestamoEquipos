@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarInformaciónComputadores;
+import Control.MostrarInformacionComputadores;
 import Entidad.Computador;
 import Entidad.Edificio;
 import Entidad.Programa;
@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,6 +39,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import jdk.nashorn.internal.runtime.JSType;
@@ -95,69 +97,43 @@ public class ConcurrenceController implements Initializable {
 
     }
     
-    MostrarInformaciónComputadores MIC = new MostrarInformaciónComputadores();
+    static Computador selectcomputador = new Computador();
+
+    public static Computador getSelectcomputador() {
+        return selectcomputador;
+    }
+    
+    MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
     private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     void insertcomputers(){
         TableColumn teamIdCol = new TableColumn("Id");
+        teamIdCol.setStyle( "-fx-alignment: CENTER;"); 
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));
 
         TableColumn teamUsuarioCol = new TableColumn("Usuario");
+        teamUsuarioCol.setStyle( "-fx-alignment: CENTER;"); 
         teamUsuarioCol.setCellValueFactory(new PropertyValueFactory("idUsuario"));
 
         TableColumn teamEdificioCol = new TableColumn("Edificio");
+        teamEdificioCol.setStyle( "-fx-alignment: CENTER;"); 
         teamEdificioCol.setCellValueFactory(new PropertyValueFactory("codigoEdificio"));
 
         TableColumn teamSalaCol = new TableColumn("Sala");
+        teamSalaCol.setStyle( "-fx-alignment: CENTER;"); 
         teamSalaCol.setCellValueFactory(new PropertyValueFactory("codigoSala"));
 
         TableColumn teamDisponibilidadCol = new TableColumn("Disponibilidad");
+        teamDisponibilidadCol.setStyle( "-fx-alignment: CENTER;"); 
         teamDisponibilidadCol.setCellValueFactory(new PropertyValueFactory("disponibilidad"));
-
-        TableColumn teamInfo = new TableColumn("Mas infotmación");
-        teamInfo.setCellValueFactory(new PropertyValueFactory<>("disponibilidad"));
-        Callback<TableColumn<ConcurrenceRow, String>, TableCell<ConcurrenceRow, String>> cellFactory = new Callback<TableColumn<ConcurrenceRow, String>, TableCell<ConcurrenceRow, String>>() {
-            @Override
-            public TableCell call(final TableColumn<ConcurrenceRow, String> param) {
-                final TableCell<ConcurrenceRow, String> cell = new TableCell<ConcurrenceRow, String>() {
-
-                    final Button btn = new Button("Disponible");
-
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            btn.setOnAction(event -> {
-                                try {
-                                    ConcurrenceRow computador = getTableView().getItems().get(getIndex());
-                                    Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInfo.fxml"));
-                                    Scene scene = new Scene(root);
-                                    Stage primaryStage = new Stage();
-                                    primaryStage.setScene(scene);
-                                    primaryStage.setTitle("Información del equipo");
-                                    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
-                                    primaryStage.show();
-                                            } catch (IOException ex) {
-                                    Logger.getLogger(ConcurrenceController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            });
-                            setGraphic(btn);
-                            setText(null);
-                        }
-                    }
-                };
-                   return cell;
-               }
-           };
+        
+        TableColumn teamInfoCompCol = new TableColumn("Mas Información");
+        teamInfoCompCol.setStyle( "-fx-alignment: CENTER;");  
+        teamInfoCompCol.setCellValueFactory(new PropertyValueFactory("botonInfo"));
 
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        table.getColumns().addAll(teamIdCol, teamUsuarioCol, teamEdificioCol, teamSalaCol, teamDisponibilidadCol);
+        table.getColumns().addAll(teamIdCol, teamUsuarioCol, teamEdificioCol, teamSalaCol, teamDisponibilidadCol, teamInfoCompCol);
         table.setItems(computerList);
-
-        table.getColumns().addAll(teamInfo);
         
         ArrayList<String[]> availableComputersInfo = MIC.getConcurrenceInfo();
         if(availableComputersInfo.size() != 0){
@@ -183,6 +159,15 @@ public class ConcurrenceController implements Initializable {
         loupeB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/loupe.png"))));
         insertcomputers();
         progressBar.setProgress(MIC.getConcurrencePercentage());
+        
+        table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 1) {
+                    selectcomputador.setId(Integer.parseInt(table.getSelectionModel().getSelectedItem().getIdEquipo()));
+                }
+            }
+        });
 
 
 
