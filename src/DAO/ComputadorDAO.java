@@ -335,34 +335,6 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean changeAvailability(Computador computador) {
-        boolean querySuccess = false;
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            String consulta = "Update Computador\n"
-                    + "Set Disponibilidad = 1\n"
-                    + "Where Id_Equipo = " + computador.getId();
-            resultSet = statement.executeQuery(consulta);
-            querySuccess = true;
-            return querySuccess;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return querySuccess;
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
     public String[] getHoleComputerInfo(Computador computer) {
         String[] datos = {"", "", "", "", "", "", "", "", ""};
         Connection connection = null;
