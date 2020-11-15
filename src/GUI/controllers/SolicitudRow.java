@@ -9,6 +9,7 @@ import Control.CargarDatosUsuario;
 import Control.MostrarInformacionComputadores;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
+import Entidad.Solicitud;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -94,8 +95,12 @@ public class SolicitudRow {
                             System.out.println("Fallo en la devolucion");
                         }
                     } else {
-                        if(RD.cancelRequest()){
-                            
+                        Solicitud solicitud = new Solicitud();
+                        solicitud.setId(Integer.parseInt(idSolicitud));
+                        if(RD.cancelRequest(solicitud)){
+                            System.out.println("Cancelo solicitu");
+                        }else{
+                            System.out.println("Fallo la cancelación");
                         }
                     }
                 }

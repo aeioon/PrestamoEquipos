@@ -78,9 +78,10 @@ public class LoginController implements Initializable {
             Usuario usuario = new Usuario();
             usuario.setId(userLoginTF.getText());
             usuario.setContraseña(passwordLoginTF.getText());
-            if (validar.verificarUsuario(usuario)) {
+            usuario = validar.verificarUsuario(usuario);
+            if (usuario != null) {
                 cargarDatosUsuario.cargar(usuario);
-                cargarDatosUsuario.cargarUsuario(usuario);
+                cargarDatosUsuario.setUser(usuario);
                 Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -90,8 +91,9 @@ public class LoginController implements Initializable {
                 Encargado encargado = new Encargado();
                 encargado.setId(userLoginTF.getText());
                 encargado.setContraseña(passwordLoginTF.getText());
-                if (validar.verificarAdministrador(encargado)) {
-                    cargarDatosAdministrador.cargar(encargado);
+                encargado = validar.verificarAdministrador(encargado);
+                if (encargado != null) {
+                    cargarDatosAdministrador.setEncargado(encargado);
                     Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
                     Scene newScene = new Scene(newParent);
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

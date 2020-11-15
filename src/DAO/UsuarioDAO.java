@@ -18,37 +18,6 @@ public class UsuarioDAO {
     static final String DB_PASSWD
             = "4waxA687";
 
-    public boolean validar(Usuario usuario) {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        try {
-            resultSet = null;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Usuario "
-                    + "WHERE Id_Usuario = BINARY '" + usuario.getId()
-                    + "' AND Contraseña = BINARY '" + usuario.getContraseña() + "'");
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-                return resultSet.next();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
     public Usuario leer(Usuario usuario) {
         Usuario usuarioCompleto = null;
         Connection connection = null;

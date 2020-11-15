@@ -24,38 +24,6 @@ public class EncargadoDAO {
     static final String DB_PASSWD =
             "4waxA687";
     
-    
-    public boolean validar(Encargado encargado) {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        try {
-            resultSet = null;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Encargado "
-                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()
-                    + "' AND Contraseña = BINARY '" + encargado.getContraseña() + "'");
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return false;
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-                return resultSet.next();
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-    
     public boolean crear(Encargado object) {
         Connection connection = null;
         Statement statement = null;
