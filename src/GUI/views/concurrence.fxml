@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="1032.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ConcurrenceController">
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="1032.0" stylesheets="@../style/concurrence.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ConcurrenceController">
     <stylesheets>
         <URL value="@/GUI/style/concurrence.css" />
     </stylesheets>
@@ -18,15 +18,15 @@
       <HBox layoutX="72.0" layoutY="34.0" prefHeight="42.0" prefWidth="841.0">
          <children>
             <TextField fx:id="searchProgramTF" prefHeight="48.0" prefWidth="802.0" promptText="Ingrese el nombre del programa" />
-            <Button fx:id="loupeB" mnemonicParsing="false" onAction="#loupeBtnAction" prefHeight="42.0" prefWidth="43.0" style="-fx-background-color: #94b43b;">
+            <Button fx:id="loupeB" mnemonicParsing="false" onAction="#loupeBtnAction" prefHeight="42.0" prefWidth="61.0">
                <rotationAxis>
                   <Point3D />
                </rotationAxis>
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="table" layoutX="72.0" layoutY="143.0" prefHeight="200.0" prefWidth="820.0" style="-fx-border-insets: black;" />
-      <ProgressBar fx:id="progressBar" layoutX="316.0" layoutY="556.0" prefHeight="23.0" prefWidth="506.0" progress="0.0" style="-fx-background-color: #94b43b; -fx-background-insets: #94b43b;" />
+      <TableView fx:id="table" layoutX="72.0" layoutY="143.0" prefHeight="200.0" prefWidth="820.0" />
+      <ProgressBar fx:id="progressBar" layoutX="316.0" layoutY="556.0" prefHeight="23.0" prefWidth="506.0" progress="0.0" />
       <Label layoutX="233.0" layoutY="557.0" text="Ocupación:" />
       <Label fx:id="advertenciaLB" layoutX="72.0" layoutY="94.0" prefHeight="21.0" prefWidth="841.0" text="Label" textFill="#f50000" />
    </children>
