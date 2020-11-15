@@ -64,9 +64,14 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT Disponibilidad " +
-                                               "FROM (Usuario AS US INNER JOIN Solicitud AS SO ON US.Id_Usuario = SO.UsuarioId_Usuario) INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo " + 
-                                               "WHERE Disponibilidad = 0 AND Id_Usuario ='" + usuario.getId() + "';");
+            resultSet = statement.executeQuery("SELECT CO.Id_Equipo\n" +
+                                                "FROM (((Usuario AS US INNER JOIN Solicitud AS SO ON US.Id_Usuario = SO.UsuarioId_Usuario)\n" +
+                                                        "INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
+                                                        "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                                                        "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
+                                                "WHERE  CO.Disponibilidad = 0 AND US.Id_Usuario = '" + usuario.getId() + "'AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
+                                                                "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                "GROUP BY Computador.Id_Equipo);");
             while (resultSet.next()) {
                 return true;
             }

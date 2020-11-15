@@ -6,15 +6,18 @@
 package GUI.controllers;
 
 import Control.MostrarInformacionComputadores;
+import Entidad.Computador;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
@@ -34,6 +37,12 @@ public class ConcurrenceRow {
     public String disponibilidad;
     public Button botonInfo;
 
+    static Computador selectcomputador = new Computador();
+
+    public static Computador getSelectcomputador() {
+        return selectcomputador;
+    }
+
     public ConcurrenceRow(String idEquipo, String idUsuario, String codigoEdificio, String codigoSala, String disponibilidad) {
         this.idEquipo = idEquipo;
         this.idUsuario = idUsuario;
@@ -41,24 +50,33 @@ public class ConcurrenceRow {
         this.codigoSala = codigoSala;
         this.disponibilidad = disponibilidad;
         if (disponibilidad.equals("1")) {
-            this.disponibilidad = "No disponible";
-        } else {
             this.disponibilidad = "Disponible";
+        } else {
+            this.disponibilidad = "No disponible";
         }
         this.botonInfo = new Button("+");
-        this.botonInfo.setOnAction((ActionEvent event) -> {
-            try {
-                Stage primaryStage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
-                Scene scene = new Scene(root);
-                primaryStage.setScene(scene);
-                primaryStage.setTitle("Prestamo de equipos de computo");
-                primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
-                primaryStage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(ConcurrenceRow.class.getName()).log(Level.SEVERE, null, ex);
+        botonInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 1) {
+                    System.out.println("El computador seleccionado es: " + idEquipo);
+                    selectcomputador.setId(Integer.parseInt(idEquipo));
+
+                    Stage primaryStage = new Stage();
+                    Parent root;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
+                        Scene scene = new Scene(root);
+                        primaryStage.setScene(scene);
+                        primaryStage.setTitle("Prestamo de equipos de computo");
+                        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
+                        primaryStage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ConcurrenceRow.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
-                        });
+        });
     }
 
     public String getIdEquipo() {
@@ -108,6 +126,5 @@ public class ConcurrenceRow {
     public void setBotonInfo(Button botonInfo) {
         this.botonInfo = botonInfo;
     }
-    
-    
+
 }

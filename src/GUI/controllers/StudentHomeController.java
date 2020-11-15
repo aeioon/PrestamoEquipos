@@ -91,7 +91,7 @@ public class StudentHomeController implements Initializable {
                     stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                     stagePop.setScene(scene);
                     stagePop.showAndWait();
-                    
+
                     Thread computerInfo = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -101,12 +101,13 @@ public class StudentHomeController implements Initializable {
                                 }
                                 if (cargarDatos.isActivo()) {
                                     String computadores = "Actualmente tiene asignado:\n\n";
+                                    System.out.println("PORQUE ESTA ENTRNADO aqui 1");
                                     for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
                                         computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
                                                 + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
                                     }
                                     currentComputerHomeText.setText(computadores);
-                                }else{
+                                } else {
                                     currentComputerHomeText.setText("");
                                 }
                             } catch (InterruptedException ex) {
@@ -153,6 +154,7 @@ public class StudentHomeController implements Initializable {
                         Thread.sleep(500);
                     }
                     if (cargarDatos.isActivo()) {
+                        System.out.println("PORQUE ESTA ENTRNADO aqui 1");
                         String computadores = "Actualmente tiene asignado:\n\n";
                         for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
                             computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "

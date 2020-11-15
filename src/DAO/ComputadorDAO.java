@@ -378,8 +378,8 @@ public class ComputadorDAO {
             if (resultSet.next()) {
                 datos[0] = Integer.toString(resultSet.getInt(1));
                 datos[1] = resultSet.getString(2);
-                datos[2] = Integer.toString(resultSet.getInt(3));
-                datos[3] = Integer.toString(resultSet.getInt(4));
+                datos[2] = resultSet.getString(3);
+                datos[3] = resultSet.getString(4);
                 datos[4] = Integer.toString(resultSet.getInt(5));
                 datos[5] = resultSet.getString(6);
                 datos[6] = resultSet.getString(7);

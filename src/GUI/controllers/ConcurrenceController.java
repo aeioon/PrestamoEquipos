@@ -55,6 +55,9 @@ public class ConcurrenceController implements Initializable {
     private TextField searchProgramTF;
 
     @FXML
+    private Label percentage;
+    
+    @FXML
     private Button loupeB;
 
     @FXML
@@ -96,13 +99,7 @@ public class ConcurrenceController implements Initializable {
 //        }
 
     }
-    
-    static Computador selectcomputador = new Computador();
-
-    public static Computador getSelectcomputador() {
-        return selectcomputador;
-    }
-    
+      
     MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
     private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
@@ -158,19 +155,9 @@ public class ConcurrenceController implements Initializable {
         advertenciaLB.setVisible(false);
         loupeB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/loupe.png"))));
         insertcomputers();
-        progressBar.setProgress(MIC.getConcurrencePercentage());
-        
-        table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 1) {
-                    selectcomputador.setId(Integer.parseInt(table.getSelectionModel().getSelectedItem().getIdEquipo()));
-                }
-            }
-        });
-
-
-
+        Double percentageNum = MIC.getConcurrencePercentage();
+        progressBar.setProgress(percentageNum);
+        percentage.setText(String.valueOf(percentageNum*100).substring(0, 4) + "%");
     }
 
 }

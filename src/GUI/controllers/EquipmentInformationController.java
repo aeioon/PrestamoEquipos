@@ -53,24 +53,26 @@ public class EquipmentInformationController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        computador = ConcurrenceController.getSelectcomputador();
+        computador = ConcurrenceRow.getSelectcomputador();
         String[] datos = MIC.getHoleComputerInfo(computador); 
         ArrayList<String> software = MIC.getComputerPrograms(computador);
         
         String softwareText = "";
         
         IDEquipoTX.setText(datos[0]);
-        System.out.println("hola soy " + IDEquipoTX.getText());
         usuarioTX.setText(datos[1]);
         edifioTX.setText(datos[2]);
         salaTX.setText(datos[3]);
         disponibilidadTX.setText(datos[4]);
         hardwareTX.setText(datos[5]);
-        encargadoUsuarioTX.setText(datos[6]);
+        encargadoUsuarioTX.setText(" " + datos[6]+"@unal.edu.co");
         encargadoNombreTX.setText(datos[7] + " " + datos[8]);
         
         for (int i = 0; i < software.size(); i++) {
             softwareText = softwareText + software.get(i);
+            if(i != software.size() - 1){
+                softwareText = softwareText + ", ";
+            }
         }
         
         
