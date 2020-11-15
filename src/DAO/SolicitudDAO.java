@@ -176,12 +176,14 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT max(SO.Id_Solicitud), CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
+            String consulta = "SELECT SO.Id_Solicitud, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n" +
                               "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
-                              "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
-                              "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                              "WHERE  CO.Disponibilidad = 0 AND SO.UsuarioID_Usuario = '" + user.getId() + "'\n" +
-                              "GROUP BY CO.Id_Equipo;";
+                                    "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                                    "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
+                              "WHERE  CO.Disponibilidad = 0 AND SO.UsuarioId_Usuario = '" + user.getId() + "' \n" +
+                                                            "AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
+                                                                                    "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                                    "GROUP BY Computador.Id_Equipo);";
             System.out.println(consulta);
             // Comentario
             resultSet = statement.executeQuery(consulta);

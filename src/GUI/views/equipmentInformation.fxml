@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.controllers.EquipmentInformationController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="500.0" stylesheets="@../style/equipmentinformation.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.controllers.EquipmentInformationController">
     <stylesheets>
         <URL value="@/GUI/style/equipmentinformation.css" />
     </stylesheets>

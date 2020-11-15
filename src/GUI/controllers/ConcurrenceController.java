@@ -5,6 +5,7 @@
  */
 package GUI.controllers;
 
+import Control.MostrarInformaciónComputadores;
 import Entidad.Computador;
 import Entidad.Edificio;
 import Entidad.Programa;
@@ -55,7 +56,7 @@ public class ConcurrenceController implements Initializable {
     private Button loupeB;
 
     @FXML
-    private TableView<Computador> table;
+    private TableView<ConcurrenceRow> table;
 
     @FXML
     private Label advertenciaLB;
@@ -67,44 +68,45 @@ public class ConcurrenceController implements Initializable {
     void loupeBtnAction(ActionEvent event) {
         advertenciaLB.setVisible(false);
         computerList.clear();
-        if(searchProgramTF.getText().length() != 0){
-            if (JSType.isNumber(searchProgramTF.getText())) {
-                for (Computador computador : computerList) {
-                    String numeroBusqueda = String.valueOf(searchProgramTF.getText());
-                    String numeroComputador = String.valueOf(computador.getId());
-                    String numeroSala = String.valueOf(computador.getSala().getCodigo());
-                    String nombreEdificio = String.valueOf(computador.getSala().getEdificio().getNombre());
-                    for (int i = 0; i < numeroBusqueda.length(); i++) {
-                        if(numeroBusqueda.charAt(i)== numeroComputador.charAt(i) || numeroBusqueda.charAt(i)== numeroSala.charAt(i) || nombreEdificio.charAt(i)== numeroBusqueda.charAt(i)){
-                            computerList.add(computador);
-                        }else{
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
-        if(computerList.size() != 0){
-            table.setItems(computerList);
-        }else{
-            advertenciaLB.setText("No se encontraron resultados");
-            advertenciaLB.setVisible(true);
-        }
+//        if(searchProgramTF.getText().length() != 0){
+//            if (JSType.isNumber(searchProgramTF.getText())) {
+//                for (Computador computador : computerList) {
+//                    String numeroBusqueda = String.valueOf(searchProgramTF.getText());
+//                    String numeroComputador = String.valueOf(computador.getId());
+//                    String numeroSala = String.valueOf(computador.getSala().getCodigo());
+//                    String nombreEdificio = String.valueOf(computador.getSala().getEdificio().getNombre());
+//                    for (int i = 0; i < numeroBusqueda.length(); i++) {
+//                        if(numeroBusqueda.charAt(i)== numeroComputador.charAt(i) || numeroBusqueda.charAt(i)== numeroSala.charAt(i) || nombreEdificio.charAt(i)== numeroBusqueda.charAt(i)){
+//                            computerList.add(computador);
+//                        }else{
+//                            return;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        if(computerList.size() != 0){
+//            table.setItems(computerList);
+//        }else{
+//            advertenciaLB.setText("No se encontraron resultados");
+//            advertenciaLB.setVisible(true);
+//        }
 
     }
-
-    private ObservableList<Computador> computerList = FXCollections.observableArrayList();
+    
+    MostrarInformaciónComputadores MIC = new MostrarInformaciónComputadores();
+    private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     void insertcomputers(){
         TableColumn teamIdCol = new TableColumn("Id");
-        teamIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));
 
         TableColumn teamUsuarioCol = new TableColumn("Usuario");
         teamUsuarioCol.setCellValueFactory(new PropertyValueFactory("idUsuario"));
 
         TableColumn teamEdificioCol = new TableColumn("Edificio");
-        teamEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+        teamEdificioCol.setCellValueFactory(new PropertyValueFactory("codigoEdificio"));
 
         TableColumn teamSalaCol = new TableColumn("Sala");
         teamSalaCol.setCellValueFactory(new PropertyValueFactory("codigoSala"));
@@ -114,10 +116,10 @@ public class ConcurrenceController implements Initializable {
 
         TableColumn teamInfo = new TableColumn("Mas infotmación");
         teamInfo.setCellValueFactory(new PropertyValueFactory<>("disponibilidad"));
-        Callback<TableColumn<Computador, String>, TableCell<Computador, String>> cellFactory = new Callback<TableColumn<Computador, String>, TableCell<Computador, String>>() {
+        Callback<TableColumn<ConcurrenceRow, String>, TableCell<ConcurrenceRow, String>> cellFactory = new Callback<TableColumn<ConcurrenceRow, String>, TableCell<ConcurrenceRow, String>>() {
             @Override
-            public TableCell call(final TableColumn<Computador, String> param) {
-                final TableCell<Computador, String> cell = new TableCell<Computador, String>() {
+            public TableCell call(final TableColumn<ConcurrenceRow, String> param) {
+                final TableCell<ConcurrenceRow, String> cell = new TableCell<ConcurrenceRow, String>() {
 
                     final Button btn = new Button("Disponible");
 
@@ -130,7 +132,7 @@ public class ConcurrenceController implements Initializable {
                         } else {
                             btn.setOnAction(event -> {
                                 try {
-                                    Computador computador = getTableView().getItems().get(getIndex());
+                                    ConcurrenceRow computador = getTableView().getItems().get(getIndex());
                                     Parent root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInfo.fxml"));
                                     Scene scene = new Scene(root);
                                     Stage primaryStage = new Stage();
@@ -156,6 +158,22 @@ public class ConcurrenceController implements Initializable {
         table.setItems(computerList);
 
         table.getColumns().addAll(teamInfo);
+        
+        ArrayList<String[]> availableComputersInfo = MIC.getConcurrenceInfo();
+        if(availableComputersInfo.size() != 0){
+            advertenciaLB.setText("");
+        }else{
+            advertenciaLB.setText("No se encontraron resultados");
+        }
+        availableComputersInfo.forEach(computer -> {
+            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3] + "" + computer[4]);
+            ConcurrenceRow temp = new ConcurrenceRow(computer[0], computer[1], computer[2], computer[3], computer[4]);
+            if (!computerList.contains(temp)) {
+                computerList.add(temp);
+            }
+        });
+
+        table.refresh();
     }
 
 
@@ -164,7 +182,7 @@ public class ConcurrenceController implements Initializable {
         advertenciaLB.setVisible(false);
         loupeB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/loupe.png"))));
         insertcomputers();
-        //progressBar.setProgress(0);
+        progressBar.setProgress(MIC.getConcurrencePercentage());
 
 
 
