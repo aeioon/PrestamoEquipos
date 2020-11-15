@@ -105,7 +105,7 @@ public class SoftwareManagementController implements Initializable {
         computerId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn buildingName = new TableColumn("Edificio");
-        buildingName.setCellValueFactory(new PropertyValueFactory<>("idEdificio"));
+        buildingName.setCellValueFactory(new PropertyValueFactory<>("nombreEdificio"));
 
         TableColumn classroomId = new TableColumn("Sala");
         classroomId.setCellValueFactory(new PropertyValueFactory<>("nombreSala"));
@@ -122,7 +122,7 @@ public class SoftwareManagementController implements Initializable {
         ArrayList<String[]> availableComputersInfo = MST.mostrarEquipos(selectedProgram);
         if (availableComputersInfo.size() != 0) {
             warningText.setText("");
-            programPaneText.setText("Equipos que cuentan con el software seleccionado.");
+            programPaneText.setText("Equipos que cuentan con "+ selectedProgram.getNombre());
         } else {
             warningText.setText("No hay computadores asignados a este equipo");
         }

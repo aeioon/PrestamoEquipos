@@ -176,7 +176,7 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "SELECT C.Id_Equipo, E.Nombre, E.Id_Edificio, S.Codigo\n"
+            String consulta = "SELECT C.Id_Equipo, E.Id_Edificio, E.Nombre, S.Codigo\n"
                     + "FROM (((SELECT DISTINCT Computador_Programa.Id_Equipo\n"
                     + "FROM Computador_Programa LEFT JOIN (SELECT DISTINCT Todos.Id_Equipo, Todos.Id_Programa \n"
                     + "FROM ((SELECT DISTINCT EquiposP.Id_Equipo, P.Id_Programa \n"
@@ -208,8 +208,8 @@ public class ComputadorDAO {
                 String[] fila = new String[4];
 
                 fila[0] = Integer.toString(resultSet.getInt(1));
-                fila[1] = resultSet.getString(2);
-                fila[2] = Integer.toString(resultSet.getInt(3));
+                fila[1] = Integer.toString(resultSet.getInt(2));
+                fila[2] = resultSet.getString(3);
                 fila[3] = resultSet.getString(4);
                 informacion.add(fila);
             }

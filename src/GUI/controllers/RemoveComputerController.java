@@ -51,7 +51,7 @@ public class RemoveComputerController implements Initializable {
     void insertComputersTable() {
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        TableColumn nombreEdificioCol = new TableColumn("Edificio");
         nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
         TableColumn IdEdificioCol = new TableColumn("Id Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
@@ -67,7 +67,7 @@ public class RemoveComputerController implements Initializable {
     void insertSelectedCompsTable(){
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        TableColumn nombreEdificioCol = new TableColumn("Edificio");
         nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
         TableColumn IdEdificioCol = new TableColumn("Id Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
@@ -175,6 +175,28 @@ public class RemoveComputerController implements Initializable {
             System.out.println("Hubo un errror, imprimir en Label");
         }     
     }
+    
+    @FXML
+    private Button rightArrowBtn;
+    @FXML
+    private Button leftArrowBtn;
+
+    @FXML
+    void leftArrowBtnAction(ActionEvent event) {
+        ComputerRow CRSelected = selectedComputersTable.getSelectionModel().getSelectedItem();
+        if (CRSelected != null) {
+            unselectProgram(CRSelected);
+        }
+    }
+
+    @FXML
+    void rightArrowBtnAction(ActionEvent event) {
+        ComputerRow CRSelected = computersTable.getSelectionModel().getSelectedItem();
+        if (CRSelected != null) {
+            addComputer(CRSelected);
+        }
+    }
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
