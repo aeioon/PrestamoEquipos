@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,8 +126,9 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`Fecha`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
-                    + fecha + "'," + object.getComputador().getId() + ",'" + object.getUsuario().getId() + "')");
+            System.out.println(object.getFechaHoraInicio());
+            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
+                    + object.getFechaHoraInicio() + "','" + object.getFechaHoraFin() + "',"+ object.getComputador().getId() + ",'" + object.getUsuario().getId() + "')");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -188,6 +190,7 @@ public class SolicitudDAO {
                               "WHERE  CO.Disponibilidad = 0 AND SO.UsuarioId_Usuario = '" + user.getId() + "' \n" +
                                                             "AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
                                                                                     "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                                    "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin \n"+
                                                                                     "GROUP BY Computador.Id_Equipo);";
             System.out.println(consulta);
             // Comentario

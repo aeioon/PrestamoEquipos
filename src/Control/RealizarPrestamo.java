@@ -9,6 +9,7 @@ import Entidad.Programa;
 import Entidad.Computador;
 import Entidad.Solicitud;
 import Entidad.Usuario;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,16 +30,18 @@ public class RealizarPrestamo {
         return programas;
     }
 
-    public ArrayList<String[]> getInfoComputers(ArrayList<Programa> programs) {
+    public ArrayList<String[]> getInfoComputers(ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         ArrayList<String[]> computadores = new ArrayList<>();
-        computadores = computadorDao.getInfoComputersAvailable(programs);
+        computadores = computadorDao.getInfoComputersAvailable(programs,fechaHoraInicio, fechaHoraFin);
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs) {
+    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         Solicitud solicitud = new Solicitud();
         solicitud.setUsuario(usuario);
         solicitud.setComputador(computer);
+        solicitud.setFechaHoraInicio(fechaHoraInicio);
+        solicitud.setFechaHoraFin(fechaHoraFin);
         if (solicitudDao.crear(solicitud)) {
             boolean estadoPrestamo = true;
             solicitud.setId(solicitudDao.getIdSolicitud(solicitud));

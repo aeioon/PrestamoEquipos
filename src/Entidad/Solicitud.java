@@ -6,19 +6,23 @@ import java.util.Date;
 
 public class Solicitud {
     private int id;
-    private LocalDateTime fecha;
+    private LocalDateTime fechaHoraInicio;
+    private LocalDateTime fechaHoraFin;
      private Computador computador;
     private Usuario usuario;   
 
     public Solicitud() {
     }
 
-    public Solicitud(int id, LocalDateTime fecha, Computador computador, Usuario usuario) {
+    public Solicitud(int id, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Computador computador, Usuario usuario) {
         this.id = id;
-        this.fecha = fecha;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
         this.computador = computador;
         this.usuario = usuario;
-    }    
+    }
+
+    
 
     public int getId() {
         return id;
@@ -28,12 +32,20 @@ public class Solicitud {
         this.id = id;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFechaHoraInicio() {
+        return fechaHoraInicio;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFechaHoraInicio(LocalDateTime fechaHoraInicio) {
+        this.fechaHoraInicio = fechaHoraInicio;
+    }
+
+    public LocalDateTime getFechaHoraFin() {
+        return fechaHoraFin;
+    }
+
+    public void setFechaHoraFin(LocalDateTime fechaHoraFin) {
+        this.fechaHoraFin = fechaHoraFin;
     }
 
     public Computador getComputador() {

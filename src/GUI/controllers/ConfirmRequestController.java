@@ -54,7 +54,8 @@ public class ConfirmRequestController implements Initializable {
         
         Computador comp = new Computador();
         comp.setId(Integer.parseInt(cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[1]));
-        if (RP.makeBorrow(cargarDatos.getUser(), comp, cargarDatos.getPrograms())) {
+        
+        if (RP.makeBorrow(cargarDatos.getUser(), comp, cargarDatos.getPrograms(),LoanRequestController.getFechaInicio(), LoanRequestController.getFechaFinal())) {
             System.out.println("Se realizo el prestamo!");
             cargarDatos.setActivo(true);
             new Thread(new Runnable() {

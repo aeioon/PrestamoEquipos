@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import Entidad.Programa;
 import java.sql.ResultSetMetaData;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ComputadorDAO {
@@ -165,7 +167,10 @@ public class ComputadorDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Computador SET Disponibilidad = 1 WHERE Id_Equipo = " + computer.getId());
+            resultSet = statement.executeUpdate("UPDATE Solicitud\n" +
+                                                "SET\n" +
+                                                "FechaHoraFin = '"+LocalDateTime.now()+"'\n" +
+                                                "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin AND ComputadorId_Equipo = "+ computer.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -187,7 +192,7 @@ public class ComputadorDAO {
      * @param programs lista de programas seleccionados
      * @return arrayList
      */
-    public ArrayList<String[]> getInfoComputersAvailable(ArrayList<Programa> programs) {
+    public ArrayList<String[]> getInfoComputersAvailable(ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         ArrayList<String[]> informacion = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -216,7 +221,11 @@ public class ComputadorDAO {
                     + "LEFT JOIN Computador_Programa ON Computador_Programa.Id_Programa = Todos.Id_Programa AND Computador_Programa.Id_Equipo = Todos.Id_Equipo)\n"
                     + "WHERE Computador_Programa.Id_Programa IS NULL) AS SinRequest ON Computador_Programa.Id_Equipo = SinRequest.Id_Equipo\n"
                     + "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio\n"
-                    + "WHERE C.Disponibilidad = 1";
+                    + "WHERE C.Id_Equipo NOT IN (SELECT DISTINCT SO.ComputadorId_Equipo\n" +
+                                                 "FROM Solicitud AS SO\n" +
+                                                 "WHERE ('" + fechaHoraInicio + "' /*inicio*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
+                                                 "('" + fechaHoraFin+ "' /*fin*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
+                                                 "('" + fechaHoraInicio + "' < SO.FechaHoraInicio AND '" + fechaHoraFin + "' > SO.FechaHoraFin));";
             System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
@@ -260,8 +269,9 @@ public class ComputadorDAO {
                     + "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n"
                     + "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n"
                     + "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n"
-                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n"
+                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN (SELECT Max(Id_Solicitud)\n"
                     + "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n"
+                    + "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin\n"
                     + "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo";
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
@@ -304,12 +314,12 @@ public class ComputadorDAO {
             resultSet.next();
             double numberOfComputers = resultSet.getInt(1);
             consulta = "SELECT COUNT(Id_Equipo)\n"
-                    + "FROM Computador\n"
-                    + "WHERE Disponibilidad = 1;";
+                    + "FROM Computador INNER JOIN Solicitud ON Computador.Id_Equipo = Solicitud.ComputadorId_Equipo\n"
+                    + "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin;";
             resultSet = statement.executeQuery(consulta);
             resultSet.next();
-            double numberOfComputersAvailable = resultSet.getInt(1);
-            concurrencePercentage = ((numberOfComputers - numberOfComputersAvailable) / numberOfComputers);
+            double numberOfComputersNotAvailable= resultSet.getInt(1);
+            concurrencePercentage = (numberOfComputersNotAvailable) / numberOfComputers;
             return concurrencePercentage;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -369,8 +379,9 @@ public class ComputadorDAO {
                     + "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n"
                     + "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n"
                     + "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n"
-                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n"
+                    + "WHERE  CO.Disponibilidad = 0 AND SO.Id_Solicitud IN (SELECT Max(Id_Solicitud)\n"
                     + "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n"
+                    + "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin\n"
                     + "GROUP BY Computador.Id_Equipo)) AS justActive ON justActive.Id_Equipo = CO.Id_Equipo\n"
                     + "WHERE CO.Id_Equipo =" + computer.getId();
             resultSet = statement.executeQuery(consulta);

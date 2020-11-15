@@ -8,15 +8,15 @@ import Entidad.Programa;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,7 +26,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
@@ -34,13 +37,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
+
 
 /**
  * FXML Controller class
@@ -76,12 +77,42 @@ public class LoanRequestController implements Initializable {
     private Button backHomeBtn;
     @FXML
     private Button userInfoBtn;
+    @FXML
+    private CheckBox checkBoxReserva;
+    @FXML
+    private DatePicker date;
+    @FXML
+    private Label labelFecha;
+    @FXML
+    private Label labelHoraInicial;
+    @FXML
+    private ComboBox comboBoxHoraInicio;
 
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
 
     private int idComputerSelected;
+    private static LocalDateTime fechaInicio;
+    private static LocalDateTime fechaFinal;
+
+    public static LocalDateTime getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public static void setFechaInicio(LocalDateTime fechaInicio) {
+        LoanRequestController.fechaInicio = fechaInicio;
+    }
+
+    public static LocalDateTime getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public static void setFechaFinal(LocalDateTime fechaFinal) {
+        LoanRequestController.fechaFinal = fechaFinal;
+    }  
+    
+    
 
     void changeScene(ActionEvent event, String fxml) throws IOException {
         Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
@@ -115,7 +146,8 @@ public class LoanRequestController implements Initializable {
     @FXML
     void rightArrowBtnAction(ActionEvent event) {
         Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
-        addProgram(programSelected);
+        if(programSelected != null)
+            addProgram(programSelected);
     }
 
     @FXML
@@ -149,6 +181,7 @@ public class LoanRequestController implements Initializable {
 
         if (idComputerSelected != 0) {
             try {
+                       
                 cargarDatos.setPrograms(programList);
                 String[] computadorSelecionado = {"", "", "" ,"", ""};
                 computadorSelecionado[0] = "0";
@@ -223,8 +256,24 @@ public class LoanRequestController implements Initializable {
         selectedProgramList.forEach(p -> {
             selectedProgramArr.add(p);
         });
-
-        ArrayList<String[]> availableComputersInfo = RP.getInfoComputers(selectedProgramArr);
+        
+        ArrayList<String[]> availableComputersInfo;
+        
+        
+        if (checkBoxReserva.isSelected()){
+             String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
+             fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1]) ));
+             fechaFinal = fechaInicio.plusHours(1);
+             availableComputersInfo= RP.getInfoComputers(selectedProgramArr,fechaInicio, fechaFinal);
+        } else{
+             fechaInicio = LocalDateTime.now();
+             fechaFinal = fechaInicio.plusHours(1);
+             availableComputersInfo= RP.getInfoComputers(selectedProgramArr,fechaInicio, fechaFinal);
+        }
+        
+        
+        
+        
         if(availableComputersInfo.size() != 0){
             warningText.setText("");
         }else{
@@ -261,20 +310,23 @@ public class LoanRequestController implements Initializable {
     void userInfoBtnAction(ActionEvent event) {
     }
 
-    void insertAvailablePrograms() {
+     void insertAvailablePrograms() {
 
-        //crea columnas y selecciona el atributo de Programa
-        TableColumn programIdCol = new TableColumn("Id");
-        programIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //crea columnas y selecciona el atributo de Programa        
         TableColumn programNameCol = new TableColumn("Programa");
         programNameCol.setCellValueFactory(new PropertyValueFactory("nombre"));
+        programNameCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.7));
+        programNameCol.setResizable(false);
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
-
+        programVersionCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.29));
+        programVersionCol.setResizable(false);        
+        
+     
         //asigna la lista de items y las columnas a la TableView
         availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
-        availableProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+        availableProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
 
         RP.getAllPrograms().forEach(p -> {
             programList.add(p);
@@ -284,18 +336,20 @@ public class LoanRequestController implements Initializable {
 
     void insertSelectedPrograms() {
 
-        //crea columnas y selecciona el atributo de Programa
-        TableColumn programIdCol = new TableColumn("Id");
-        programIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumn programNameCol = new TableColumn("Programa");
         programNameCol.setCellValueFactory(new PropertyValueFactory("nombre"));
+        programNameCol.prefWidthProperty().bind(selectedProgramsTable.widthProperty().multiply(0.7));
+        programNameCol.setResizable(false);
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
+        programVersionCol.prefWidthProperty().bind(selectedProgramsTable.widthProperty().multiply(0.29));
+        programVersionCol.setResizable(false);  
 
         selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         selectedProgramsTable.setItems(selectedProgramList);
-        selectedProgramsTable.getColumns().addAll(programIdCol, programNameCol, programVersionCol);
+        selectedProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
     }
+
 
     void initActions() {
 
@@ -336,13 +390,28 @@ public class LoanRequestController implements Initializable {
                     }
                 }
             }
+        });    
+        
+        date.setDayCellFactory(picker -> new DateCell() {
+        public void updateItem(LocalDate date, boolean empty) {
+            super.updateItem(date, empty);
+            LocalDate today = LocalDate.now();
+            
+            int dias = LocalTime.now().getHour()<19?0:1;
+            setDisable(empty || date.compareTo(today.plusDays(dias)) < 0  || date.compareTo(today.plusDays(6)) > 0 );
+            }
+            
         });
+        
 
+       
+        
+                
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         insertSelectedPrograms();
         initActions();
         insertComputers();
@@ -362,4 +431,48 @@ public class LoanRequestController implements Initializable {
         }).start();
 
     }
+    
+    @FXML
+    void reservaAction(ActionEvent event) {
+       if(checkBoxReserva.isSelected()){           
+           labelFecha.setDisable(false);
+           labelHoraInicial.setDisable(true);
+           date.setDisable(false);
+           comboBoxHoraInicio.setDisable(true);
+        } else{
+           labelFecha.setDisable(true);
+           labelHoraInicial.setDisable(true);
+           date.setDisable(true);
+           comboBoxHoraInicio.setDisable(true);
+           date.setValue(null);
+           comboBoxHoraInicio.getSelectionModel().clearSelection();
+        }
+      
+    }
+    
+     @FXML
+    void dateAction(ActionEvent event) {
+         if (date.getValue() != null){
+            int hour = 7;
+             System.out.println("get date: " +date.getValue());
+             if (date.getValue().equals(LocalDate.now())){
+                int now = LocalTime.now().getHour();
+                System.out.println(now);
+                hour = now >= 6? now+1:7;
+            }            
+            ObservableList<Object> hours = FXCollections.observableArrayList();
+            for (int i = hour; i < 20; i++) {
+                if (i == 13) {
+                    hours.add(new Separator());
+                } else {
+                    hours.add(Integer.toString(i).concat(":00"));
+                }
+            }
+            comboBoxHoraInicio.setItems(hours);
+
+            labelHoraInicial.setDisable(false);
+            comboBoxHoraInicio.setDisable(false);
+        }
+    }
 }
+
