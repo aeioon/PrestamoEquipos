@@ -54,6 +54,7 @@ public class AdminHomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            System.out.println("Enrtro a admin");
             principalPane.getChildren().clear();
             Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
             principalPane.getChildren().add(newParent);

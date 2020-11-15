@@ -231,7 +231,7 @@ table.getColumns().get(0).setVisible(true);
         insertcomputers();
         Double percentageNum = MIC.getConcurrencePercentage();
         progressBar.setProgress(percentageNum);
-        percentage.setText(String.valueOf(percentageNum*100).substring(0, 4) + "%");
+        percentage.setText(String.valueOf(percentageNum*100).substring(0, 2) + "%");
     }
 
 }
