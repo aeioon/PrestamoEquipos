@@ -25,7 +25,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -45,27 +48,29 @@ import javafx.stage.Stage;
  */
 public class SoftwareManagementController implements Initializable {
 
-    @FXML
-    private TableView<Programa> allProgramsTable;
-    @FXML
-    private TextField programSearchTF;
-    @FXML
-    private Button addProgramBtn;
-    @FXML
-    private AnchorPane computerListPane;
-    @FXML
-    private TableView<ComputerRow> computerTable;
-    @FXML
-    private Text programPaneText;
-    @FXML
-    private Button removeComputerBtn;
-    @FXML
-    private Button addComputerBtn;
-    @FXML
-    private Label warningText;
-    @FXML
-    private Button removeProgramBtn;
-
+    @FXML private TableView<Programa> allProgramsTable;
+    @FXML private TextField programSearchTF;
+    @FXML private Button addProgramBtn;
+    @FXML private AnchorPane computerListPane;
+    @FXML private TableView<ComputerRow> computerTable;
+    @FXML private Text programPaneText;
+    @FXML private Button removeComputerBtn;
+    @FXML private Button addComputerBtn;
+    @FXML private Label warningText;
+    @FXML private Button removeProgramBtn;
+    
+    // Lo relacionado al enum es para quizas reuinir ambas vistas add y remove en una sola, 
+    // por ahora para probar se copia el codigo
+    static enum computerWindowAction {
+        ADD, REMOVE;
+    }
+    static computerWindowAction cla;
+    
+    static computerWindowAction getComputerWindowAction(){
+        return cla;
+    }
+    
+    
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
     ManageSoftware MS = new ManageSoftware();
@@ -73,9 +78,8 @@ public class SoftwareManagementController implements Initializable {
 
     static Programa selectedProgram = new Programa();
 
-    void insertPrograms() {
+    void insertProgramsTable() {
 
-        /*Solamente llena tabla de programas. */
         TableColumn softwareNameCol = new TableColumn("Software");
         softwareNameCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         TableColumn versionNumCol = new TableColumn("Version");
@@ -84,17 +88,18 @@ public class SoftwareManagementController implements Initializable {
         allProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         allProgramsTable.getColumns().addAll(softwareNameCol, versionNumCol);
         allProgramsTable.setItems(programList);
-
+  
+    }
+ 
+    void updateProgramData(){
+        programList.clear();
         MS.getAllPrograms().forEach(p -> {
             programList.add(p);
         });
-
+        allProgramsTable.refresh();
     }
 
-    void insertComputers() {
-
-        //User Computador o ComputerRow?
-        //Actualmente usa ComputerRow
+    void insertComputerTable() {
         TableColumn computerId = new TableColumn("ID Equipo");
         computerId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -103,11 +108,16 @@ public class SoftwareManagementController implements Initializable {
 
         TableColumn classroomId = new TableColumn("Sala");
         classroomId.setCellValueFactory(new PropertyValueFactory<>("nombreSala"));
-
+        
         computerTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         computerTable.getColumns().addAll(computerId, buildingName, classroomId);
         computerTable.setItems(computerList);
 
+    }
+    
+    void updateComputerData(){
+        computerList.clear();
+        computerTable.refresh();
         ArrayList<String[]> availableComputersInfo = MST.mostrarEquipos(selectedProgram);
         if (availableComputersInfo.size() != 0) {
             warningText.setText("");
@@ -121,15 +131,36 @@ public class SoftwareManagementController implements Initializable {
                 computerList.add(temp);
             }
         });
+        computerTable.refresh();
     }
 
     @FXML
     void removeProgramBtnAction(ActionEvent event) {
-        try {
-            MS.eliminar(selectedProgram);
-        } catch (Exception e) {
-            System.out.println("No se pudo eliminar el programa");
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION, "¿Eliminar " + selectedProgram.getNombre() + " ?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        
+        if (alert.getResult() == ButtonType.YES) {
+            try {
+                MS.eliminar(selectedProgram);
+            } catch (Exception e) {
+                System.out.println("No se pudo eliminar el programa");
+            }
+            Thread computerInfo = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    updateProgramData();
+                }
+            });
+            computerInfo.setDaemon(true);
+            computerInfo.start();
         }
+        // Hay que deseleccionar el item que fue eliminado para evitar excepcion por la llamadas que hace initActions
+        allProgramsTable.getSelectionModel().clearSelection();
+        //test
+        System.out.println(allProgramsTable.getSelectionModel().getSelectedIndex());
+
+           
     }
 
     @FXML
@@ -141,16 +172,7 @@ public class SoftwareManagementController implements Initializable {
             Stage stagePop = new Stage();
             stagePop.setScene(scene);
             stagePop.showAndWait();
-
-            Thread computerInfo = new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
-            computerInfo.setDaemon(true);
-            computerInfo.start();
-
+            updateProgramData();  
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
@@ -166,9 +188,10 @@ public class SoftwareManagementController implements Initializable {
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/addComputer.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 730, 400);
             Stage stagePop = new Stage();
+          
             stagePop.setScene(scene);
             stagePop.showAndWait();
-
+            updateComputerData();
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
@@ -183,6 +206,7 @@ public class SoftwareManagementController implements Initializable {
             Stage stagePop = new Stage();
             stagePop.setScene(scene);
             stagePop.showAndWait();
+            updateComputerData();
 
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
@@ -219,15 +243,20 @@ public class SoftwareManagementController implements Initializable {
         allProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
+                if (click.getClickCount() == 1) {
+                    System.out.println("1 solo click, suficiente para seleccionarlo, para quitarlo");
                     selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
                     selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
                     selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
                     System.out.println(selectedProgram.getNombre());
-                    computerList.clear();
-                    computerTable.refresh();
-                    insertComputers();
-                    computerTable.refresh();
+                }
+                if (click.getClickCount() == 2) {
+                    System.out.println("2 clicks, mostrar los computadores");
+                    selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
+                    selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
+                    selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
+                    System.out.println(selectedProgram.getNombre());
+                    updateComputerData();
                     initActions();
                 }
             }
@@ -236,8 +265,9 @@ public class SoftwareManagementController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        insertPrograms();
-
+        insertProgramsTable();
+        updateProgramData();
+        insertComputerTable();
         initActions();
         searchProgram();
     }

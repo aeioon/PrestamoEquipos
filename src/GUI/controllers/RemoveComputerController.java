@@ -6,6 +6,7 @@
 package GUI.controllers;
 
 import Control.ManageSoftwareTeams;
+import Entidad.Computador;
 import Entidad.Programa;
 import static GUI.controllers.SoftwareManagementController.selectedProgram;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -35,36 +37,18 @@ import javafx.scene.input.MouseEvent;
  */
 public class RemoveComputerController implements Initializable {
     
-    // Basicamente el mismo AddComputer pero con diferente respuesta a los botones, quizas se pueda
-    // unificar si se manda el tipo de operacion desde la vista SoftwareManagmenteController.
-    // Por ello, por ahora todas los tests se hacen en Add y luego se traen aca o se unen.
-
     ManageSoftwareTeams MST = new ManageSoftwareTeams();
     Programa programa = SoftwareManagementController.getSelectedProgram();
     
-    @FXML
-    private TextField searchComputersTF;
-
-    @FXML
-    private TableView<ComputerRow> computersTable;
-
-    @FXML
-    private Button removeAllBtn;
-
-    @FXML
-    private Button removeBtn;
-
-    @FXML
-    void removeAllBtnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void removeBtnAction(ActionEvent event) {
-
-    }
+    @FXML private TextField searchComputersTF;
+    @FXML private TableView<ComputerRow> computersTable;  
+    @FXML private TableView<ComputerRow> selectedComputersTable;
+    @FXML private Button removeBtn;
     
-     void insertComputers() {
+    private ObservableList<ComputerRow> selectedList = FXCollections.observableArrayList();
+    ArrayList<Computador> selectedListArr = new ArrayList<>();
+
+    void insertComputersTable() {
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
@@ -77,8 +61,42 @@ public class RemoveComputerController implements Initializable {
         //asigna la lista de items y las columnas a la TableView
         computersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         computersTable.getColumns().addAll(computerIdCol, nombreEdificioCol, IdEdificioCol, nombreSalaCol);
-        computersTable.setItems(computerList);
+        computersTable.setItems(computerList);    
         
+    }
+    void insertSelectedCompsTable(){
+        TableColumn computerIdCol = new TableColumn("Id");
+        computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
+        nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
+        TableColumn IdEdificioCol = new TableColumn("Id Edificio");
+        IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
+        TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
+        nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+
+        //asigna la lista de items y las columnas a la TableView
+        selectedComputersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        selectedComputersTable.getColumns().addAll(computerIdCol, nombreEdificioCol, IdEdificioCol, nombreSalaCol);
+        selectedComputersTable.setItems(selectedList); 
+    }
+    void updateComputerData(){
+        //En remove se cambia por basicamente la misma tabla que esa en SoftwareManagementController
+        
+        ArrayList<String[]> availableComputersInfo = MST.mostrarEquipos(selectedProgram);
+        
+        /* if (availableComputersInfo.size() != 0) {
+            warningText.setText("");
+        } else {
+            warningText.setText("No hay computadores asignados a este equipo");
+        }*/
+        
+        availableComputersInfo.forEach(computer -> {
+            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
+            if (!computerList.contains(temp)) {
+                computerList.add(temp);
+            }
+        });
+        computersTable.refresh();
     }
     
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
@@ -106,39 +124,75 @@ public class RemoveComputerController implements Initializable {
         });
     }
     
+    void addComputer(ComputerRow c) {
+        if (!selectedList.contains(c)) {
+            selectedList.add(c);
+            selectedComputersTable.refresh();
+            initActions();
+        }
+
+    }
+
+    void unselectProgram(ComputerRow c) {
+        if (selectedList.contains(c)) {
+            selectedList.remove(c);
+            initActions();
+        }
+    }
     void initActions(){
         computersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                    // test
-                    System.out.println(computersTable.getSelectionModel().getSelectedItems());
-                    computerList.addAll(computersTable.getSelectionModel().getSelectedItems());
-                    computersTable.refresh();
+                    addComputer(computersTable.getSelectionModel().getSelectedItem());
                 }
             }
         });
-        //Quizas usar esto
-        computersTable.setOnKeyPressed(new EventHandler<KeyEvent>(){
+        selectedComputersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(KeyEvent event) {
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                    unselectProgram(selectedComputersTable.getSelectionModel().getSelectedItem());
+                }
             }
-            
-            
         });
+        
+    }
+       
+    @FXML
+    void removeBtnAction(ActionEvent event) {
+        //Ahora convertimos lo seleccionado a un arrayList de Computadores
+        selectedList.forEach(computerRow -> {
+            Computador temp = new Computador();
+            temp.setId(Integer.parseInt(computerRow.getId()));
+            selectedListArr.add(temp);
+        });
+        if(MST.quitarEquipos(selectedListArr, programa)){
+            System.out.println("Se removieron los computadores");
+            Stage stage = (Stage) removeBtn.getScene().getWindow();
+            stage.close();           
+        } else {
+            System.out.println("Hubo un errror, imprimir en Label");
+        }     
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        ArrayList<String[]> availableComputersInfo = MST.equiposSinPrograma(selectedProgram);
-        availableComputersInfo.forEach(computer -> {
-            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
-            ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
-            if (!computerList.contains(temp)) {
-                computerList.add(temp);
-            }
-        });
-    }    
-    
+       System.out.println("Programa seleccionado en la otra ventana "+  SoftwareManagementController.getSelectedProgram().getNombre());
+        
+       insertComputersTable();
+       insertSelectedCompsTable();
+       Thread thread = new Thread(new Runnable() {
+            @Override
+                public void run() {
+                     updateComputerData();
+                     searchComputers();
+                     initActions();
+                }
+            });
+        thread.setDaemon(true);
+        thread.start();
+      
+    }     
 }
