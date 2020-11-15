@@ -70,8 +70,9 @@ public class SolicitudDAO {
                                                         "INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
                                                         "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
                                                         "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
-                                                "WHERE  CO.Disponibilidad = 0 AND US.Id_Usuario = '" + usuario.getId() + "'AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
+                                                "WHERE US.Id_Usuario = '" + usuario.getId() + "'AND SO.Id_Solicitud IN(SELECT Max(Id_Solicitud) \n" +
                                                                 "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin \n"+
                                                                 "GROUP BY Computador.Id_Equipo);");
             while (resultSet.next()) {
                 return true;

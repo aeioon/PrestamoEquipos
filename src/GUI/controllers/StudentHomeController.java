@@ -75,8 +75,33 @@ public class StudentHomeController implements Initializable {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
     }
-//Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
-//          stage.close();
+
+    public void cargarInformación() {
+        Thread computerInfo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
+                        Thread.sleep(500);
+                    }
+                    if (cargarDatos.isActivo()) {
+                        String computadores = "Actualmente tiene asignado:\n\n";
+                        for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
+                            computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
+                                    + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
+                        }
+                        currentComputerHomeText.setText(computadores);
+                    } else {
+                        currentComputerHomeText.setText("");
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        computerInfo.setDaemon(true);
+        computerInfo.start();
+    }
 
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
@@ -92,32 +117,7 @@ public class StudentHomeController implements Initializable {
                     stagePop.setScene(scene);
                     stagePop.showAndWait();
 
-                    Thread computerInfo = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                                    Thread.sleep(500);
-                                }
-                                if (cargarDatos.isActivo()) {
-                                    String computadores = "Actualmente tiene asignado:\n\n";
-                                    System.out.println("PORQUE ESTA ENTRNADO aqui 1");
-                                    for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
-                                        computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
-                                                + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
-                                    }
-                                    currentComputerHomeText.setText(computadores);
-                                } else {
-                                    currentComputerHomeText.setText("");
-                                }
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    });
-                    computerInfo.setDaemon(true);
-                    computerInfo.start();
-
+                    cargarInformación();
                 } else {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
@@ -146,29 +146,7 @@ public class StudentHomeController implements Initializable {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
         welcomeUserText.setText("¡Hola " + cargarDatos.getUser().getId() + "!");
 
-        Thread computerInfo = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
-                        Thread.sleep(500);
-                    }
-                    if (cargarDatos.isActivo()) {
-                        System.out.println("PORQUE ESTA ENTRNADO aqui 1");
-                        String computadores = "Actualmente tiene asignado:\n\n";
-                        for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
-                            computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
-                                    + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
-                        }
-                        currentComputerHomeText.setText(computadores);
-                    }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(StudentHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        computerInfo.setDaemon(true);
-        computerInfo.start();
+        cargarInformación();
     }
 
 }
