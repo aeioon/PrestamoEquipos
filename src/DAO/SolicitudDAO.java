@@ -26,6 +26,8 @@ public class SolicitudDAO {
     static final String DB_PASSWD
             = "4waxA687";
 
+   
+    
     public int getIdSolicitud(Solicitud solicitud) {
         int id = -1;
         Connection connection = null;
@@ -151,6 +153,53 @@ public class SolicitudDAO {
         }
     }
 
+    public ArrayList<String[]> getInfoTotal(Usuario user) {
+        ArrayList<String[]> datos = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            String consulta = "SELECT SO.Id_Solicitud, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo, SO.FechaHoraInicio, SO.FechaHoraFin\n" +
+                              "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n" +
+                                    "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                                    "INNER JOIN Edificio AS ED ON SA.EdificioId_Edificio = ED.Id_Edificio\n" +
+                              "WHERE SO.UsuarioId_Usuario = '" + user.getId() + "' \n" +
+                                                            "AND SO.Id_Solicitud IN(SELECT Id_Solicitud\n" +
+                                                                                    "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                                                                    "WHERE '" + LocalDateTime.now() + "' < Solicitud.FechaHoraInicio);";
+            System.out.println(consulta);
+            // Comentario
+            resultSet = statement.executeQuery(consulta);
+            while(resultSet.next()) {
+                String[] computador = {"","","","","","",""};
+                computador[0] = Integer.toString(resultSet.getInt(1));
+                computador[1] = Integer.toString(resultSet.getInt(2));
+                computador[2] = resultSet.getString(3);
+                computador[3] = Integer.toString(resultSet.getInt(4));
+                computador[4] = resultSet.getString(5);
+                computador[5] = resultSet.getString(6);
+                computador[6] = resultSet.getString(7);
+                datos.add(computador);
+            }
+            return datos;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return datos;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return datos;
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
     public ArrayList<String[]> getInfo(Usuario user) {
         ArrayList<String[]> datos = new ArrayList<>();
         Connection connection = null;

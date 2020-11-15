@@ -56,7 +56,7 @@ public class ReturnEquipmentController implements Initializable {
     @FXML
     void returnEquipmentBtnAction(ActionEvent event) throws IOException {
         Computador computador = new Computador();
-        computador.setId(Integer.parseInt(cargarDatos.getDatosSolicitud().get(0)[1]));
+        computador.setId(Integer.parseInt(cargarDatos.getDatosEquipos().get(0)[1]));
         if (RD.makeReturn(cargarDatos.getUser(), computador, cargarDatos.isActivo())) {
             System.out.println("Se realizo la devolucion!");
             new Thread(new Runnable() {
@@ -74,9 +74,9 @@ public class ReturnEquipmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        stateText.setText("Debes devolver el equipo " + cargarDatos.getDatosSolicitud().get(0)[1]
-                + " en la sala " + cargarDatos.getDatosSolicitud().get(0)[4]
-                + " del edificio " + cargarDatos.getDatosSolicitud().get(0)[2] + ".");
+        stateText.setText("Debes devolver el equipo " + cargarDatos.getDatosEquipos().get(0)[1]
+                + " en la sala " + cargarDatos.getDatosEquipos().get(0)[4]
+                + " del edificio " + cargarDatos.getDatosEquipos().get(0)[2] + ".");
     }
 
 }
