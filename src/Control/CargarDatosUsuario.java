@@ -13,11 +13,13 @@ public class CargarDatosUsuario {
     UsuarioDAO usuarioDao = new UsuarioDAO();
     private Usuario user = new Usuario();
 
-    ArrayList<String[]> datosSolicitud = new ArrayList<>();
+    ArrayList<String[]> datosEquipos = new ArrayList<>();
+    ArrayList<String[]> datosSolicitudes = new ArrayList<>();
 
     private boolean carga = false;
     private boolean activo = false;
-    private boolean cargaSolicitud = false;
+    private boolean cargaEquipos = false;
+    private boolean cargaSolicitudes = false;
     private boolean cargarActividad = false;
     private boolean cargarUsuario = false;
 
@@ -32,14 +34,14 @@ public class CargarDatosUsuario {
 
     public void cargar(Usuario usuario) {
         carga = true;
-        cargaSolicitud = false;
+        cargaEquipos = false;
         cargarActividad = false;
         cargarUsuario = false;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                cargarSolicitudes(usuario);
-                System.out.println("Carga solicitud");
+                cargarEquipos(usuario);
+                System.out.println("Carga equipos");
             }
         }).start();
         new Thread(new Runnable() {
@@ -54,6 +56,13 @@ public class CargarDatosUsuario {
             public void run() {
                 cargarUsuario(usuario);
                 System.out.println("Carga usuario");
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cargarSolicitudes(usuario);
+                System.out.println("Carga solicitudes");
             }
         }).start();
     }
@@ -71,9 +80,14 @@ public class CargarDatosUsuario {
         cargarUsuario = true;
     }
 
+    public void cargarEquipos(Usuario usuario) {
+        datosEquipos = solicitudDao.getInfo(usuario);
+        cargaEquipos = true;
+    }
+    
     public void cargarSolicitudes(Usuario usuario) {
-        datosSolicitud = solicitudDao.getInfo(usuario);
-        cargaSolicitud = true;
+        datosSolicitudes = solicitudDao.getInfoTotal(usuario);
+        cargaSolicitudes = true;
     }
 
     public void cargarActivity(Usuario usuario) {
@@ -88,20 +102,21 @@ public class CargarDatosUsuario {
     public void resetData() {
         programs = new ArrayList<Programa>();
         user = new Usuario();
-        datosSolicitud = new ArrayList<>();
+        datosEquipos = new ArrayList<>();
         activo = false;
-        cargaSolicitud = false;
+        cargaEquipos = false;
         cargarActividad = false;
+        cargaSolicitudes = false;
         cargarUsuario = false;
         carga = false;
     }
 
-    public ArrayList<String[]> getDatosSolicitud() {
-        return datosSolicitud;
+    public ArrayList<String[]> getDatosEquipos() {
+        return datosEquipos;
     }
 
-    public void setDatosSolicitud(ArrayList<String[]> datosSolicitud) {
-        this.datosSolicitud = datosSolicitud;
+    public void setDatosEquipos(ArrayList<String[]> datosEquipos) {
+        this.datosEquipos = datosEquipos;
     }
 
     public boolean isCargarUsuario() {
@@ -160,12 +175,12 @@ public class CargarDatosUsuario {
         CargarDatosUsuario.holder = holder;
     }
 
-    public boolean isCargaSolicitud() {
-        return cargaSolicitud;
+    public boolean isCargaEquipos() {
+        return cargaEquipos;
     }
 
-    public void setCargaSolicitud(boolean cargaSolicitud) {
-        this.cargaSolicitud = cargaSolicitud;
+    public void setCargaEquipos(boolean cargaEquipos) {
+        this.cargaEquipos = cargaEquipos;
     }
 
     public ArrayList<Programa> getPrograms() {

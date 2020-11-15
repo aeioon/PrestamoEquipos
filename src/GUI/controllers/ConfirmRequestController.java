@@ -43,7 +43,7 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        cargarDatos.getDatosSolicitud().remove(cargarDatos.getDatosSolicitud().size()-1);
+        cargarDatos.getDatosEquipos().remove(cargarDatos.getDatosEquipos().size()-1);
         Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
         stage.close();
     }
@@ -53,7 +53,7 @@ public class ConfirmRequestController implements Initializable {
         RealizarPrestamo RP = new RealizarPrestamo();
         
         Computador comp = new Computador();
-        comp.setId(Integer.parseInt(cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[1]));
+        comp.setId(Integer.parseInt(cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[1]));
         
         if (RP.makeBorrow(cargarDatos.getUser(), comp, cargarDatos.getPrograms(),LoanRequestController.getFechaInicio(), LoanRequestController.getFechaFinal())) {
             System.out.println("Se realizo el prestamo!");
@@ -74,10 +74,10 @@ public class ConfirmRequestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #" + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[1]
-                + " en el edificio " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[2]
-                + " " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[3]
-                + " de la sala " + cargarDatos.getDatosSolicitud().get(cargarDatos.getDatosSolicitud().size()-1)[4]);
+        computerText.setText("Computador #" + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[1]
+                + " en el edificio " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[2]
+                + " " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[3]
+                + " de la sala " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[4]);
     }
 
 }

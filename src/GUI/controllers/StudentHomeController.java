@@ -81,14 +81,14 @@ public class StudentHomeController implements Initializable {
             @Override
             public void run() {
                 try {
-                    while (!cargarDatos.isCargaSolicitud() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
+                    while (!cargarDatos.isCargaEquipos()|| !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
                         Thread.sleep(500);
                     }
                     if (cargarDatos.isActivo()) {
                         String computadores = "Actualmente tiene asignado:\n\n";
-                        for (int i = 0; i < cargarDatos.getDatosSolicitud().size(); i++) {
-                            computadores = computadores + "Computador #" + cargarDatos.getDatosSolicitud().get(i)[1] + " en el edificio "
-                                    + cargarDatos.getDatosSolicitud().get(i)[2] + " " + cargarDatos.getDatosSolicitud().get(i)[3] + ", Sala " + cargarDatos.getDatosSolicitud().get(i)[4] + "\n";
+                        for (int i = 0; i < cargarDatos.getDatosEquipos().size(); i++) {
+                            computadores = computadores + "Computador #" + cargarDatos.getDatosEquipos().get(i)[1] + " en el edificio "
+                                    + cargarDatos.getDatosEquipos().get(i)[2] + " " + cargarDatos.getDatosEquipos().get(i)[3] + ", Sala " + cargarDatos.getDatosEquipos().get(i)[4] + "\n";
                         }
                         currentComputerHomeText.setText(computadores);
                     } else {
@@ -106,7 +106,7 @@ public class StudentHomeController implements Initializable {
     @FXML
     void returnEquiBtnAction(ActionEvent event) {
         try {
-            if (cargarDatos.isCargaSolicitud()) {
+            if (cargarDatos.isCargaEquipos()) {
                 if (cargarDatos.isActivo()) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));

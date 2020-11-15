@@ -189,7 +189,7 @@ public class LoanRequestController implements Initializable {
                 computadorSelecionado[2] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
                 computadorSelecionado[3] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
                 computadorSelecionado[4] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
-                cargarDatos.getDatosSolicitud().add(computadorSelecionado);
+                cargarDatos.getDatosEquipos().add(computadorSelecionado);
                 
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
