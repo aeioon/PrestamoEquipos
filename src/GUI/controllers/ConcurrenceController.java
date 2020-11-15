@@ -7,21 +7,12 @@ package GUI.controllers;
 
 import Control.MostrarInformacionComputadores;
 import Entidad.Computador;
-import Entidad.Edificio;
-import Entidad.Programa;
-import Entidad.Sala;
-import Entidad.Solicitud;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -68,40 +59,123 @@ public class ConcurrenceController implements Initializable {
 
     @FXML
     private ProgressBar progressBar;
+    
+    MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
+    private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     @FXML
     void loupeBtnAction(ActionEvent event) {
         advertenciaLB.setVisible(false);
         computerList.clear();
-//        if(searchProgramTF.getText().length() != 0){
-//            if (JSType.isNumber(searchProgramTF.getText())) {
-//                for (Computador computador : computerList) {
-//                    String numeroBusqueda = String.valueOf(searchProgramTF.getText());
-//                    String numeroComputador = String.valueOf(computador.getId());
-//                    String numeroSala = String.valueOf(computador.getSala().getCodigo());
-//                    String nombreEdificio = String.valueOf(computador.getSala().getEdificio().getNombre());
-//                    for (int i = 0; i < numeroBusqueda.length(); i++) {
-//                        if(numeroBusqueda.charAt(i)== numeroComputador.charAt(i) || numeroBusqueda.charAt(i)== numeroSala.charAt(i) || nombreEdificio.charAt(i)== numeroBusqueda.charAt(i)){
-//                            computerList.add(computador);
-//                        }else{
-//                            return;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        if(computerList.size() != 0){
-//            table.setItems(computerList);
-//        }else{
-//            advertenciaLB.setText("No se encontraron resultados");
-//            advertenciaLB.setVisible(true);
-//        }
+        table.getColumns().get(0).setVisible(false);
+        table.getColumns().get(0).setVisible(true);
+        table.setItems(computerList);
+        table.refresh();
+        
+        System.out.println("el tamaño de la lista es: " + computerList.size());
+        
+        Computador computador = new Computador();
+        if (searchProgramTF.getText().length() != 0) {
+            ArrayList<String[]> computadoresInfo = MIC.getConcurrenceInfo();
+            
+            for (String[] computadorTabla : computadoresInfo) {
+                System.out.println("El ID Del computador es el: " + computadorTabla[0]);
+               computador.setId(Integer.parseInt(computadorTabla[0]));
+                String[] computadorInfo = MIC.getHoleComputerInfo(computador);
+                ArrayList<String> programasComputador = MIC.getComputerPrograms(computador);
+                String busqueda = String.valueOf(searchProgramTF.getText()).toLowerCase();
+                
+                    for (int j = 0; j < computadorInfo.length; j++) {
+                        System.out.println("");
+                        System.out.println("Busqueda:" + busqueda);
+                        System.out.println("Comparación de busqueda:" + computadorInfo[j]);
+                        
+                        if (computadorInfo[j] != null) {
+                            System.out.println("no esta vacio");
+                            
+                            if (busqueda.charAt(0) == computadorInfo[j].toLowerCase().charAt(0)) {
+                                System.out.println("tienen algo igual: " + busqueda.charAt(0) + " es igual a " + computadorInfo[j].toLowerCase().charAt(0));
+                                System.out.println("");
+                                ConcurrenceRow concurrenceRow = new ConcurrenceRow(computadorInfo[0], computadorInfo[1], computadorInfo[2], computadorInfo[3], computadorInfo[4]);
+                                System.out.println("el concurrenceRow queda:" + " id computador: ;"+ computadorInfo[0]
+                                + " usuario: "+ computadorInfo[1]
+                                +" id edifico: "+ computadorInfo[2]
+                                       + " id sala: "+ computadorInfo[3]
+                                + " disponibilidad: "+ computadorInfo[0]);
+                                System.out.println("");
+                                if (!computerList.contains(concurrenceRow)) {
+                                    System.out.println("como no esta en la lista la vamos a agregar " + computadorInfo[0]);
+                                    System.out.println("");
+                                    computerList.add(concurrenceRow);
+                                    System.out.println("vamos a imprimir que hay en el computerlist");
+                                    for (ConcurrenceRow row : computerList) {
+                                        System.out.println("");
+                                        System.out.println("el concurrenceRow queda:" + " id computador: ;"+ row.getIdEquipo()
+                                + " usuario: "+ row.getIdUsuario()
+                                +" id edifico: "+ row.getCodigoEdificio()
+                                       + " id sala: "+ row.getCodigoSala()
+                                + " disponibilidad: "+ row.getDisponibilidad());
+                                        
+                                    }
+                                    System.out.println("");
+                                    table.refresh();
+                            }
+                        }
+                    }
+                    }
+                table.refresh();
+                for (String programa : programasComputador) {
+                    System.out.println("");
+                        System.out.println("Busqueda:" + busqueda);
+                        System.out.println("Comparación de busqueda:" + programa);
+                    for (int i = 0; i < busqueda.length(); i++) {
+                        if (programa.toLowerCase().charAt(i) == busqueda.charAt(i)) {
+                            System.out.println("tienen algo igual: " + busqueda.charAt(0) + " es igual a " + programa.toLowerCase().charAt(0));
+                            ConcurrenceRow concurrenceRow = new ConcurrenceRow(computadorInfo[0], computadorInfo[1], computadorInfo[2], computadorInfo[3], computadorInfo[4]);
+                            System.out.println("el concurrenceRow queda:" + " id computador: ;"+ computadorInfo[0]
+                                + " usuario: ;"+ computadorInfo[1]
+                                +" id edifico: ;"+ computadorInfo[2]
+                                       + " id sala: ;"+ computadorInfo[3]
+                                + " disponibilidad: ;"+ computadorInfo[4]);
+                                System.out.println("");
+                            if (!computerList.contains(concurrenceRow)) {
+                                System.out.println("como no esta en la lista la vamos a agregar " + computadorInfo[0]);
+                                    System.out.println("");
+                                    computerList.add(concurrenceRow);
+                                    System.out.println("vamos a imprimir que hay en el computerlist");
+                                    for (ConcurrenceRow row : computerList) {
+                                        System.out.println("");
+                                        System.out.println("el concurrenceRow queda:" + " id computador: "+ row.getIdEquipo()
+                                + " usuario: "+ row.getIdUsuario()
+                                +" id edifico: "+ row.getCodigoEdificio()
+                                       + " id sala: "+ row.getCodigoSala()
+                                + " disponibilidad: "+ row.getDisponibilidad());
+                                        
+                                    }
+                                    table.getColumns().get(0).setVisible(false);
+table.getColumns().get(0).setVisible(true);
+                                    System.out.println("");
+                                    table.refresh();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if(computerList.size() != 0){
+            //computerList.stream().distinct();
+            System.out.println("El tamaño de la lista es " + computerList.size());
+            System.out.println("la lista si tiene resultados");
+            table.setItems(computerList);
+            table.refresh();
+            table.setVisible(true);
+        }else{
+            advertenciaLB.setText("No se encontraron resultados");
+            advertenciaLB.setVisible(true);
+        }
 
     }
-      
-    MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
-    private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     void insertcomputers(){
         TableColumn teamIdCol = new TableColumn("Id");
