@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author aleja
  */
-public class MostrarInformaciónComputadores {
+public class MostrarInformacionComputadores {
     
     ComputadorDAO computadorDao = new ComputadorDAO();
     
