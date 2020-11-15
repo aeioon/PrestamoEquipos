@@ -28,7 +28,7 @@ public class UsuarioDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Usuario "
                     + "WHERE Id_Usuario = BINARY '" + usuario.getId()
-                    + "' AND Contraseña = BINARY '" + usuario.getConstraseña() + "'");
+                    + "' AND Contraseña = BINARY '" + usuario.getContraseña() + "'");
             if (resultSet.next()) {
                 return true;
             } else {
@@ -60,11 +60,11 @@ public class UsuarioDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Usuario "
                     + "WHERE Id_Usuario = BINARY '" + usuario.getId()
-                    + "' AND Contraseña = BINARY '" + usuario.getConstraseña() + "'");
+                    + "' AND Contraseña = BINARY '" + usuario.getContraseña() + "'");
             if (resultSet.next()) {
                 usuarioCompleto = new Usuario();
                 usuarioCompleto.setId(resultSet.getString(1));
-                usuarioCompleto.setConstraseña(resultSet.getString(2));
+                usuarioCompleto.setContraseña(resultSet.getString(2));
                 usuarioCompleto.setNombres(resultSet.getString(3));
                 usuarioCompleto.setApellidos(resultSet.getString(4));
                 usuarioCompleto.setCarrera(resultSet.getString(5));

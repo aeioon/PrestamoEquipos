@@ -3,7 +3,7 @@ package Entidad;
 
 public class Usuario {
     private String id;
-    private String constraseña;
+    private String contraseña;
     private String nombres;
     private String apellidos;
     private String carrera;
@@ -13,9 +13,9 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String id, String constraseña, String nombres, String apellidos, String carrera, String facultad) {
+    public Usuario(String id, String contraseña, String nombres, String apellidos, String carrera, String facultad) {
         this.id = id;
-        this.constraseña = constraseña;
+        this.contraseña = contraseña;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.carrera = carrera;
@@ -24,7 +24,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", constrase\u00f1a=" + constraseña + ", nombres=" + nombres + ", apellidos=" + apellidos + ", carrera=" + carrera + ", facultad=" + facultad + '}';
+        return "Usuario{" + "id=" + id + ", constrase\u00f1a=" + contraseña + ", nombres=" + nombres + ", apellidos=" + apellidos + ", carrera=" + carrera + ", facultad=" + facultad + '}';
     }
 
     
@@ -37,12 +37,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getConstraseña() {
-        return constraseña;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setConstraseña(String constraseña) {
-        this.constraseña = constraseña;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public String getNombres() {

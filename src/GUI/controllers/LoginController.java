@@ -2,6 +2,7 @@ package GUI.controllers;
 
 import Control.CargarDatosUsuario;
 import Control.ValidarLogin;
+import Entidad.Encargado;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -70,25 +71,34 @@ public class LoginController implements Initializable {
 
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
-        Usuario usuario = new Usuario();
-        usuario.setId(userLoginTF.getText());
-        usuario.setConstraseña(passwordLoginTF.getText());
-        ValidarLogin validar = new ValidarLogin();
         if (AdvertenciapLB.isVisible() == false && AdvertenciausLB.isVisible() == false) {
-            if (validar.verificarLogin(usuario)) {
+            ValidarLogin validar = new ValidarLogin();
+            Usuario usuario = new Usuario();
+            usuario.setId(userLoginTF.getText());
+            usuario.setContraseña(passwordLoginTF.getText());
+            if (validar.verificarUsuario(usuario)) {
                 cargarDatosUsuario.cargar(usuario);
                 cargarDatosUsuario.cargarUsuario(usuario);
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
+                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);
                 window.show();
             } else {
+                Encargado encargado = new Encargado();
+                encargado.setId(userLoginTF.getText());
+                encargado.setContraseña(passwordLoginTF.getText());
+                if (validar.verificarAdministrador(encargado)) {
+                    Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
+                    Scene newScene = new Scene(newParent);
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(newScene);
+                    window.show();
+                }
                 AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
                 AdvertenciapLB.setVisible(true);
             }
         }
-        System.out.println(validar.getUsuario().getNombres());
     }
 
     @Override
