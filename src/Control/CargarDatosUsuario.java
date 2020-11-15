@@ -67,6 +67,22 @@ public class CargarDatosUsuario {
         }).start();
     }
 
+    public ArrayList<String[]> getDatosSolicitudes() {
+        return datosSolicitudes;
+    }
+
+    public void setDatosSolicitudes(ArrayList<String[]> datosSolicitudes) {
+        this.datosSolicitudes = datosSolicitudes;
+    }
+
+    public boolean isCargaSolicitudes() {
+        return cargaSolicitudes;
+    }
+
+    public void setCargaSolicitudes(boolean cargaSolicitudes) {
+        this.cargaSolicitudes = cargaSolicitudes;
+    }
+
     public boolean isCarga() {
         return carga;
     }

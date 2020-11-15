@@ -23,4 +23,8 @@ public class RealizarDevolucion {
             return false;
         }
     }
+    
+    public boolean cancelRequest(){
+        return true;
+    }
 }

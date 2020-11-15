@@ -110,7 +110,7 @@ public class StudentHomeController implements Initializable {
                 if (cargarDatos.isActivo()) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 390, 272);
+                    Scene scene = new Scene(fxmlLoader.load(), 786, 408);
                     Stage stagePop = new Stage();
                     stagePop.setTitle("Confirmar devolucion");
                     stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
