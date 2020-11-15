@@ -55,27 +55,6 @@ public class ReturnEquipmentController implements Initializable {
         stage.close();
     }
 
-    /*
-    @FXML
-    void returnEquipmentBtnAction(ActionEvent event) throws IOException {
-        Computador computador = new Computador();
-        computador.setId(Integer.parseInt(cargarDatos.getDatosEquipos().get(0)[1]));
-        if (RD.makeReturn(cargarDatos.getUser(), computador, cargarDatos.isActivo())) {
-            System.out.println("Se realizo la devolucion!");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    cargarDatos.cargar(cargarDatos.getUser());
-                }
-            }).start();
-            Stage stage = (Stage) returnEquipmentBtn.getScene().getWindow();
-            stage.close();
-        } else {
-            //stateText.setText("Fallo en la devolucion");
-        }
-    }
-    */
-
     void insertSolicitudes(){
 
         TableColumn teamIdSolicitudCol = new TableColumn("Solicitud");
@@ -113,7 +92,7 @@ public class ReturnEquipmentController implements Initializable {
         solicitudesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         solicitudesTable.getColumns().addAll(teamIdSolicitudCol, teamIdEquipoCol, teamNombreEdificioCol, teamIdEdificioCol, teamSalaCol, teamFechaInicioCol, teamFechaFinCol, teamInfoCompCol);
         solicitudesTable.setItems(solicitudesList);
-        
+                
         ArrayList<String[]> availableComputersInfo = cargarDatosUsuario.getDatosSolicitudes();
         availableComputersInfo.forEach(computer -> {
             System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3] + "" + computer[4] + "" + computer[5]+ "" + computer[6]);
@@ -130,6 +109,7 @@ public class ReturnEquipmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         insertSolicitudes();
+        
     }
 
 }

@@ -5,14 +5,14 @@
 .mainFxmlClass {
 
 }
-#returnEquipmentBtn, #exitReturnBtn {
+#returnEquipmentBtn, #aceptarBtn {
     -fx-background-color: #94b43b;
     
 }
 
-#returnEquipmentBtn:hover, #exitReturnBtn:hover{
+#returnEquipmentBtn:hover, #aceptarBtn:hover{
     -fx-background-color: #82A424;
 } 
-#returnEquipmentBtn:pressed, #exitReturnBtn:pressed{
+#returnEquipmentBtn:pressed, #aceptarBtn:pressed{
     -fx-background-color: #6D901D;
 } 

@@ -42,7 +42,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
-
 /**
  * FXML Controller class
  *
@@ -110,9 +109,7 @@ public class LoanRequestController implements Initializable {
 
     public static void setFechaFinal(LocalDateTime fechaFinal) {
         LoanRequestController.fechaFinal = fechaFinal;
-    }  
-    
-    
+    }
 
     void changeScene(ActionEvent event, String fxml) throws IOException {
         Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
@@ -146,8 +143,9 @@ public class LoanRequestController implements Initializable {
     @FXML
     void rightArrowBtnAction(ActionEvent event) {
         Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
-        if(programSelected != null)
+        if (programSelected != null) {
             addProgram(programSelected);
+        }
     }
 
     @FXML
@@ -181,16 +179,16 @@ public class LoanRequestController implements Initializable {
 
         if (idComputerSelected != 0) {
             try {
-                       
+
                 cargarDatos.setPrograms(programList);
-                String[] computadorSelecionado = {"", "", "" ,"", ""};
+                String[] computadorSelecionado = {"", "", "", "", ""};
                 computadorSelecionado[0] = "0";
                 computadorSelecionado[1] = availableComputersTable.getSelectionModel().getSelectedItem().getId();
                 computadorSelecionado[2] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
                 computadorSelecionado[3] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
                 computadorSelecionado[4] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
                 cargarDatos.getDatosEquipos().add(computadorSelecionado);
-                
+
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -217,6 +215,12 @@ public class LoanRequestController implements Initializable {
 
     @FXML
     void backHomeBtn(ActionEvent event) throws IOException {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cargarDatos.cargar(cargarDatos.getUser());
+            }
+        }).start();
         Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
         Scene newScene = new Scene(newParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -256,27 +260,23 @@ public class LoanRequestController implements Initializable {
         selectedProgramList.forEach(p -> {
             selectedProgramArr.add(p);
         });
-        
+
         ArrayList<String[]> availableComputersInfo;
-        
-        
-        if (checkBoxReserva.isSelected()){
-             String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
-             fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1]) ));
-             fechaFinal = fechaInicio.plusHours(1);
-             availableComputersInfo= RP.getInfoComputers(selectedProgramArr,fechaInicio, fechaFinal);
-        } else{
-             fechaInicio = LocalDateTime.now();
-             fechaFinal = fechaInicio.plusHours(1);
-             availableComputersInfo= RP.getInfoComputers(selectedProgramArr,fechaInicio, fechaFinal);
+
+        if (checkBoxReserva.isSelected()) {
+            String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
+            fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1])));
+            fechaFinal = fechaInicio.plusHours(1);
+            availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
+        } else {
+            fechaInicio = LocalDateTime.now();
+            fechaFinal = fechaInicio.plusHours(1);
+            availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         }
-        
-        
-        
-        
-        if(availableComputersInfo.size() != 0){
+
+        if (availableComputersInfo.size() != 0) {
             warningText.setText("");
-        }else{
+        } else {
             warningText.setText("No hay computadores disponibles");
         }
         availableComputersInfo.forEach(computer -> {
@@ -310,7 +310,7 @@ public class LoanRequestController implements Initializable {
     void userInfoBtnAction(ActionEvent event) {
     }
 
-     void insertAvailablePrograms() {
+    void insertAvailablePrograms() {
 
         //crea columnas y selecciona el atributo de Programa        
         TableColumn programNameCol = new TableColumn("Programa");
@@ -320,9 +320,8 @@ public class LoanRequestController implements Initializable {
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
         programVersionCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.29));
-        programVersionCol.setResizable(false);        
-        
-     
+        programVersionCol.setResizable(false);
+
         //asigna la lista de items y las columnas a la TableView
         availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
@@ -343,13 +342,12 @@ public class LoanRequestController implements Initializable {
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
         programVersionCol.prefWidthProperty().bind(selectedProgramsTable.widthProperty().multiply(0.29));
-        programVersionCol.setResizable(false);  
+        programVersionCol.setResizable(false);
 
         selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         selectedProgramsTable.setItems(selectedProgramList);
         selectedProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
     }
-
 
     void initActions() {
 
@@ -390,28 +388,24 @@ public class LoanRequestController implements Initializable {
                     }
                 }
             }
-        });    
-        
-        date.setDayCellFactory(picker -> new DateCell() {
-        public void updateItem(LocalDate date, boolean empty) {
-            super.updateItem(date, empty);
-            LocalDate today = LocalDate.now();
-            
-            int dias = LocalTime.now().getHour()<19?0:1;
-            setDisable(empty || date.compareTo(today.plusDays(dias)) < 0  || date.compareTo(today.plusDays(6)) > 0 );
-            }
-            
         });
-        
 
-       
-        
-                
+        date.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                int dias = LocalTime.now().getHour() < 19 ? 0 : 1;
+                setDisable(empty || date.compareTo(today.plusDays(dias)) < 0 || date.compareTo(today.plusDays(6)) > 0);
+            }
+
+        });
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         insertSelectedPrograms();
         initActions();
         insertComputers();
@@ -431,35 +425,35 @@ public class LoanRequestController implements Initializable {
         }).start();
 
     }
-    
+
     @FXML
     void reservaAction(ActionEvent event) {
-       if(checkBoxReserva.isSelected()){           
-           labelFecha.setDisable(false);
-           labelHoraInicial.setDisable(true);
-           date.setDisable(false);
-           comboBoxHoraInicio.setDisable(true);
-        } else{
-           labelFecha.setDisable(true);
-           labelHoraInicial.setDisable(true);
-           date.setDisable(true);
-           comboBoxHoraInicio.setDisable(true);
-           date.setValue(null);
-           comboBoxHoraInicio.getSelectionModel().clearSelection();
+        if (checkBoxReserva.isSelected()) {
+            labelFecha.setDisable(false);
+            labelHoraInicial.setDisable(true);
+            date.setDisable(false);
+            comboBoxHoraInicio.setDisable(true);
+        } else {
+            labelFecha.setDisable(true);
+            labelHoraInicial.setDisable(true);
+            date.setDisable(true);
+            comboBoxHoraInicio.setDisable(true);
+            date.setValue(null);
+            comboBoxHoraInicio.getSelectionModel().clearSelection();
         }
-      
+
     }
-    
-     @FXML
+
+    @FXML
     void dateAction(ActionEvent event) {
-         if (date.getValue() != null){
+        if (date.getValue() != null) {
             int hour = 7;
-             System.out.println("get date: " +date.getValue());
-             if (date.getValue().equals(LocalDate.now())){
+            System.out.println("get date: " + date.getValue());
+            if (date.getValue().equals(LocalDate.now())) {
                 int now = LocalTime.now().getHour();
                 System.out.println(now);
-                hour = now >= 6? now+1:7;
-            }            
+                hour = now >= 6 ? now + 1 : 7;
+            }
             ObservableList<Object> hours = FXCollections.observableArrayList();
             for (int i = hour; i < 20; i++) {
                 if (i == 13) {
@@ -475,4 +469,3 @@ public class LoanRequestController implements Initializable {
         }
     }
 }
-
