@@ -235,12 +235,16 @@ public class LoanRequestController implements Initializable {
          */
         TableColumn computerIdCol = new TableColumn("Id");
         computerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        computerIdCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.7));
         TableColumn nombreEdificioCol = new TableColumn("Nombre Edificio");
         nombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
+        nombreEdificioCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.7));
         TableColumn IdEdificioCol = new TableColumn("Id Edificio");
         IdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
+        IdEdificioCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.7));
         TableColumn nombreSalaCol = new TableColumn("Codigo Sala");
         nombreSalaCol.setCellValueFactory(new PropertyValueFactory("nombreSala"));
+        nombreSalaCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.7));
 
         //asigna la lista de items y las columnas a la TableView
         availableComputersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -318,7 +322,7 @@ public class LoanRequestController implements Initializable {
         programNameCol.setResizable(false);
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
-        programVersionCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.29));
+        programVersionCol.prefWidthProperty().bind(availableProgramsTable.widthProperty().multiply(0.294));
         programVersionCol.setResizable(false);
 
         //asigna la lista de items y las columnas a la TableView
@@ -340,7 +344,7 @@ public class LoanRequestController implements Initializable {
         programNameCol.setResizable(false);
         TableColumn programVersionCol = new TableColumn("Version");
         programVersionCol.setCellValueFactory(new PropertyValueFactory("version"));
-        programVersionCol.prefWidthProperty().bind(selectedProgramsTable.widthProperty().multiply(0.29));
+        programVersionCol.prefWidthProperty().bind(selectedProgramsTable.widthProperty().multiply(0.294));
         programVersionCol.setResizable(false);
 
         selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);

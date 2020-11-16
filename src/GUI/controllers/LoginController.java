@@ -99,9 +99,10 @@ public class LoginController implements Initializable {
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     window.setScene(newScene);
                     window.show();
+                } else {
+                    AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
+                    AdvertenciapLB.setVisible(true);
                 }
-                AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
-                AdvertenciapLB.setVisible(true);
             }
         }
     }

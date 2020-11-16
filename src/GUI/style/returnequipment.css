@@ -5,14 +5,14 @@
 .mainFxmlClass {
 
 }
-#returnEquipmentBtn, #aceptarBtn {
+#actionBtn {
     -fx-background-color: #94b43b;
     
 }
 
-#returnEquipmentBtn:hover, #aceptarBtn:hover{
+#actionBtn:hover{
     -fx-background-color: #82A424;
 } 
-#returnEquipmentBtn:pressed, #aceptarBtn:pressed{
+#actionBtn:pressed{
     -fx-background-color: #6D901D;
 } 

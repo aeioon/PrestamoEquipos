@@ -51,7 +51,7 @@ public class EncargadoDAO {
     }
 
     public Encargado leer(Encargado encargado) {
-        Encargado datos = new Encargado();
+        Encargado datos = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
