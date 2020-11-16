@@ -32,7 +32,7 @@ public class RealizarPrestamo {
 
     public ArrayList<String[]> getInfoComputers(ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         ArrayList<String[]> computadores = new ArrayList<>();
-        computadores = computadorDao.getInfoComputersAvailable(programs,fechaHoraInicio, fechaHoraFin);
+        computadores = computadorDao.getInfoComputersAvailable(programs, fechaHoraInicio, fechaHoraFin);
         return computadores;
     }
 
@@ -43,12 +43,17 @@ public class RealizarPrestamo {
         solicitud.setFechaHoraInicio(fechaHoraInicio);
         solicitud.setFechaHoraFin(fechaHoraFin);
         if (solicitudDao.crear(solicitud)) {
-            boolean estadoPrestamo = true;
-            solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-            for (int i = 0; i < programs.size(); i++) {
-                estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
-            }
-            return estadoPrestamo;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    boolean estadoPrestamo = true;
+                    solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
+                    for (int i = 0; i < programs.size(); i++) {
+                        estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                    }
+                }
+            }).start();
+            return true;
         } else {
             return false;
         }

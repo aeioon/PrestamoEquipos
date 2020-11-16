@@ -51,7 +51,8 @@ public class AddProgramController implements Initializable {
             programa.setNombre(programNameTF.getText());
             programa.setVersion(programVersionTF.getText());
             if(MS.crear(programa)){
-                Stage stage = (Stage) createProgramBtn.getScene().getWindow();            
+                Stage stage = (Stage) createProgramBtn.getScene().getWindow(); 
+                
             }
           
 

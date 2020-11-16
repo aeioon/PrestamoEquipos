@@ -202,7 +202,6 @@ public class ComputadorDAO {
                                                  "WHERE ('" + fechaHoraInicio + "' /*inicio*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
                                                  "('" + fechaHoraFin+ "' /*fin*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
                                                  "('" + fechaHoraInicio + "' < SO.FechaHoraInicio AND '" + fechaHoraFin + "' > SO.FechaHoraFin));";
-            System.out.println(consulta);
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
                 String[] fila = new String[4];

@@ -73,7 +73,7 @@ public class StudentHomeController implements Initializable {
             @Override
             public void run() {
                 try {
-                    while (!cargarDatos.isCargaEquipos()|| !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
+                    while (!cargarDatos.isCargaEquipos() || !cargarDatos.isCargarActividad() || !cargarDatos.isCargarUsuario()) {
                         Thread.sleep(500);
                     }
                     if (cargarDatos.isActivo()) {
@@ -99,26 +99,16 @@ public class StudentHomeController implements Initializable {
     void returnEquiBtnAction(ActionEvent event) {
         try {
             if (cargarDatos.isCargaEquipos()) {
-                if (cargarDatos.isActivo()) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 786, 321);
-                    Stage stagePop = new Stage();
-                    stagePop.setTitle("Solicitudes");
-                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
-                    stagePop.setScene(scene);
-                    stagePop.showAndWait();
-                    cargarInformación();
-                } else {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/GUI/views/noReturn.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 390, 210);
-                    Stage stagePop = new Stage();
-                    stagePop.setTitle("Error");
-                    stagePop.setScene(scene);
-                    stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/error.png")));
-                    stagePop.showAndWait();
-                }
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/GUI/views/returnEquipment.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 786, 321);
+                Stage stagePop = new Stage();
+                stagePop.setTitle("Solicitudes");
+                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
+                stagePop.setScene(scene);
+                stagePop.showAndWait();
+
+                cargarInformación();
             } else {
                 System.out.println("pensando");
             }
