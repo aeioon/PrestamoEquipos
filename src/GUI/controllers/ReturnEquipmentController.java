@@ -132,20 +132,25 @@ public class ReturnEquipmentController implements Initializable {
         }
     }
 
-    public void evaluarAction(){
-        solicitudRow = solicitudesTable.getSelectionModel().getSelectedItem();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public void evaluarAction() {
+        try {
+            solicitudRow = solicitudesTable.getSelectionModel().getSelectedItem();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            System.out.println(solicitudRow.getFechaInicio());
+            LocalDateTime inicio = LocalDateTime.parse(solicitudRow.getFechaInicio(), formatter);
+            LocalDateTime fin = LocalDateTime.parse(solicitudRow.getFechaFin(), formatter);
 
-        LocalDateTime inicio = LocalDateTime.parse(solicitudRow.getFechaInicio(), formatter);
-        LocalDateTime fin = LocalDateTime.parse(solicitudRow.getFechaFin(), formatter);
-
-        if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
-            actionBtn.setText("Devolver");
-        } else {
-            actionBtn.setText("Cancelar");
+            if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
+                actionBtn.setText("Devolver");
+            } else {
+                actionBtn.setText("Cancelar");
+            }
+        } catch (Exception e) {
+            actionBtn.setText("");
+            actionBtn.setVisible(false);
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         insertColumnsSolicitudes();
