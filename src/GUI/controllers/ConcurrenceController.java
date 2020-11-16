@@ -134,9 +134,9 @@ public class ConcurrenceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         advertenciaLB.setVisible(false);
         insertcomputers();
-        //Double percentageNum = MIC.getConcurrencePercentage();
-        //progressBar.setProgress(percentageNum);
-        //percentage.setText(String.valueOf(percentageNum*100).substring(0, 2) + "%");  
+        Double percentageNum = MIC.getConcurrencePercentage();
+        progressBar.setProgress(percentageNum);
+        percentage.setText(String.valueOf(percentageNum*100).substring(0, 2) + "%");  
         searchComputers();
     }
 
