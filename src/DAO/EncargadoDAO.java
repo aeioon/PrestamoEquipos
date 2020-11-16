@@ -51,7 +51,7 @@ public class EncargadoDAO {
     }
 
     public Encargado leer(Encargado encargado) {
-        Encargado datos = new Encargado();
+        Encargado datos = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -59,14 +59,18 @@ public class EncargadoDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Encargado "
-                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()+ "' AND Contraseña = BINARY '" + encargado.getContraseña() + "'");
+            resultSet = statement.executeQuery("SELECT Id_Encargado, Contraseña, Nombres, Apellidos FROM Encargado "
+                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()+ "' AND Contraseña = BINARY '" + encargado.getContraseña() + "';");
+            
+            
             if(resultSet.next()){
+                datos = new Encargado();
                 datos.setId(resultSet.getString(1));
                 datos.setContraseña(resultSet.getString(2));
                 datos.setNombres(resultSet.getString(3));
                 datos.setApellidos(resultSet.getString(4));
             }
+            System.out.println("dentro de leer antes datos"+datos);
             return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

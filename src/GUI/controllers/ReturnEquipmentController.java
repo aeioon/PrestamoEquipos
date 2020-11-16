@@ -51,30 +51,37 @@ public class ReturnEquipmentController implements Initializable {
         TableColumn teamIdSolicitudCol = new TableColumn("Solicitud");
         teamIdSolicitudCol.setStyle("-fx-alignment: CENTER;");
         teamIdSolicitudCol.setCellValueFactory(new PropertyValueFactory<>("idSolicitud"));
+        teamIdSolicitudCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.12));
 
         TableColumn teamIdEquipoCol = new TableColumn("Equipo");
         teamIdEquipoCol.setStyle("-fx-alignment: CENTER;");
         teamIdEquipoCol.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));
+        teamIdEquipoCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.12));
 
         TableColumn teamNombreEdificioCol = new TableColumn("Edificio");
         teamNombreEdificioCol.setStyle("-fx-alignment: CENTER;");
         teamNombreEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
+        teamNombreEdificioCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.12));
 
         TableColumn teamIdEdificioCol = new TableColumn("Edificio");
         teamIdEdificioCol.setStyle("-fx-alignment: CENTER;");
         teamIdEdificioCol.setCellValueFactory(new PropertyValueFactory("idEdificio"));
+        teamIdEdificioCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.12));
 
         TableColumn teamSalaCol = new TableColumn("Sala");
         teamSalaCol.setStyle("-fx-alignment: CENTER;");
         teamSalaCol.setCellValueFactory(new PropertyValueFactory("codigoSala"));
+        teamSalaCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.12));
 
         TableColumn teamFechaInicioCol = new TableColumn("Fecha inicio");
         teamFechaInicioCol.setStyle("-fx-alignment: CENTER;");
         teamFechaInicioCol.setCellValueFactory(new PropertyValueFactory("FechaInicio"));
+        teamFechaInicioCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.192));
 
         TableColumn teamFechaFinCol = new TableColumn("Fecha fin");
         teamFechaFinCol.setStyle("-fx-alignment: CENTER;");
         teamFechaFinCol.setCellValueFactory(new PropertyValueFactory("FechaFin"));
+        teamFechaFinCol.prefWidthProperty().bind(solicitudesTable.widthProperty().multiply(0.2));
 
         solicitudesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         solicitudesTable.getColumns().addAll(teamIdSolicitudCol, teamIdEquipoCol, teamNombreEdificioCol, teamIdEdificioCol, teamSalaCol, teamFechaInicioCol, teamFechaFinCol);
@@ -125,27 +132,32 @@ public class ReturnEquipmentController implements Initializable {
         }
     }
 
+    public void evaluarAction(){
+        solicitudRow = solicitudesTable.getSelectionModel().getSelectedItem();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime inicio = LocalDateTime.parse(solicitudRow.getFechaInicio(), formatter);
+        LocalDateTime fin = LocalDateTime.parse(solicitudRow.getFechaFin(), formatter);
+
+        if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
+            actionBtn.setText("Devolver");
+        } else {
+            actionBtn.setText("Cancelar");
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         insertColumnsSolicitudes();
         insertSolicitudes();
+        solicitudesTable.getSelectionModel().select(0);
+        evaluarAction();
         solicitudesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
                     //toma el item seleccionado, en este casoSolicitudRow
-                    solicitudRow = solicitudesTable.getSelectionModel().getSelectedItem();
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-                    LocalDateTime inicio = LocalDateTime.parse(solicitudRow.getFechaInicio(), formatter);
-                    LocalDateTime fin = LocalDateTime.parse(solicitudRow.getFechaFin(), formatter);
-
-                    if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
-                        actionBtn.setText("Devolver");
-                    } else {
-                        actionBtn.setText("Cancelar");
-                    }
+                    evaluarAction();
                 }
             }
         });

@@ -91,7 +91,10 @@ public class LoginController implements Initializable {
                 Encargado encargado = new Encargado();
                 encargado.setId(userLoginTF.getText());
                 encargado.setContraseña(passwordLoginTF.getText());
+                System.out.println(encargado);
                 encargado = validar.verificarAdministrador(encargado);
+                System.out.println(encargado);
+
                 if (encargado != null) {
                     cargarDatosAdministrador.setEncargado(encargado);
                     Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
@@ -99,9 +102,10 @@ public class LoginController implements Initializable {
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     window.setScene(newScene);
                     window.show();
+                } else {
+                    AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
+                    AdvertenciapLB.setVisible(true);
                 }
-                AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
-                AdvertenciapLB.setVisible(true);
             }
         }
     }

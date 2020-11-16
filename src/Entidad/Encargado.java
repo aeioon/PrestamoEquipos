@@ -47,6 +47,11 @@ public class Encargado {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
+    @Override
+    public String toString() {
+        return "Encargado{" + "id=" + id + ", contrase\u00f1a=" + contraseña + ", nombres=" + nombres + ", apellidos=" + apellidos + '}';
+    }
     
     
     

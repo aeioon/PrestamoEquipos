@@ -34,6 +34,7 @@ public class ValidarLogin {
             return encargadoLec;
         } else {
             System.out.println("Datos incorrectos");
+            
             return encargadoLec;
         }
     }
