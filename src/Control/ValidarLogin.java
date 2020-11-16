@@ -16,8 +16,6 @@ public class ValidarLogin {
 
     public Usuario verificarUsuario(Usuario usuario) {
         Usuario usuarioLec = null;
-        System.out.println("Usuario:" + usuario.getId());
-        System.out.println("Contraseña:" + usuario.getContraseña());
         usuarioLec = usuarioDao.leer(usuario);
         if (usuarioLec != null) {
             System.out.println("Bienvenido");
@@ -30,8 +28,6 @@ public class ValidarLogin {
 
     public Encargado verificarAdministrador(Encargado encargado) {
         Encargado encargadoLec = null;
-        System.out.println("Usuario:" + usuario.getId());
-        System.out.println("Contraseña:" + usuario.getContraseña());
         encargadoLec = encargadoDao.leer(encargado);
         if (encargadoLec != null) {
             System.out.println("Bienvenido");

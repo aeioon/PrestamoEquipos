@@ -23,7 +23,6 @@ public class CargarDatosAdministrador {
     public void cargar(Encargado encargado) {
         carga = true;
         this.encargado = encargadoDao.leer(encargado);
-        System.out.println(encargado);
     }
 
     public void resetData() {

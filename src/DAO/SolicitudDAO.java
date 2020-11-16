@@ -38,7 +38,6 @@ public class SolicitudDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             String query = "SELECT max(Id_Solicitud) FROM Solicitud WHERE UsuarioId_Usuario = '" +  solicitud.getUsuario().getId() + "' AND ComputadorId_Equipo ='" + solicitud.getComputador().getId() + "';";
-            System.out.println(query);
             resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 id = resultSet.getInt(1);
@@ -105,7 +104,6 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            System.out.println(object.getFechaHoraInicio());
             resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
                     + object.getFechaHoraInicio() + "','" + object.getFechaHoraFin() + "',"+ object.getComputador().getId() + ",'" + object.getUsuario().getId() + "')");
             return resultSet > 0;
@@ -171,8 +169,6 @@ public class SolicitudDAO {
                                                                                     "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
                                                                                     "WHERE '" + LocalDateTime.now() + "' < Solicitud.FechaHoraInicio \n" +
                                                                                     "OR ('" + LocalDateTime.now() + "' > Solicitud.FechaHoraInicio AND '" + LocalDateTime.now() + "' < Solicitud.FechaHoraFin))";
-            System.out.println(consulta);
-            // Comentario
             resultSet = statement.executeQuery(consulta);
             while(resultSet.next()) {
                 String[] computador = {"","","","","","",""};
@@ -219,8 +215,6 @@ public class SolicitudDAO {
                                                                                     "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
                                                                                     "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin \n"+
                                                                                     "GROUP BY Computador.Id_Equipo);";
-            System.out.println(consulta);
-            // Comentario
             resultSet = statement.executeQuery(consulta);
             while(resultSet.next()) {
                 String[] computador = {"","","","",""};
