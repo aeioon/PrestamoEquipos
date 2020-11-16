@@ -52,7 +52,7 @@ public class AddProgramController implements Initializable {
             programa.setVersion(programVersionTF.getText());
             if(MS.crear(programa)){
                 Stage stage = (Stage) createProgramBtn.getScene().getWindow(); 
-                
+                stage.close();
             }
           
 

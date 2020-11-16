@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Point3D?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableView?>
@@ -15,14 +13,9 @@
         <URL value="@/GUI/style/concurrence.css" />
     </stylesheets>
    <children>
-      <HBox layoutX="72.0" layoutY="34.0" prefHeight="42.0" prefWidth="841.0">
+      <HBox layoutX="72.0" layoutY="34.0" prefHeight="42.0" prefWidth="829.0">
          <children>
-            <TextField fx:id="searchProgramTF" prefHeight="48.0" prefWidth="802.0" promptText="Ingrese el nombre del programa" />
-            <Button fx:id="loupeB" mnemonicParsing="false" onAction="#loupeBtnAction" prefHeight="42.0" prefWidth="61.0">
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis>
-            </Button>
+            <TextField fx:id="searchTF" prefHeight="42.0" prefWidth="826.0" promptText="Buscar" />
          </children>
       </HBox>
       <TableView fx:id="table" layoutX="72.0" layoutY="143.0" prefHeight="200.0" prefWidth="820.0" />

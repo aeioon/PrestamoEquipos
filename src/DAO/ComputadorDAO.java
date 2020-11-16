@@ -251,9 +251,8 @@ public class ComputadorDAO {
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
                 String[] fila = new String[5];
-
                 fila[0] = Integer.toString(resultSet.getInt(1));
-                fila[1] = resultSet.getString(2);
+                fila[1] = resultSet.getString(2) == null ? " " : resultSet.getString(2);
                 fila[2] = resultSet.getString(3);
                 fila[3] = Integer.toString(resultSet.getInt(4));
                 fila[4] = Integer.toString(resultSet.getInt(5));

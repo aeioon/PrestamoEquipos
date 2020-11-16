@@ -148,8 +148,8 @@ public class SoftwareManagementController implements Initializable {
         }
         // Hay que deseleccionar el item que fue eliminado para evitar excepcion por la llamadas que hace initActions
         allProgramsTable.getSelectionModel().clearSelection();
-        //test
-        System.out.println(allProgramsTable.getSelectionModel().getSelectedIndex());       
+        allProgramsTable.getSelectionModel().select(0);
+        //test     
     }
 
     @FXML
@@ -233,22 +233,11 @@ public class SoftwareManagementController implements Initializable {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
-                    System.out.println("1 solo click, suficiente para seleccionarlo, para quitarlo");
                     selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
                     selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
                     selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
                     System.out.println(selectedProgram.getNombre());
                 }
-                /*
-                if (click.getClickCount() == 2) {
-                    System.out.println("2 clicks, mostrar los computadores");
-                    selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
-                    selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
-                    selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
-                    System.out.println(selectedProgram.getNombre());
-                    updateComputerData();
-                    initActions();
-                }*/
             }
         });
     }
