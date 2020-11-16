@@ -43,10 +43,10 @@ public class ConcurrenceRow {
         return selectcomputador;
     }
 
-    public ConcurrenceRow(String idEquipo, String idUsuario, String codigoEdificio, String codigoSala, String disponibilidad) {
+    public ConcurrenceRow(String idEquipo, String idUsuario, String nombreEdificio, String codigoSala, String disponibilidad) {
         this.idEquipo = idEquipo;
         this.idUsuario = idUsuario;
-        this.codigoEdificio = codigoEdificio;
+        this.codigoEdificio = nombreEdificio;
         this.codigoSala = codigoSala;
         this.disponibilidad = disponibilidad;
         if (idUsuario == null) {
