@@ -92,7 +92,6 @@ public class LoginController implements Initializable {
                 encargado.setId(userLoginTF.getText());
                 encargado.setContraseña(passwordLoginTF.getText());
                 encargado = validar.verificarAdministrador(encargado);
-
                 if (encargado != null) {
                     cargarDatosAdministrador.setEncargado(encargado);
                     Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
