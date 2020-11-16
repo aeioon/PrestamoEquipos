@@ -64,7 +64,7 @@ public class ConcurrenceController implements Initializable {
             filteredConcurrence.setPredicate(concurrenceRow -> {
                 String lowerCaseFilter = newValue.toLowerCase();
                 if ((concurrenceRow.getCodigoSala().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
-                    (concurrenceRow.getCodigoEdificio() .toLowerCase().indexOf(lowerCaseFilter) != -1)  ||
+                    (concurrenceRow.getCodigoEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1)  ||
                     (concurrenceRow.getIdEquipo().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
                     (concurrenceRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1) 
                         ) {
