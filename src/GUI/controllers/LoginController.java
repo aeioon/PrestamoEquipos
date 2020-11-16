@@ -123,16 +123,12 @@ public class LoginController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    System.out.println("Textfield on focus");
                     AdvertenciausLB.setVisible(false);
                 } else {
-                    System.out.println("Textfield out focus");
                     AdvertenciapLB.setVisible(false);
                     if (userLoginTF.getText().length() != 0) {
                         AdvertenciausLB.setVisible(false);
-                        System.out.println(userLoginTF.getText());
                     } else {
-                        System.out.println("no hay usuario");
                         AdvertenciausLB.setText("No se ha ingresado un usuario");
                         AdvertenciausLB.setVisible(true);
                     }
@@ -144,13 +140,10 @@ public class LoginController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    System.out.println("Textfield on focus");
                     AdvertenciapLB.setVisible(false);
                 } else {
-                    System.out.println("Textfield out focus");
                     AdvertenciapLB.setVisible(false);
                     if (String.valueOf(passwordLoginTF.getText()).length() == 0) {
-                        System.out.println("no hay contraseña");
                         AdvertenciapLB.setText("No se ha ingresado una contraseña");
                         AdvertenciapLB.setVisible(true);
                     } else {

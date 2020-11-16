@@ -6,28 +6,8 @@
 package GUI.controllers;
 
 import Control.CargarDatosUsuario;
-import Control.MostrarInformacionComputadores;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
-import Entidad.Solicitud;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Border;
-import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.BLACK;
-import javafx.stage.Stage;
 
 /**
  *

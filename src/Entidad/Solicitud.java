@@ -22,8 +22,6 @@ public class Solicitud {
         this.usuario = usuario;
     }
 
-    
-
     public int getId() {
         return id;
     }

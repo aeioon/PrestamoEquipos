@@ -207,7 +207,6 @@ public class LoanRequestController implements Initializable {
                 System.err.println(String.format("Error: %s", e.getMessage()));
             }
         } else {
-            System.out.println("Olvidaste seleccionar un computador");
             warningText.setText("Olvidaste seleccionar un computador");
         }
 
@@ -369,7 +368,6 @@ public class LoanRequestController implements Initializable {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                    System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
                     Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
                     unselectProgram(programSelected);
                 }
@@ -382,7 +380,6 @@ public class LoanRequestController implements Initializable {
                 if (click.getClickCount() == 1) {
                     try {
                         idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
-                        System.out.println("Id del computador seleccionado " + idComputerSelected);
                     } catch (Exception e) {
 
                     }

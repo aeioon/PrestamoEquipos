@@ -1,19 +1,11 @@
 package GUI.controllers;
 
 import Control.CargarDatosUsuario;
-import Control.RealizarPrestamo;
-import Control.RealizarDevolucion;
-import DAO.ComputadorDAO;
-import Entidad.Computador;
-import Entidad.Programa;
-import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -116,7 +108,6 @@ public class StudentHomeController implements Initializable {
                     stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
                     stagePop.setScene(scene);
                     stagePop.showAndWait();
-
                     cargarInformación();
                 } else {
                     FXMLLoader fxmlLoader = new FXMLLoader();

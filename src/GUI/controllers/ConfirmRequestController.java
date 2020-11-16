@@ -51,7 +51,6 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
-        
         Computador comp = new Computador();
         comp.setId(Integer.parseInt(cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[1]));
         
