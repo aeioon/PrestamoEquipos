@@ -32,7 +32,7 @@ public class ConcurrenceRow {
 
     public String idEquipo;
     public String idUsuario;
-    public String codigoEdificio;
+    public String nombreEdificio;
     public String codigoSala;
     public String disponibilidad;
     public Button botonInfo;
@@ -46,7 +46,7 @@ public class ConcurrenceRow {
     public ConcurrenceRow(String idEquipo, String idUsuario, String nombreEdificio, String codigoSala, String disponibilidad) {
         this.idEquipo = idEquipo;
         this.idUsuario = idUsuario;
-        this.codigoEdificio = nombreEdificio;
+        this.nombreEdificio = nombreEdificio;
         this.codigoSala = codigoSala;
         this.disponibilidad = disponibilidad;
         if (idUsuario.equals(" ")) {
@@ -95,12 +95,12 @@ public class ConcurrenceRow {
         this.idUsuario = idUsuario;
     }
 
-    public String getCodigoEdificio() {
-        return codigoEdificio;
+    public String getNombreEdificio() {
+        return nombreEdificio;
     }
 
-    public void setCodigoEdificio(String codigoEdificio) {
-        this.codigoEdificio = codigoEdificio;
+    public void setNombreEdificio(String codigoEdificio) {
+        this.nombreEdificio = codigoEdificio;
     }
 
     public String getCodigoSala() {

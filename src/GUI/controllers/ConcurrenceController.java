@@ -64,7 +64,7 @@ public class ConcurrenceController implements Initializable {
             filteredConcurrence.setPredicate(concurrenceRow -> {
                 String lowerCaseFilter = newValue.toLowerCase();
                 if ((concurrenceRow.getCodigoSala().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
-                    (concurrenceRow.getCodigoEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1)  ||
+                    (concurrenceRow.getNombreEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1)  ||
                     (concurrenceRow.getIdEquipo().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
                     (concurrenceRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1) 
                         ) {
@@ -96,7 +96,7 @@ public class ConcurrenceController implements Initializable {
 
         TableColumn teamEdificioCol = new TableColumn("Edificio");
         teamEdificioCol.setStyle( "-fx-alignment: CENTER;"); 
-        teamEdificioCol.setCellValueFactory(new PropertyValueFactory("codigoEdificio"));
+        teamEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
 
         TableColumn teamSalaCol = new TableColumn("Sala");
         teamSalaCol.setStyle( "-fx-alignment: CENTER;"); 
