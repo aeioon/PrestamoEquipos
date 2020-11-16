@@ -91,9 +91,7 @@ public class LoginController implements Initializable {
                 Encargado encargado = new Encargado();
                 encargado.setId(userLoginTF.getText());
                 encargado.setContraseña(passwordLoginTF.getText());
-                System.out.println(encargado);
                 encargado = validar.verificarAdministrador(encargado);
-                System.out.println(encargado);
 
                 if (encargado != null) {
                     cargarDatosAdministrador.setEncargado(encargado);

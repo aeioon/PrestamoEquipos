@@ -49,7 +49,7 @@ public class ConcurrenceRow {
         this.codigoEdificio = nombreEdificio;
         this.codigoSala = codigoSala;
         this.disponibilidad = disponibilidad;
-        if (idUsuario == null) {
+        if (idUsuario.equals(" ")) {
             this.disponibilidad = "Disponible";
         } else {
             this.disponibilidad = "No disponible";

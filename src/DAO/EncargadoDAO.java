@@ -70,7 +70,6 @@ public class EncargadoDAO {
                 datos.setNombres(resultSet.getString(3));
                 datos.setApellidos(resultSet.getString(4));
             }
-            System.out.println("dentro de leer antes datos"+datos);
             return datos;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
