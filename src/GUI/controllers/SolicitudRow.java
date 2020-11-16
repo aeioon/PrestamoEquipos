@@ -35,6 +35,7 @@ import javafx.stage.Stage;
  */
 public class SolicitudRow {
 
+    public int id;
     public String idSolicitud;
     public String idEquipo;
     public String nombreEdificio;
@@ -42,8 +43,6 @@ public class SolicitudRow {
     public String codigoSala;
     public String fechaInicio;
     public String fechaFin;
-
-    public Button botonInfo;
 
     static Computador selectcomputador = new Computador();
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
@@ -61,53 +60,17 @@ public class SolicitudRow {
         this.codigoSala = codigoSala;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         
-        LocalDateTime inicio = LocalDateTime.parse(fechaInicio, formatter);
-        LocalDateTime fin = LocalDateTime.parse(fechaFin, formatter);
-
-        if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
-            this.botonInfo = new Button("Devolver");
-        } else {
-            this.botonInfo = new Button("Cancelar");
-
-        }
-
-        botonInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 1) {
-                    System.out.println("El computador seleccionado es: " + idEquipo);
-                    selectcomputador.setId(Integer.parseInt(idEquipo));
-                    if (botonInfo.getText().equals("Devolver")) {
-                        Computador computador = new Computador();
-                        computador.setId(Integer.parseInt(idEquipo));
-                        if (RD.makeReturn(cargarDatosUsuario.getUser(), computador, cargarDatosUsuario.isActivo())) {
-                            System.out.println("Se realizo la devolucion!");
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
-                                }
-                            }).start();
-                        } else {
-                            System.out.println("Fallo en la devolucion");
-                        }
-                    } else {
-                        Solicitud solicitud = new Solicitud();
-                        solicitud.setId(Integer.parseInt(idSolicitud));
-                        if(RD.cancelRequest(solicitud)){
-                            System.out.println("Cancelo solicitu");
-                        }else{
-                            System.out.println("Fallo la cancelación");
-                        }
-                    }
-                }
-            }
-        });
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getIdSolicitud() {
         return idSolicitud;
     }
@@ -163,13 +126,65 @@ public class SolicitudRow {
     public void setFechaFin(String FechaFin) {
         this.fechaFin = fechaFin;
     }
-
-    public Button getBotonInfo() {
-        return botonInfo;
-    }
-
-    public void setBotonInfo(Button botonInfo) {
-        this.botonInfo = botonInfo;
-    }
-
+    
 }
+
+/*
+for (int i = 0; i < botones.size(); i++) {
+            item = i;
+            botones.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent click) {
+                    System.out.println(item);
+                    if (click.getClickCount() == 1) {
+                        System.out.println("El computador seleccionado es: " + idEquipos.get(item));
+                        if (botones.get(item).getText().equals("Devolver")) {
+                            Computador computador = new Computador();
+                            computador.setId(idEquipos.get(item));
+                            if (RD.makeReturn(cargarDatosUsuario.getUser(), computador, cargarDatosUsuario.isActivo())) {
+                                System.out.println("Se realizo la devolucion!");
+                            } else {
+                                System.out.println("Fallo en la devolucion");
+                            }
+                            System.out.println("REFRESCANDOsssssssssssssssssssssssssssssssssssssssssssssssssss");
+                            solicitudesList.clear();
+                            solicitudesTable.refresh();
+                            cargarDatosUsuario.cargarSolicitudes(cargarDatosUsuario.getUser());
+                            cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
+                            insertSolicitudes();
+                        } else {
+                            Solicitud solicitud = new Solicitud();
+                            solicitud.setId(idSolicitudes.get(item));
+                            if (RD.cancelRequest(solicitud)) {
+                                System.out.println("Cancelo solicitud");
+                            } else {
+                                System.out.println("Fallo la cancelación");
+                            }
+                            System.out.println("REFRESCANDOsssssssssssssssssssssssssssssssssssssssssssssssssss");
+                            solicitudesList.clear();
+                            solicitudesTable.refresh();
+                            cargarDatosUsuario.cargarSolicitudes(cargarDatosUsuario.getUser());
+                            cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
+                            insertSolicitudes();
+                        }
+                    }
+                    initialize(url, rb);
+                    return;
+                }
+            });
+
+*/
+/*
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime inicio = LocalDateTime.parse(fechaInicio, formatter);
+        LocalDateTime fin = LocalDateTime.parse(fechaFin, formatter);
+
+        if (inicio.isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(fin)) {
+            this.botonInfo = new Button("Devolver");
+        } else {
+            this.botonInfo = new Button("Cancelar");
+
+        }
+*/

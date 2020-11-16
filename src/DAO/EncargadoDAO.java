@@ -60,7 +60,7 @@ public class EncargadoDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Encargado "
-                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()+ "'");
+                    + "WHERE Id_Encargado = BINARY '" + encargado.getId()+ "' AND Contraseña = BINARY '" + encargado.getContraseña() + "'");
             if(resultSet.next()){
                 datos.setId(resultSet.getString(1));
                 datos.setContraseña(resultSet.getString(2));

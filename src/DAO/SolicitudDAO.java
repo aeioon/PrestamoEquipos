@@ -169,7 +169,7 @@ public class SolicitudDAO {
                               "WHERE SO.UsuarioId_Usuario = '" + user.getId() + "' \n" +
                                                             "AND SO.Id_Solicitud IN(SELECT Id_Solicitud\n" +
                                                                                     "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
-                                                                                    "WHERE '2020-11-15 16:55:41' < Solicitud.FechaHoraInicio \n" +
+                                                                                    "WHERE '" + LocalDateTime.now() + "' < Solicitud.FechaHoraInicio \n" +
                                                                                     "OR ('" + LocalDateTime.now() + "' > Solicitud.FechaHoraInicio AND '" + LocalDateTime.now() + "' < Solicitud.FechaHoraFin))";
             System.out.println(consulta);
             // Comentario
