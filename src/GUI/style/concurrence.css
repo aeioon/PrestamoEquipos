@@ -5,3 +5,21 @@
 .mainFxmlClass {
 
 }
+
+#concurrenceB:hover {
+    -fx-background-color:   #565a5c;
+}
+
+#manegementB:hover {
+    -fx-background-color:   #565a5c;
+
+}
+
+#concurrenceB:pressed {
+    -fx-background-color:   #808080;
+    
+}
+
+#manegementB:pressed {
+    -fx-background-color:   #808080;
+}
