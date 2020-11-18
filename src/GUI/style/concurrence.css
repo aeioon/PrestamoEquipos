@@ -16,10 +16,9 @@
 }
 
 #concurrenceB:pressed {
-    -fx-background-color:   #808080;
-    
+    -fx-background-color:   #565a5c;
 }
 
 #manegementB:pressed {
-    -fx-background-color:   #808080;
+    -fx-background-color:   #565a5c;
 }

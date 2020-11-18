@@ -229,76 +229,76 @@ public class ManageSoftwareTeamsIT {
     /**
      * Test of quitarEquipos method, of class ManageSoftwareTeams.
      */
-    @Test
-    public void testQuitarEquipos1() {
-        Precondiciones.habilitarComputadorProgramaT();
-        Precondiciones.ComputadorProgramaNetBeans1();
-        System.out.println("quitarEquipos1");
-        ArrayList<Computador> computadores = new ArrayList<>();
-        Computador computador1 = new Computador();
-        computador1.setId(1);
-        Computador computador2 = new Computador();
-        computador2.setId(2);
-        computadores.add(computador1);
-        computadores.add(computador2);
-        Programa programa = new Programa(1, "NetBeans", "8.2");
-        ManageSoftwareTeams instance = new ManageSoftwareTeams();
-        boolean expResult = true;
-        boolean result = instance.quitarEquipos(computadores, programa);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testQuitarEquipos2() {
-        Precondiciones.habilitarComputadorProgramaT();
-        Precondiciones.ComputadorProgramaCodeblocks1();
-        System.out.println("quitarEquipos2");
-        ArrayList<Computador> computadores = new ArrayList<>();
-        Computador computador1 = new Computador();
-        computador1.setId(1);
-        computadores.add(computador1);
-        Programa programa = new Programa(2, "CodeBlocks", "3.0");
-        ManageSoftwareTeams instance = new ManageSoftwareTeams();
-        boolean expResult = true;
-        boolean result = instance.quitarEquipos(computadores, programa);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testQuitarEquipos3() {
-        Precondiciones.habilitarComputadorProgramaT();
-        Precondiciones.ComputadorProgramaVisualParadigm1();
-        System.out.println("quitarEquipos3");
-        ArrayList<Computador> computadores = new ArrayList<>();
-        Computador computador1 = new Computador();
-        computador1.setId(1);
-        Computador computador3 = new Computador();
-        computador3.setId(3);
-        computadores.add(computador1);
-        computadores.add(computador3);
-        Programa programa = new Programa(3, "VisualParadigm", "4.0");
-        ManageSoftwareTeams instance = new ManageSoftwareTeams();
-        boolean expResult = true;
-        boolean result = instance.quitarEquipos(computadores, programa);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testQuitarEquipos4() {
-        Precondiciones.habilitarComputadorProgramaT();
-        Precondiciones.ComputadorProgramaVim1();
-        System.out.println("quitarEquipos4");
-        ArrayList<Computador> computadores = new ArrayList<>();
-        Computador computador2 = new Computador();
-        computador2.setId(2);
-        Computador computador3 = new Computador();
-        computador3.setId(3);
-        computadores.add(computador2);
-        computadores.add(computador3);
-        Programa programa = new Programa(4, "Vim", "1");
-        ManageSoftwareTeams instance = new ManageSoftwareTeams();
-        boolean expResult = true;
-        boolean result = instance.quitarEquipos(computadores, programa);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testQuitarEquipos1() {
+//        Precondiciones.habilitarComputadorProgramaT();
+//        Precondiciones.ComputadorProgramaNetBeans1();
+//        System.out.println("quitarEquipos1");
+//        ArrayList<Computador> computadores = new ArrayList<>();
+//        Computador computador1 = new Computador();
+//        computador1.setId(1);
+//        Computador computador2 = new Computador();
+//        computador2.setId(2);
+//        computadores.add(computador1);
+//        computadores.add(computador2);
+//        Programa programa = new Programa(1, "NetBeans", "8.2");
+//        ManageSoftwareTeams instance = new ManageSoftwareTeams();
+//        boolean expResult = true;
+//        boolean result = instance.quitarEquipos(computadores, programa);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testQuitarEquipos2() {
+//        Precondiciones.habilitarComputadorProgramaT();
+//        Precondiciones.ComputadorProgramaCodeblocks1();
+//        System.out.println("quitarEquipos2");
+//        ArrayList<Computador> computadores = new ArrayList<>();
+//        Computador computador1 = new Computador();
+//        computador1.setId(1);
+//        computadores.add(computador1);
+//        Programa programa = new Programa(2, "CodeBlocks", "3.0");
+//        ManageSoftwareTeams instance = new ManageSoftwareTeams();
+//        boolean expResult = true;
+//        boolean result = instance.quitarEquipos(computadores, programa);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testQuitarEquipos3() {
+//        Precondiciones.habilitarComputadorProgramaT();
+//        Precondiciones.ComputadorProgramaVisualParadigm1();
+//        System.out.println("quitarEquipos3");
+//        ArrayList<Computador> computadores = new ArrayList<>();
+//        Computador computador1 = new Computador();
+//        computador1.setId(1);
+//        Computador computador3 = new Computador();
+//        computador3.setId(3);
+//        computadores.add(computador1);
+//        computadores.add(computador3);
+//        Programa programa = new Programa(3, "VisualParadigm", "4.0");
+//        ManageSoftwareTeams instance = new ManageSoftwareTeams();
+//        boolean expResult = true;
+//        boolean result = instance.quitarEquipos(computadores, programa);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testQuitarEquipos4() {
+//        Precondiciones.habilitarComputadorProgramaT();
+//        Precondiciones.ComputadorProgramaVim1();
+//        System.out.println("quitarEquipos4");
+//        ArrayList<Computador> computadores = new ArrayList<>();
+//        Computador computador2 = new Computador();
+//        computador2.setId(2);
+//        Computador computador3 = new Computador();
+//        computador3.setId(3);
+//        computadores.add(computador2);
+//        computadores.add(computador3);
+//        Programa programa = new Programa(4, "Vim", "1");
+//        ManageSoftwareTeams instance = new ManageSoftwareTeams();
+//        boolean expResult = true;
+//        boolean result = instance.quitarEquipos(computadores, programa);
+//        assertEquals(expResult, result);
+//    }
 }

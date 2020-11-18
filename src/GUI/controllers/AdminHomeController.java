@@ -27,39 +27,43 @@ import javafx.scene.layout.Pane;
 public class AdminHomeController implements Initializable {
 
     CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
-    
+
     @FXML
     private Button concurrenceB;
-    
+
     @FXML
     private Button managementB;
-    
+
     @FXML
     private Pane principalPane;
-    
+
     @FXML
     void concurrenceBtnAction(ActionEvent event) throws IOException {
         principalPane.getChildren().clear();
-        Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
+        Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
         principalPane.getChildren().add(newParent);
+        concurrenceB.setStyle("-fx-background-color:    #565a5c");
+        managementB.setStyle("-fx-background-color:   #696969");
     }
-    
+
     @FXML
     void managementBtnAction(ActionEvent event) throws IOException {
         principalPane.getChildren().clear();
-        Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
+        Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
         principalPane.getChildren().add(newParent);
+        managementB.setStyle("-fx-background-color:    #565a5c");
+        concurrenceB.setStyle("-fx-background-color:   #696969");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             principalPane.getChildren().clear();
-            Pane newParent = (Pane)FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
+            Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
             principalPane.getChildren().add(newParent);
         } catch (IOException ex) {
             Logger.getLogger(AdminHomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
+    }
+
 }

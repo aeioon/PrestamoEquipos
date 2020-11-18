@@ -29,7 +29,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="managementB" layoutY="46.0" mnemonicParsing="false" onAction="#managementBtnAction" prefHeight="47.0" prefWidth="255.0" style="-fx-background-color: #565a5c;" text="Gestion de software" textFill="WHITE">
+                  <Button fx:id="managementB" layoutY="46.0" mnemonicParsing="false" onAction="#managementBtnAction" prefHeight="47.0" prefWidth="255.0" style="-fx-background-color: #696969;" text="Gestion de software" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
