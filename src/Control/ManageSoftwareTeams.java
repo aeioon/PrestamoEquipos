@@ -32,7 +32,8 @@ public class ManageSoftwareTeams {
     public boolean quitarEquipos(ArrayList<Computador> computadores, Programa programa) {
         boolean adicion = true;
         for (int i = 0; i < computadores.size(); i++) {
-            adicion = adicion && computadorProgramaDao.quitar(computadores.get(i), programa);
+            boolean resultado = computadorProgramaDao.quitar(computadores.get(i), programa);
+            adicion = adicion && resultado;
         }
         return adicion;
     }

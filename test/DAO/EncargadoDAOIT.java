@@ -38,15 +38,65 @@ public class EncargadoDAOIT {
     public void tearDown() {
     }
 
+    /**
+     * Test of crear method, of class EncargadoDAO.
+     */
+    @Test
+    public void testCrear() {
+        System.out.println("crear");
+        Encargado object = null;
+        EncargadoDAO instance = new EncargadoDAO();
+        boolean expResult = false;
+        boolean result = instance.crear(object);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of leer method, of class EncargadoDAO.
+     */
     @Test
     public void testLeer() {
         System.out.println("leer");
-        Encargado par = new Encargado();
-        par.setId("jruiz");
+        Encargado encargado = null;
         EncargadoDAO instance = new EncargadoDAO();
-        boolean expResult = true;
-        boolean result = instance.leer(par);
+        Encargado expResult = null;
+        Encargado result = instance.leer(encargado);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of actualizar method, of class EncargadoDAO.
+     */
+    @Test
+    public void testActualizar() {
+        System.out.println("actualizar");
+        Encargado oldEncargado = null;
+        Encargado newEncargado = null;
+        EncargadoDAO instance = new EncargadoDAO();
+        boolean expResult = false;
+        boolean result = instance.actualizar(oldEncargado, newEncargado);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of eliminar method, of class EncargadoDAO.
+     */
+    @Test
+    public void testEliminar() {
+        System.out.println("eliminar");
+        Encargado object = null;
+        EncargadoDAO instance = new EncargadoDAO();
+        boolean expResult = false;
+        boolean result = instance.eliminar(object);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }

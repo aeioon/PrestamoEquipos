@@ -1,5 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Control;
 
+import Entidad.Encargado;
 import Entidad.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,33 +26,30 @@ public class ValidarLoginIT {
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    /**
-     * Test of verificarLogin method, of class ValidarLogin.
-     */
+    /* TESTS SPRING 1*/
     @Test
     public void testUsuarioIncorrecto1() {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("DBUSTOS");
-        usuario.setConstraseña("123");
+        usuario.setContraseña("123");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -57,12 +60,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("Acardenaso");
-        usuario.setConstraseña("Unal2020");
+        usuario.setContraseña("Unal2020");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -73,12 +75,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
-        usuario.setConstraseña("unal2020");
+        usuario.setContraseña("unal2020");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -89,12 +90,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("ggarciaro");
-        usuario.setConstraseña("54321");
+        usuario.setContraseña("54321");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -105,12 +105,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("Acardenaso");
-        usuario.setConstraseña("unal2020");
+        usuario.setContraseña("unal2020");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = false;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -121,12 +120,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("ggarciaro");
-        usuario.setConstraseña("12345");
+        usuario.setContraseña("12345");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = true;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -137,12 +135,11 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("dbustos");
-        usuario.setConstraseña("123");
+        usuario.setContraseña("123");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = true;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
@@ -153,15 +150,142 @@ public class ValidarLoginIT {
         System.out.println("verificarLogin");
         Usuario usuario = new Usuario();
         usuario.setId("acardenaso");
-        usuario.setConstraseña("Unal2020");
+        usuario.setContraseña("Unal2020");
         ValidarLogin instance = new ValidarLogin();
         boolean expResult = true;
-        boolean result = instance.verificarLogin(usuario);
+        boolean result = instance.verificarUsuario(usuario) != null;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         if(result != expResult){
             fail("The test case is a prototype.");
         }
     }
     
+    /* TESTS SPRING 2*/
+    /**
+     * Test of verificarUsuario method, of class ValidarLogin.
+     */
+    @Test
+    public void testVerificarUsuario1() {
+        System.out.println("verificarUsuario");
+        Usuario usuario = new Usuario();
+        usuario.setId("acardenaso");
+        usuario.setContraseña("Unal2020");
+        ValidarLogin instance = new ValidarLogin();
+        Usuario expResult = new Usuario();
+        expResult.setId("acardenaso");
+        expResult.setContraseña("Unal2020");
+        expResult.setNombres("Ángela María");
+        expResult.setApellidos("Cárdenas Orjuela");
+        expResult.setCarrera("Ingeniería de Sistemas y Computación");
+        expResult.setFacultad("Ingeniería");
+        Usuario result = instance.verificarUsuario(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+
+    @Test
+    public void testVerificarUsuario2() {
+        System.out.println("verificarUsuario");
+        Usuario usuario = new Usuario();
+        usuario.setId("ggarciaro");
+        usuario.setContraseña("12345");
+        ValidarLogin instance = new ValidarLogin();
+        Usuario expResult = new Usuario("ggarciaro", "12345", "Gabriela María", "García Romero", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario result = instance.verificarUsuario(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+
+    @Test
+    public void testVerificarUsuario3() {
+        System.out.println("verificarUsuario");
+        Usuario usuario = new Usuario();
+        usuario.setId("jgarciam");
+        usuario.setContraseña("adios");
+        ValidarLogin instance = new ValidarLogin();
+        Usuario expResult = new Usuario("jgarciam", "adios", "Juan Camilo", "García Martinez", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario result = instance.verificarUsuario(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+
+    @Test
+    public void testVerificarUsuario4() {
+        System.out.println("verificarUsuario");
+        Usuario usuario = new Usuario();
+        usuario.setId("cchavezb");
+        usuario.setContraseña("hola");
+        ValidarLogin instance = new ValidarLogin();
+        Usuario expResult = new Usuario("cchavezb", "hola", "Cristian Alejandro", "Chávez Becerra", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario result = instance.verificarUsuario(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+
+    @Test
+    public void testVerificarUsuario5() {
+        System.out.println("verificarUsuario");
+        Usuario usuario = new Usuario();
+        usuario.setId("dbustos");
+        usuario.setContraseña("123");
+        ValidarLogin instance = new ValidarLogin();
+        Usuario expResult = new Usuario("dbustos", "123", "David Julian", "Bustos Cortes", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario result = instance.verificarUsuario(usuario);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+        assertEquals(expResult.getCarrera(), result.getCarrera());
+        assertEquals(expResult.getFacultad(), result.getFacultad());
+    }
+
+    /**
+     * Test of verificarAdministrador method, of class ValidarLogin.
+     */
+    @Test
+    public void testVerificarAdministrador1() {
+        System.out.println("verificarAdministrador");
+        Encargado encargado = new Encargado();
+        encargado.setId("jruiz");
+        encargado.setContraseña("123");
+        ValidarLogin instance = new ValidarLogin();
+        Encargado expResult = new Encargado("jruiz", "123", "Juan", "Ruiz");
+        Encargado result = instance.verificarAdministrador(encargado);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+    }
+
+    @Test
+    public void testVerificarAdministrador2() {
+        System.out.println("verificarAdministrador");
+        Encargado encargado = new Encargado();
+        encargado.setId("lfajardo");
+        encargado.setContraseña("Muchacho");
+        ValidarLogin instance = new ValidarLogin();
+        Encargado expResult = new Encargado("lfajardo", "Muchacho", "Lucas", "Fajardo Peters");
+        Encargado result = instance.verificarAdministrador(encargado);
+        assertEquals(expResult.getId(), result.getId());
+        assertEquals(expResult.getContraseña(), result.getContraseña());
+        assertEquals(expResult.getNombres(), result.getNombres());
+        assertEquals(expResult.getApellidos(), result.getApellidos());
+    }
+
 }

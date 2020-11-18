@@ -6,6 +6,7 @@
 package Control;
 
 import Entidad.Programa;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,7 +54,7 @@ public class MostrarComputadores {
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp1);
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -73,7 +74,7 @@ public class MostrarComputadores {
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -95,7 +96,7 @@ public class MostrarComputadores {
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp1);
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -118,7 +119,7 @@ public class MostrarComputadores {
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp1);
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -139,7 +140,7 @@ public class MostrarComputadores {
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -160,7 +161,7 @@ public class MostrarComputadores {
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -182,7 +183,7 @@ public class MostrarComputadores {
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] exp2 ={"2","CyT","1","402"};
         expResult.add(exp2);
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);
@@ -202,7 +203,7 @@ public class MostrarComputadores {
         programs.add(new Programa(2, "Codeblocks", "3.0"));
         RealizarPrestamo instance = new RealizarPrestamo();
         ArrayList<String[]> expResult = null;
-        ArrayList<String[]> result = instance.getInfoComputers(programs);
+        ArrayList<String[]> result = instance.getInfoComputers(programs, LocalDateTime.now(), LocalDateTime.now());
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j <4 ; j++) {
                 assertEquals(expResult.get(i)[0], result.get(i)[0]);

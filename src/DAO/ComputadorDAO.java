@@ -146,7 +146,7 @@ public class ComputadorDAO {
             resultSet = statement.executeUpdate("UPDATE Solicitud\n" +
                                                 "SET\n" +
                                                 "FechaHoraFin = '"+LocalDateTime.now()+"'\n" +
-                                                "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin AND ComputadorId_Equipo = "+ computer.getId());
+                                                "WHERE '"+LocalDateTime.now()+"' >= Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' <= Solicitud.FechaHoraFin AND ComputadorId_Equipo = "+ computer.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -289,7 +289,7 @@ public class ComputadorDAO {
             double numberOfComputers = resultSet.getInt(1);
             consulta = "SELECT COUNT(Id_Equipo)\n"
                     + "FROM Computador INNER JOIN Solicitud ON Computador.Id_Equipo = Solicitud.ComputadorId_Equipo\n"
-                    + "WHERE '"+LocalDateTime.now()+"' > Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' < Solicitud.FechaHoraFin;";
+                    + "WHERE '"+LocalDateTime.now()+"' >= Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' <= Solicitud.FechaHoraFin;";
             resultSet = statement.executeQuery(consulta);
             resultSet.next();
             double numberOfComputersNotAvailable= resultSet.getInt(1);
