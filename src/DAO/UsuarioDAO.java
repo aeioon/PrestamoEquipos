@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class UsuarioDAO {
 
@@ -53,6 +54,41 @@ public class UsuarioDAO {
 
             }
         }
-    }
+    }        
+    
+    public ArrayList<String[]> getHoleUserBorrowsInfo(String userId){   
+        ProgramaSolicitudDAO psDao  = new ProgramaSolicitudDAO();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String[]> holeUserBorrowsInfo = new ArrayList<String[]>();
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT S.Id_Solicitud, S.FechaHoraInicio, S.FechaHoraFin, S.ComputadorId_Equipo, SA.Codigo, E.Código\n"
+                    + "FROM ((((Usuario AS U INNER JOIN Solicitud AS S ON U.Id_Usuario = S.UsuarioId_Usuario)	\n"
+                    + "    INNER JOIN Computador AS C ON C.Id_Equipo = S.ComputadorId_Equipo))\n"
+                    + "    INNER JOIN Sala AS SA ON SA.Id_sala = C.SalaId_sala)\n"
+                    + "    INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
+                    + "WHERE U.Id_Usuario = \"" + userId + "\" ");            
+            while (resultSet.next()) {
+                String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), psDao.getRequestPrograms(resultSet.getString(1))};                
+                holeUserBorrowsInfo.add(currentTuple);
+            }
+            return holeUserBorrowsInfo;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return holeUserBorrowsInfo;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return holeUserBorrowsInfo;
+            } catch (SQLException ex) {
 
+            }
+        }
+    }
 }
