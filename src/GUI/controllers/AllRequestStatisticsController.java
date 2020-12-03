@@ -71,13 +71,18 @@ public class AllRequestStatisticsController implements Initializable {
    
         
     void allRequestsData(){
-
+        
+        //Nombres de todos los programas y una cantidad como las solicitudes
+        
         for(Programa p : programList){
-            //Añade los programas a la lista que luego es seteada a la grafica, argumentos XAxis, YAxis, 
-            //Elemento Extra (en este caso el programa, para luego ser solicitado en otra vista
+            
+            //args NombrePrograma, cantidad numerica y Programa 
+            //Se pasa p = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
+            
             allChartSet.getData().add(new XYChart.Data(p.getNombre(), p.getId(), p));
 
         }
+        //Nombres de los ejes x, y
         allRequestsBarChart.getXAxis().setLabel("Programas");
         allRequestsBarChart.getYAxis().setLabel("Solicitudes");
         allRequestsBarChart.getData().addAll(allChartSet);
@@ -89,7 +94,10 @@ public class AllRequestStatisticsController implements Initializable {
     
     void singleProgramData(){
         
+        //Se añade inicialmente y se mantiene oculto. Se añade inicialmente por que JavaFX no redimensiona bien las barras en tiempo real.
+        
         programRequestsBarChart.setLegendVisible(false);
+        //Nombres de los ejes x, y
         programRequestsBarChart.getXAxis().setLabel("Tipos");
         programRequestsBarChart.getYAxis().setLabel("Solicitudes");
         
@@ -103,13 +111,18 @@ public class AllRequestStatisticsController implements Initializable {
     }
     void singleProgramData(Programa selectedProgram){
         
+        //Función que se ejecuta tras dar clicken un programa.
+        
+        
         programRequestsBarChart.getData().clear();
         singleChartSet.getData().clear();
 
         ArrayList<Programa> listaTest = new ArrayList<>();
         
         listaTest.add(selectedProgram);
-
+        
+        //La lista quizas no sea necesaria. Se trae algun objeto que contenga el numero de solicitudes exitosas y no exitosas.
+        //En el primer add se pone las exitosas, en el segundo las no exitosas. Deben tener diferente nombre
 
         singleChartSet.getData().add(new XYChart.Data(listaTest.get(0).getNombre(), 2*listaTest.get(0).getId()));
         singleChartSet.getData().add(new XYChart.Data(listaTest.get(0).getNombre()+" no finalizado", listaTest.get(0).getId()));
@@ -142,9 +155,7 @@ public class AllRequestStatisticsController implements Initializable {
                 });
             }
         }
-        
-        //Cambiamos los datos en la misma vista por medio del eventHandler y del boton
-        
+            
         
     }    
     
