@@ -38,20 +38,27 @@ import javafx.scene.text.FontWeight;
 public class AllRequestStatisticsController implements Initializable {
 
 
-    @FXML
-    private AnchorPane programRequestsPane;
+    @FXML private AnchorPane programRequestsPane;
     
-    @FXML
-    private AnchorPane allRequestsPane;
+    @FXML private AnchorPane allRequestsPane;
 
-    @FXML
-    private BarChart<String, Number> programRequestsBarChart;
+    @FXML private BarChart<String, Number> programRequestsBarChart;
 
-    @FXML
-    private Button backToAllStatsBtn;
+    @FXML private Button backToAllStatsBtn;
 
-    @FXML
-    private BarChart<String, Number> allRequestsBarChart;
+    @FXML private BarChart<String, Number> allRequestsBarChart;
+    
+    @FXML private Label allProgramsLabel;
+
+    @FXML private Label singleProgramLabel;
+    
+    XYChart.Series allChartSet = new XYChart.Series<String, Number>();
+    XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
+    ProgramaDAO pd = new ProgramaDAO();
+    ArrayList<Programa> programList = pd.getAllProgramsAvailable();
+    
+    static Programa selectedProgram;
+    
 
     @FXML
     void backToAllStatsBtnAction(ActionEvent event) {
@@ -61,13 +68,9 @@ public class AllRequestStatisticsController implements Initializable {
 
     }
 
-    XYChart.Series allChartSet = new XYChart.Series<String, Number>();
-    XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
-    ProgramaDAO pd = new ProgramaDAO();
-    ArrayList<Programa> programList = pd.getAllProgramsAvailable();
-    static Programa selectedProgram;
+   
         
-    void AllRequestsData(){
+    void allRequestsData(){
 
         for(Programa p : programList){
             //Añade los programas a la lista que luego es seteada a la grafica, argumentos XAxis, YAxis, 
@@ -100,19 +103,16 @@ public class AllRequestStatisticsController implements Initializable {
     }
     void singleProgramData(Programa selectedProgram){
         
-        
-        if(!singleChartSet.getData().isEmpty()){
-           singleChartSet.getData().clear();
-        }
-       
-        ArrayList<String> listaTest = new ArrayList<>();
-        
-        listaTest.add(selectedProgram.getNombre());
-        listaTest.add("Sin finalizar");
-        
+        programRequestsBarChart.getData().clear();
+        singleChartSet.getData().clear();
 
-        singleChartSet.getData().add(new XYChart.Data(listaTest.get(0), 12));
-        singleChartSet.getData().add(new XYChart.Data(listaTest.get(1), 20));
+        ArrayList<Programa> listaTest = new ArrayList<>();
+        
+        listaTest.add(selectedProgram);
+
+
+        singleChartSet.getData().add(new XYChart.Data(listaTest.get(0).getNombre(), 2*listaTest.get(0).getId()));
+        singleChartSet.getData().add(new XYChart.Data(listaTest.get(0).getNombre()+" no finalizado", listaTest.get(0).getId()));
         programRequestsBarChart.getData().addAll(singleChartSet);
         
         programRequestsBarChart.lookupAll(".default-color0.chart-bar")
@@ -124,10 +124,10 @@ public class AllRequestStatisticsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        AllRequestsData();
+        allRequestsData();
+        allProgramsLabel.setText("Solicitudes por programa");
         //Para que JavaFX calcule los tamaños con anticipacion.
         singleProgramData();
-        
 
         //Event handler para el click sobre la barra 
         for (Series<String, Number> serie: allRequestsBarChart.getData()){
@@ -137,6 +137,7 @@ public class AllRequestStatisticsController implements Initializable {
                     System.out.println("La ID del programa clickeado es "+ selectedProgram.getId());
                     singleProgramData(selectedProgram);
                     allRequestsPane.setVisible(false);
+                    singleProgramLabel.setText("Solicitudes: "+selectedProgram.getNombre());
                     programRequestsPane.setVisible(true);
                 });
             }
