@@ -63,5 +63,12 @@ public class Programa {
     public void setVersion(String version) {
         this.version = version;
     } 
+
+    @Override
+    public String toString() {
+        return "Programa{" + "id=" + id + ", nombre=" + nombre + ", version=" + version + '}';
+    }
+    
+    
     
 }
