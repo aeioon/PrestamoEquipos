@@ -113,6 +113,17 @@ public class AdminHomeController implements Initializable {
         reportB.setStyle("-fx-background-color:   #565a5c");
         flechaB.setStyle("-fx-background-color:   #565a5c");
     }
+    
+     @FXML
+    void deSoftwareBBtnAction(ActionEvent event) throws IOException {
+        principalPane.getChildren().clear();
+        Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/allRequestStatistics.fxml"));
+        principalPane.getChildren().add(newParent);
+        managementB.setStyle("-fx-background-color:    #696969");
+        concurrenceB.setStyle("-fx-background-color:   #696969");
+        reportB.setStyle("-fx-background-color:   #565a5c");
+        flechaB.setStyle("-fx-background-color:   #565a5c");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
