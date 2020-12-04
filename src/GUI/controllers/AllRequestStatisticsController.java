@@ -25,6 +25,10 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -52,14 +56,23 @@ public class AllRequestStatisticsController implements Initializable {
 
     @FXML private Label singleProgramLabel;
     
+    @FXML private TableView<?> singleProgramTable;
+
+    @FXML private Label labelSuccess;
+
+    @FXML private Label labelNoSuccess;
+    
+    
+    
     XYChart.Series allChartSet = new XYChart.Series<String, Number>();
-    XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
+    //XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
+    XYChart.Series allChartSet2 = new XYChart.Series<String, Number>();
     ProgramaDAO pd = new ProgramaDAO();
     ArrayList<Programa> programList = pd.getAllProgramsAvailable();
     
     static Programa selectedProgram;
     
-
+    
     @FXML
     void backToAllStatsBtnAction(ActionEvent event) {
         
@@ -68,8 +81,7 @@ public class AllRequestStatisticsController implements Initializable {
 
     }
 
-   
-        
+
     void allRequestsData(){
         
         //Nombres de todos los programas y una cantidad como las solicitudes
@@ -80,20 +92,44 @@ public class AllRequestStatisticsController implements Initializable {
             //Se pasa p = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
             
             allChartSet.getData().add(new XYChart.Data(p.getNombre(), p.getId(), p));
+            allChartSet2.getData().add(new XYChart.Data(p.getNombre(), p.getId()/2, p));
 
         }
         //Nombres de los ejes x, y
         allRequestsBarChart.getXAxis().setLabel("Programas");
         allRequestsBarChart.getYAxis().setLabel("Solicitudes");
-        allRequestsBarChart.getData().addAll(allChartSet);
+        allRequestsBarChart.getData().addAll(allChartSet, allChartSet2);
         allRequestsBarChart.setLegendVisible(false);
         
         allRequestsBarChart.lookupAll(".default-color0.chart-bar")
             .forEach(n -> n.setStyle("-fx-bar-fill: #588FA7;"));
     }
     
-    void singleProgramData(){
+    void singleTableData(){
         
+        TableColumn programName = new TableColumn("1");
+        programName.setCellValueFactory(new PropertyValueFactory<>("1"));
+
+        TableColumn userName = new TableColumn("2");
+        userName.setCellValueFactory(new PropertyValueFactory<>("2"));
+        
+        TableColumn startDate = new TableColumn("3");
+        startDate.setCellValueFactory(new PropertyValueFactory<>("3"));
+        
+        TableColumn endDate = new TableColumn("4");
+        endDate.setCellValueFactory(new PropertyValueFactory<>("4"));
+        
+        TableColumn success = new TableColumn("5");
+        success.setCellValueFactory(new PropertyValueFactory<>("5"));
+        
+        singleProgramTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        singleProgramTable.getColumns().addAll(programName, userName, startDate, endDate, success);
+        //singleProgramTable.setItems();
+
+    }
+    /*  
+    void singleProgramData(){
+            
         //Se añade inicialmente y se mantiene oculto. Se añade inicialmente por que JavaFX no redimensiona bien las barras en tiempo real.
         
         programRequestsBarChart.setLegendVisible(false);
@@ -132,30 +168,29 @@ public class AllRequestStatisticsController implements Initializable {
             .forEach(n -> n.setStyle("-fx-bar-fill: #588FA7;"));
        
     }
-    
+    */
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
         allRequestsData();
+        singleTableData();
         allProgramsLabel.setText("Solicitudes por programa");
-        //Para que JavaFX calcule los tamaños con anticipacion.
-        singleProgramData();
-
+        
         //Event handler para el click sobre la barra 
         for (Series<String, Number> serie: allRequestsBarChart.getData()){
             for (XYChart.Data<String, Number> item: serie.getData()){
+              
                 item.getNode().setOnMousePressed((MouseEvent event) -> {
                     selectedProgram = (Programa) item.getExtraValue();
                     System.out.println("La ID del programa clickeado es "+ selectedProgram.getId());
-                    singleProgramData(selectedProgram);
+                    System.out.println(selectedProgram);
                     allRequestsPane.setVisible(false);
                     singleProgramLabel.setText("Solicitudes: "+selectedProgram.getNombre());
                     programRequestsPane.setVisible(true);
                 });
             }
-        }
-            
+        }    
         
     }    
     
