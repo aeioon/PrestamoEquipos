@@ -4,6 +4,7 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -46,6 +47,41 @@
                         </Pane>
                      </children>
                   </AnchorPane>
+                  <Label alignment="CENTER" layoutX="79.0" layoutY="103.0" text="Informes" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="flechaL" layoutX="183.0" layoutY="106.0" onDragEntered="#reportBtnAction" prefHeight="21.0" prefWidth="30.0" />
+                  <Button fx:id="reportB" layoutY="91.0" mnemonicParsing="false" onAction="#reportBtnAction" prefHeight="47.0" prefWidth="253.0" style="-fx-background-color: #565a5c;" text="Informes" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="flechaB" layoutX="181.0" layoutY="101.0" mnemonicParsing="false" onAction="#reportBtnAction" prefHeight="21.0" prefWidth="53.0" style="-fx-background-color: #565a5c;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="deSoftwareB" layoutY="138.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="253.0" text="De software">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="historialB" layoutX="-1.0" layoutY="185.0" mnemonicParsing="false" onAction="#historialBtnAction" prefHeight="47.0" prefWidth="254.0" text="Historial">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </left>
