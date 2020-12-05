@@ -7,12 +7,12 @@ public class Sala {
     private String nombre;
     private String tipo;
     private Edificio edificio;
-    private Encargado encargado;
+    private Usuario encargado;
 
     public Sala() {
     }
 
-    public Sala(int id, String codigo, String nombre, String tipo, Edificio edificio, Encargado encargado) {
+    public Sala(int id, String codigo, String nombre, String tipo, Edificio edificio, Usuario encargado) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -61,11 +61,11 @@ public class Sala {
         this.edificio = edificio;
     }
 
-    public Encargado getEncargado() {
+    public Usuario getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(Encargado encargado) {
+    public void setEncargado(Usuario encargado) {
         this.encargado = encargado;
     }
 

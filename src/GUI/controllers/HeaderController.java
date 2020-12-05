@@ -5,7 +5,6 @@
  */
 package GUI.controllers;
 
-import Control.CargarDatosAdministrador;
 import Control.CargarDatosUsuario;
 import Entidad.Usuario;
 import java.io.IOException;
@@ -34,7 +33,6 @@ import javafx.stage.Stage;
 public class HeaderController implements Initializable {
 
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
-    CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
 
     @FXML
     private Rectangle userBox;
@@ -54,7 +52,6 @@ public class HeaderController implements Initializable {
     @FXML
     void logoutBtnAction(ActionEvent event) throws IOException {
         //Cerrar sesion.
-        cargarDatosAdministrador.resetData();
         cargarDatosUsuario.resetData();
         Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/login.fxml"));
         Scene newScene = new Scene(newParent);
@@ -72,9 +69,6 @@ public class HeaderController implements Initializable {
         if (cargarDatosUsuario.isCarga()) {
             nombreEstudianteT.setText(cargarDatosUsuario.getUser().getNombres() + " " + cargarDatosUsuario.getUser().getApellidos());
             correoEstudianteT.setText(cargarDatosUsuario.getUser().getId() + "@unal.edu.co");
-        } else {
-            nombreEstudianteT.setText(cargarDatosAdministrador.getEncargado().getNombres() + " " + cargarDatosAdministrador.getEncargado().getApellidos());
-            correoEstudianteT.setText(cargarDatosAdministrador.getEncargado().getId() + "@unal.edu.co");
         }
     }
 

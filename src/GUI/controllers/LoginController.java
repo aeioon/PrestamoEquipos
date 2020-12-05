@@ -1,9 +1,7 @@
 package GUI.controllers;
 
-import Control.CargarDatosAdministrador;
 import Control.CargarDatosUsuario;
 import Control.ValidarLogin;
-import Entidad.Encargado;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +34,6 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
-    CargarDatosAdministrador cargarDatosAdministrador = CargarDatosAdministrador.getInstance();
 
     @FXML
     private BorderPane panelPrincipal;
@@ -80,30 +77,26 @@ public class LoginController implements Initializable {
             usuario.setContraseña(passwordLoginTF.getText());
             usuario = validar.verificarUsuario(usuario);
             if (usuario != null) {
-                cargarDatosUsuario.cargar(usuario);
-                cargarDatosUsuario.setUser(usuario);
-                Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                Parent newParent;
+                if (usuario.getRol() ==0 ){
+                    cargarDatosUsuario.cargar(usuario);
+                    cargarDatosUsuario.setUser(usuario);
+                    newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
+                    
+                } else{
+                    cargarDatosUsuario.cargar(usuario);
+                    cargarDatosUsuario.setUser(usuario);
+                    newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
+                }
                 Scene newScene = new Scene(newParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(newScene);
                 window.show();
             } else {
-                Encargado encargado = new Encargado();
-                encargado.setId(userLoginTF.getText());
-                encargado.setContraseña(passwordLoginTF.getText());
-                encargado = validar.verificarAdministrador(encargado);
-                if (encargado != null) {
-                    cargarDatosAdministrador.setEncargado(encargado);
-                    Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
-                    Scene newScene = new Scene(newParent);
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(newScene);
-                    window.show();
-                } else {
                     AdvertenciapLB.setText("El usuario y la contraseña no coinciden");
                     AdvertenciapLB.setVisible(true);
-                }
             }
+            
         }
     }
 

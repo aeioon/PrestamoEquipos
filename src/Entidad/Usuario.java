@@ -8,18 +8,20 @@ public class Usuario {
     private String apellidos;
     private String carrera;
     private String facultad;
+    private int rol;
    
 
     public Usuario() {
     }
 
-    public Usuario(String id, String contraseña, String nombres, String apellidos, String carrera, String facultad) {
+    public Usuario(String id, String contraseña, String nombres, String apellidos, String carrera, String facultad,int rol) {
         this.id = id;
         this.contraseña = contraseña;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.carrera = carrera;
         this.facultad = facultad;
+        this.rol = rol;
     }
 
     @Override
@@ -76,6 +78,13 @@ public class Usuario {
     public void setFacultad(String facultad) {
         this.facultad = facultad;
     }
-    
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
+    }
     
 }

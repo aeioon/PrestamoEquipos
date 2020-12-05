@@ -36,8 +36,8 @@
             </Label>
             <Button fx:id="backToAllStatsBtn" layoutX="810.0" layoutY="525.0" mnemonicParsing="false" onAction="#backToAllStatsBtnAction" prefHeight="35.0" prefWidth="110.0" text="Volver" />
             <TableView fx:id="singleProgramTable" layoutX="98.0" layoutY="118.0" prefHeight="350.0" prefWidth="820.0" />
-            <Label fx:id="labelSuccess" layoutX="97.0" layoutY="493.0" prefHeight="17.0" prefWidth="79.0" text="Label" />
-            <Label fx:id="labelNoSuccess" layoutX="97.0" layoutY="525.0" prefHeight="17.0" prefWidth="88.0" text="Label" />
+            <Label fx:id="labelSuccess" layoutX="97.0" layoutY="493.0" prefHeight="21.0" prefWidth="603.0" text="Label" />
+            <Label fx:id="labelNoSuccess" layoutX="97.0" layoutY="525.0" prefHeight="21.0" prefWidth="628.0" text="Label" />
          </children>
       </AnchorPane>
    </children>

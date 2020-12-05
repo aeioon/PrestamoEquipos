@@ -57,7 +57,6 @@ public class ConfirmRequestController implements Initializable {
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
         solicitud = LoanRequestController.getSolicitud();
-        System.out.println("ESTA LIBRE: " + RP.computerIsFree(computador));
         if (RP.computerIsFree(computador)) {
             if (RP.makeBorrow(solicitud, computador)) {
                 System.out.println("Se realizo el prestamo!");

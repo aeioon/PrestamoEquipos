@@ -39,6 +39,7 @@ public class UsuarioDAO {
                 usuarioCompleto.setApellidos(resultSet.getString(4));
                 usuarioCompleto.setCarrera(resultSet.getString(5));
                 usuarioCompleto.setFacultad(resultSet.getString(6));
+                usuarioCompleto.setRol(resultSet.getInt(7));
             }
             return usuarioCompleto;
         } catch (SQLException ex) {

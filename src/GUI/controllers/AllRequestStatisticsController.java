@@ -59,8 +59,8 @@ public class AllRequestStatisticsController implements Initializable {
     XYChart.Series allChartSet = new XYChart.Series<String, Number>();
     //XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
     XYChart.Series allChartSet2 = new XYChart.Series<String, Number>();
-    ProgramaDAO pd = new ProgramaDAO();
-    ArrayList<Programa> programList = pd.getAllProgramsAvailable();
+    ProgramaDAO programaDao = new ProgramaDAO();
+    ArrayList<Programa> programList = programaDao.getAllProgramsAvailable();
     private ObservableList<ProgramRequestRow> requestList = FXCollections.observableArrayList();
 
     
@@ -85,7 +85,7 @@ public class AllRequestStatisticsController implements Initializable {
             
             //args NombrePrograma, cantidad numerica y Programa 
             //Se pasa p = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
-            int[] stats = pd.getRequestStats(p);
+            int[] stats = programaDao.getRequestStats(p);
             allChartSet.getData().add(new XYChart.Data(p.getNombre(), stats[0], p));
             allChartSet2.getData().add(new XYChart.Data(p.getNombre(), stats[1], p));
 
@@ -177,18 +177,13 @@ public class AllRequestStatisticsController implements Initializable {
     void actualizarTabla(Programa selected){
         requestList.clear();
         singleProgramTable.refresh();
-        ArrayList<String[]> cols = pd.getProgramRequestHistory(selected);
-        for (String x: cols.get(0)) {
-                    System.out.println("Info " +x);
-                }
+        ArrayList<String[]> cols = programaDao.getProgramRequestHistory(selected);
         for(String[] col: cols){
             requestList.add( new ProgramRequestRow(col[0], col[1], col[2], col[3], col[4]));
         }
         singleProgramTable.setItems(requestList);
         
-        int[] success = pd.getRequestStats(selected);
-        System.out.println("hcjjenjce "+ success[1]);
-        
+        int[] success = programaDao.getRequestStats(selected);
         double perSuccess = ((double)(success[0])/(success[1]+success[0]))+0.0001;
         String texto="", doubleString = Double.toString(perSuccess);
         

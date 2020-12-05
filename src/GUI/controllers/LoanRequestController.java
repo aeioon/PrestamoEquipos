@@ -217,7 +217,6 @@ public class LoanRequestController implements Initializable {
             selectedComputer[1] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
             selectedComputer[2] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
             selectedComputer[3] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
-            solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaInicio);
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -301,6 +300,8 @@ public class LoanRequestController implements Initializable {
             availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         }
 
+        solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaInicio);
+        
         if (availableComputersInfo.size() != 0) {
             warningText.setText("");
         } else {
