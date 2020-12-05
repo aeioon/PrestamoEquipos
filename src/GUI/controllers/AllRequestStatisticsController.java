@@ -10,18 +10,13 @@ import Entidad.Programa;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,9 +26,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-
 /**
  * FXML Controller class
  *
@@ -56,7 +48,7 @@ public class AllRequestStatisticsController implements Initializable {
 
     @FXML private Label singleProgramLabel;
     
-    @FXML private TableView<?> singleProgramTable;
+    @FXML private TableView<ProgramRequestRow> singleProgramTable;
 
     @FXML private Label labelSuccess;
 
@@ -69,6 +61,8 @@ public class AllRequestStatisticsController implements Initializable {
     XYChart.Series allChartSet2 = new XYChart.Series<String, Number>();
     ProgramaDAO pd = new ProgramaDAO();
     ArrayList<Programa> programList = pd.getAllProgramsAvailable();
+    private ObservableList<ProgramRequestRow> requestList = FXCollections.observableArrayList();
+
     
     static Programa selectedProgram;
     
@@ -86,13 +80,14 @@ public class AllRequestStatisticsController implements Initializable {
         
         //Nombres de todos los programas y una cantidad como las solicitudes
         
+        
         for(Programa p : programList){
             
             //args NombrePrograma, cantidad numerica y Programa 
             //Se pasa p = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
-            
-            allChartSet.getData().add(new XYChart.Data(p.getNombre(), p.getId(), p));
-            allChartSet2.getData().add(new XYChart.Data(p.getNombre(), p.getId()/2, p));
+            int[] stats = pd.getRequestStats(p);
+            allChartSet.getData().add(new XYChart.Data(p.getNombre(), stats[0], p));
+            allChartSet2.getData().add(new XYChart.Data(p.getNombre(), stats[1], p));
 
         }
         //Nombres de los ejes x, y
@@ -105,26 +100,35 @@ public class AllRequestStatisticsController implements Initializable {
             .forEach(n -> n.setStyle("-fx-bar-fill: #588FA7;"));
     }
     
-    void singleTableData(){
+    void singleTableData(){        
         
-        TableColumn programName = new TableColumn("1");
-        programName.setCellValueFactory(new PropertyValueFactory<>("1"));
+        TableColumn idSolicitud = new TableColumn("Id Solicitud");
+        idSolicitud.setCellValueFactory(new PropertyValueFactory<>("idSolicitud"));
+        idSolicitud.prefWidthProperty().bind(singleProgramLabel.widthProperty().multiply(0.2));
+        idSolicitud.setResizable(false);
 
-        TableColumn userName = new TableColumn("2");
-        userName.setCellValueFactory(new PropertyValueFactory<>("2"));
+        TableColumn userName = new TableColumn("Usuario");
+        userName.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        userName.prefWidthProperty().bind(singleProgramLabel.widthProperty().multiply(0.52));
+        userName.setResizable(false);
         
-        TableColumn startDate = new TableColumn("3");
-        startDate.setCellValueFactory(new PropertyValueFactory<>("3"));
+        TableColumn startDate = new TableColumn("Fecha de inicio");
+        startDate.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        startDate.prefWidthProperty().bind(singleProgramLabel.widthProperty().multiply(0.52));
+        startDate.setResizable(false);
         
-        TableColumn endDate = new TableColumn("4");
-        endDate.setCellValueFactory(new PropertyValueFactory<>("4"));
+        TableColumn endDate = new TableColumn("Fecha de Fin");
+        endDate.setCellValueFactory(new PropertyValueFactory<>("fechafinal"));
+        endDate.prefWidthProperty().bind(singleProgramLabel.widthProperty().multiply(0.52));
+        endDate.setResizable(false);
         
-        TableColumn success = new TableColumn("5");
-        success.setCellValueFactory(new PropertyValueFactory<>("5"));
+        TableColumn success = new TableColumn("Éxito");
+        success.setCellValueFactory(new PropertyValueFactory<>("exito"));
+        success.prefWidthProperty().bind(singleProgramLabel.widthProperty().multiply(0.22));
+        success.setResizable(false);
         
         singleProgramTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        singleProgramTable.getColumns().addAll(programName, userName, startDate, endDate, success);
-        //singleProgramTable.setItems();
+        singleProgramTable.getColumns().addAll(idSolicitud, userName, startDate, endDate, success);
 
     }
     /*  
@@ -169,7 +173,48 @@ public class AllRequestStatisticsController implements Initializable {
        
     }
     */
+    
+    void actualizarTabla(Programa selected){
+        requestList.clear();
+        singleProgramTable.refresh();
+        ArrayList<String[]> cols = pd.getProgramRequestHistory(selected);
+        for (String x: cols.get(0)) {
+                    System.out.println("Info " +x);
+                }
+        for(String[] col: cols){
+            requestList.add( new ProgramRequestRow(col[0], col[1], col[2], col[3], col[4]));
+        }
+        singleProgramTable.setItems(requestList);
         
+        int[] success = pd.getRequestStats(selected);
+        System.out.println("hcjjenjce "+ success[1]);
+        
+        double perSuccess = ((double)(success[0])/(success[1]+success[0]))+0.0001;
+        String texto="", doubleString = Double.toString(perSuccess);
+        
+        for (int i = 1; i <= 4; i++) {
+            try{
+                texto= doubleString.substring(0, i);
+            }catch(Exception e){
+                System.out.println(e);
+                break;
+            }
+        }
+        labelSuccess.setText("Porcentaje solicitudes exitosas "+ texto + "%");
+        perSuccess = ((double)(success[1])/(success[1]+success[0]));
+        texto=""; doubleString = Double.toString(perSuccess);
+        
+        for (int i = 1; i <= 4; i++) {
+            try{
+                texto= doubleString.substring(0, i);
+            }catch(Exception e){
+                System.out.println(e);
+                break;
+            }
+        }
+        labelNoSuccess.setText("Porcentaje solicitudes exitosas "+ texto + "%");
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
@@ -186,8 +231,10 @@ public class AllRequestStatisticsController implements Initializable {
                     System.out.println("La ID del programa clickeado es "+ selectedProgram.getId());
                     System.out.println(selectedProgram);
                     allRequestsPane.setVisible(false);
-                    singleProgramLabel.setText("Solicitudes: "+selectedProgram.getNombre());
+                    actualizarTabla(selectedProgram);
+                    singleProgramLabel.setText("Solicitudes: "+selectedProgram.getNombre());                    
                     programRequestsPane.setVisible(true);
+                    
                 });
             }
         }    
