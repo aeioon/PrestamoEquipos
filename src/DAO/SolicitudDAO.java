@@ -4,6 +4,7 @@ import static DAO.ComputadorDAO.DB_URL;
 import Entidad.Solicitud;
 import Entidad.Programa;
 import Entidad.Usuario;
+import Entidad.Computador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -27,7 +28,39 @@ public class SolicitudDAO {
             = "4waxA687";
 
    
+    public boolean verifyComputerOccupation(Computador computador){
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT SO.Id_Solicitud\n" +
+                                               "FROM Solicitud AS SO\n" +
+                                               "WHERE SO.Id_Solicitud IN(SELECT Max(Id_Solicitud)\n" +
+                                               "FROM Solicitud INNER JOIN Computador ON Solicitud.ComputadorId_Equipo = Computador.Id_Equipo\n" +
+                                               "WHERE '" + LocalDateTime.now() + "' > Solicitud.FechaHoraInicio AND '" + LocalDateTime.now() + "' < Solicitud.FechaHoraFin AND ComputadorId_Equipo = " + computador.getId() + ");");
+            while (resultSet.next()) {
+                return false;
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return resultSet.next();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
     
+    // Devuelve el id de una solicitud
     public int getIdSolicitud(Solicitud solicitud) {
         int id = -1;
         Connection connection = null;
@@ -37,7 +70,7 @@ public class SolicitudDAO {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String query = "SELECT max(Id_Solicitud) FROM Solicitud WHERE UsuarioId_Usuario = '" +  solicitud.getUsuario().getId() + "' AND ComputadorId_Equipo ='" + solicitud.getComputador().getId() + "';";
+            String query = "SELECT max(Id_Solicitud) FROM Solicitud WHERE UsuarioId_Usuario = '" +  solicitud.getUsuario().getId()+ "'";
             resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 id = resultSet.getInt(1);
@@ -58,6 +91,7 @@ public class SolicitudDAO {
         }
     }
 
+    // verifica que el usuario no tenga un dispositivo de computo asignado a su cuenta
     public boolean VerifyActivity(Usuario usuario) {
         Connection connection = null;
         Statement statement = null;
@@ -94,9 +128,7 @@ public class SolicitudDAO {
         }
     }
 
-    public boolean crear(Solicitud object) {
-        java.util.Date miObjetoJavaUtilDate = new Date();
-        Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
+    public boolean makeBorrow(Solicitud solicitud, Computador computador){
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -104,8 +136,7 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
-                    + object.getFechaHoraInicio() + "','" + object.getFechaHoraFin() + "',"+ object.getComputador().getId() + ",'" + object.getUsuario().getId() + "')");
+            resultSet = statement.executeUpdate("UPDATE Solicitud SET ComputadorId_Equipo = " + computador.getId() + ", FechaHoraInicio = '" + solicitud.getFechaHoraInicio()+ "', FechaHoraFin = '" + solicitud.getFechaHoraFin() + "' WHERE Id_Solicitud = " + solicitud.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -118,7 +149,32 @@ public class SolicitudDAO {
                 System.out.println("Error en SQL" + ex);
             }
         }
-
+    }
+    
+    public boolean crear(Solicitud object) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            java.util.Date miObjetoJavaUtilDate = new Date();
+            Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
+            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
+                    + object.getFechaHoraInicio() + "','" + object.getFechaHoraFin() + "',"+ null + ",'" + object.getUsuario().getId() + "')");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println("Error en SQL" + ex);
+            }
+        }
     }
 
     public boolean leer(Solicitud par) {

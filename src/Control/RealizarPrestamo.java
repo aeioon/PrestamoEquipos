@@ -36,26 +36,39 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Usuario usuario, Computador computer, ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
+    public boolean makeBorrow(Solicitud solicitud, Computador computador) {
+        solicitud.setFechaHoraInicio(LocalDateTime.now());
+        solicitud.setFechaHoraFin(LocalDateTime.now().plusHours(1));
+        return solicitudDao.makeBorrow(solicitud, computador);
+    }
+
+    public Solicitud createRequest(Usuario usuario, ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         Solicitud solicitud = new Solicitud();
         solicitud.setUsuario(usuario);
-        solicitud.setComputador(computer);
         solicitud.setFechaHoraInicio(fechaHoraInicio);
         solicitud.setFechaHoraFin(fechaHoraFin);
         if (solicitudDao.crear(solicitud)) {
+            solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    boolean estadoPrestamo = true;
-                    solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-                    for (int i = 0; i < programs.size(); i++) {
-                        estadoPrestamo = estadoPrestamo && programaSolicitudDao.crear(programs.get(i), solicitud);
+                    try {
+                        for (int i = 0; i < programs.size(); i++) {
+                            programaSolicitudDao.crear(programs.get(i), solicitud);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error Programa_Solicitud");
                     }
+
                 }
             }).start();
-            return true;
+            return solicitud;
         } else {
-            return false;
+            return null;
         }
+    }
+
+    public boolean computerIsFree(Computador computador) {
+        return solicitudDao.verifyComputerOccupation(computador);
     }
 }

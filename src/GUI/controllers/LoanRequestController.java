@@ -5,6 +5,7 @@ import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
 import Entidad.Computador;
 import Entidad.Programa;
+import Entidad.Solicitud;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -49,8 +52,8 @@ import javafx.scene.layout.AnchorPane;
  */
 public class LoanRequestController implements Initializable {
 
-    //quizas metodo estatico
-    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
+    ArrayList<Programa> selectedProgramArr = new ArrayList<>();
+    CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
 
@@ -91,9 +94,36 @@ public class LoanRequestController implements Initializable {
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
 
-    private int idComputerSelected;
+    private static String[] selectedComputer = {"", "", "", ""};
     private static LocalDateTime fechaInicio;
     private static LocalDateTime fechaFinal;
+    private static Solicitud solicitud;
+    private static boolean prestamo = true;
+    private static boolean solicitudCreada = false;
+
+    public static boolean isSolicitudCreada() {
+        return solicitudCreada;
+    }
+
+    public static void setSolicitudCreada(boolean solicitudCreada) {
+        LoanRequestController.solicitudCreada = solicitudCreada;
+    }
+
+    public static String[] getSelectedComputer() {
+        return selectedComputer;
+    }
+
+    public static void setSelectedComputer(String[] selectedComputer) {
+        LoanRequestController.selectedComputer = selectedComputer;
+    }
+
+    public static boolean isPrestamo() {
+        return prestamo;
+    }
+
+    public static void setPrestamo(boolean prestamo) {
+        LoanRequestController.prestamo = prestamo;
+    }
 
     public static LocalDateTime getFechaInicio() {
         return fechaInicio;
@@ -105,6 +135,14 @@ public class LoanRequestController implements Initializable {
 
     public static LocalDateTime getFechaFinal() {
         return fechaFinal;
+    }
+
+    public static Solicitud getSolicitud() {
+        return solicitud;
+    }
+
+    public static void setSolicitud(Solicitud solicitud) {
+        LoanRequestController.solicitud = solicitud;
     }
 
     public static void setFechaFinal(LocalDateTime fechaFinal) {
@@ -162,10 +200,7 @@ public class LoanRequestController implements Initializable {
 
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
-
-        Usuario user = cargarDatos.getUser();
-        Computador selectedComputer = new Computador();
-        selectedComputer.setId(idComputerSelected);
+        Usuario user = cargarDatosUsuario.getUser();
         ArrayList<Programa> programList = new ArrayList<>();
 
         selectedProgramList.forEach(p -> {
@@ -176,40 +211,30 @@ public class LoanRequestController implements Initializable {
             warningText.setText("Error relacionado a la sesion");
             System.out.println("Error relacionado a la sesion.");
         }
+        try {
+            cargarDatosUsuario.setPrograms(programList);
+            selectedComputer[0] = availableComputersTable.getSelectionModel().getSelectedItem().getId();
+            selectedComputer[1] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
+            selectedComputer[2] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
+            selectedComputer[3] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
+            solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaInicio);
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 437, 209);
+            Stage stagePop = new Stage();
+            stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
+            stagePop.setTitle("Confirmar prestamo");
+            stagePop.setScene(scene);
+            stagePop.showAndWait();
 
-        if (idComputerSelected != 0) {
-            try {
-
-                cargarDatos.setPrograms(programList);
-                String[] computadorSelecionado = {"", "", "", "", ""};
-                computadorSelecionado[0] = "0";
-                computadorSelecionado[1] = availableComputersTable.getSelectionModel().getSelectedItem().getId();
-                computadorSelecionado[2] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
-                computadorSelecionado[3] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
-                computadorSelecionado[4] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
-                cargarDatos.getDatosEquipos().add(computadorSelecionado);
-
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 437, 209);
-                Stage stagePop = new Stage();
-                stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
-                stagePop.setTitle("Confirmar prestamo");
-                stagePop.setScene(scene);
-                stagePop.showAndWait();
-
-                //Vuelve al home si se hizo un prestamo.
-                if (cargarDatos.isActivo()) {
-                    changeScene(event, "/GUI/views/studentHome.fxml");
-                }
-
-            } catch (IOException e) {
-                System.err.println(String.format("Error: %s", e.getMessage()));
+            //Vuelve al home si se hizo un prestamo.
+            if (cargarDatosUsuario.isActivo()) {
+                changeScene(event, "/GUI/views/studentHome.fxml");
             }
-        } else {
+
+        } catch (Exception e) {
             warningText.setText("Olvidaste seleccionar un computador");
         }
-
     }
 
     @FXML
@@ -217,7 +242,7 @@ public class LoanRequestController implements Initializable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                cargarDatos.cargar(cargarDatos.getUser());
+                cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
             }
         }).start();
         Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/studentHome.fxml"));
@@ -254,12 +279,11 @@ public class LoanRequestController implements Initializable {
     }
 
     @FXML
-    void searchComputersBtnAction(ActionEvent event) {
-
+    void searchComputersBtnAction(ActionEvent event) {        
         computerTableSection.setVisible(true);
         computerList.clear();
+        selectedProgramArr.clear();
         availableComputersTable.refresh();
-        ArrayList<Programa> selectedProgramArr = new ArrayList<>();
         selectedProgramList.forEach(p -> {
             selectedProgramArr.add(p);
         });
@@ -378,19 +402,18 @@ public class LoanRequestController implements Initializable {
             }
         });
 
-        availableComputersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 1) {
-                    try {
-                        idComputerSelected = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
-                    } catch (Exception e) {
-
-                    }
-                }
-            }
-        });
-
+//        availableComputersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent click) {
+//                if (click.getClickCount() == 1) {
+//                    try {
+//                        selectedComputer[0] = Integer.parseInt(availableComputersTable.getSelectionModel().getSelectedItem().getId());
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//            }
+//        });
         date.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);

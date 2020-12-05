@@ -74,11 +74,7 @@ public class EquipmentInformationController implements Initializable {
                 softwareText = softwareText + ", ";
             }
         }
-        
-        
         softwareTX.setText(softwareText);
-        
-        
     }    
     
 }

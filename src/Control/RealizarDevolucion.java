@@ -19,7 +19,7 @@ public class RealizarDevolucion {
 
     public boolean makeReturn(Usuario usuario, Computador computador, boolean activo) {
         if (activo) {
-            return computadorDao.freeComputer(computador);
+            return computadorDao.returnComputer(computador);
         } else {
             return false;
         }

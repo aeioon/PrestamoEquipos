@@ -135,7 +135,7 @@ public class ComputadorDAO {
         }
     }
 
-    public boolean freeComputer(Computador computer) {
+    public boolean returnComputer(Computador computer) {
         Connection connection = null;
         Statement statement = null;
         int resultSet;
@@ -146,7 +146,7 @@ public class ComputadorDAO {
             resultSet = statement.executeUpdate("UPDATE Solicitud\n" +
                                                 "SET\n" +
                                                 "FechaHoraFin = '"+LocalDateTime.now()+"'\n" +
-                                                "WHERE '"+LocalDateTime.now()+"' >= Solicitud.FechaHoraInicio AND '"+LocalDateTime.now()+"' <= Solicitud.FechaHoraFin AND ComputadorId_Equipo = "+ computer.getId());
+                                                "WHERE '"+LocalDateTime.now()+"' >= Solicitud.FechaHoraInicio AND '" + LocalDateTime.now()+"' <= Solicitud.FechaHoraFin AND ComputadorId_Equipo = "+ computer.getId());
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
@@ -205,7 +205,6 @@ public class ComputadorDAO {
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
                 String[] fila = new String[4];
-
                 fila[0] = Integer.toString(resultSet.getInt(1));
                 fila[1] = Integer.toString(resultSet.getInt(2));
                 fila[2] = resultSet.getString(3);

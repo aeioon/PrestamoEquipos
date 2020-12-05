@@ -5,10 +5,13 @@ import Control.RealizarDevolucion;
 import Control.RealizarPrestamo;
 import Entidad.Computador;
 import Entidad.Programa;
+import Entidad.Solicitud;
 import Entidad.Usuario;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +29,9 @@ import javafx.stage.Stage;
 public class ConfirmRequestController implements Initializable {
 
     CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
-    
+    Solicitud solicitud = new Solicitud();
+    Computador computador = new Computador();
+
     @FXML
     private Button cancelRequestBtn;
 
@@ -43,7 +48,7 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void cancelRequestBtnAction(ActionEvent event) {
-        cargarDatos.getDatosEquipos().remove(cargarDatos.getDatosEquipos().size()-1);
+        cargarDatos.getDatosEquipos().remove(cargarDatos.getDatosEquipos().size() - 1);
         Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
         stage.close();
     }
@@ -51,32 +56,33 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void loanBtnAction(ActionEvent event) {
         RealizarPrestamo RP = new RealizarPrestamo();
-        Computador comp = new Computador();
-        comp.setId(Integer.parseInt(cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[1]));
-        
-        if (RP.makeBorrow(cargarDatos.getUser(), comp, cargarDatos.getPrograms(),LoanRequestController.getFechaInicio(), LoanRequestController.getFechaFinal())) {
-            System.out.println("Se realizo el prestamo!");
-            cargarDatos.setActivo(true);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    cargarDatos.cargar(cargarDatos.getUser());
-                }
-            }).start();
-            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
-            stage.close();
-        } else {
-            message.setText("Fallo el prestamo");
-            computerText.setText("");
+        solicitud = LoanRequestController.getSolicitud();
+        System.out.println("ESTA LIBRE: " + RP.computerIsFree(computador));
+        if (RP.computerIsFree(computador)) {
+            if (RP.makeBorrow(solicitud, computador)) {
+                System.out.println("Se realizo el prestamo!");
+                cargarDatos.setActivo(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        cargarDatos.cargar(cargarDatos.getUser());
+                    }
+                }).start();
+                Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+                stage.close();
+            } else {
+                message.setText("Fallo el prestamo");
+                computerText.setText("");
+            }
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #" + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[1]
-                + " en el edificio " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[2]
-                + " " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[3]
-                + " de la sala " + cargarDatos.getDatosEquipos().get(cargarDatos.getDatosEquipos().size()-1)[4]);
+        computerText.setText("Computador #" + LoanRequestController.getSelectedComputer()[0]
+                + " en el edificio " + LoanRequestController.getSelectedComputer()[1]
+                + " " + LoanRequestController.getSelectedComputer()[2]
+                + " de la sala " + LoanRequestController.getSelectedComputer()[3]);
+        computador.setId(Integer.parseInt(LoanRequestController.getSelectedComputer()[0]));
     }
-
 }

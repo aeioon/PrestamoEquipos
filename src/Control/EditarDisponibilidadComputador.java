@@ -17,6 +17,6 @@ public class EditarDisponibilidadComputador {
     ComputadorDAO computadorDao = new ComputadorDAO();
     
     public boolean makeReturn(Computador computador){
-        return computadorDao.freeComputer(computador);
+        return computadorDao.returnComputer(computador);
     }
 }

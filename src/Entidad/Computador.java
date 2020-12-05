@@ -1,6 +1,5 @@
 package Entidad;
 
-
 public class Computador {
     private int id;
     private String sistemaOperativo;
@@ -17,6 +16,7 @@ public class Computador {
     }
 
     public Computador() {
+        this.id = 0;
     }
 
     public int getId() {
