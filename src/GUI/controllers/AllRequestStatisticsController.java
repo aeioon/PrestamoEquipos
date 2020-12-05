@@ -185,6 +185,9 @@ public class AllRequestStatisticsController implements Initializable {
             requestList.add( new ProgramRequestRow(col[0], col[1], col[2], col[3], col[4]));
         }
         singleProgramTable.setItems(requestList);
+        int[] success = pd.getRequestStats(selected);
+        labelSuccess.setText("Porcentaje solicitudes exitosas "+ Double.toString((success[0]/(success[1]+success[0]))).substring(0, 3) + "%");
+        labelNoSuccess.setText("Porcentaje solicitudes exitosas "+ Double.toString((success[1]/(success[1]+success[0]))).substring(0, 3) + "%");
     }
     
     @Override
