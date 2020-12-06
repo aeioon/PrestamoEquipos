@@ -1,7 +1,9 @@
 package GUI.controllers;
 
 import Control.CargarDatosUsuario;
+import Control.RealizarPrestamo;
 import Entidad.Programa;
+import Entidad.Solicitud;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
@@ -30,10 +32,12 @@ import javafx.stage.Stage;
 
 public class ComputerAvailableController implements Initializable {
 
-    private static String[] selectedComputer = {"", "", "", ""};
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
-    private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
+    RealizarPrestamo RP = new RealizarPrestamo();
+    
+    private static String[] selectedComputer = {"", "", "", ""};
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
+    private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
 
     @FXML
     private Button backHomeBtn;
@@ -69,13 +73,12 @@ public class ComputerAvailableController implements Initializable {
 
     @FXML
     void AskLoanBtnAction(ActionEvent event) {
-        Usuario user = cargarDatosUsuario.getUser();
-
         try {
             selectedComputer[0] = availableComputersTable.getSelectionModel().getSelectedItem().getId();
             selectedComputer[1] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
             selectedComputer[2] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
             selectedComputer[3] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
+            
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -84,6 +87,7 @@ public class ComputerAvailableController implements Initializable {
             stagePop.setTitle("Confirmar prestamo");
             stagePop.setScene(scene);
             stagePop.showAndWait();
+            
             //Vuelve al home si se hizo un prestamo.
             if (cargarDatosUsuario.isActivo()) {
                 if (ConfirmRequestController.isPrestamo()) {

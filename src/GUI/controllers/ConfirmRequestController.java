@@ -9,6 +9,7 @@ import Entidad.Solicitud;
 import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,9 +33,10 @@ import javafx.stage.Stage;
  */
 public class ConfirmRequestController implements Initializable {
 
-    CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
-    Solicitud solicitud = new Solicitud();
+    CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     Computador computador = new Computador();
+    RealizarPrestamo RP = new RealizarPrestamo();
+    
     private static boolean prestamo = false;
 
     @FXML
@@ -49,15 +51,13 @@ public class ConfirmRequestController implements Initializable {
     @FXML
     void loanBtnAction(ActionEvent event) throws IOException {
         RealizarPrestamo RP = new RealizarPrestamo();
-        solicitud = SoftwareSelectedController.getSolicitud();
         if (RP.computerIsFree(computador)) {
-            if (RP.makeBorrow(solicitud, computador)) {
-                prestamo = true;
-                cargarDatos.setActivo(true);
+            if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
+                cargarDatosUsuario.setActivo(true);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        cargarDatos.cargar(cargarDatos.getUser());
+                        cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
                     }
                 }).start();
                 Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();

@@ -36,11 +36,25 @@ public class RealizarPrestamo {
         return computadores;
     }
 
-    public boolean makeBorrow(Solicitud solicitud, Computador computador) {
-        if (solicitud.getFechaHoraInicio().isBefore(LocalDateTime.now()) && LocalDateTime.now().isBefore(solicitud.getFechaHoraFin())) {
-            solicitud.setFechaHoraInicio(LocalDateTime.now());
-            solicitud.setFechaHoraFin(LocalDateTime.now().plusHours(1));
-        }
+    public boolean makeBorrow(Usuario usuario, Computador computador, ArrayList<Programa> programs, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
+        Solicitud solicitud = new Solicitud();
+        solicitud.setUsuario(usuario);
+        solicitud.setFechaHoraInicio(fechaHoraInicio);
+        solicitud.setFechaHoraFin(fechaHoraFin);
+        solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
+        solicitud.setComputador(computador);
+        new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 0; i < programs.size(); i++) {
+                            programaSolicitudDao.crear(programs.get(i), solicitud);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error Programa_Solicitud");
+                    }
+                }
+            }).start();
         return solicitudDao.makeBorrow(solicitud, computador);
     }
 
@@ -48,9 +62,7 @@ public class RealizarPrestamo {
         Solicitud solicitud = new Solicitud();
         solicitud.setUsuario(usuario);
         solicitud.setFechaHoraInicio(fechaHoraInicio);
-        System.err.println("Inicio: " + solicitud.getFechaHoraInicio());
         solicitud.setFechaHoraFin(fechaHoraFin);
-        System.err.println("Fin: " + solicitud.getFechaHoraFin());
         if (solicitudDao.crear(solicitud)) {
             solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
             new Thread(new Runnable() {

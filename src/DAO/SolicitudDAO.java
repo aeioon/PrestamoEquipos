@@ -136,7 +136,10 @@ public class SolicitudDAO {
             resultSet = -1;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeUpdate("UPDATE Solicitud SET ComputadorId_Equipo = " + computador.getId() + ", FechaHoraInicio = '" + solicitud.getFechaHoraInicio()+ "', FechaHoraFin = '" + solicitud.getFechaHoraFin() + "' WHERE Id_Solicitud = " + solicitud.getId());
+            java.util.Date miObjetoJavaUtilDate = new Date();
+            Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
+            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
+                    + solicitud.getFechaHoraInicio() + "','" + solicitud.getFechaHoraFin() + "',"+ solicitud.getComputador().getId() + ",'" + solicitud.getUsuario().getId() + "')");
             return resultSet > 0;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);

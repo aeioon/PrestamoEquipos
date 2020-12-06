@@ -52,18 +52,18 @@ import javafx.scene.layout.AnchorPane;
  */
 public class SoftwareSelectedController implements Initializable {
 
-    ArrayList<Programa> selectedProgramArr = new ArrayList<>();
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
+    Solicitud solicitud;
 
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
 
+    private static ArrayList<Programa> selectedProgramArr = new ArrayList<>();
     private static ArrayList<String[]> availableComputersInfo;
     private static LocalDateTime fechaInicio;
     private static LocalDateTime fechaFinal;
-    private static Solicitud solicitud;
     private static boolean prestamo = true;
     private static boolean solicitudCreada = false;
 
@@ -127,7 +127,12 @@ public class SoftwareSelectedController implements Initializable {
             window.show();
         } else {
             warningText.setText("No hay computadores disponibles");
-            solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaFinal);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaFinal);
+                }
+            }).start();
         }
     }
 
@@ -360,15 +365,16 @@ public class SoftwareSelectedController implements Initializable {
         return fechaFinal;
     }
 
-    public static Solicitud getSolicitud() {
-        return solicitud;
-    }
-
-    public static void setSolicitud(Solicitud solicitud) {
-        SoftwareSelectedController.solicitud = solicitud;
-    }
-
     public static void setFechaFinal(LocalDateTime fechaFinal) {
         SoftwareSelectedController.fechaFinal = fechaFinal;
     }
+
+    public static ArrayList<Programa> getSelectedProgramArr() {
+        return selectedProgramArr;
+    }
+
+    public static void setSelectedProgramArr(ArrayList<Programa> selectedProgramArr) {
+        SoftwareSelectedController.selectedProgramArr = selectedProgramArr;
+    }
+
 }
