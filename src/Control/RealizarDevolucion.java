@@ -17,7 +17,7 @@ public class RealizarDevolucion {
     public RealizarDevolucion() {
     }
 
-    public boolean makeReturn(Usuario usuario, Computador computador, boolean activo) {
+    public boolean makeReturn(Computador computador, boolean activo) {
         if (activo) {
             return computadorDao.returnComputer(computador);
         } else {

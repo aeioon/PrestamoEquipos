@@ -119,7 +119,6 @@ public class SoftwareSelectedController implements Initializable {
             availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         }
         if (availableComputersInfo.size() != 0) {
-            warningText.setText("");
             Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/computerAvailable.fxml"));
             Scene newScene = new Scene(newParent);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -179,6 +178,7 @@ public class SoftwareSelectedController implements Initializable {
     void unselectProgram(Programa p) {
         if (selectedProgramList.contains(p)) {
             selectedProgramList.remove(p);
+            selectedProgramsTable.refresh();
             initActions();
         }
     }
@@ -243,7 +243,6 @@ public class SoftwareSelectedController implements Initializable {
             System.out.println("get date: " + date.getValue());
             if (date.getValue().equals(LocalDate.now())) {
                 int now = LocalTime.now().getHour();
-                System.out.println(now);
                 hour = now >= 6 ? now + 1 : 7;
             }
             ObservableList<Object> hours = FXCollections.observableArrayList();
@@ -288,7 +287,6 @@ public class SoftwareSelectedController implements Initializable {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                    System.out.println(availableProgramsTable.getSelectionModel().getSelectedItem());
                     Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
                     addProgram(programSelected);
                 }
@@ -299,7 +297,7 @@ public class SoftwareSelectedController implements Initializable {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                    Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
+                    Programa programSelected = selectedProgramsTable.getSelectionModel().getSelectedItem();
                     unselectProgram(programSelected);
                 }
             }

@@ -106,7 +106,7 @@ public class ReturnEquipmentController implements Initializable {
         if (actionBtn.getText().equals("Devolver")) {
             Computador computador = new Computador();
             computador.setId(Integer.parseInt(solicitudRow.getIdEquipo()));
-            if (RD.makeReturn(cargarDatosUsuario.getUser(), computador, cargarDatosUsuario.isActivo())) {
+            if (RD.makeReturn(computador, cargarDatosUsuario.isActivo())) {
                 System.out.println("Se realizo la devolucion!");
             } else {
                 System.out.println("Fallo en la devolucion");
