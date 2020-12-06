@@ -51,72 +51,6 @@ public class ProgramaSolicitudDAO {
 
     }
     
-    public String getTotalTimeUserBorrows(String userId){
-      Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String totalTimeUserBorrows = new String();
-        try {
-            resultSet = null;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT SEC_TO_TIME(SUM(((TIME_TO_SEC(FechaHoraFin) - TIME_TO_SEC(FechaHoraInicio))+datediff(FechaHoraFin, FechaHoraInicio)*86400))) \n"
-                    + "FROM prestamoequipos.Solicitud\n"
-                    + "WHERE UsuarioId_Usuario = \""+ userId +"\"\n");                    
-            resultSet.next();
-            totalTimeUserBorrows = resultSet.getString(1);        
-            return totalTimeUserBorrows;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return totalTimeUserBorrows;
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-                return totalTimeUserBorrows;
-            } catch (SQLException ex) {
-            }
-        }
-    }
-    
-    public String getMostUsedSoftware(String userId){
-      Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String mostUsedSoftware = new String();
-        try {
-            resultSet = null;
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();            
-            resultSet = statement.executeQuery("SELECT P.Nombre, count(P.Nombre)\n"
-                    + "FROM (Solicitud AS S INNER JOIN Programa_Solicitud AS PS ON S.Id_Solicitud = PS.Id_Solicitud) \n"
-                    + "INNER JOIN Programa AS P ON PS.Id_Programa = P.Id_Programa\n"
-                    + "WHERE S.UsuarioId_Usuario = \""+ userId +"\"\n");            
-            int currentMostUsedSoftwareCount = 0;
-            while(resultSet.next()){                
-                if(resultSet.getInt(2) > currentMostUsedSoftwareCount){
-                    currentMostUsedSoftwareCount = resultSet.getInt(2);
-                    mostUsedSoftware = resultSet.getString(1);
-                }else if(resultSet.getInt(2) == currentMostUsedSoftwareCount){
-                    mostUsedSoftware += ", " + resultSet.getString(1);
-                }
-            }
-            return mostUsedSoftware;
-        } catch (SQLException ex) {
-            System.out.println("Error en SQL" + ex);
-            return mostUsedSoftware;
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-                return mostUsedSoftware;
-            } catch (SQLException ex) {
-            }
-        }
-    }
-    
     public ArrayList<String[]> getBorrowsHistoryInfo(){
         Connection connection = null;
         Statement statement = null;
@@ -125,12 +59,36 @@ public class ProgramaSolicitudDAO {
         try {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-            statement = connection.createStatement();            
-            resultSet = statement.executeQuery("SELECT Id_Usuario "
-                    + "FROM Usuario;");                        
-            while(resultSet.next()){                
-                String[] currentTuple = {resultSet.getString(1), getMostUsedSoftware(resultSet.getString(1)), getTotalTimeUserBorrows(resultSet.getString(1))};
-                borrowsHistoryInfo.add(currentTuple);
+            statement = connection.createStatement();    
+            String consulta = "SELECT B.UsuarioId_Usuario, Nombre, Tiempo\n" +
+                                "FROM (	SELECT UsuarioId_Usuario,max(cont) AS Mas_Usado\n" +
+                                "        FROM(SELECT S.UsuarioId_Usuario, P.Nombre, count(P.Nombre) AS Cont\n" +
+                                "             FROM (Solicitud AS S INNER JOIN Programa_Solicitud AS PS ON S.Id_Solicitud = PS.Id_Solicitud)\n" +
+                                "                   INNER JOIN Programa AS P ON PS.Id_Programa = P.Id_Programa\n" +
+                                "			 GROUP BY S.UsuarioId_Usuario, P.Nombre) AS A\n" +
+                                "        GROUP BY UsuarioId_Usuario) AS B,\n" +
+                                "	 (	SELECT S.UsuarioId_Usuario, P.Nombre, count(P.Nombre) AS Cont\n" +
+                                "        FROM (Solicitud AS S INNER JOIN Programa_Solicitud AS PS ON S.Id_Solicitud = PS.Id_Solicitud)\n" +
+                                "			INNER JOIN Programa AS P ON PS.Id_Programa = P.Id_Programa\n" +
+                                "        GROUP BY S.UsuarioId_Usuario, P.Nombre) AS C,\n" +
+                                "     (	SELECT UsuarioId_Usuario, SEC_TO_TIME(SUM(((TIME_TO_SEC(FechaHoraFin) - TIME_TO_SEC(FechaHoraInicio))+datediff(FechaHoraFin, FechaHoraInicio)*86400))) AS Tiempo\n" +
+                                "        FROM prestamoequipos.Solicitud\n" +
+                                "        GROUP BY UsuarioId_Usuario) AS D\n" +
+                                "WHERE Mas_Usado = Cont AND B.UsuarioId_Usuario = C.UsuarioId_Usuario AND C.UsuarioId_Usuario = D.UsuarioId_Usuario\n" +
+                                "ORDER BY B.UsuarioId_Usuario;";
+            resultSet = statement.executeQuery(consulta);  
+            String[] lastTuple = {"", "", ""};
+            int i=0;
+            while (resultSet.next()) {                                
+                    String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3)};
+                    if(lastTuple[0].equals(currentTuple[0])){
+                        currentTuple[1] = lastTuple[1] + ", " +currentTuple[1];
+                        borrowsHistoryInfo.remove(--i);
+                    }                    
+                    borrowsHistoryInfo.add(currentTuple);
+                    lastTuple = currentTuple;
+                    i++;
+                  
             }
             return borrowsHistoryInfo;
         } catch (SQLException ex) {

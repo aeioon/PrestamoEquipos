@@ -57,36 +57,50 @@ public class UsuarioDAO {
         }
     }        
     
-    public ArrayList<String[]> getHoleUserBorrowsInfo(String userId){   
+    public ArrayList<String[]> getWholeUserBorrowsInfo(String userId){   
         ProgramaSolicitudDAO psDao  = new ProgramaSolicitudDAO();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        ArrayList<String[]> holeUserBorrowsInfo = new ArrayList<String[]>();
+        ArrayList<String[]> wholeUserBorrowsInfo = new ArrayList<String[]>();
         try {
             resultSet = null;
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT S.Id_Solicitud, S.FechaHoraInicio, S.FechaHoraFin, S.ComputadorId_Equipo, SA.Codigo, E.Código\n"
-                    + "FROM ((((Usuario AS U INNER JOIN Solicitud AS S ON U.Id_Usuario = S.UsuarioId_Usuario)	\n"
-                    + "    INNER JOIN Computador AS C ON C.Id_Equipo = S.ComputadorId_Equipo))\n"
-                    + "    INNER JOIN Sala AS SA ON SA.Id_sala = C.SalaId_sala)\n"
-                    + "    INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio\n"
-                    + "WHERE U.Id_Usuario = \"" + userId + "\" ");            
-            while (resultSet.next()) {
-                String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), psDao.getRequestPrograms(resultSet.getString(1))};                
-                holeUserBorrowsInfo.add(currentTuple);
+            String consulta = "SELECT S.Id_Solicitud, S.FechaHoraInicio, S.FechaHoraFin, S.ComputadorId_Equipo, SA.Codigo, E.Código, P.Nombre\n" +
+                                "FROM ((((((Programa AS P INNER JOIN Programa_Solicitud AS PS ON P.Id_Programa = PS.Id_Programa)\n" +
+                                "	RIGHT JOIN Solicitud AS S ON PS.Id_Solicitud = S.Id_Solicitud)\n" +
+                                "    INNER JOIN Computador AS C ON C.Id_Equipo = S.ComputadorId_Equipo))\n" +
+                                "    INNER JOIN Sala AS SA ON SA.Id_sala = C.SalaId_sala)\n" +
+                                "    INNER JOIN Edificio AS E ON E.Id_Edificio = SA.EdificioId_Edificio)   \n" +
+                                "WHERE S.Id_Solicitud   IN (SELECT DISTINCT Id_Solicitud\n" +
+                                "                           FROM Usuario INNER JOIN Solicitud ON Id_Usuario = UsuarioId_Usuario\n" +
+                                "                           WHERE Id_Usuario = '"+userId+"')\n" +
+                                "ORDER BY Id_Solicitud;";
+            resultSet = statement.executeQuery(consulta);
+            String[] lastTuple = {"", "", "", "", "", "", ""};
+            int i=0;
+            while (resultSet.next()) {                                
+                    String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7)};                
+                    if(lastTuple[0].equals(currentTuple[0])){
+                        currentTuple[6] = lastTuple[6] + ", " +currentTuple[6];
+                        wholeUserBorrowsInfo.remove(--i);
+                    }                    
+                    wholeUserBorrowsInfo.add(currentTuple);
+                    lastTuple = currentTuple;
+                    i++;
+                  
             }
-            return holeUserBorrowsInfo;
+            return wholeUserBorrowsInfo;
         } catch (SQLException ex) {
             System.out.println("Error en SQL" + ex);
-            return holeUserBorrowsInfo;
+            return wholeUserBorrowsInfo;
         } finally {
             try {
                 resultSet.close();
                 statement.close();
                 connection.close();
-                return holeUserBorrowsInfo;
+                return wholeUserBorrowsInfo;
             } catch (SQLException ex) {
 
             }

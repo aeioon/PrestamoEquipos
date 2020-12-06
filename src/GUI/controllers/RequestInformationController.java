@@ -42,30 +42,46 @@ public class RequestInformationController implements Initializable {
         TableColumn teamIdCol = new TableColumn("Solicitud");
         teamIdCol.setStyle( "-fx-alignment: CENTER;"); 
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idSolicitud"));
-
+        teamIdCol.setResizable(false);
+        teamIdCol.prefWidthProperty().bind(table.widthProperty().multiply(0.11));
+        
         TableColumn teamFechaInicioCol = new TableColumn("Fecha Inicio");
         teamFechaInicioCol.setStyle( "-fx-alignment: CENTER;"); 
         teamFechaInicioCol.setCellValueFactory(new PropertyValueFactory("fechaInicio"));
-
+        teamFechaInicioCol.prefWidthProperty().bind(table.widthProperty().multiply(0.19));
+        teamFechaInicioCol.setResizable(false);        
+        
         TableColumn teamFechaFinalCol = new TableColumn("Fecha Final");
         teamFechaFinalCol.setStyle( "-fx-alignment: CENTER;"); 
         teamFechaFinalCol.setCellValueFactory(new PropertyValueFactory("fechaFinal"));
+        teamFechaFinalCol.prefWidthProperty().bind(table.widthProperty().multiply(0.19));
+        teamFechaFinalCol.setResizable(false);
+        
         
         TableColumn teamEquipoCol = new TableColumn("Computador");
         teamEquipoCol.setStyle( "-fx-alignment: CENTER;"); 
         teamEquipoCol.setCellValueFactory(new PropertyValueFactory("computador"));
+        teamEquipoCol.prefWidthProperty().bind(table.widthProperty().multiply(0.11));
+        teamEquipoCol.setResizable(false);
+        
         
         TableColumn teamSalaCol = new TableColumn("Sala");
         teamSalaCol.setStyle( "-fx-alignment: CENTER;"); 
         teamSalaCol.setCellValueFactory(new PropertyValueFactory("sala"));
+        teamSalaCol.prefWidthProperty().bind(table.widthProperty().multiply(0.07));
+        teamSalaCol.setResizable(false);
         
         TableColumn teamEdificioCol = new TableColumn("Edificio");
         teamEdificioCol.setStyle( "-fx-alignment: CENTER;"); 
         teamEdificioCol.setCellValueFactory(new PropertyValueFactory("edificio"));
+        teamEdificioCol.prefWidthProperty().bind(table.widthProperty().multiply(0.07));
+        teamEdificioCol.setResizable(false);
         
         TableColumn teamProgramaCol = new TableColumn("Programa");
         teamProgramaCol.setStyle( "-fx-alignment: CENTER;"); 
         teamProgramaCol.setCellValueFactory(new PropertyValueFactory("programa"));
+        teamProgramaCol.prefWidthProperty().bind(table.widthProperty().multiply(0.235));
+        teamProgramaCol.setResizable(false);
         
         System.out.println("cree las columnas");
 
@@ -76,9 +92,7 @@ public class RequestInformationController implements Initializable {
         System.out.println("agregar lista");
         
         ArrayList<String[]> availableRequestsInfo = MIC.getHoleUserBorrowsInfo(user);
-        
-        System.out.println("la lista ya pedida");
-        
+       
         if(availableRequestsInfo.size() != 0){
             //advertenciaLB.setText("");
         }else{
@@ -86,11 +100,8 @@ public class RequestInformationController implements Initializable {
         }
         availableRequestsInfo.forEach(request -> {
             RequestRow temp = new RequestRow(request[0], request[1], request[2],request[3], request[4], request[5],request[6]);
-            if (!requestList.contains(temp)) {
                 requestList.add(temp);
-            }
         });
-         System.out.println("en este punto la tabla esta completa");
 
         table.refresh();
     }

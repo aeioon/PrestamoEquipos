@@ -63,18 +63,26 @@ public class HistoryController implements Initializable {
         TableColumn teamIdCol = new TableColumn("Id");
         teamIdCol.setStyle( "-fx-alignment: CENTER;"); 
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+        teamIdCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        teamIdCol.setResizable(false);
 
-        TableColumn teamUsuarioCol = new TableColumn("Software");
+        TableColumn teamUsuarioCol = new TableColumn("Software más buscado");
         teamUsuarioCol.setStyle( "-fx-alignment: CENTER;"); 
         teamUsuarioCol.setCellValueFactory(new PropertyValueFactory("SoftwareMásUtilizado"));
+        teamUsuarioCol.prefWidthProperty().bind(table.widthProperty().multiply(0.4));
+        teamUsuarioCol.setResizable(false);
 
-        TableColumn teamIdEquipoCol = new TableColumn("Promedio de prestamos");
+        TableColumn teamIdEquipoCol = new TableColumn("Tiempo total de uso");
         teamIdEquipoCol.setStyle( "-fx-alignment: CENTER;"); 
         teamIdEquipoCol.setCellValueFactory(new PropertyValueFactory("TiempoTotalDeLosPréstamos"));
+        teamIdEquipoCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        teamIdEquipoCol.setResizable(false);
         
         TableColumn teamInfoCompCol = new TableColumn("Mas Información");
         teamInfoCompCol.setStyle( "-fx-alignment: CENTER;");  
         teamInfoCompCol.setCellValueFactory(new PropertyValueFactory("botonInfo"));
+        teamInfoCompCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        teamInfoCompCol.setResizable(false);
 
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         table.getColumns().addAll(teamIdCol, teamUsuarioCol, teamIdEquipoCol, teamInfoCompCol);
@@ -88,9 +96,7 @@ public class HistoryController implements Initializable {
         }
         availableRequestsInfo.forEach(request -> {
             HistoryRow temp = new HistoryRow(request[0], request[1], request[2]);
-            if (!requestList.contains(temp)) {
-                requestList.add(temp);
-            }
+            requestList.add(temp);
         });
 
         table.refresh();
