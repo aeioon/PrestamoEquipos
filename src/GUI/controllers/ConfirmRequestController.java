@@ -1,28 +1,16 @@
 package GUI.controllers;
 
 import Control.CargarDatosUsuario;
-import Control.RealizarDevolucion;
 import Control.RealizarPrestamo;
 import Entidad.Computador;
-import Entidad.Programa;
-import Entidad.Solicitud;
-import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -36,7 +24,7 @@ public class ConfirmRequestController implements Initializable {
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     Computador computador = new Computador();
     RealizarPrestamo RP = new RealizarPrestamo();
-    
+
     private static boolean prestamo = false;
 
     @FXML
@@ -50,7 +38,6 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void loanBtnAction(ActionEvent event) throws IOException {
-        RealizarPrestamo RP = new RealizarPrestamo();
         if (RP.computerIsFree(computador)) {
             if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
                 prestamo = true;
@@ -60,12 +47,12 @@ public class ConfirmRequestController implements Initializable {
                         cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
                     }
                 }).start();
-                Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
-                stage.close();
-            } else {
-                message.setText("Fallo el prestamo");
-                computerText.setText("");
             }
+            Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            message.setText("Fallo el prestamo");
+            computerText.setText("");
         }
     }
 

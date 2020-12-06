@@ -3,12 +3,9 @@ package GUI.controllers;
 import Control.CargarDatosUsuario;
 import Control.RealizarPrestamo;
 import Entidad.Programa;
-import Entidad.Solicitud;
-import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -67,7 +64,6 @@ public class ComputerAvailableController implements Initializable {
                 computerList.add(temp);
             }
         });
-
         availableComputersTable.refresh();
     }
 
@@ -148,6 +144,7 @@ public class ComputerAvailableController implements Initializable {
         insertComputers();
         searchComputers();
         infoText.setText("Equipos disponibles en la Facultad de Ingeniería");
+        //RP.createRequest(cargarDatosUsuario.getUser(), SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1));
     }
 
     public static String[] getSelectedComputer() {

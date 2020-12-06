@@ -109,7 +109,7 @@ public class SoftwareSelectedController implements Initializable {
             fechaFinal = fechaInicio.plusHours(1);
             availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         }
-        if (availableComputersInfo.size() != 0) {
+        if (!availableComputersInfo.isEmpty()) {
             Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/computerAvailable.fxml"));
             Scene newScene = new Scene(newParent);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
