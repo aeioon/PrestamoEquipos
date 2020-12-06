@@ -62,7 +62,7 @@ public class StudentHomeController implements Initializable {
     @FXML
     void requestLoanBtnAction(ActionEvent event) throws IOException {
         try {
-            changeScene(event, "/GUI/views/loanRequest.fxml");
+            changeScene(event, "/GUI/views/softwareSelected.fxml");
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }

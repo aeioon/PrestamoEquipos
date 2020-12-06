@@ -7,6 +7,7 @@ import Entidad.Computador;
 import Entidad.Programa;
 import Entidad.Solicitud;
 import Entidad.Usuario;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,8 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -31,35 +35,24 @@ public class ConfirmRequestController implements Initializable {
     CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
     Solicitud solicitud = new Solicitud();
     Computador computador = new Computador();
+    private static boolean prestamo = false;
 
     @FXML
     private Button cancelRequestBtn;
-
     @FXML
     private Button loanBtn;
-
-    int idSelected;
-
     @FXML
     private Text message;
-
     @FXML
     private Text computerText;
 
     @FXML
-    void cancelRequestBtnAction(ActionEvent event) {
-        cargarDatos.getDatosEquipos().remove(cargarDatos.getDatosEquipos().size() - 1);
-        Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    void loanBtnAction(ActionEvent event) {
+    void loanBtnAction(ActionEvent event) throws IOException {
         RealizarPrestamo RP = new RealizarPrestamo();
-        solicitud = LoanRequestController.getSolicitud();
+        solicitud = SoftwareSelectedController.getSolicitud();
         if (RP.computerIsFree(computador)) {
             if (RP.makeBorrow(solicitud, computador)) {
-                System.out.println("Se realizo el prestamo!");
+                prestamo = true;
                 cargarDatos.setActivo(true);
                 new Thread(new Runnable() {
                     @Override
@@ -76,12 +69,26 @@ public class ConfirmRequestController implements Initializable {
         }
     }
 
+    @FXML
+    void cancelRequestBtnAction(ActionEvent event) {
+        Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        computerText.setText("Computador #" + LoanRequestController.getSelectedComputer()[0]
-                + " en el edificio " + LoanRequestController.getSelectedComputer()[1]
-                + " " + LoanRequestController.getSelectedComputer()[2]
-                + " de la sala " + LoanRequestController.getSelectedComputer()[3]);
-        computador.setId(Integer.parseInt(LoanRequestController.getSelectedComputer()[0]));
+        computerText.setText("Computador #" + ComputerAvailableController.getSelectedComputer()[0]
+                + " en el edificio " + ComputerAvailableController.getSelectedComputer()[1]
+                + " " + ComputerAvailableController.getSelectedComputer()[2]
+                + " de la sala " + ComputerAvailableController.getSelectedComputer()[3]);
+        computador.setId(Integer.parseInt(ComputerAvailableController.getSelectedComputer()[0]));
+    }
+
+    public static boolean isPrestamo() {
+        return prestamo;
+    }
+
+    public static void setPrestamo(boolean prestamo) {
+        ConfirmRequestController.prestamo = prestamo;
     }
 }

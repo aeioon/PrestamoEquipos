@@ -199,9 +199,9 @@ public class ComputadorDAO {
                     + "WHERE SinRequest.Id_Equipo IS NULL) AS Equipos INNER JOIN Computador AS C ON Equipos.Id_Equipo = C.Id_Equipo) INNER JOIN Sala AS S ON S.Id_Sala = C.SalaId_Sala) INNER JOIN Edificio AS E ON E.Id_Edificio = S.EdificioId_Edificio\n"
                     + "WHERE C.Id_Equipo NOT IN (SELECT DISTINCT SO.ComputadorId_Equipo\n" +
                                                  "FROM Solicitud AS SO\n" +
-                                                 "WHERE ('" + fechaHoraInicio + "' /*inicio*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
+                                                 "WHERE (('" + fechaHoraInicio + "' /*inicio*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
                                                  "('" + fechaHoraFin+ "' /*fin*/ BETWEEN SO.FechaHoraInicio AND SO.FechaHoraFin) OR\n" +
-                                                 "('" + fechaHoraInicio + "' < SO.FechaHoraInicio AND '" + fechaHoraFin + "' > SO.FechaHoraFin));";
+                                                 "('" + fechaHoraInicio + "' < SO.FechaHoraInicio AND '" + fechaHoraFin + "' > SO.FechaHoraFin)) AND ComputadorId_Equipo IS NOT NULL);";
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
                 String[] fila = new String[4];
