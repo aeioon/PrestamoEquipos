@@ -12,15 +12,13 @@ public class ValidarLogin {
     }
 
     public Usuario verificarUsuario(Usuario usuario) {
-        Usuario usuarioLec = null;
-        usuarioLec = usuarioDao.leer(usuario);
-        if (usuarioLec != null) {
+        usuario = usuarioDao.leer(usuario);
+        if (usuario != null) {
             System.out.println("Bienvenido");
-            return usuarioLec;
         } else {
             System.out.println("Datos incorrectos");
-            return usuarioLec;
         }
+        return usuario;
     }
 
- }
+}

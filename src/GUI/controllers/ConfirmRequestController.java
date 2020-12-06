@@ -53,7 +53,7 @@ public class ConfirmRequestController implements Initializable {
         RealizarPrestamo RP = new RealizarPrestamo();
         if (RP.computerIsFree(computador)) {
             if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
-                cargarDatosUsuario.setActivo(true);
+                prestamo = true;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

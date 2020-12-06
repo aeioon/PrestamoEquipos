@@ -34,7 +34,7 @@ public class ComputerAvailableController implements Initializable {
 
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     RealizarPrestamo RP = new RealizarPrestamo();
-    
+
     private static String[] selectedComputer = {"", "", "", ""};
     private ObservableList<ComputerRow> computerList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
@@ -59,7 +59,7 @@ public class ComputerAvailableController implements Initializable {
 
         ArrayList<String[]> availableComputersInfo;
         availableComputersInfo = SoftwareSelectedController.getAvailableComputersInfo();
-        
+
         availableComputersInfo.forEach(computer -> {
             System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
@@ -78,7 +78,7 @@ public class ComputerAvailableController implements Initializable {
             selectedComputer[1] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreEdificio();
             selectedComputer[2] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
             selectedComputer[3] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
-            
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -87,15 +87,14 @@ public class ComputerAvailableController implements Initializable {
             stagePop.setTitle("Confirmar prestamo");
             stagePop.setScene(scene);
             stagePop.showAndWait();
-            
+
             //Vuelve al home si se hizo un prestamo.
-            if (cargarDatosUsuario.isActivo()) {
-                if (ConfirmRequestController.isPrestamo()) {
-                    changeScene(event, "/GUI/views/studentHome.fxml");
-                }else{
-                    changeScene(event, "/GUI/views/computerAvailable.fxml");
-                }
+            if (ConfirmRequestController.isPrestamo()) {
+                changeScene(event, "/GUI/views/studentHome.fxml");
+            } else {
+                changeScene(event, "/GUI/views/computerAvailable.fxml");
             }
+
         } catch (Exception e) {
             warningText.setText("Olvidaste seleccionar un computador");
         }
@@ -148,7 +147,7 @@ public class ComputerAvailableController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         insertComputers();
         searchComputers();
-        infoText.setText("Equipos disponibles dentro de la Facultad de Ingeniería");
+        infoText.setText("Equipos disponibles en la Facultad de Ingeniería");
     }
 
     public static String[] getSelectedComputer() {

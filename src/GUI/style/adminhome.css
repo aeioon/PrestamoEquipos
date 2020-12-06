@@ -23,3 +23,11 @@
 #manegementB:pressed {
     -fx-background-color:   #565a5c;
 }
+
+#reportB:pressed {
+    -fx-background-color:   #565a5c;
+}
+
+#flechaB:pressed {
+    -fx-background-color:   #565a5c;
+}

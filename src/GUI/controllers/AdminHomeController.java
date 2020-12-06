@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI.controllers;
 
 import java.io.IOException;
@@ -21,11 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-/**
- * FXML Controller class
- *
- * @author angel
- */
 public class AdminHomeController implements Initializable {
 
     boolean oprimido;

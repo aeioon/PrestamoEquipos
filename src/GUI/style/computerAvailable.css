@@ -3,17 +3,17 @@
  */
 
 #backHomeBtn {
-     -fx-background-color:  #565a5c;
+    -fx-background-color:  #565a5c;
 }
 
 #backHomeBtn:hover {
-     -fx-background-color:  #4d5052;
+    -fx-background-color:  #4d5052;
 }
 
 #askLoanBtn {
-     -fx-background-color:  #94b43b;
+    -fx-background-color:  #94b43b;
 }
 
 #askLoanBtn:hover {
-     -fx-background-color:  #82A424;
+    -fx-background-color:  #82A424;
 }

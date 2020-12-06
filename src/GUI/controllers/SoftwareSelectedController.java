@@ -3,10 +3,8 @@ package GUI.controllers;
 import Control.CargarDatosUsuario;
 import Control.RealizarPrestamo;
 import Control.RealizarDevolucion;
-import Entidad.Computador;
 import Entidad.Programa;
 import Entidad.Solicitud;
-import Entidad.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -14,8 +12,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -42,14 +38,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Separator;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author ion
- */
 public class SoftwareSelectedController implements Initializable {
 
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
@@ -60,6 +50,7 @@ public class SoftwareSelectedController implements Initializable {
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
     private ObservableList<Programa> selectedProgramList = FXCollections.observableArrayList();
 
+    FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b -> true);
     private static ArrayList<Programa> selectedProgramArr = new ArrayList<>();
     private static ArrayList<String[]> availableComputersInfo;
     private static LocalDateTime fechaInicio;
@@ -135,8 +126,6 @@ public class SoftwareSelectedController implements Initializable {
         }
     }
 
-    FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b -> true);
-
     public void searchProgram() {
         searchProgramTF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPrograms.setPredicate(programa -> {
@@ -198,7 +187,7 @@ public class SoftwareSelectedController implements Initializable {
         availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
         availableProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
-
+        
         RP.getAllPrograms().forEach(p -> {
             programList.add(p);
         });
@@ -217,6 +206,38 @@ public class SoftwareSelectedController implements Initializable {
         selectedProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         selectedProgramsTable.setItems(selectedProgramList);
         selectedProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
+    }
+
+    void initActions() {
+        availableProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                    Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
+                    addProgram(programSelected);
+                }
+            }
+        });
+
+        selectedProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                    Programa programSelected = selectedProgramsTable.getSelectionModel().getSelectedItem();
+                    unselectProgram(programSelected);
+                }
+            }
+        });
+
+        date.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                int dias = LocalTime.now().getHour() < 19 ? 0 : 1;
+                setDisable(empty || date.compareTo(today.plusDays(dias)) < 0 || date.compareTo(today.plusDays(6)) > 0);
+            }
+        });
     }
 
     @FXML
@@ -282,42 +303,10 @@ public class SoftwareSelectedController implements Initializable {
         window.show();
     }
 
-    void initActions() {
-        availableProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
-                    Programa programSelected = availableProgramsTable.getSelectionModel().getSelectedItem();
-                    addProgram(programSelected);
-                }
-            }
-        });
-
-        selectedProgramsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
-                    Programa programSelected = selectedProgramsTable.getSelectionModel().getSelectedItem();
-                    unselectProgram(programSelected);
-                }
-            }
-        });
-
-        date.setDayCellFactory(picker -> new DateCell() {
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                LocalDate today = LocalDate.now();
-
-                int dias = LocalTime.now().getHour() < 19 ? 0 : 1;
-                setDisable(empty || date.compareTo(today.plusDays(dias)) < 0 || date.compareTo(today.plusDays(6)) > 0);
-            }
-        });
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        insertSelectedPrograms();
         initActions();
+        insertSelectedPrograms();
         new Thread(new Runnable() {
             @Override
             public void run() {
