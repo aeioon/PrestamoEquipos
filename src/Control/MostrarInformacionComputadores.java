@@ -26,7 +26,7 @@ public class MostrarInformacionComputadores {
     }    
     
     public String[] getHoleComputerInfo(Computador computer) {
-        return computadorDao.getHoleComputerInfo(computer);
+        return computadorDao.getWholeComputerInfo(computer);
     }
     
     public ArrayList<String> getComputerPrograms(Computador computer) {

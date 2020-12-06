@@ -308,7 +308,7 @@ public class ComputadorDAO {
         }
     }
 
-    public String[] getHoleComputerInfo(Computador computer) {
+    public String[] getWholeComputerInfo(Computador computer) {
         String[] datos = {"", "", "", "", "", "", "", "", ""};
         Connection connection = null;
         Statement statement = null;
@@ -316,10 +316,10 @@ public class ComputadorDAO {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             statement = connection.createStatement();
-            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad, CO.Hardware, SA.EncargadoId_Encargado, EN.Nombres, EN.Apellidos\n"
-                    + "From (((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n"
-                    + "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n"
-                    + "INNER JOIN Encargado as EN ON SA.EncargadoId_Encargado = EN.Id_Encargado)\n"
+            String consulta = "Select distinct CO.Id_Equipo, justActive.UsuarioId_Usuario, ED.Nombre, SA.Codigo, CO.Disponibilidad, CO.Hardware, SA.UsuarioId_Encargado, EN.Nombres, EN.Apellidos\n" +
+                    "From (((Computador as CO INNER JOIN Sala as SA ON CO.SalaId_sala = SA.Id_sala)\n" +
+                    "INNER JOIN Edificio as ED ON SA.EdificioId_Edificio = ED.Id_Edificio)\n" +
+                    "INNER JOIN Usuario as EN ON SA.UsuarioId_Encargado = EN.Id_Usuario)\n" 
                     + "LEFT JOIN (SELECT SO.Id_Solicitud, SO.UsuarioId_Usuario, CO.Id_Equipo, ED.Nombre, ED.Id_Edificio, SA.Codigo\n"
                     + "FROM ((Solicitud AS SO INNER JOIN Computador AS CO ON SO.ComputadorId_Equipo = CO.Id_Equipo)\n"
                     + "INNER JOIN Sala AS SA ON CO.SalaId_sala = SA.Id_sala)\n"

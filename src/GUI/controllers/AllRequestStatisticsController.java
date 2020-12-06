@@ -60,9 +60,8 @@ public class AllRequestStatisticsController implements Initializable {
     //XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
     XYChart.Series allChartSet2 = new XYChart.Series<String, Number>();
     ProgramaDAO programaDao = new ProgramaDAO();
-    ArrayList<Programa> programList = programaDao.getAllProgramsAvailable();
     private ObservableList<ProgramRequestRow> requestList = FXCollections.observableArrayList();
-
+    ArrayList<String[]> stats;
     
     static Programa selectedProgram;
     
@@ -78,16 +77,14 @@ public class AllRequestStatisticsController implements Initializable {
 
     void allRequestsData(){
         
-        //Nombres de todos los programas y una cantidad como las solicitudes
-        
-        
-        for(Programa p : programList){
+        stats= programaDao.getRequestStats();
+        for(String[] p : stats){
             
             //args NombrePrograma, cantidad numerica y Programa 
-            //Se pasa p = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
-            int[] stats = programaDao.getRequestStats(p);
-            allChartSet.getData().add(new XYChart.Data(p.getNombre(), stats[0], p));
-            allChartSet2.getData().add(new XYChart.Data(p.getNombre(), stats[1], p));
+            //Se pasa programa = Programa como tercer argumento para poder seleccionar el programa de la siguiente grafica
+            Programa programa =new Programa(Integer.parseInt(p[0]), p[1], p[2]); 
+            allChartSet.getData().add(new XYChart.Data(p[1],Integer.parseInt(p[3]), programa));
+            allChartSet2.getData().add(new XYChart.Data(p[1],Integer.parseInt(p[4])-Integer.parseInt(p[3]), programa));
 
         }
         //Nombres de los ejes x, y
