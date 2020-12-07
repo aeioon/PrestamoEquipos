@@ -67,6 +67,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private Label escudolb;
+    
+    @FXML
+    private Button registroBtn;
+      
+    @FXML
+    void registroBtnAction(ActionEvent event) throws IOException {
+        Parent newParent;
+        newParent = FXMLLoader.load(getClass().getResource("/GUI/views/register.fxml"));
+        Scene newScene = new Scene(newParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(newScene);
+        window.show();
+    }
 
     @FXML
     void loginBtnAction(ActionEvent event) throws IOException {
@@ -106,6 +119,7 @@ public class LoginController implements Initializable {
         AdvertenciapLB.setVisible(false);
         AdvertenciausLB.setVisible(false);
         userLoginTF.requestFocus();
+        registroBtn.setDisable(false);
 
         AdvertenciapLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
         AdvertenciausLB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/alert.png"))));
