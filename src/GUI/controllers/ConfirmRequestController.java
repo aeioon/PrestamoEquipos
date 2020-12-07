@@ -38,17 +38,15 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void loanBtnAction(ActionEvent event) throws IOException {
-        if (RP.computerIsFree(computador)) {
-            if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
-                System.out.println("SE hizo el prestamo!");
-                prestamo = true;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
-                    }
-                }).start();
-            }
+        if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
+            System.out.println("SE hizo el prestamo!");
+            prestamo = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    cargarDatosUsuario.cargar(cargarDatosUsuario.getUser());
+                }
+            }).start();
             Stage stage = (Stage) cancelRequestBtn.getScene().getWindow();
             stage.close();
         } else {
