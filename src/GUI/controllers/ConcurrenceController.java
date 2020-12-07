@@ -81,10 +81,6 @@ public class ConcurrenceController implements Initializable {
         });
     }
 
-    
-    
-    
-    
     void insertcomputers(){
         TableColumn teamIdCol = new TableColumn("Id");
         teamIdCol.setStyle( "-fx-alignment: CENTER;"); 

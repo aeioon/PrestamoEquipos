@@ -51,6 +51,7 @@ public class ConcurrenceRow {
         this.disponibilidad = disponibilidad;
         if (idUsuario.equals(" ")) {
             this.disponibilidad = "Disponible";
+            this.idUsuario = "N/A";
         } else {
             this.disponibilidad = "No disponible";
         }

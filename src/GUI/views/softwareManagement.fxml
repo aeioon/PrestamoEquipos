@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +26,17 @@
             <Button fx:id="addProgramBtn" layoutX="49.0" layoutY="537.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #6B8E23;" text="Agregar Programa" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+               <effect>
+                  <Lighting diffuseConstant="2.0" specularExponent="6.34" surfaceScale="0.0">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
             <AnchorPane fx:id="computerListPane" layoutX="498.0" layoutY="39.0" prefHeight="538.0" prefWidth="521.0">
                <children>
                   <TableView fx:id="computerTable" layoutX="77.0" layoutY="53.0" prefHeight="432.0" prefWidth="430.0">
@@ -34,14 +47,34 @@
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Text>
-                  <Button fx:id="removeComputerBtn" layoutX="218.0" layoutY="498.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="31.0" prefWidth="125.0" text="Quitar Equipo">
+                  <Button fx:id="removeComputerBtn" layoutX="218.0" layoutY="498.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="31.0" prefWidth="125.0" style="-fx-background-color: #a61c31;" text="Quitar Equipo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                  <Button fx:id="addComputerBtn" layoutX="77.0" layoutY="498.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="31.0" prefWidth="132.0" text="Agregar Equipo">
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="2.0" specularConstant="0.35" specularExponent="13.17" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></Button>
+                  <Button fx:id="addComputerBtn" layoutX="77.0" layoutY="498.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #6B8E23;" text="Agregar Equipo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="2.0" specularConstant="0.29" specularExponent="6.34" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></Button>
                   <Button fx:id="searchComputersBtn" layoutX="2.0" layoutY="246.0" mnemonicParsing="false" onAction="#searchComputersBtnAction" style="-fx-background-color: #A9A9A9;">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -56,7 +89,17 @@
             <Button fx:id="removeProgramBtn" layoutX="207.0" layoutY="538.0" mnemonicParsing="false" onAction="#removeProgramBtnAction" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #a61c31;" text="Quitar Programa" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+               <effect>
+                  <Lighting diffuseConstant="1.83" specularConstant="0.35" specularExponent="13.16" surfaceScale="0.0">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
             <Label fx:id="warningText" layoutX="56.0" layoutY="70.0" prefHeight="21.0" prefWidth="416.0" textFill="#eb0000" />
          </children>
       </AnchorPane>

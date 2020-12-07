@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import DAO.ProgramaDAO;
+import Control.MostrarInformesSoftware;
 import Entidad.Programa;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class AllRequestStatisticsController implements Initializable {
     XYChart.Series allChartSet = new XYChart.Series<String, Number>();
     //XYChart.Series singleChartSet = new XYChart.Series<String, Number>();
     XYChart.Series allChartSet2 = new XYChart.Series<String, Number>();
-    ProgramaDAO programaDao = new ProgramaDAO();
+    MostrarInformesSoftware MIS = new MostrarInformesSoftware();
     private ObservableList<ProgramRequestRow> requestList = FXCollections.observableArrayList();
     ArrayList<String[]> stats;
     
@@ -77,7 +77,7 @@ public class AllRequestStatisticsController implements Initializable {
 
     void allRequestsData(){
         
-        stats= programaDao.getRequestStats();
+        stats = MIS.getRequestStats();
         for(String[] p : stats){
             
             //args NombrePrograma, cantidad numerica y Programa 
@@ -174,15 +174,15 @@ public class AllRequestStatisticsController implements Initializable {
     void actualizarTabla(Programa selected){
         requestList.clear();
         singleProgramTable.refresh();
-        ArrayList<String[]> cols = programaDao.getProgramRequestHistory(selected);
+        ArrayList<String[]> cols = MIS.getProgramRequestHistory(selected);
         for(String[] col: cols){
             requestList.add( new ProgramRequestRow(col[0], col[1], col[2], col[3], col[4]));
         }
         singleProgramTable.setItems(requestList);
         
-        int[] success = programaDao.getRequestStats(selected);
+        int[] success = MIS.getRequestStats(selected);
         double perSuccess = ((double)(success[0])/(success[1]+success[0]))+0.0001;
-        String texto="", doubleString = Double.toString(perSuccess);
+        String texto = "", doubleString = Double.toString(perSuccess);
         
         for (int i = 1; i <= 4; i++) {
             try{
