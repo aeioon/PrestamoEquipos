@@ -136,21 +136,13 @@ public class SolicitudDAO {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
 
             CallableStatement cst = connection.prepareCall("{CALL makeBorrow(?,?,?,?,?,?)}");
-            System.out.println("1");
             cst.setInt(1, computador.getId());
-            System.out.println("2");
             cst.setInt(2, solicitud.getId());
-            System.out.println("3");
             cst.setString(3, String.valueOf(solicitud.getFechaHoraInicio()));
-            System.out.println("4");
             cst.setString(4, String.valueOf(solicitud.getFechaHoraFin()));
-            System.out.println("5");
             cst.setString(5, String.valueOf(LocalDateTime.now()));
-            System.out.println("6");
             cst.registerOutParameter(6, java.sql.Types.INTEGER);
-            System.out.println("7");
             cst.execute();
-            System.out.println("8");
             System.out.println(cst.getInt(6));
             if (cst.getInt(6) == 1) {
                 return true;
@@ -168,31 +160,6 @@ public class SolicitudDAO {
         }
     }
 
-//    public boolean makeBorrow(Solicitud solicitud, Computador computador){
-//        Connection connection = null;
-//        Statement statement = null;
-//        int resultSet;
-//        try {
-//            resultSet = -1;
-//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
-//            statement = connection.createStatement();
-//            java.util.Date miObjetoJavaUtilDate = new Date();
-//            Timestamp fecha = new Timestamp(miObjetoJavaUtilDate.getTime());
-//            resultSet = statement.executeUpdate("INSERT INTO Solicitud(`FechaHoraInicio`, `FechaHoraFin`, `ComputadorId_Equipo`, `UsuarioId_Usuario`) VALUES ('"
-//                    + solicitud.getFechaHoraInicio() + "','" + solicitud.getFechaHoraFin() + "',"+ solicitud.getComputador().getId() + ",'" + solicitud.getUsuario().getId() + "')");
-//            return resultSet > 0;
-//        } catch (SQLException ex) {
-//            System.out.println("Error en SQL" + ex);
-//            return false;
-//        } finally {
-//            try {
-//                statement.close();
-//                connection.close();
-//            } catch (SQLException ex) {
-//                System.out.println("Error en SQL" + ex);
-//            }
-//        }
-//    }
     public boolean crear(Solicitud object) {
         Connection connection = null;
         Statement statement = null;
