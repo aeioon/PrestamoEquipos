@@ -44,7 +44,7 @@ public class MostrarHistorialPrestamosIT {
     @Test
     public void testGetBorrowsHistoryInfo1() {
         System.out.println("getBorrowsHistoryInfo");
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String[]> expResult = new ArrayList();
         String[] usuario1 = {"acardenaso", "NetBeans", "65:23:46"};
         String[] usuario2 = {"cchavezb", "NetBeans", "28:14:29"};
@@ -156,7 +156,7 @@ public class MostrarHistorialPrestamosIT {
     public void testGetHoleUserBorrowsInfo1() {
         System.out.println("getHoleUserBorrowsInfo");
         String userId = "acardenaso";
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("2");
         expResult.add("3");
@@ -311,7 +311,7 @@ public class MostrarHistorialPrestamosIT {
     public void testGetHoleUserBorrowsInfo2() {
         System.out.println("getHoleUserBorrowsInfo");
         String userId = "cchavezb";
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("1");
         expResult.add("42");
@@ -359,7 +359,7 @@ public class MostrarHistorialPrestamosIT {
     public void testGetHoleUserBorrowsInfo3() {
         System.out.println("getHoleUserBorrowsInfo");
         String userId = "dbustos";
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("11");
         expResult.add("12");
@@ -683,7 +683,7 @@ public class MostrarHistorialPrestamosIT {
     public void testGetHoleUserBorrowsInfo4() {
         System.out.println("getHoleUserBorrowsInfo");
         String userId = "ggarciaro";
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("62");
         expResult.add("65");
@@ -789,7 +789,7 @@ public class MostrarHistorialPrestamosIT {
     public void testGetHoleUserBorrowsInfo5() {
         System.out.println("getHoleUserBorrowsInfo");
         String userId = "jgarciam";
-        MostrarHistorialPrestamos instance = new MostrarHistorialPrestamos();
+        MostrarInformesHistorial instance = new MostrarInformesHistorial();
         ArrayList<String> expResult = new ArrayList<>();
         expResult.add("171");
         expResult.add("173");
