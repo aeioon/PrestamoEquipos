@@ -88,6 +88,8 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="numeroDeHoras" layoutX="979.0" layoutY="334.0" prefHeight="31.0" prefWidth="142.0" />
+                  <Label layoutX="981.0" layoutY="304.0" prefHeight="21.0" prefWidth="139.0" text="Numero de minutos" />
                </children></AnchorPane>
          </left>
       </BorderPane>

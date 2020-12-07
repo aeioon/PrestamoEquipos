@@ -92,6 +92,8 @@ public class SoftwareSelectedController implements Initializable {
     private Label warningText;
     @FXML
     private AnchorPane computerTableSection;
+    @FXML
+    private TextField numeroDeHoras;
 
     @FXML
     void searchComputersBtnAction(ActionEvent event) throws IOException {
@@ -103,10 +105,22 @@ public class SoftwareSelectedController implements Initializable {
             String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
             fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1])));
             fechaFinal = fechaInicio.plusHours(1);
+            try {
+                fechaFinal = fechaInicio.plusMinutes(Integer.parseInt(numeroDeHoras.getText()));
+            } catch (Exception e) {
+                System.out.println("Tiempo se especificó mal");
+            }
             availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         } else {
             fechaInicio = LocalDateTime.now();
             fechaFinal = fechaInicio.plusHours(1);
+            try {
+                System.out.println("EEEEEE");
+                fechaFinal = fechaInicio.plusMinutes(Integer.parseInt(numeroDeHoras.getText()));
+                System.out.println("IIIIII");
+            } catch (Exception e) {
+                System.out.println("Tiempo se especificó mal");
+            }
             availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         }
         if (!availableComputersInfo.isEmpty()) {
