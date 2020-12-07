@@ -99,7 +99,7 @@ public class SoftwareSelectedController implements Initializable {
         selectedProgramList.forEach(p -> {
             selectedProgramArr.add(p);
         });
-        if (checkBoxReserva.isSelected()) {
+        if (checkBoxReserva.isSelected() && comboBoxHoraInicio.getValue() != null && date.getValue() != null) {
             String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
             fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1])));
             fechaFinal = fechaInicio.plusHours(1);

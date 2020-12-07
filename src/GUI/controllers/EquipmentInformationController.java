@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarInformacionComputadores;
+import Control.MostrarConcurrencia;
 import Entidad.Computador;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 public class EquipmentInformationController implements Initializable {
     
     Computador computador = new Computador();
-    MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
+    MostrarConcurrencia MIC = new MostrarConcurrencia();
 
     @FXML
     private Text IDEquipoTX;
@@ -54,7 +54,7 @@ public class EquipmentInformationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         computador = ConcurrenceRow.getSelectcomputador();
-        String[] datos = MIC.getHoleComputerInfo(computador); 
+        String[] datos = MIC.getWholeComputerInfo(computador); 
         ArrayList<String> software = MIC.getComputerPrograms(computador);
         
         String softwareText = "";

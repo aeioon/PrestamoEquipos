@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author aleja
  */
-public class MostrarHistorialPrestamos {
+public class MostrarInformesHistorial {
     
     ProgramaSolicitudDAO proSolDAO = new ProgramaSolicitudDAO();
     UsuarioDAO usuarioDAO = new UsuarioDAO();

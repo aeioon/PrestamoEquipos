@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarInformacionComputadores;
+import Control.MostrarConcurrencia;
 import Entidad.Computador;
 import java.io.IOException;
 import java.util.logging.Level;

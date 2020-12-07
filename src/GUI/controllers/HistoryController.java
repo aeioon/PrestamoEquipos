@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarHistorialPrestamos;
+import Control.MostrarInformesHistorial;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -34,7 +34,7 @@ public class HistoryController implements Initializable {
     @FXML
     private TextField searchTF;
     
-    MostrarHistorialPrestamos MIC = new MostrarHistorialPrestamos();
+    MostrarInformesHistorial MIC = new MostrarInformesHistorial();
     private ObservableList<HistoryRow> requestList = FXCollections.observableArrayList();
     
     FilteredList<HistoryRow> filteredHistory = new FilteredList<>(requestList, b -> true);

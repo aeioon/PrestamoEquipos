@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarHistorialPrestamos;
+import Control.MostrarInformesHistorial;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -40,7 +40,7 @@ public class RequestInformationController implements Initializable {
 
       
     String userId= HistoryRow.getSelectUsuario();
-    MostrarHistorialPrestamos MIC = new MostrarHistorialPrestamos();
+    MostrarInformesHistorial MIC = new MostrarInformesHistorial();
     private ObservableList<RequestRow> requestList = FXCollections.observableArrayList();
     FilteredList<RequestRow> filteredConcurrence = new FilteredList<>(requestList, b -> true);
     

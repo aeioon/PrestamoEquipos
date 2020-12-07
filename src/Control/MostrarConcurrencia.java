@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author aleja
  */
-public class MostrarInformacionComputadores {
+public class MostrarConcurrencia {
     
     ComputadorDAO computadorDao = new ComputadorDAO();
     
@@ -25,7 +25,7 @@ public class MostrarInformacionComputadores {
         return computadorDao.getConcurrencePercentage();
     }    
     
-    public String[] getHoleComputerInfo(Computador computer) {
+    public String[] getWholeComputerInfo(Computador computer) {
         return computadorDao.getWholeComputerInfo(computer);
     }
     

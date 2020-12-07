@@ -103,7 +103,7 @@ public class AllRequestStatisticsController implements Initializable {
                     if(i==0)  ((Label) node).setText("Soliciudes Exitosas");
                     else  ((Label) node).setText("Soliciudes No Exitosas");
                     ((Label) node).setManaged(true);
-                    ((Label) node).setPrefWidth(150);
+                    ((Label) node).setPrefWidth(170);
                     i++;
                     
                     

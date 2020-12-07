@@ -5,7 +5,7 @@
  */
 package GUI.controllers;
 
-import Control.MostrarInformacionComputadores;
+import Control.MostrarConcurrencia;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -51,7 +51,7 @@ public class ConcurrenceController implements Initializable {
     @FXML
     private ProgressBar progressBar;
     
-    MostrarInformacionComputadores MIC = new MostrarInformacionComputadores();
+    MostrarConcurrencia MIC = new MostrarConcurrencia();
     private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     FilteredList<ConcurrenceRow> filteredConcurrence = new FilteredList<>(computerList, b -> true);

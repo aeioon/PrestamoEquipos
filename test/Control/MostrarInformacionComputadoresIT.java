@@ -48,7 +48,7 @@ public class MostrarInformacionComputadoresIT {
         Precondiciones.habilitarDisponibilidad();
         Precondiciones.MostrarConcurrencia1();
         System.out.println("getConcurrenceInfo");
-        MostrarInformacionComputadores instance = new MostrarInformacionComputadores();
+        MostrarConcurrencia instance = new MostrarConcurrencia();
         ArrayList<String[]>  expResult = new ArrayList<>();
         String[] computador1 = {"1", " ", "CyT", "304", "0"};
         String[] computador2 = {"2", " ", "CyT", "402", "0"};
@@ -74,7 +74,7 @@ public class MostrarInformacionComputadoresIT {
         Precondiciones.habilitarDisponibilidad();
         Precondiciones.MostrarConcurrencia2();
         System.out.println("getConcurrenceInfo");
-        MostrarInformacionComputadores instance = new MostrarInformacionComputadores();
+        MostrarConcurrencia instance = new MostrarConcurrencia();
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] computador1 = {"1", "acardenaso", "CyT", "304", "0"};
         String[] computador2 = {"2", " ", "CyT", "402", "0"};
@@ -99,7 +99,7 @@ public class MostrarInformacionComputadoresIT {
         Precondiciones.habilitarDisponibilidad();
         Precondiciones.MostrarConcurrencia3();
         System.out.println("getConcurrenceInfo");
-        MostrarInformacionComputadores instance = new MostrarInformacionComputadores();
+        MostrarConcurrencia instance = new MostrarConcurrencia();
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] computador1 = {"1", " ", "CyT", "304", "0"};
         String[] computador2 = {"2", "acardenaso", "CyT", "402", "0"};
@@ -123,7 +123,7 @@ public class MostrarInformacionComputadoresIT {
     public void testGetConcurrenceInfo4() {
         Precondiciones.habilitarDisponibilidad();
         System.out.println("getConcurrenceInfo");
-        MostrarInformacionComputadores instance = new MostrarInformacionComputadores();
+        MostrarConcurrencia instance = new MostrarConcurrencia();
         ArrayList<String[]> expResult = new ArrayList<>();
         String[] computador1 = {"1", " ", "CyT", "304", "0"};
         String[] computador2 = {"2", " ", "CyT", "402", "0"};
