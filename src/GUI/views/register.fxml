@@ -53,7 +53,7 @@
                            </cursor>
                         </Button>
                         <Label fx:id="alertContraseñaLB" layoutX="439.0" layoutY="360.0" prefHeight="21.0" prefWidth="209.0" text="Las contraseñas no coinciden" textFill="RED" />
-                        <Label fx:id="alertGeneralLB" layoutX="154.0" layoutY="477.0" prefHeight="21.0" prefWidth="503.0" style="-fx-alignment: center;" textAlignment="CENTER" textFill="RED" />
+                        <Label fx:id="alertGeneralLB" layoutX="149.0" layoutY="437.0" prefHeight="21.0" prefWidth="503.0" style="-fx-alignment: center;" textAlignment="CENTER" textFill="RED" />
                         <Label fx:id="alertUsuarioLB" layoutX="69.0" layoutY="293.0" prefHeight="21.0" prefWidth="271.0" text="El usuario ya se encuentra registrado" textFill="RED" />
                      </children>
                   </Pane>
