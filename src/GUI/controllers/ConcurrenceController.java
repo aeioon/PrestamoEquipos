@@ -24,8 +24,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
-
 /**
  * FXML Controller class
  *
@@ -38,7 +36,7 @@ public class ConcurrenceController implements Initializable {
 
     @FXML
     private Label percentage;
-    
+
     @FXML
     private Button loupeB;
 
@@ -50,25 +48,23 @@ public class ConcurrenceController implements Initializable {
 
     @FXML
     private ProgressBar progressBar;
-    
+
     MostrarConcurrencia MIC = new MostrarConcurrencia();
     private ObservableList<ConcurrenceRow> computerList = FXCollections.observableArrayList();
 
     FilteredList<ConcurrenceRow> filteredConcurrence = new FilteredList<>(computerList, b -> true);
-    
+
     public void searchComputers() {
-        
+
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredConcurrence.setPredicate(concurrenceRow -> {
                 String lowerCaseFilter = newValue.toLowerCase();
-                if ((concurrenceRow.getCodigoSala().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
-                    (concurrenceRow.getNombreEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1)  ||
-                    (concurrenceRow.getIdEquipo().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
-                    (concurrenceRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1) 
-                        ) {
+                if ((concurrenceRow.getCodigoSala().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                        || (concurrenceRow.getNombreEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                        || (concurrenceRow.getIdEquipo().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                        || (concurrenceRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1)) {
                     return true;
-                } 
-                else {
+                } else {
                     return false;
                 }
             });
@@ -79,39 +75,39 @@ public class ConcurrenceController implements Initializable {
         });
     }
 
-    void insertcomputers(){
+    void insertcomputers() {
         TableColumn teamIdCol = new TableColumn("Id");
-        teamIdCol.setStyle( "-fx-alignment: CENTER;"); 
+        teamIdCol.setStyle("-fx-alignment: CENTER;");
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));
 
         TableColumn teamUsuarioCol = new TableColumn("Usuario");
-        teamUsuarioCol.setStyle( "-fx-alignment: CENTER;"); 
+        teamUsuarioCol.setStyle("-fx-alignment: CENTER;");
         teamUsuarioCol.setCellValueFactory(new PropertyValueFactory("idUsuario"));
 
         TableColumn teamEdificioCol = new TableColumn("Edificio");
-        teamEdificioCol.setStyle( "-fx-alignment: CENTER;"); 
+        teamEdificioCol.setStyle("-fx-alignment: CENTER;");
         teamEdificioCol.setCellValueFactory(new PropertyValueFactory("nombreEdificio"));
 
         TableColumn teamSalaCol = new TableColumn("Sala");
-        teamSalaCol.setStyle( "-fx-alignment: CENTER;"); 
+        teamSalaCol.setStyle("-fx-alignment: CENTER;");
         teamSalaCol.setCellValueFactory(new PropertyValueFactory("codigoSala"));
 
         TableColumn teamDisponibilidadCol = new TableColumn("Disponibilidad");
-        teamDisponibilidadCol.setStyle( "-fx-alignment: CENTER;"); 
+        teamDisponibilidadCol.setStyle("-fx-alignment: CENTER;");
         teamDisponibilidadCol.setCellValueFactory(new PropertyValueFactory("disponibilidad"));
-        
+
         TableColumn teamInfoCompCol = new TableColumn("Mas Información");
-        teamInfoCompCol.setStyle( "-fx-alignment: CENTER;");  
+        teamInfoCompCol.setStyle("-fx-alignment: CENTER;");
         teamInfoCompCol.setCellValueFactory(new PropertyValueFactory("botonInfo"));
 
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         table.getColumns().addAll(teamIdCol, teamUsuarioCol, teamEdificioCol, teamSalaCol, teamDisponibilidadCol, teamInfoCompCol);
         table.setItems(computerList);
-        
+
         ArrayList<String[]> availableComputersInfo = MIC.getConcurrenceInfo();
-        if(availableComputersInfo.size() != 0){
+        if (availableComputersInfo.size() != 0) {
             advertenciaLB.setText("");
-        }else{
+        } else {
             advertenciaLB.setText("No se encontraron resultados");
         }
         availableComputersInfo.forEach(computer -> {
@@ -130,8 +126,13 @@ public class ConcurrenceController implements Initializable {
         insertcomputers();
         Double percentageNum = MIC.getConcurrencePercentage();
         progressBar.setProgress(percentageNum);
-        percentage.setText(String.valueOf(percentageNum*100).substring(0, 2) + "%");  
-        searchComputers();
+        percentage.setText(String.valueOf(percentageNum * 100).substring(0, 2) + "%");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                searchComputers();
+            }
+        }).start();
     }
 
 }

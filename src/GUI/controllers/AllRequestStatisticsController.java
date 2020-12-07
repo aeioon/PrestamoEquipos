@@ -203,7 +203,7 @@ public class AllRequestStatisticsController implements Initializable {
         singleProgramTable.setItems(requestList);
         
         int[] success = MIS.getRequestStats(selected);
-        double perSuccess = ((double)(success[0])/(success[1]+success[0]))+0.0001;
+        double perSuccess = ((double)(success[0])/(success[1]+success[0])*100)+0.0001;
         String texto = "", doubleString = Double.toString(perSuccess);
         
         for (int i = 1; i <= 4; i++) {
@@ -215,7 +215,7 @@ public class AllRequestStatisticsController implements Initializable {
             }
         }
         labelSuccess.setText("Porcentaje solicitudes exitosas " + texto + "%");
-        perSuccess = ((double) (success[1]) / (success[1] + success[0]));
+        perSuccess = ((double) (success[1]) / (success[1] + success[0])*100);
         texto = "";
         doubleString = Double.toString(perSuccess);
 
@@ -227,7 +227,7 @@ public class AllRequestStatisticsController implements Initializable {
                 break;
             }
         }
-        labelNoSuccess.setText("Porcentaje solicitudes exitosas " + texto + "%");
+        labelNoSuccess.setText("Porcentaje solicitudes no exitosas " + texto + "%");
     }
 
     @Override

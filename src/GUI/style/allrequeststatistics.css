@@ -5,3 +5,11 @@
 .mainFxmlClass {
 
 }
+
+#backToAllStatsBtn{
+    -fx-background-color:  #94b43b;
+}
+
+#backToAllStatsBtn:hover{
+    -fx-background-color:  #82A424;
+}

@@ -52,7 +52,6 @@ public class SoftwareManagementController implements Initializable {
     @FXML private Text programPaneText;
     @FXML private Button removeComputerBtn;
     @FXML private Button addComputerBtn;
-    @FXML private Label warningText;
     @FXML private Button removeProgramBtn;
     @FXML private Button searchComputersBtn;
     
@@ -117,10 +116,9 @@ public class SoftwareManagementController implements Initializable {
         computerTable.refresh();
         ArrayList<String[]> availableComputersInfo = MST.mostrarEquipos(selectedProgram);
         if (availableComputersInfo.size() != 0) {
-            warningText.setText("");
             programPaneText.setText("Equipos que cuentan con "+ selectedProgram.getNombre());
         } else {
-            warningText.setText("No hay computadores asignados a este equipo");
+            programPaneText.setText("No hay computadores asignados a este programa");
         }
         availableComputersInfo.forEach(computer -> {
             System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
@@ -237,20 +235,12 @@ public class SoftwareManagementController implements Initializable {
                     selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
                     selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
                     System.out.println(selectedProgram.getNombre());
+                    updateComputerData();
                 }
             }
         });
     }
     
-
-
-    @FXML
-    void searchComputersBtnAction(ActionEvent event) {
-        System.out.println(selectedProgram.getNombre());
-        updateComputerData();
-    }
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         insertProgramsTable();

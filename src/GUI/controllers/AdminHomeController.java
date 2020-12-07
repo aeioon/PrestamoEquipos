@@ -128,7 +128,6 @@ public class AdminHomeController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(AdminHomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
     }
 
 }
