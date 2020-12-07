@@ -62,13 +62,6 @@ public class ConcurrenceRow {
                     Stage primaryStage = new Stage();
                     Parent root;
                     try {
-//                        root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
-//                        Scene scene = new Scene(root);
-//                        primaryStage.setScene(scene);
-//                        primaryStage.setTitle("Prestamo de equipos de computo");
-//                        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
-//                        primaryStage.show();
-
                         FXMLLoader fxmlLoader = new FXMLLoader();
                         fxmlLoader.setLocation(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
                         Scene scene = new Scene(fxmlLoader.load());
