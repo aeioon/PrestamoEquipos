@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -160,5 +162,19 @@ public class LoginController implements Initializable {
                 }
             }
         });
+        userLoginTF.addEventFilter(KeyEvent.KEY_TYPED , letter_Validation());
     }
+    
+    
+    public EventHandler<KeyEvent> letter_Validation() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if (!Character.isAlphabetic(e.getCharacter().charAt(0)) && !Character.isSpaceChar(e.getCharacter().charAt(0))) {
+                    e.consume();
+                }
+            }
+        };
+    }
+    
 }

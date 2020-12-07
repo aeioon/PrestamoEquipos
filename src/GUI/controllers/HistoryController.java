@@ -41,22 +41,22 @@ public class HistoryController implements Initializable {
     
     public void searchRequestThings() {
 
-//        searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredHistory.setPredicate(historyRow -> {
-//                String lowerCaseFilter = newValue.toLowerCase();
-//                if ((historyRow.getId().toLowerCase().indexOf(lowerCaseFilter) != -1)
-//                        || (historyRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1)
-//                        || (historyRow.getIdEquipo().toLowerCase().indexOf(lowerCaseFilter) != -1)) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            });
-//
-//            SortedList<HistoryRow> sortedData = new SortedList<>(filteredHistory);
-//            sortedData.comparatorProperty().bind(table.comparatorProperty());
-//            table.setItems(sortedData);
-//        });
+        searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredHistory.setPredicate(historyRow -> {
+                String lowerCaseFilter = newValue.toLowerCase();
+                if ((historyRow.getIdUsuario().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                        || (historyRow.getSoftwareMásUtilizado().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                        || (historyRow.getTiempoTotalDeLosPréstamos().toLowerCase().indexOf(lowerCaseFilter) != -1)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+
+            SortedList<HistoryRow> sortedData = new SortedList<>(filteredHistory);
+            sortedData.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedData);
+        });
     }
     
     void insertrequest(){

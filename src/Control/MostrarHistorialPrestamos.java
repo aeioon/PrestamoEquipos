@@ -24,7 +24,7 @@ public class MostrarHistorialPrestamos {
     }
     
     //IdSolicitud, Fecha Inicio, Fecha Final, Computador, Sala, Edificio, Programas
-    public ArrayList<String[]> getHoleUserBorrowsInfo(String userId){ 
+    public ArrayList<String[]> getWholeUserBorrowsInfo(String userId){ 
         return usuarioDAO.getWholeUserBorrowsInfo(userId);
     }
 }

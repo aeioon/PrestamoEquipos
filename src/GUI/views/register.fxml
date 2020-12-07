@@ -2,7 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -26,21 +26,24 @@
                               <Font name="Lucida Bright Demibold" size="25.0" />
                            </font>
                         </Text>
-                        <PasswordField fx:id="passwordPTFLD" layoutX="448.0" layoutY="265.0" maxWidth="280.0" minWidth="280.0" prefHeight="29.0" prefWidth="280.0" />
-                        <PasswordField fx:id="passwordRePTFLD" layoutX="448.0" layoutY="314.0" maxWidth="280.0" minWidth="280.0" prefHeight="29.0" prefWidth="280.0" />
-                        <ChoiceBox fx:id="facultadCB" layoutX="70.0" layoutY="349.0" onContextMenuRequested="#facultadEsgogidaBTN" prefHeight="25.0" prefWidth="280.0" />
-                        <ChoiceBox fx:id="carreraCB" disable="true" layoutX="70.0" layoutY="396.0" prefHeight="25.0" prefWidth="280.0" />
                         <TextField fx:id="nombresTFD" layoutX="69.0" layoutY="210.0" prefHeight="29.0" prefWidth="282.0" />
                         <Text layoutX="59.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres" />
                         <Text layoutX="436.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
                         <TextField fx:id="apellidosTFD" layoutX="447.0" layoutY="210.0" prefHeight="29.0" prefWidth="282.0" />
-                        <Text layoutX="437.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+                        <Text layoutX="437.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos" />
                         <Text layoutX="436.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verificar Contraseña" />
                         <TextField fx:id="usuarioTFD" layoutX="69.0" layoutY="265.0" prefHeight="29.0" prefWidth="282.0" />
                         <Text layoutX="59.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
                         <Text layoutX="55.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facultad" />
                         <Text layoutX="56.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrera" />
-                        <Button fx:id="baskToLoginBtn" layoutX="327.0" layoutY="498.0" mnemonicParsing="false" onAction="#baskToLoginBtnAction" style="-fx-background-color: ffffff; -fx-alignment: center;" text="¿Ya tienes cuenta? Ingresa" textFill="#3770ff" underline="true" />
+                        <PasswordField fx:id="passwordPTFLD" layoutX="448.0" layoutY="262.0" prefHeight="29.0" prefWidth="281.0" />
+                        <PasswordField fx:id="passwordRePTFLD" layoutX="448.0" layoutY="315.0" prefHeight="29.0" prefWidth="281.0" />
+                        <ComboBox fx:id="facultadCB" layoutX="69.0" layoutY="348.0" onAction="#facultadSelectedBtn" prefHeight="25.0" prefWidth="282.0" />
+                        <ComboBox fx:id="carreraCB" disable="true" layoutX="69.0" layoutY="400.0" prefHeight="25.0" prefWidth="282.0" />
+                        <Button fx:id="baskToLoginBtn" layoutX="327.0" layoutY="498.0" mnemonicParsing="false" onAction="#baskToLoginBtnAction" style="-fx-background-color: ffffff; -fx-alignment: center;" text="¿Ya tienes cuenta? Ingresa" textFill="#3770ff" underline="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Button fx:id="registrarseBtn" layoutX="306.0" layoutY="433.0" mnemonicParsing="false" onAction="#registrarseBtnAction" prefHeight="34.0" prefWidth="189.0" style="-fx-background-color: #94b43b;" stylesheets="@../style/login.css" text="Registrarse">
                            <font>
                               <Font name="Lucida Bright Demibold" size="15.0" />
@@ -50,7 +53,8 @@
                            </cursor>
                         </Button>
                         <Label fx:id="alertContraseñaLB" layoutX="448.0" layoutY="344.0" prefHeight="21.0" prefWidth="209.0" text="Las contraseñas no coinciden" textFill="RED" />
-                        <Label fx:id="alertGeneralLB" layoutX="149.0" layoutY="478.0" prefHeight="21.0" prefWidth="503.0" textAlignment="CENTER" textFill="RED" />
+                        <Label fx:id="alertGeneralLB" layoutX="154.0" layoutY="477.0" prefHeight="21.0" prefWidth="503.0" style="-fx-alignment: center;" textAlignment="CENTER" textFill="RED" />
+                        <Label fx:id="alertUsuarioLB" layoutX="69.0" layoutY="293.0" prefHeight="21.0" prefWidth="209.0" text="El usuario ya se encuentra registrado" textFill="RED" />
                      </children>
                   </Pane>
                </children>
