@@ -5,12 +5,10 @@
  */
 package GUI.controllers;
 
-import Control.MostrarConcurrencia;
 import Entidad.Computador;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,11 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Border;
-import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.BLACK;
 import javafx.stage.Stage;
+import GUI.controllers.ConcurrenceController;
+import javafx.scene.Node;
 
 /**
  *
@@ -66,12 +62,31 @@ public class ConcurrenceRow {
                     Stage primaryStage = new Stage();
                     Parent root;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
-                        Scene scene = new Scene(root);
-                        primaryStage.setScene(scene);
-                        primaryStage.setTitle("Prestamo de equipos de computo");
-                        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
-                        primaryStage.show();
+//                        root = FXMLLoader.load(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
+//                        Scene scene = new Scene(root);
+//                        primaryStage.setScene(scene);
+//                        primaryStage.setTitle("Prestamo de equipos de computo");
+//                        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
+//                        primaryStage.show();
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("/GUI/views/equipmentInformation.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stagePop = new Stage();
+                        stagePop.getIcons().add(new Image(getClass().getResourceAsStream("/GUI/static/icons/herramienta.png")));
+                        stagePop.setTitle("Información de computador");
+                        stagePop.setScene(scene);
+                        stagePop.showAndWait();
+
+                        Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/adminHome.fxml"));
+                        Scene newScene = new Scene(newParent);
+                        Stage window = (Stage) ((Node) click.getSource()).getScene().getWindow();
+                        window.setScene(newScene);
+                        window.show();
+
+                        //ConcurrenceController CC = new ConcurrenceController();
+                        //CC.insertcomputers();
+                        //CC.searchComputers();
                     } catch (IOException ex) {
                         Logger.getLogger(ConcurrenceRow.class.getName()).log(Level.SEVERE, null, ex);
                     }

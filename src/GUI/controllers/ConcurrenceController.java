@@ -76,6 +76,8 @@ public class ConcurrenceController implements Initializable {
     }
 
     void insertcomputers() {
+        computerList.clear();
+        table.refresh();
         TableColumn teamIdCol = new TableColumn("Id");
         teamIdCol.setStyle("-fx-alignment: CENTER;");
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));

@@ -6,13 +6,17 @@
 package GUI.controllers;
 
 import Control.MostrarConcurrencia;
+import Control.RealizarDevolucion;
 import Entidad.Computador;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,30 +30,30 @@ public class EquipmentInformationController implements Initializable {
 
     @FXML
     private Text IDEquipoTX;
-
     @FXML
     private Text edifioTX;
-
     @FXML
     private Text salaTX;
-
     @FXML
     private Text softwareTX;
-
     @FXML
     private Text hardwareTX;
-
     @FXML
     private Text encargadoNombreTX;
-    
     @FXML
     private Text encargadoUsuarioTX;
-
     @FXML
     private Text usuarioTX;
+    @FXML
+    private Button returnComputer;
 
     @FXML
-    private Text disponibilidadTX;
+    void returnComputerAction(ActionEvent event) {
+        RealizarDevolucion RD = new RealizarDevolucion();
+        RD.makeReturn(computador, true);
+        Stage stage = (Stage) returnComputer.getScene().getWindow();
+        stage.close();
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,7 +67,6 @@ public class EquipmentInformationController implements Initializable {
         usuarioTX.setText(datos[1]);
         edifioTX.setText(datos[2]);
         salaTX.setText(datos[3]);
-        disponibilidadTX.setText(datos[4]);
         hardwareTX.setText(datos[5]);
         encargadoUsuarioTX.setText(" " + datos[6]+"@unal.edu.co");
         encargadoNombreTX.setText(datos[7] + " " + datos[8]);
