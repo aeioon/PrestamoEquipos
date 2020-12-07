@@ -1,10 +1,46 @@
-/*
- * Empty Stylesheet file.
- */
 
-.button {
-    -fx-background-color:  #94b43b;
+
+#searchComputersBtn{
+    -fx-background-color: #DAA520;
 }
-.button:hover {
-    -fx-background-color:  #82A424;
+
+#searchComputersBtn:hover{
+    -fx-background-color: #808080;
+}
+
+
+
+
+
+
+#addComputerBtn{
+    -fx-background-color: #A9A9A9;
+}
+
+#addComputerBtn:hover{
+    -fx-background-color: #A9A9A9;
+}
+
+#removeComputerBtn{
+    -fx-background-color: #A9A9A9;
+}
+
+#removeComputerBtn:hover{
+    -fx-background-color: #A9A9A9;
+}
+
+#addProgramBtn{
+    -fx-background-color: #A9A9A9;
+}
+
+#addProgramBtn:hover{
+    -fx-background-color: #A9A9A9;
+}
+
+#removeProgramBtn{
+    -fx-background-color: #A9A9A9;
+}
+
+#removeProgramBtn:hover{
+    -fx-background-color: #A9A9A9;
 }

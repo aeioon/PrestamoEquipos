@@ -19,6 +19,46 @@ public class UsuarioDAO {
     static final String DB_PASSWD
             = "4waxA687";
 
+     public boolean crear(Usuario object) {
+        Connection connection = null;
+        Statement statement = null;
+        int resultSet;
+        try {
+            resultSet = -1;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeUpdate("INSERT INTO `prestamoequipos`.`Usuario`\n" +
+                                                "(`Id_Usuario`,\n" +
+                                                "`Contraseña`,\n" +
+                                                "`Nombres`,\n" +
+                                                "`Apellidos`,\n" +
+                                                "`Carrera`,\n" +
+                                                "`Facultad`,\n" +
+                                                "`Rol`)\n" +
+                                                "VALUES\n" +
+                                                "('"+object.getId()+"',\n" +
+                                                "'"+object.getContraseña()+"',\n" +
+                                                "'"+object.getNombres()+"',\n" +
+                                                "'"+object.getApellidos()+"',\n" +
+                                                "'"+object.getCarrera()+"',\n" +
+                                                "'"+object.getFacultad()+"',\n" +
+                                                +object.getRol()+");");
+            return resultSet > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return false;
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println("Error en SQL" + ex);
+            }
+        }
+
+    }
+
+    
     public Usuario leer(Usuario usuario) {
         Usuario usuarioCompleto = null;
         Connection connection = null;
@@ -57,6 +97,23 @@ public class UsuarioDAO {
         }
     }        
     
+    public boolean Buscar(String idUsuario) {        
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            resultSet = null;
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Usuario "
+                    + "WHERE Id_Usuario = BINARY '" + idUsuario +"'");
+            return resultSet.next();
+        } catch (SQLException ex) {
+            System.out.println("Error en SQL" + ex);
+            return true;
+        }
+    }   
+    
     public ArrayList<String[]> getWholeUserBorrowsInfo(String userId){   
         ProgramaSolicitudDAO psDao  = new ProgramaSolicitudDAO();
         Connection connection = null;
@@ -81,7 +138,7 @@ public class UsuarioDAO {
             String[] lastTuple = {"", "", "", "", "", "", ""};
             int i=0;
             while (resultSet.next()) {                                
-                    String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7)};                
+                    String[] currentTuple = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7)== null? "---":resultSet.getString(7)};                
                     if(lastTuple[0].equals(currentTuple[0])){
                         currentTuple[6] = lastTuple[6] + ", " +currentTuple[6];
                         wholeUserBorrowsInfo.remove(--i);

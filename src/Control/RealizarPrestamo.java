@@ -42,19 +42,6 @@ public class RealizarPrestamo {
         solicitud.setFechaHoraInicio(fechaHoraInicio);
         solicitud.setFechaHoraFin(fechaHoraFin);
         solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
-        solicitud.setComputador(computador);
-        new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 0; i < programs.size(); i++) {
-                            programaSolicitudDao.crear(programs.get(i), solicitud);
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error Programa_Solicitud");
-                    }
-                }
-            }).start();
         return solicitudDao.makeBorrow(solicitud, computador);
     }
 
@@ -64,11 +51,11 @@ public class RealizarPrestamo {
         solicitud.setFechaHoraInicio(fechaHoraInicio);
         solicitud.setFechaHoraFin(fechaHoraFin);
         if (solicitudDao.crear(solicitud)) {
-            solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
+                        solicitud.setId(solicitudDao.getIdSolicitud(solicitud));
                         for (int i = 0; i < programs.size(); i++) {
                             programaSolicitudDao.crear(programs.get(i), solicitud);
                         }

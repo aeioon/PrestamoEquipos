@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,14 +31,18 @@ public class RequestInformationController implements Initializable {
     
     @FXML
     private TableView<RequestRow> table;
-
-    @FXML
-    private TextField usuarioL;
     
+    @FXML
+    private Label usuarioTFD;
+    
+    @FXML
+    private TextField buscarTFD;
+
+      
     String userId= HistoryRow.getSelectUsuario();
     MostrarHistorialPrestamos MIC = new MostrarHistorialPrestamos();
     private ObservableList<RequestRow> requestList = FXCollections.observableArrayList();
-    
+    FilteredList<RequestRow> filteredConcurrence = new FilteredList<>(requestList, b -> true);
     
     void insertrequest(String user ){
         System.out.println("generar tabla");
@@ -82,16 +89,12 @@ public class RequestInformationController implements Initializable {
         teamProgramaCol.setCellValueFactory(new PropertyValueFactory("programa"));
         teamProgramaCol.prefWidthProperty().bind(table.widthProperty().multiply(0.235));
         teamProgramaCol.setResizable(false);
-        
-        System.out.println("cree las columnas");
 
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         table.getColumns().addAll(teamIdCol, teamFechaInicioCol, teamFechaFinalCol, teamEquipoCol, teamSalaCol, teamEdificioCol, teamProgramaCol);
-        table.setItems(requestList);
+        table.setItems(requestList);        
         
-        System.out.println("agregar lista");
-        
-        ArrayList<String[]> availableRequestsInfo = MIC.getHoleUserBorrowsInfo(user);
+        ArrayList<String[]> availableRequestsInfo = MIC.getWholeUserBorrowsInfo(user);
        
         if(availableRequestsInfo.size() != 0){
             //advertenciaLB.setText("");
@@ -106,11 +109,38 @@ public class RequestInformationController implements Initializable {
         table.refresh();
     }
     
+     public void searchRequest() {
+        
+       buscarTFD.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredConcurrence.setPredicate(requestRow -> {
+                String lowerCaseFilter = newValue.toLowerCase();
+                if ((requestRow.getComputador().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getEdificio().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getFechaFinal().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getFechaInicio().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getIdSolicitud().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getPrograma().toLowerCase().indexOf(lowerCaseFilter) != -1) ||
+                    (requestRow.getSala().toLowerCase().indexOf(lowerCaseFilter) != -1)                   
+                ) {
+                    return true;
+                } 
+                else {
+                    return false;
+                }
+            });
+
+            SortedList<RequestRow> sortedData = new SortedList<>(filteredConcurrence);
+            sortedData.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedData);
+        });
+    }
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("estoy iniciando");
-        usuarioL.setText(userId);
+        usuarioTFD.setText(usuarioTFD.getText()+userId);
         insertrequest(userId);
+        searchRequest();
     }    
     
 }

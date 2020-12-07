@@ -75,6 +75,8 @@ public class ComputerAvailableController implements Initializable {
             selectedComputer[2] = availableComputersTable.getSelectionModel().getSelectedItem().getIdEdificio();
             selectedComputer[3] = availableComputersTable.getSelectionModel().getSelectedItem().getNombreSala();
 
+            RP.createRequest(cargarDatosUsuario.getUser(), SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+            
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRequest.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 437, 209);
@@ -144,7 +146,6 @@ public class ComputerAvailableController implements Initializable {
         insertComputers();
         searchComputers();
         infoText.setText("Equipos disponibles en la Facultad de Ingeniería");
-        //RP.createRequest(cargarDatosUsuario.getUser(), SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1));
     }
 
     public static String[] getSelectedComputer() {
