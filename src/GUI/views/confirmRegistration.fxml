@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ConfirmRegistrationController">
+    <stylesheets>
+        <URL value="@/GUI/style/confirmrequest.css" />
+    </stylesheets>
+   <children>
+      <Button fx:id="cancelRequestBtn" layoutX="93.0" layoutY="135.0" mnemonicParsing="false" onAction="#cancelRequestBtnAction" prefHeight="37.0" prefWidth="92.0" style="-fx-background-color: #94b43b;" text="Cancelar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="continueBtn" layoutX="244.0" layoutY="135.0" mnemonicParsing="false" onAction="#continueBtnAction" prefHeight="37.0" prefWidth="92.0" style="-fx-background-color: #94b43b;" text="Continuar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fx:id="message" layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Seguro que quiere crear el nuevo usuario " textAlignment="CENTER" wrappingWidth="397.134765625">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Text>
+      <Text fx:id="computerText" layoutX="52.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Una vez creado el usuario, podrá acceder a los sevicios de préstamo de equipos de cómputo" textAlignment="CENTER" wrappingWidth="332.1347629725933" />
+   </children>
+</AnchorPane>

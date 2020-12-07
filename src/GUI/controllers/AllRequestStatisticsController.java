@@ -10,11 +10,13 @@ import Entidad.Programa;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
@@ -91,12 +93,32 @@ public class AllRequestStatisticsController implements Initializable {
         allRequestsBarChart.getXAxis().setLabel("Programas");
         allRequestsBarChart.getYAxis().setLabel("Solicitudes");
         allRequestsBarChart.getData().addAll(allChartSet, allChartSet2);
-        allRequestsBarChart.setLegendVisible(false);
-        
         allRequestsBarChart.lookupAll(".default-color0.chart-bar")
             .forEach(n -> n.setStyle("-fx-bar-fill: #588FA7;"));
-    }
-    
+        
+        int i=0;
+        for (Node node : allRequestsBarChart.lookupAll(".chart-legend-item")) {
+                if (node instanceof Label) {
+                    ((Label) node).setWrapText(true);
+                    if(i==0)  ((Label) node).setText("Soliciudes Exitosas");
+                    else  ((Label) node).setText("Soliciudes No Exitosas");
+                    ((Label) node).setManaged(true);
+                    ((Label) node).setPrefWidth(150);
+                    i++;
+                    
+                    
+                }
+        }         
+    Platform.runLater(() -> {            
+            Node nsl = allRequestsBarChart.lookup(".default-color" + 0 + ".chart-legend-item-symbol");
+            nsl.setStyle("-fx-background-color: " + "#588FA7" + ", #588FA7;");
+            
+            
+    });
+    allRequestsBarChart.setLegendVisible(true);
+}
+ 
+
     void singleTableData(){        
         
         TableColumn idSolicitud = new TableColumn("Id Solicitud");
@@ -169,9 +191,9 @@ public class AllRequestStatisticsController implements Initializable {
             .forEach(n -> n.setStyle("-fx-bar-fill: #588FA7;"));
        
     }
-    */
-    
-    void actualizarTabla(Programa selected){
+     */
+
+    void actualizarTabla(Programa selected) {
         requestList.clear();
         singleProgramTable.refresh();
         ArrayList<String[]> cols = MIS.getProgramRequestHistory(selected);
@@ -185,52 +207,51 @@ public class AllRequestStatisticsController implements Initializable {
         String texto = "", doubleString = Double.toString(perSuccess);
         
         for (int i = 1; i <= 4; i++) {
-            try{
-                texto= doubleString.substring(0, i);
-            }catch(Exception e){
+            try {
+                texto = doubleString.substring(0, i);
+            } catch (Exception e) {
                 System.out.println(e);
                 break;
             }
         }
-        labelSuccess.setText("Porcentaje solicitudes exitosas "+ texto + "%");
-        perSuccess = ((double)(success[1])/(success[1]+success[0]));
-        texto=""; doubleString = Double.toString(perSuccess);
-        
+        labelSuccess.setText("Porcentaje solicitudes exitosas " + texto + "%");
+        perSuccess = ((double) (success[1]) / (success[1] + success[0]));
+        texto = "";
+        doubleString = Double.toString(perSuccess);
+
         for (int i = 1; i <= 4; i++) {
-            try{
-                texto= doubleString.substring(0, i);
-            }catch(Exception e){
+            try {
+                texto = doubleString.substring(0, i);
+            } catch (Exception e) {
                 System.out.println(e);
                 break;
             }
         }
-        labelNoSuccess.setText("Porcentaje solicitudes exitosas "+ texto + "%");
+        labelNoSuccess.setText("Porcentaje solicitudes exitosas " + texto + "%");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
         allRequestsData();
         singleTableData();
         allProgramsLabel.setText("Solicitudes por programa");
-        
+
         //Event handler para el click sobre la barra 
-        for (Series<String, Number> serie: allRequestsBarChart.getData()){
-            for (XYChart.Data<String, Number> item: serie.getData()){
-              
+        for (Series<String, Number> serie : allRequestsBarChart.getData()) {
+            for (XYChart.Data<String, Number> item : serie.getData()) {
+
                 item.getNode().setOnMousePressed((MouseEvent event) -> {
                     selectedProgram = (Programa) item.getExtraValue();
-                    System.out.println("La ID del programa clickeado es "+ selectedProgram.getId());
                     System.out.println(selectedProgram);
                     allRequestsPane.setVisible(false);
                     actualizarTabla(selectedProgram);
-                    singleProgramLabel.setText("Solicitudes: "+selectedProgram.getNombre());                    
+                    singleProgramLabel.setText("Solicitudes: " + selectedProgram.getNombre());
                     programRequestsPane.setVisible(true);
-                    
+
                 });
             }
-        }    
+        }
         
-    }    
-    
+    }  
 }
