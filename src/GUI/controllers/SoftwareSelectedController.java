@@ -120,7 +120,11 @@ public class SoftwareSelectedController implements Initializable {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaFinal);
+                    try {
+                        solicitud = RP.createRequest(cargarDatosUsuario.getUser(), selectedProgramArr, fechaInicio, fechaFinal);
+                    } catch (Exception e) {
+                        System.out.println("Error en la creación de la solicitud");
+                    }
                 }
             }).start();
         }
@@ -187,7 +191,7 @@ public class SoftwareSelectedController implements Initializable {
         availableProgramsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         availableProgramsTable.setItems(programList);
         availableProgramsTable.getColumns().addAll(programNameCol, programVersionCol);
-        
+
         RP.getAllPrograms().forEach(p -> {
             programList.add(p);
         });

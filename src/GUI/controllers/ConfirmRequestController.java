@@ -40,6 +40,7 @@ public class ConfirmRequestController implements Initializable {
     void loanBtnAction(ActionEvent event) throws IOException {
         if (RP.computerIsFree(computador)) {
             if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
+                System.out.println("SE hizo el prestamo!");
                 prestamo = true;
                 new Thread(new Runnable() {
                     @Override

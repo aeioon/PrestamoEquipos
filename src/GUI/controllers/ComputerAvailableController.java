@@ -144,7 +144,7 @@ public class ComputerAvailableController implements Initializable {
         insertComputers();
         searchComputers();
         infoText.setText("Equipos disponibles en la Facultad de Ingeniería");
-        //RP.createRequest(cargarDatosUsuario.getUser(), SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+        RP.createRequest(cargarDatosUsuario.getUser(), SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1));
     }
 
     public static String[] getSelectedComputer() {
