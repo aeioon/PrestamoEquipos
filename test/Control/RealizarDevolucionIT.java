@@ -52,7 +52,7 @@ public class RealizarDevolucionIT {
         boolean expResult = true;
         Computador computador = new Computador();
         computador.setId(1);
-        boolean result = instance.makeReturn(usuario, computador, true);
+        boolean result = instance.makeReturn(computador, true);
         System.out.println("Resultado:" + result);
         assertEquals(expResult, result);
     }
@@ -66,7 +66,7 @@ public class RealizarDevolucionIT {
         boolean expResult = true;
         Computador computador = new Computador();
         computador.setId(2);
-        boolean result = instance.makeReturn(usuario, computador, true);
+        boolean result = instance.makeReturn(computador, true);
         assertEquals(expResult, result);
     }
 
@@ -79,7 +79,7 @@ public class RealizarDevolucionIT {
         boolean expResult = false;
         Computador computador = new Computador();
         computador.setId(2);
-        boolean result = instance.makeReturn(usuario, computador, false);
+        boolean result = instance.makeReturn(computador, false);
         assertEquals(expResult, result);
     }
 
@@ -92,7 +92,7 @@ public class RealizarDevolucionIT {
         boolean expResult = false;
         Computador computador = new Computador();
         computador.setId(3);
-        boolean result = instance.makeReturn(usuario, computador, false);
+        boolean result = instance.makeReturn(computador, false);
         assertEquals(expResult, result);
     }
 
@@ -105,7 +105,7 @@ public class RealizarDevolucionIT {
         boolean expResult = false;
         Computador computador = new Computador();
         computador.setId(3);
-        boolean result = instance.makeReturn(usuario, computador, false);
+        boolean result = instance.makeReturn(computador, false);
         assertEquals(expResult, result);
     }
 

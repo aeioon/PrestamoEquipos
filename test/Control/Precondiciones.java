@@ -36,7 +36,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(2);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn11(){
@@ -45,7 +45,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(1);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn12(){
@@ -54,7 +54,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(1);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn13(){
@@ -63,7 +63,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(1);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn21(){
@@ -72,7 +72,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(2);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn22(){
@@ -81,7 +81,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(2);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn23(){
@@ -90,7 +90,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(2);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn31(){
@@ -99,7 +99,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(3);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn32(){
@@ -108,7 +108,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(3);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn33(){
@@ -117,7 +117,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(3);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn34(){
@@ -126,7 +126,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(3);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn41(){
@@ -135,7 +135,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(4);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn42(){
@@ -144,7 +144,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(4);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn43(){
@@ -153,7 +153,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(4);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void testReturn44(){
@@ -162,7 +162,7 @@ public class Precondiciones {
         RealizarDevolucion RD = new RealizarDevolucion();
         Computador computador = new Computador();
         computador.setId(4);
-        System.out.println(RD.makeReturn(u, computador, true));
+        System.out.println(RD.makeReturn(computador, true));
     }
     
     public static void precondicionesPrestamoCasoA(){

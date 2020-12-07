@@ -5,7 +5,6 @@
  */
 package Control;
 
-import Entidad.Encargado;
 import Entidad.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -194,7 +193,7 @@ public class ValidarLoginIT {
         usuario.setId("ggarciaro");
         usuario.setContraseña("12345");
         ValidarLogin instance = new ValidarLogin();
-        Usuario expResult = new Usuario("ggarciaro", "12345", "Gabriela María", "García Romero", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario expResult = new Usuario("ggarciaro", "12345", "Gabriela María", "García Romero", "Ingeniería de Sistemas y Computación", "Ingeniería", 0);
         Usuario result = instance.verificarUsuario(usuario);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getContraseña(), result.getContraseña());
@@ -211,7 +210,7 @@ public class ValidarLoginIT {
         usuario.setId("jgarciam");
         usuario.setContraseña("adios");
         ValidarLogin instance = new ValidarLogin();
-        Usuario expResult = new Usuario("jgarciam", "adios", "Juan Camilo", "García Martinez", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario expResult = new Usuario("jgarciam", "adios", "Juan Camilo", "García Martinez", "Ingeniería de Sistemas y Computación", "Ingeniería", 0);
         Usuario result = instance.verificarUsuario(usuario);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getContraseña(), result.getContraseña());
@@ -228,7 +227,7 @@ public class ValidarLoginIT {
         usuario.setId("cchavezb");
         usuario.setContraseña("hola");
         ValidarLogin instance = new ValidarLogin();
-        Usuario expResult = new Usuario("cchavezb", "hola", "Cristian Alejandro", "Chávez Becerra", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario expResult = new Usuario("cchavezb", "hola", "Cristian Alejandro", "Chávez Becerra", "Ingeniería de Sistemas y Computación", "Ingeniería", 0);
         Usuario result = instance.verificarUsuario(usuario);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getContraseña(), result.getContraseña());
@@ -245,7 +244,7 @@ public class ValidarLoginIT {
         usuario.setId("dbustos");
         usuario.setContraseña("123");
         ValidarLogin instance = new ValidarLogin();
-        Usuario expResult = new Usuario("dbustos", "123", "David Julian", "Bustos Cortes", "Ingeniería de Sistemas y Computación", "Ingeniería");
+        Usuario expResult = new Usuario("dbustos", "123", "David Julian", "Bustos Cortes", "Ingeniería de Sistemas y Computación", "Ingeniería", 0);
         Usuario result = instance.verificarUsuario(usuario);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getContraseña(), result.getContraseña());
@@ -253,39 +252,6 @@ public class ValidarLoginIT {
         assertEquals(expResult.getApellidos(), result.getApellidos());
         assertEquals(expResult.getCarrera(), result.getCarrera());
         assertEquals(expResult.getFacultad(), result.getFacultad());
-    }
-
-    /**
-     * Test of verificarAdministrador method, of class ValidarLogin.
-     */
-    @Test
-    public void testVerificarAdministrador1() {
-        System.out.println("verificarAdministrador");
-        Encargado encargado = new Encargado();
-        encargado.setId("jruiz");
-        encargado.setContraseña("123");
-        ValidarLogin instance = new ValidarLogin();
-        Encargado expResult = new Encargado("jruiz", "123", "Juan", "Ruiz");
-        Encargado result = instance.verificarAdministrador(encargado);
-        assertEquals(expResult.getId(), result.getId());
-        assertEquals(expResult.getContraseña(), result.getContraseña());
-        assertEquals(expResult.getNombres(), result.getNombres());
-        assertEquals(expResult.getApellidos(), result.getApellidos());
-    }
-
-    @Test
-    public void testVerificarAdministrador2() {
-        System.out.println("verificarAdministrador");
-        Encargado encargado = new Encargado();
-        encargado.setId("lfajardo");
-        encargado.setContraseña("Muchacho");
-        ValidarLogin instance = new ValidarLogin();
-        Encargado expResult = new Encargado("lfajardo", "Muchacho", "Lucas", "Fajardo Peters");
-        Encargado result = instance.verificarAdministrador(encargado);
-        assertEquals(expResult.getId(), result.getId());
-        assertEquals(expResult.getContraseña(), result.getContraseña());
-        assertEquals(expResult.getNombres(), result.getNombres());
-        assertEquals(expResult.getApellidos(), result.getApellidos());
     }
 
 }

@@ -300,7 +300,7 @@ public class MostrarHistorialPrestamosIT {
         expResult.add("530");
         expResult.add("531");
         expResult.add("535");
-        ArrayList<String[]> result = instance.getHoleUserBorrowsInfo(userId);
+        ArrayList<String[]> result = instance.getWholeUserBorrowsInfo(userId);
         for (int i = 0; i < result.size(); i++) {
             System.out.println("ID c: " + result.get(i)[0] + " y cr: "+ expResult.get(i));
             assertEquals(expResult.get(i), result.get(i)[0]);
@@ -348,7 +348,7 @@ public class MostrarHistorialPrestamosIT {
         expResult.add("405");
         expResult.add("533");
         expResult.add("548");
-        ArrayList<String[]> result = instance.getHoleUserBorrowsInfo(userId);
+        ArrayList<String[]> result = instance.getWholeUserBorrowsInfo(userId);
         for (int i = 0; i < result.size(); i++) {
             System.out.println("ID c: " + result.get(i)[0] + " y cr: "+ expResult.get(i));
             assertEquals(expResult.get(i), result.get(i)[0]);
@@ -672,7 +672,7 @@ public class MostrarHistorialPrestamosIT {
         expResult.add("816");
         expResult.add("817");
         expResult.add("818");
-        ArrayList<String[]> result = instance.getHoleUserBorrowsInfo(userId);
+        ArrayList<String[]> result = instance.getWholeUserBorrowsInfo(userId);
         for (int i = 0; i < result.size(); i++) {
             System.out.println("ID c: " + result.get(i)[0] + " y cr: "+ expResult.get(i));
             assertEquals(expResult.get(i), result.get(i)[0]);
@@ -778,7 +778,7 @@ public class MostrarHistorialPrestamosIT {
         expResult.add("528");
         expResult.add("536");
         expResult.add("552");
-        ArrayList<String[]> result = instance.getHoleUserBorrowsInfo(userId);
+        ArrayList<String[]> result = instance.getWholeUserBorrowsInfo(userId);
         for (int i = 0; i < result.size(); i++) {
             System.out.println("ID c: " + result.get(i)[0] + " y cr: "+ expResult.get(i));
             assertEquals(expResult.get(i), result.get(i)[0]);
@@ -816,7 +816,7 @@ public class MostrarHistorialPrestamosIT {
         expResult.add("770");
         expResult.add("806");
         expResult.add("808");
-        ArrayList<String[]> result = instance.getHoleUserBorrowsInfo(userId);
+        ArrayList<String[]> result = instance.getWholeUserBorrowsInfo(userId);
         for (int i = 0; i < result.size(); i++) {
             System.out.println("ID c: " + result.get(i)[0] + " y cr: "+ expResult.get(i));
             assertEquals(expResult.get(i), result.get(i)[0]);
