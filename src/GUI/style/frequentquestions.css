@@ -1,0 +1,15 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+#backHomeBtn {
+     -fx-background-color:  #565a5c;
+}
+
+#backHomeBtn:hover {
+     -fx-background-color:  #4d5052;
+}

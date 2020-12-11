@@ -53,7 +53,7 @@
                                  </center>
                               </BorderPane>
                               <Label fx:id="AdvertenciausLB" prefHeight="21.0" prefWidth="281.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="AdvertenciapLB" prefHeight="21.0" prefWidth="280.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="AdvertenciapLB" prefHeight="21.0" prefWidth="291.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="userLogoLB" prefHeight="35.0" prefWidth="47.0" />
                               <Label fx:id="lockLogoLB" prefHeight="28.0" prefWidth="47.0" GridPane.rowIndex="2" />
                               <AnchorPane prefHeight="49.0" prefWidth="306.0" GridPane.columnIndex="1">

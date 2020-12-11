@@ -29,14 +29,6 @@ public class StudentHomeController implements Initializable {
 
     CargarDatosUsuario cargarDatos = CargarDatosUsuario.getInstance();
 
-    //temporal
-    void changeScene(ActionEvent event, String fxml) throws IOException {
-        Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
-        Scene newScene = new Scene(newParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(newScene);
-        window.show();
-    }
 
     @FXML
     private Button requestLoanBtn;
@@ -120,8 +112,22 @@ public class StudentHomeController implements Initializable {
 
     @FXML
     void faqBtnAction(ActionEvent event) throws IOException {
+        try {
+            changeScene(event, "/GUI/views/frequentQuestions.fxml");
+        } catch (IOException e) {
+            System.err.println(String.format("Error: %s", e.getMessage()));
+        }
     }
 
+    //temporal
+    void changeScene(ActionEvent event, String fxml) throws IOException {
+        Parent newParent = FXMLLoader.load(getClass().getResource(fxml));
+        Scene newScene = new Scene(newParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(newScene);
+        window.show();
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         escudoBlanco.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/escudonNombre.png"))));
