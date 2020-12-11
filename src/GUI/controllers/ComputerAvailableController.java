@@ -89,7 +89,7 @@ public class ComputerAvailableController implements Initializable {
             if (ConfirmRequestController.isPrestamo()) {
                 changeScene(event, "/GUI/views/studentHome.fxml");
             } else {
-                changeScene(event, "/GUI/views/computerAvailable.fxml");
+                changeScene(event, "/GUI/views/softwareSelected.fxml");
             }
 
         } catch (Exception e) {
