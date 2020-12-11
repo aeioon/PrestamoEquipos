@@ -50,7 +50,7 @@ public class ConfirmRequestController implements Initializable {
             stage.close();
         } else {
             message.setText("Fallo el prestamo");
-            computerText.setText("");
+            computerText.setText("     El computador se encuentra ocupado");
         }
     }
 
