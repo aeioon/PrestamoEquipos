@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="1032.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.controllers.HistoryController">
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="1032.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.HistoryController">
     <stylesheets>
         <URL value="@/GUI/style/history.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="table" layoutX="66.0" layoutY="179.0" prefHeight="427.0" prefWidth="898.0" />
-      <TextField fx:id="searchTF" layoutX="67.0" layoutY="108.0" prefHeight="31.0" prefWidth="898.0" />
+      <TableView fx:id="table" layoutX="67.0" layoutY="143.0" prefHeight="439.0" prefWidth="898.0" />
+      <TextField fx:id="searchTF" layoutX="67.0" layoutY="90.0" prefHeight="31.0" prefWidth="898.0" />
       <Label layoutX="66.0" layoutY="31.0" prefHeight="41.0" prefWidth="162.0" text="Historial">
          <font>
             <Font name="System Bold" size="36.0" />

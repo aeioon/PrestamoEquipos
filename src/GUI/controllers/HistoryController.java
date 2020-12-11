@@ -81,7 +81,7 @@ public class HistoryController implements Initializable {
         TableColumn teamInfoCompCol = new TableColumn("Mas Información");
         teamInfoCompCol.setStyle( "-fx-alignment: CENTER;");  
         teamInfoCompCol.setCellValueFactory(new PropertyValueFactory("botonInfo"));
-        teamInfoCompCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        teamInfoCompCol.prefWidthProperty().bind(table.widthProperty().multiply(0.195));
         teamInfoCompCol.setResizable(false);
 
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
