@@ -183,16 +183,12 @@ public class AddComputerController implements Initializable {
     @FXML
     void rightArrowBtnAction(ActionEvent event) {
         ComputerRow CRSelected = computersTable.getSelectionModel().getSelectedItem();
-        System.out.println(computersTable.getSelectionModel().getSelectedItem().getNombreEdificio());
         if(CRSelected != null)
             addComputer(CRSelected);
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-       System.out.println("Programa seleccionado en la otra ventana "+  SoftwareManagementController.getSelectedProgram().getNombre());
-        
+    public void initialize(URL url, ResourceBundle rb) {   
        insertComputersTable();
        insertSelectedCompsTable();
        Thread thread = new Thread(new Runnable() {

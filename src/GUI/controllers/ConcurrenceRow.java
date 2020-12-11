@@ -56,7 +56,6 @@ public class ConcurrenceRow {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 1) {
-                    System.out.println("El computador seleccionado es: " + idEquipo);
                     selectcomputador.setId(Integer.parseInt(idEquipo));
 
                     Stage primaryStage = new Stage();

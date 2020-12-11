@@ -233,7 +233,6 @@ public class SoftwareManagementController implements Initializable {
                     selectedProgram.setId(allProgramsTable.getSelectionModel().getSelectedItem().getId());
                     selectedProgram.setNombre(allProgramsTable.getSelectionModel().getSelectedItem().getNombre());
                     selectedProgram.setVersion(allProgramsTable.getSelectionModel().getSelectedItem().getVersion());
-                    System.out.println(selectedProgram.getNombre());
                     updateComputerData();
                 }
             }

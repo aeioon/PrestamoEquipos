@@ -38,7 +38,7 @@ public class ConfirmRequestController implements Initializable {
 
     @FXML
     void loanBtnAction(ActionEvent event) throws IOException {
-        if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusHours(1))) {
+        if (RP.makeBorrow(cargarDatosUsuario.getUser(), computador, SoftwareSelectedController.getSelectedProgramArr(), LocalDateTime.now(), LocalDateTime.now().plusMinutes(SoftwareSelectedController.getDuracion()))) {
             prestamo = true;
             new Thread(new Runnable() {
                 @Override

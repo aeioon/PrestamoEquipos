@@ -57,6 +57,7 @@ public class SoftwareSelectedController implements Initializable {
     private static LocalDateTime fechaFinal;
     private static boolean prestamo = true;
     private static boolean solicitudCreada = false;
+    private static int duracion;
 
     @FXML
     private TextField searchProgramTF;
@@ -101,26 +102,20 @@ public class SoftwareSelectedController implements Initializable {
         selectedProgramList.forEach(p -> {
             selectedProgramArr.add(p);
         });
+        try {
+            duracion = Integer.parseInt(numeroDeHoras.getText());
+        } catch (Exception e) {
+            duracion = 60;
+        }
         if (checkBoxReserva.isSelected() && comboBoxHoraInicio.getValue() != null && date.getValue() != null) {
             String[] minutes = comboBoxHoraInicio.getValue().toString().split(":");
             fechaInicio = LocalDateTime.of(date.getValue(), LocalTime.of(Integer.parseInt(minutes[0]), Integer.parseInt(minutes[1])));
-            fechaFinal = fechaInicio.plusHours(1);
-            try {
-                fechaFinal = fechaInicio.plusMinutes(Integer.parseInt(numeroDeHoras.getText()));
-            } catch (Exception e) {
-                System.out.println("Tiempo se especificó mal");
-            }
-            availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
+            fechaFinal = fechaInicio.plusMinutes(duracion);
         } else {
             fechaInicio = LocalDateTime.now();
-            fechaFinal = fechaInicio.plusHours(1);
-            try {
-                fechaFinal = fechaInicio.plusMinutes(Integer.parseInt(numeroDeHoras.getText()));
-            } catch (Exception e) {
-                System.out.println("Tiempo se especificó mal");
-            }
-            availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
+            fechaFinal = fechaInicio.plusMinutes(duracion);
         }
+        availableComputersInfo = RP.getInfoComputers(selectedProgramArr, fechaInicio, fechaFinal);
         if (!availableComputersInfo.isEmpty()) {
             Parent newParent = FXMLLoader.load(getClass().getResource("/GUI/views/computerAvailable.fxml"));
             Scene newScene = new Scene(newParent);
@@ -277,7 +272,6 @@ public class SoftwareSelectedController implements Initializable {
     void dateAction(ActionEvent event) {
         if (date.getValue() != null) {
             int hour = 7;
-            System.out.println("get date: " + date.getValue());
             if (date.getValue().equals(LocalDate.now())) {
                 int now = LocalTime.now().getHour();
                 hour = now >= 6 ? now + 1 : 7;
@@ -378,6 +372,14 @@ public class SoftwareSelectedController implements Initializable {
 
     public static void setSelectedProgramArr(ArrayList<Programa> selectedProgramArr) {
         SoftwareSelectedController.selectedProgramArr = selectedProgramArr;
+    }
+
+    public static int getDuracion() {
+        return duracion;
+    }
+
+    public static void setDuracion(int duracion) {
+        SoftwareSelectedController.duracion = duracion;
     }
 
 }

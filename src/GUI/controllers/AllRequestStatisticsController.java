@@ -243,7 +243,6 @@ public class AllRequestStatisticsController implements Initializable {
 
                 item.getNode().setOnMousePressed((MouseEvent event) -> {
                     selectedProgram = (Programa) item.getExtraValue();
-                    System.out.println(selectedProgram);
                     allRequestsPane.setVisible(false);
                     actualizarTabla(selectedProgram);
                     singleProgramLabel.setText("Solicitudes: " + selectedProgram.getNombre());

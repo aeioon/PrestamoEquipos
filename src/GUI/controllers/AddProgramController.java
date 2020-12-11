@@ -44,7 +44,6 @@ public class AddProgramController implements Initializable {
 
     @FXML
     void createProgramBtnAction(ActionEvent event) {
-        System.out.println(programNameTF.getText().length()+ ""+ programVersionTF.getText().length());
         //Si los TF estan vacios no se hace nada, manda notificacion.
         if (programNameTF.getText().length() != 0 && programVersionTF.getText().length() != 0) {
             Programa programa = new Programa();

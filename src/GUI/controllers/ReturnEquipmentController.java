@@ -135,7 +135,6 @@ public class ReturnEquipmentController implements Initializable {
         try {
             solicitudRow = solicitudesTable.getSelectionModel().getSelectedItem();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            System.out.println(solicitudRow.getFechaInicio());
             LocalDateTime inicio = LocalDateTime.parse(solicitudRow.getFechaInicio(), formatter);
             LocalDateTime fin = LocalDateTime.parse(solicitudRow.getFechaFin(), formatter);
 
