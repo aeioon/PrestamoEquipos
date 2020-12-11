@@ -218,7 +218,6 @@ public class RegisterController implements Initializable {
         } else{
             usuario = new Usuario(usuarioTFD.getText(), passwordPTFLD.getText(), nombresTFD.getText(),
             apellidosTFD.getText(), carreraCB.getValue(), facultadCB.getValue(), 0);                    
-            System.out.println("estamos aca");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/views/confirmRegistration.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 437, 209);

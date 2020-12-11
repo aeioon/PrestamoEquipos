@@ -127,8 +127,8 @@ public class ProgramaDAO {
 
                 fila[0] = Integer.toString(resultSet.getInt(1));
                 fila[1] = resultSet.getString(2) + " " + resultSet.getString(3);
-                fila[2] = resultSet.getDate(4).toString() + " " +resultSet.getTime(4).toString();
-                fila[3] = resultSet.getDate(5).toString() + " " +resultSet.getTime(5).toString();
+                fila[2] = resultSet.getString(4);
+                fila[3] = resultSet.getString(5);
                 int exitoso = resultSet.getInt(6);
                 if (exitoso == 0){
                     fila[4] = "Exitoso";

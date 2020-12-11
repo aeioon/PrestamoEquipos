@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/adminhome.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.AdminHomeController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/adminhome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.AdminHomeController">
     <stylesheets>
         <URL value="@/GUI/style/adminhome.css" />
     </stylesheets>
@@ -53,7 +53,7 @@
                      </font>
                   </Label>
                   <Label fx:id="flechaL" layoutX="183.0" layoutY="106.0" onDragEntered="#reportBtnAction" prefHeight="21.0" prefWidth="30.0" />
-                  <Button fx:id="reportB" layoutY="91.0" mnemonicParsing="false" onAction="#reportBtnAction" prefHeight="47.0" prefWidth="254.0" style="-fx-background-color: #696969; -fx-background-radius:: 0;" text="Informes" textFill="WHITE">
+                  <Button fx:id="reportB" layoutY="91.0" mnemonicParsing="false" onAction="#reportBtnAction" prefHeight="47.0" prefWidth="254.0" style="-fx-background-color: #696969; -fx-background-radius: 0;" text="Informes" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

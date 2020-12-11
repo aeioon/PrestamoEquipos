@@ -168,11 +168,10 @@ public class RemoveComputerController implements Initializable {
             selectedListArr.add(temp);
         });
         if(MST.quitarEquipos(selectedListArr, programa)){
-            System.out.println("Se removieron los computadores");
             Stage stage = (Stage) removeBtn.getScene().getWindow();
             stage.close();           
         } else {
-            System.out.println("Hubo un errror, imprimir en Label");
+            System.out.println("Hubo un error, imprimir en Label");
         }     
     }
     
@@ -200,9 +199,7 @@ public class RemoveComputerController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       System.out.println("Programa seleccionado en la otra ventana "+  SoftwareManagementController.getSelectedProgram().getNombre());
-        
+       
        insertComputersTable();
        insertSelectedCompsTable();
        Thread thread = new Thread(new Runnable() {

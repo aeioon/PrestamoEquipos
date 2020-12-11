@@ -42,22 +42,18 @@ public class HistoryRow {
         botonInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent click) {
-                System.out.println("oprimi el boton");
                 if (click.getClickCount() == 1) {
-                    System.out.println("El computador seleccionado es: " + idUsuario);
                     selectUsuario = idUsuario;
 
                     Stage primaryStage = new Stage();
                     Parent root;
                     try {
-                        System.out.println("estoy abriendo la nueva ventana");
                         root = FXMLLoader.load(getClass().getResource("/GUI/views/requestInformation.fxml"));
                         Scene scene = new Scene(root);
                         primaryStage.setScene(scene);
                         primaryStage.setTitle("Información usuario");
                         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logotipo_UN_16.png")));
                         primaryStage.show();
-                        System.out.println("la ventana ya se ve");
                     } catch (IOException ex) {
                         Logger.getLogger(ConcurrenceRow.class.getName()).log(Level.SEVERE, null, ex);
                     }

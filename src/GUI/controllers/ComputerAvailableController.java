@@ -58,7 +58,6 @@ public class ComputerAvailableController implements Initializable {
         availableComputersInfo = SoftwareSelectedController.getAvailableComputersInfo();
 
         availableComputersInfo.forEach(computer -> {
-            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if (!computerList.contains(temp)) {
                 computerList.add(temp);

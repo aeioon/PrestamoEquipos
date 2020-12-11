@@ -115,9 +115,7 @@ public class SoftwareSelectedController implements Initializable {
             fechaInicio = LocalDateTime.now();
             fechaFinal = fechaInicio.plusHours(1);
             try {
-                System.out.println("EEEEEE");
                 fechaFinal = fechaInicio.plusMinutes(Integer.parseInt(numeroDeHoras.getText()));
-                System.out.println("IIIIII");
             } catch (Exception e) {
                 System.out.println("Tiempo se especificó mal");
             }

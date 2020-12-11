@@ -121,7 +121,6 @@ public class SoftwareManagementController implements Initializable {
             programPaneText.setText("No hay computadores asignados a este programa");
         }
         availableComputersInfo.forEach(computer -> {
-            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3]);
             ComputerRow temp = new ComputerRow(computer[0], computer[1], computer[2], computer[3]);
             if (!computerList.contains(temp)) {
                 computerList.add(temp);

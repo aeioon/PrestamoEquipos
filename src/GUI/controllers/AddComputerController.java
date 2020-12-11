@@ -163,7 +163,6 @@ public class AddComputerController implements Initializable {
             selectedListArr.add(temp);
         });
         if(MST.adherirEquipos(selectedListArr, programa)){
-            System.out.println("Se añadieron los computadores");
             Stage stage = (Stage) addBtn.getScene().getWindow();
             stage.close();           
         } else {

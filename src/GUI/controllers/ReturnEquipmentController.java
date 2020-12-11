@@ -91,7 +91,6 @@ public class ReturnEquipmentController implements Initializable {
     void insertSolicitudes() {
         ArrayList<String[]> availableComputersInfo = cargarDatosUsuario.getDatosSolicitudes();
         availableComputersInfo.forEach(computer -> {
-            System.out.println(computer[0] + "" + computer[1] + "" + computer[2] + "" + computer[3] + "" + computer[4] + "" + computer[5] + "" + computer[6]);
             SolicitudRow temp = new SolicitudRow(computer[0], computer[1], computer[2], computer[3], computer[4], computer[5], computer[6]);
             if (!solicitudesList.contains(temp)) {
                 solicitudesList.add(temp);

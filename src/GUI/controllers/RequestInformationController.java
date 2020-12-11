@@ -45,7 +45,6 @@ public class RequestInformationController implements Initializable {
     FilteredList<RequestRow> filteredConcurrence = new FilteredList<>(requestList, b -> true);
     
     void insertrequest(String user ){
-        System.out.println("generar tabla");
         TableColumn teamIdCol = new TableColumn("Solicitud");
         teamIdCol.setStyle( "-fx-alignment: CENTER;"); 
         teamIdCol.setCellValueFactory(new PropertyValueFactory<>("idSolicitud"));

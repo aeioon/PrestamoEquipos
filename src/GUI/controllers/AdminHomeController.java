@@ -46,10 +46,10 @@ public class AdminHomeController implements Initializable {
         principalPane.getChildren().clear();
         Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/concurrence.fxml"));
         principalPane.getChildren().add(newParent);
-        concurrenceB.setStyle("-fx-background-color:    #565a5c" + "; -fx-radius: 0");
-        managementB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        flechaB.setStyle("-fx-background-color:   #696969");
-        reportB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
+        //concurrenceB.setStyle("-fx-background-color:    #565a5c" + "; -fx-radius: 0;");
+        //managementB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0;");
+        //flechaB.setStyle("-fx-background-color:   #696969");
+        //reportB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0;");
         flechaB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/flecha-correcta.png"))));
         oprimido = true;
         deSoftwareB.setVisible(!oprimido);
@@ -61,10 +61,10 @@ public class AdminHomeController implements Initializable {
         principalPane.getChildren().clear();
         Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/softwareManagement.fxml"));
         principalPane.getChildren().add(newParent);
-        managementB.setStyle("-fx-background-color:    #565a5c"+ "; -fx-radius: 0");
-        concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        reportB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        flechaB.setStyle("-fx-background-color:   #696969");
+        //managementB.setStyle("-fx-background-color:    #565a5c"+ "; -fx-radius: 0;");
+        //concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0;");
+        //reportB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0;");
+        //flechaB.setStyle("-fx-background-color:   #696969;");
         flechaB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/flecha-correcta.png"))));
         oprimido = true;
         deSoftwareB.setVisible(!oprimido);
@@ -74,10 +74,10 @@ public class AdminHomeController implements Initializable {
     @FXML
     void reportBtnAction(ActionEvent event) throws IOException {
         principalPane.getChildren().clear();        
-        managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
-        concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
-        flechaB.setStyle("-fx-background-color:   #565a5c");
+        //managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
+        //concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
+        //reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
+        //flechaB.setStyle("-fx-background-color:   #565a5c");
         if(oprimido){
             flechaB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/flecha-invertida.png"))));
             deSoftwareB.setVisible(true);
@@ -97,10 +97,10 @@ public class AdminHomeController implements Initializable {
         Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/history.fxml"));
         principalPane.getChildren().add(newParent);
         
-        managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
-        concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
-        flechaB.setStyle("-fx-background-color:   #565a5c");
+        //managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
+        //concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
+        //reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
+        //flechaB.setStyle("-fx-background-color:   #565a5c");
     }
     
      @FXML
@@ -109,10 +109,10 @@ public class AdminHomeController implements Initializable {
         Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/allRequestStatistics.fxml"));
         principalPane.getChildren().add(newParent);
         
-        managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
-        concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
-        reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
-        flechaB.setStyle("-fx-background-color:   #565a5c");
+        //managementB.setStyle("-fx-background-color:    #696969"+ "; -fx-radius: 0");
+        //concurrenceB.setStyle("-fx-background-color:   #696969"+ "; -fx-radius: 0");
+        //reportB.setStyle("-fx-background-color:   #565a5c"+ "; -fx-radius: 0");
+        //flechaB.setStyle("-fx-background-color:   #565a5c");
     }
 
     @Override
