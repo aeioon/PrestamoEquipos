@@ -18,29 +18,23 @@ import javafx.scene.layout.Pane;
 
 public class AdminHomeController implements Initializable {
 
-    boolean oprimido;
+    boolean oprimido = true;
 
     @FXML
     private Button concurrenceB;
-
     @FXML
     private Button managementB;
-    
     @FXML
     private Button reportB;
-    
     @FXML
     private Button flechaB;
-    
     @FXML
     private Button deSoftwareB;
-    
     @FXML
     private Button historialB;
-
     @FXML
     private Pane principalPane;
-
+    
     @FXML
     void concurrenceBtnAction(ActionEvent event) throws IOException {
         principalPane.getChildren().clear();
@@ -103,7 +97,7 @@ public class AdminHomeController implements Initializable {
         flechaB.setStyle("-fx-background-color:   #565a5c");
     }
     
-     @FXML
+    @FXML
     void deSoftwareBBtnAction(ActionEvent event) throws IOException {
         principalPane.getChildren().clear();
         Pane newParent = (Pane) FXMLLoader.load(getClass().getResource("/GUI/views/allRequestStatistics.fxml"));
@@ -117,7 +111,6 @@ public class AdminHomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        oprimido = true;
         deSoftwareB.setVisible(!oprimido);
         historialB.setVisible(!oprimido);
         flechaB.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/resources/flecha-correcta.png"))));

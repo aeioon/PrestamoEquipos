@@ -19,8 +19,8 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
-            <TextField fx:id="programSearchTF" layoutX="49.0" layoutY="39.0" prefHeight="31.0" prefWidth="429.0" promptText="Buscar programa" />
-            <Button fx:id="addProgramBtn" layoutX="49.0" layoutY="537.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #6B8E23;" text="Agregar Programa" textFill="WHITE">
+            <TextField fx:id="programSearchTF" layoutX="49.0" layoutY="39.0" prefHeight="38.0" prefWidth="429.0" promptText="Buscar programa" />
+            <Button fx:id="addProgramBtn" layoutX="49.0" layoutY="540.0" mnemonicParsing="false" onAction="#addProgramBtnAction" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #6B8E23;" text="Agregar Programa" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -36,15 +36,15 @@
                </effect></Button>
             <AnchorPane fx:id="computerListPane" layoutX="498.0" layoutY="39.0" prefHeight="538.0" prefWidth="521.0">
                <children>
-                  <TableView fx:id="computerTable" layoutX="65.0" layoutY="55.0" prefHeight="432.0" prefWidth="430.0">
+                  <TableView fx:id="computerTable" layoutX="65.0" layoutY="54.0" prefHeight="432.0" prefWidth="430.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy></TableView>
-                  <Text fx:id="programPaneText" fill="#252c48" layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos en los que esta instalado el software" wrappingWidth="430.0000128149986">
+                  <Text fx:id="programPaneText" fill="#252c48" layoutX="66.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipos en los que esta instalado el software" wrappingWidth="430.0000128149986">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Text>
-                  <Button fx:id="removeComputerBtn" layoutX="207.0" layoutY="498.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="31.0" prefWidth="125.0" style="-fx-background-color: #a61c31;" text="Quitar Equipo" textFill="WHITE">
+                  <Button fx:id="removeComputerBtn" layoutX="207.0" layoutY="501.0" mnemonicParsing="false" onAction="#removeComputerBtnAction" prefHeight="31.0" prefWidth="125.0" style="-fx-background-color: #a61c31;" text="Quitar Equipo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -58,7 +58,7 @@
                            </light>
                         </Lighting>
                      </effect></Button>
-                  <Button fx:id="addComputerBtn" layoutX="65.0" layoutY="498.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #6B8E23;" text="Agregar Equipo" textFill="WHITE">
+                  <Button fx:id="addComputerBtn" layoutX="65.0" layoutY="501.0" mnemonicParsing="false" onAction="#addComputerBtnAction" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #6B8E23;" text="Agregar Equipo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -74,7 +74,7 @@
                      </effect></Button>
                </children>
             </AnchorPane>
-            <Button fx:id="removeProgramBtn" layoutX="207.0" layoutY="538.0" mnemonicParsing="false" onAction="#removeProgramBtnAction" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #a61c31;" text="Quitar Programa" textFill="WHITE">
+            <Button fx:id="removeProgramBtn" layoutX="207.0" layoutY="541.0" mnemonicParsing="false" onAction="#removeProgramBtnAction" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #a61c31;" text="Quitar Programa" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -14,19 +14,19 @@
       <Label layoutX="24.0" layoutY="29.0" text="ID Equipo:" />
       <Label layoutX="24.0" layoutY="70.0" text="Edificio:" />
       <Label layoutX="24.0" layoutY="110.0" text="Sala:" />
-      <Label layoutX="19.0" layoutY="153.0" text="Software:" />
-      <Label layoutX="22.0" layoutY="236.0" text="Hardware:" />
-      <Label layoutX="21.0" layoutY="307.0" text="Encargado de la sala:" />
+      <Label layoutX="26.0" layoutY="152.0" text="Software:" />
+      <Label layoutX="25.0" layoutY="236.0" text="Hardware:" />
+      <Label layoutX="23.0" layoutY="307.0" text="Encargado de la sala:" />
       <Label layoutX="257.0" layoutY="29.0" text="Usuario:" />
       <Text fx:id="IDEquipoTX" layoutX="105.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="110.6708984375" />
       <Text fx:id="edifioTX" layoutX="91.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="138.99999856948853" />
       <Text fx:id="salaTX" layoutX="65.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="128.6708984375" />
-      <Text fx:id="softwareTX" layoutX="90.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="356.6708984375" />
+      <Text fx:id="softwareTX" layoutX="93.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="356.6708984375" />
       <Text fx:id="hardwareTX" layoutX="93.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="397.6708984375" />
-      <Text fx:id="encargadoNombreTX" layoutX="165.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="292.6708984375" />
+      <Text fx:id="encargadoNombreTX" layoutX="167.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="292.6708984375" />
       <Text fx:id="usuarioTX" layoutX="326.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="151.6708984375" />
-      <Label layoutX="22.0" layoutY="328.0" text="Usuario encargado:" />
-      <Text fx:id="encargadoUsuarioTX" layoutX="150.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="245.6708984375" />
+      <Label layoutX="23.0" layoutY="328.0" text="Usuario encargado:" />
+      <Text fx:id="encargadoUsuarioTX" layoutX="155.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="245.6708984375" />
       <Button fx:id="returnComputer" layoutX="355.0" layoutY="334.0" mnemonicParsing="false" onAction="#returnComputerAction" prefHeight="31.0" prefWidth="111.0" style="-fx-background-color: #94b43b;" text="Desocupar" />
    </children>
 </AnchorPane>

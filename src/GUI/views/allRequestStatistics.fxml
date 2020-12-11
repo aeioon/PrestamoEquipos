@@ -14,12 +14,12 @@
    <children>
       <AnchorPane fx:id="allRequestsPane" prefHeight="628.0" prefWidth="1032.0" style="-fx-background-color: #f0f0f0;">
          <children>
-            <Label fx:id="allProgramsLabel" layoutX="111.0" layoutY="68.0" prefHeight="44.0" prefWidth="391.0">
+            <Label fx:id="allProgramsLabel" layoutX="74.0" layoutY="14.0" prefHeight="44.0" prefWidth="391.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <BarChart fx:id="allRequestsBarChart" layoutX="101.0" layoutY="125.0" prefHeight="400.0" prefWidth="831.0">
+            <BarChart fx:id="allRequestsBarChart" layoutX="34.0" layoutY="70.0" prefHeight="518.0" prefWidth="965.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
