@@ -45,6 +45,8 @@ public class SoftwareSelectedController implements Initializable {
     CargarDatosUsuario cargarDatosUsuario = CargarDatosUsuario.getInstance();
     RealizarDevolucion RD = new RealizarDevolucion();
     RealizarPrestamo RP = new RealizarPrestamo();
+    LocalDateTime fechaInicio;
+    LocalDateTime fechaFinal;
     Solicitud solicitud;
 
     private ObservableList<Programa> programList = FXCollections.observableArrayList();
@@ -53,10 +55,8 @@ public class SoftwareSelectedController implements Initializable {
     FilteredList<Programa> filteredPrograms = new FilteredList<>(programList, b -> true);
     private static ArrayList<Programa> selectedProgramArr = new ArrayList<>();
     private static ArrayList<String[]> availableComputersInfo;
-    private static LocalDateTime fechaInicio;
-    private static LocalDateTime fechaFinal;
-    private static boolean prestamo = true;
     private static boolean solicitudCreada = false;
+    private static boolean prestamo = true;
     private static int duracion;
 
     @FXML
@@ -348,22 +348,6 @@ public class SoftwareSelectedController implements Initializable {
 
     public static void setPrestamo(boolean prestamo) {
         SoftwareSelectedController.prestamo = prestamo;
-    }
-
-    public static LocalDateTime getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public static void setFechaInicio(LocalDateTime fechaInicio) {
-        SoftwareSelectedController.fechaInicio = fechaInicio;
-    }
-
-    public static LocalDateTime getFechaFinal() {
-        return fechaFinal;
-    }
-
-    public static void setFechaFinal(LocalDateTime fechaFinal) {
-        SoftwareSelectedController.fechaFinal = fechaFinal;
     }
 
     public static ArrayList<Programa> getSelectedProgramArr() {
